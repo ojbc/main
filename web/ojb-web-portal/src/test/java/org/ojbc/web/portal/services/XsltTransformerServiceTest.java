@@ -18,7 +18,7 @@ package org.ojbc.web.portal.services;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
@@ -30,6 +30,7 @@ import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.Consts;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,8 +74,8 @@ public class XsltTransformerServiceTest {
 
 	@Test
 	public void simpleTransform() throws Exception{
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/simpleXml.xml"));
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/simpleXmlTransform.xsl"));
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/simpleXml.xml"), Consts.UTF_8);
+		String xslt = FileUtils.readFileToString(new File("src/test/resources/simpleXmlTransform.xsl"), Consts.UTF_8);
 		String expectedXml = unit.transform(createSource(xml), createSource(xslt),null);
 
 		assertThat(expectedXml, Matchers.containsString("<div>Maker:Tella</div>"));
@@ -84,7 +85,7 @@ public class XsltTransformerServiceTest {
 	@Test
 	public void simpleTransformWithParameters() throws Exception{
 		String xml = "<xml></xml>";
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/simpleXmlTransformWithParams.xsl"));
+		String xslt = FileUtils.readFileToString(new File("src/test/resources/simpleXmlTransformWithParams.xsl"), Consts.UTF_8);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("param1","value1");
 		params.put("param2", 2);

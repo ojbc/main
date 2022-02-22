@@ -31,31 +31,27 @@ import org.junit.runner.RunWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 import org.w3c.dom.Element;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-//        "classpath:/META-INF/spring/demostate/routes-demostate.xml",
-//        "classpath:/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" 
-        })
+@RunWith(SpringRunner.class)
+@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@SpringBootTest(properties = "--spring.config.additional-location=classpath:/", 
+classes=OjbcWebPortalApplication.class)
 @ActiveProfiles("standalone")
 @DirtiesContext
 public class PortalAccessControlTest {

@@ -16,8 +16,8 @@
  */
 package org.ojbc.web.portal.services;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -33,6 +33,7 @@ import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.Consts;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.joda.time.DateTime;
@@ -41,22 +42,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.xml.sax.SAXException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-        })
-@ActiveProfiles("standalone")
+@RunWith(SpringRunner.class)
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
 public class XslTemplateTest {
 	
@@ -350,11 +347,11 @@ public class XslTemplateTest {
                     
     	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
         
-        String sXmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + "subscriptionSearchResult.xml").getInputStream());
+        String sXmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + "subscriptionSearchResult.xml").getInputStream(), Consts.UTF_8);
                         
         sXmlInput = sXmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
                         
-        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream(), Consts.UTF_8);
                         
         sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
         
@@ -382,11 +379,11 @@ public class XslTemplateTest {
     	                
     	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
         
-        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.xml").getInputStream());
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.xml").getInputStream(), Consts.UTF_8);
                 
         xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
         
-        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.html").getInputStream());
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.html").getInputStream(), Consts.UTF_8);
                         
         sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
         
@@ -476,11 +473,11 @@ public class XslTemplateTest {
     	                
     	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
         
-        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_FullName.xml").getInputStream());
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_FullName.xml").getInputStream(), Consts.UTF_8);
         
         xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
         
-        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResultFullName.html").getInputStream());
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResultFullName.html").getInputStream(), Consts.UTF_8);
         
         sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
                 
@@ -517,8 +514,8 @@ public class XslTemplateTest {
     		throws IOException, SAXException {
     	
         ClassPathResource xsl = new ClassPathResource(xslPath);
-        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());        
-        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream());                        
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream(), Consts.UTF_8);        
+        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream(), Consts.UTF_8);                        
 
         searchResultConverter.searchResultXsl = xsl;
         String convertedResult = searchResultConverter.convertPersonSearchResult(xmlInput, getFilterParams());
@@ -534,9 +531,9 @@ public class XslTemplateTest {
     	
         ClassPathResource xsl = new ClassPathResource(xslPath);
         
-        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream(), Consts.UTF_8);
         
-        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream());                    
+        String expectedXml = IOUtils.toString(new ClassPathResource("xslTransformTest/" + expectedXmlPath).getInputStream(), Consts.UTF_8);                    
 
         searchResultConverter.subscriptionSearchResultXsl = xsl;        
                 
@@ -557,7 +554,7 @@ public class XslTemplateTest {
         
     	ClassPathResource xsl = new ClassPathResource(xslPath);
         
-        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream());
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + inputXmlPath).getInputStream(), Consts.UTF_8);
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
                 

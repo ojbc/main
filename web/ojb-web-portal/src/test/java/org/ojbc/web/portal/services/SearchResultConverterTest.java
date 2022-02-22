@@ -16,11 +16,10 @@
  */
 package org.ojbc.web.portal.services;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -29,6 +28,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,10 +50,10 @@ public class SearchResultConverterTest {
 	private XsltTransformerService xsltTransformerService;
 	private ArgumentCaptor<SAXSource> sourceXmlCaptor;
 	private ArgumentCaptor<SAXSource> sourceXslCaptor;
-	@SuppressWarnings("rawtypes")
-    private ArgumentCaptor<Map> paramsCaptor;
+    private ArgumentCaptor<Map<String, Object>> paramsCaptor;
 	private ApplicationContext applicationContext;
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setup() {
 		xsltTransformerService = mock(XsltTransformerService.class);
@@ -223,7 +223,7 @@ public class SearchResultConverterTest {
 		
 	}
 	private String getContentFromSAXSource(SAXSource source) throws Exception {
-		return IOUtils.toString(source.getInputSource().getByteStream());
+		return IOUtils.toString(source.getInputSource().getByteStream(), Charset.defaultCharset());
 	}
 
 }

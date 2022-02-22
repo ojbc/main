@@ -60,7 +60,6 @@
 				$("#detailModal .modal-body", parent.document).animate({
         			scrollTop: $("#details").offset().top
     			}, 400);
-    							
 			});
 		</script>
 

@@ -17,7 +17,7 @@
 package org.ojbc.web.portal.validators;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -28,24 +28,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.ojbc.web.portal.controllers.SubscriptionsController;
 import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-        })
-@ActiveProfiles("standalone")
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
 public class SubscriptionValidatorTest {
 	
