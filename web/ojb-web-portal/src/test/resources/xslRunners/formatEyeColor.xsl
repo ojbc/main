@@ -23,7 +23,7 @@
     exclude-result-prefixes="#all"
 >
 	<!-- This file exists only to provide a way to test _pagination.xsl in isolation -->
-   	<xsl:import href="../../../src/main/resources/xsl/_formatters.xsl" />
+   	<xsl:import href="../../../main/resources/xsl/_formatters.xsl" />
     <xsl:output method="html" encoding="UTF-8" />
 	
 	<xsl:param name="input" />

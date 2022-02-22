@@ -31,23 +31,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BindingResult;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-        })
-@ActiveProfiles("standalone")
+@RunWith(SpringRunner.class)
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
 public class PersonSearchCommandValidatorTest {
 	

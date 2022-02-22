@@ -16,10 +16,10 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -35,6 +35,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.DetailsQueryInterface;
@@ -60,7 +61,10 @@ public class FirearmControllerTest {
 	private FirearmSearchCommandValidator firearmSearchCommandValidator;
 	private FirearmSearchCommandUtils firearmSearchCommandUtils;
 	private SearchResultConverter searchResultConverter;
-	private ArgumentCaptor<Map> paramsCaptor;
+	
+	@SuppressWarnings("unchecked")
+	@Captor
+	private ArgumentCaptor<Map<String,Object>> paramsCaptor = ArgumentCaptor.forClass(Map.class);
 
 	private BindingResult errors;
 	private DetailsQueryInterface detailsQueryInterface;
@@ -83,9 +87,6 @@ public class FirearmControllerTest {
 		userSession = mock(UserSession.class);
 		servletRequest = mock(HttpServletRequest.class);
 		samlService = mock(SamlService.class);
-		
-		paramsCaptor = ArgumentCaptor.forClass(Map.class);
-
 		
 		unit = new FirearmsController() {
 			@Override
@@ -118,7 +119,7 @@ public class FirearmControllerTest {
 	public void searchFormReturnsCorrectViewNameAndInitialData() {
 		String viewName = unit.searchForm(false, model);
 
-		assertThat(viewName, is("firearms/_searchForm"));
+		assertThat(viewName, is("firearms/searchForm::searchFormContent"));
 
 		FirearmSearchCommand initialState = (FirearmSearchCommand) model.get("firearmSearchCommand");
 
@@ -130,7 +131,7 @@ public class FirearmControllerTest {
 	public void searchFormUsesNewFromWhenResetIsSetToTrueAndMostRecentSearchIsReset() {
 		String viewName = unit.searchForm(true, model);
 
-		assertThat(viewName, is("firearms/_searchForm"));
+		assertThat(viewName, is("firearms/searchForm::searchFormContent"));
 
 		FirearmSearchCommand initialState = (FirearmSearchCommand) model.get("firearmSearchCommand");
 		assertThat(initialState.getAdvanceSearch().getFirearmSerialNumberMetaData(), is(SearchFieldMetadata.ExactMatch));
@@ -188,7 +189,7 @@ public class FirearmControllerTest {
 		verify(userSession).setMostRecentFirearmSearchResult("some xml");
 		verify(samlService).getSamlAssertion(servletRequest);
 
-		assertThat(expectedView, Matchers.is("firearms/_searchResult"));
+		assertThat(expectedView, Matchers.is("firearms/searchResult::searchResultContent"));
 		assertThat((String) model.get("searchContent"), is("some html"));
 		
 		assertThat((Integer)paramsCaptor.getValue().get("start"),is(0));
@@ -211,7 +212,7 @@ public class FirearmControllerTest {
 		String expectedView = unit.advanceSearch(servletRequest, firearmSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentFirearmSearchResult(null);
-		assertThat(expectedView, Matchers.is("firearms/_searchForm"));
+		assertThat(expectedView, is("firearms/searchForm::searchFormContent"));
 		assertThat((BindingResult) model.get("errors"), Matchers.is(errors));
 	}
 
@@ -236,7 +237,7 @@ public class FirearmControllerTest {
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
 		
 		verify(samlService).getSamlAssertion(servletRequest);
-		assertThat(expectedView, is("firearms/_searchDetails"));
+		assertThat(expectedView, is("firearms/searchDetails"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
 	}
 	
@@ -249,7 +250,7 @@ public class FirearmControllerTest {
 		
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
 		
-		assertThat(expectedView, is("common/_searchDetailsError"));
+		assertThat(expectedView, is("common/searchDetailsError::searchDetailsErrorContent"));
 	}
 
 	@Test(expected=NotImplementedException.class)

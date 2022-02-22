@@ -163,7 +163,6 @@
 		<dependency>
 		  <groupId>com.google.guava</groupId>
 		  <artifactId>guava</artifactId>
-		  <version>${guava-version}</version>
 		</dependency>	
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -378,11 +377,6 @@
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.7.1</version>
         </dependency>
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>${jquery.version}</version>
-		</dependency>
 	    <dependency>
 	      <groupId>org.webjars</groupId>
 	      <artifactId>popper.js</artifactId>
@@ -483,6 +477,13 @@
 		<finalName>ojbc_web_portal</finalName>
 
         <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>                       
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
