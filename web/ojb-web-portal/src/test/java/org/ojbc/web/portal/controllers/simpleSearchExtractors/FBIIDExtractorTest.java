@@ -17,7 +17,7 @@
 package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
