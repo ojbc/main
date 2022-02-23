@@ -42,10 +42,10 @@
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
 		xmlns:irua-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0"
-		id="rapback-data-store-adapter">
+		id="rapback-data-store-adapter" streamCache="true">
 		
 		<camel:routeContextRef ref="subscription-management-routes" />
-
+		
 		<endpoint id="subscriptionReportingAdapterEndpoint"
 			uri="cxf:bean:subscriptionReportingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
 
