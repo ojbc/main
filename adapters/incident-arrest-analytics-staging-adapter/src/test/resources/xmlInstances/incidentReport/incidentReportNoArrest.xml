@@ -276,6 +276,7 @@
                                     lexslib:ref="IDOID99999991"/>
                             </ext:Offense>
                             <ext:Location>
+                            	<ext:LocationCountyCodeText>Cumberland</ext:LocationCountyCodeText>
                                 <nc:LocationMapLocation
                                     xmlns:nc="http://niem.gov/niem/niem-core/2.0">
                                     <nc:MapHorizontalCoordinateText>-73078166</nc:MapHorizontalCoordinateText>

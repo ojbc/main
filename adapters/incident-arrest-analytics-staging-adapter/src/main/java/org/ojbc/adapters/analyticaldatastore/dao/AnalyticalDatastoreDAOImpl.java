@@ -78,7 +78,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(agencyInsertStatement, new String[] {"AgencyName","AgencyORI"});
+        	                connection.prepareStatement(agencyInsertStatement, new String[] {"AgencyID"});
         	            ps.setString(1, agency.getAgencyName());
         	            ps.setString(2, agency.getAgencyOri());
         	            return ps;
@@ -99,21 +99,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String incidentInsertStatement="";
-        	        	String[] insertArgs = null;
+        	        	String[] insertArgs = new String[] {"IncidentID"};
         	        	
         	            if (inboundIncident.getIncidentID() == null){	
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        	            	
-            	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","IncidentDispositionCodeText", "ReportingSystem","RecordType"};	
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, CountyID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            }	
         	            else{
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        	            	
-            	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode", "IncidentDispositionCodeText", "ReportingSystem","RecordType", "IncidentID"};	
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, CountyID, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            }	
         	        	
         	            PreparedStatement ps =
@@ -146,9 +140,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setString(12, inboundIncident.getReportingSystem());
         	            ps.setString(13, String.valueOf(inboundIncident.getRecordType()));
         	            
+        	            if (inboundIncident.getCountyID() != null){
+        	            	ps.setInt(14, inboundIncident.getCountyID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(14, java.sql.Types.NULL);
+        	            }	        	            
+        	            
+        	            //Incident ID has to be last since it is not required
         	            if (inboundIncident.getIncidentID() != null)
         	            {	
-        	            	ps.setInt(14, inboundIncident.getIncidentID());
+        	            	ps.setInt(15, inboundIncident.getIncidentID());
         	            }	
         	            
         	            return ps;
@@ -182,7 +185,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(countyInsertStatement, new String[] {"CountyName"});
+        	                connection.prepareStatement(countyInsertStatement, new String[] {"CountyID"});
         	            ps.setString(1, county.getCountyName());
         	            return ps;
         	        }
@@ -203,7 +206,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(arrestInsertStatement, new String[] {"PersonID","IncidentID","ArrestDate","ArrestTime","ArrestingAgencyName","ReportingSystem"});
+        	                connection.prepareStatement(arrestInsertStatement, new String[] {"ArrestID"});
         	            ps.setInt(1, arrest.getPersonID());
         	            ps.setInt(2, arrest.getIncidentID());
         	            ps.setDate(3, new java.sql.Date(arrest.getArrestDate().getTime()));
@@ -231,7 +234,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(assessedNeedInsertStatement, new String[] {"AssessedNeedDescription"});
+        	                connection.prepareStatement(assessedNeedInsertStatement, new String[] {"AssessedNeedID"});
         	            ps.setString(1, assessedNeed.getAssessedNeedDescription());
         	            return ps;
         	        }
@@ -252,7 +255,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceDescription"});
+        	                connection.prepareStatement(pretrialServiceInsertStatement, new String[] {"PretrialServiceID"});
         	            ps.setString(1, preTrialService.getPretrialServiceDescription());
         	            return ps;
         	        }
@@ -273,7 +276,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(dispositionTypeInsertStatement, new String[] {"DispositionDescription","IsConviction"});
+        	                connection.prepareStatement(dispositionTypeInsertStatement, new String[] {"DispositionTypeID"});
         	            ps.setString(1, dispositionType.getDispositionDescription());
         	            return ps;
         	        }
@@ -294,7 +297,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexDescription"});
+        	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexID"});
         	            ps.setString(1, personSex.getPersonSexDescription());
         	            return ps;
         	        }
@@ -315,7 +318,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceDescription"});
+        	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceID"});
         	            ps.setString(1, personRace.getPersonRaceDescription());
         	            return ps;
         	        }
@@ -336,7 +339,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier"});
+        	                connection.prepareStatement(personStatement, new String[] {"PersonID"});
         	            
         	            if (person.getPersonSexID() != null)
         	            {	
@@ -387,20 +390,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String pretrialInsertStatement="";
-        	        	String[] insertArgs = null;
+        	        	String[] insertArgs = new String[] {"PretrialServiceParticipationID"};
         	        	
         	        	if (pretrialServiceParticipation.getPretrialServiceParticipationID() != null)
         	        	{
-        	        		insertArgs = new String[] {"PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID","PretrialServiceParticipationID"};
 
         	        		pretrialInsertStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID,PretrialServiceParticipationID) values (?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else
         	        	{
-        	        		insertArgs = new String[] {"PersonID", "CountyID", 
-        	                		"RiskScoreID" , "AssessedNeedID","RiskScore", "IntakeDate", "ArrestingAgencyORI","ArrestIncidentCaseNumber","RecordType","PretrialServiceUniqueID"};
-
         	        		pretrialInsertStatement="INSERT into PretrialServiceParticipation (PersonID, CountyID,RiskScore,IntakeDate,RecordType,ArrestingAgencyORI,ArrestIncidentCaseNumber,PretrialServiceUniqueID) values (?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
@@ -471,7 +469,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(chargeInsertStatement, new String[] {"OffenseDescriptionText","OffenseDescriptionText1","ArrestID"});
+        	                connection.prepareStatement(chargeInsertStatement, new String[] {"ChargeID"});
         	            ps.setString(1, charge.getOffenseDescriptionText());
         	            ps.setString(2, charge.getOffenseDescriptionText1());
         	            ps.setInt(3, charge.getArrestID());
@@ -493,7 +491,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String dispositionInsertStatement="";
-        	        	String[] insertArgs = null;	
+        	        	String[] insertArgs = new String[] {"DispositionID"};	
         	        	
         	        	//No disposition ID provided in POJO
         	            if (inboundDisposition.getDispositionID() == null)
@@ -501,8 +499,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            	dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
         	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber,InitialChargeCode1, FinalChargeCode1) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
-            	        	insertArgs = new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber","InitialChargeCode1", "FinalChargeCode1"};	
         	            }	
         	            //Disposition ID provided in POJO
         	            else
@@ -510,8 +506,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            	dispositionInsertStatement="INSERT into Disposition (PersonID,DispositionTypeID,IncidentCaseNumber,DispositionDate,ArrestingAgencyORI,"
         	                		+ "SentenceTermDays,SentenceFineAmount,InitialChargeCode, FinalChargeCode, RecordType,IsProbationViolation,IsProbationViolationOnOldCharge,RecidivismEligibilityDate, DocketChargeNumber, InitialChargeCode1, FinalChargeCode1,DispositionID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
-            	        	insertArgs = new String[] {"PersonID","DispositionTypeID","IncidentCaseNumber","DispositionDate,ArrestingAgencyORI,"
-        	                		+ "SentenceTermDays","SentenceFineAmount","InitialChargeCode", "FinalChargeCode","RecordType","IsProbationViolation","IsProbationViolationOnOldCharge","RecidivismEligibilityDate","DocketChargeNumber","InitialChargeCode1", "FinalChargeCode1","DispositionID"};
         	            }	
         	        	
         	        	
@@ -608,7 +602,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		String sql = "select * from Incident where IncidentCaseNumber = ? and ReportingAgencyID = ?";
 		 
-		List<Incident> incidents = this.jdbcTemplate.query(sql, new Object[] { incidentNumber,  reportingAgencyID}, new IncidentRowMapper());
+		List<Incident> incidents = this.jdbcTemplate.query(sql, new IncidentRowMapper(), new Object[] { incidentNumber,  reportingAgencyID});
 		
 		return incidents;
 		
@@ -619,7 +613,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk) {
 		String sql = "select * from Arrest where IncidentID = ?";
 		 
-		List<Arrest> arrests = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new ArrestRowMapper());
+		List<Arrest> arrests = this.jdbcTemplate.query(sql, new ArrestRowMapper(), new Object[] { incidentPk });
 		
 		return arrests;
 	}
@@ -628,7 +622,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<Charge> returnChargesFromArrest(Integer arrestId) {
 		String sql = "select * from Charge where ArrestID = ?";
 		 
-		List<Charge> charges = this.jdbcTemplate.query(sql, new Object[] { arrestId },new ChargeRowMapper());
+		List<Charge> charges = this.jdbcTemplate.query(sql, new ChargeRowMapper(), new Object[] { arrestId });
 		
 		return charges;
 	}	
@@ -840,6 +834,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			
 	}
 	
+	@Override
+	public Integer searchForCountyIDbyCountyName(String countyName) {
+		String sql = "select CountyID from County where CountyName = ?";
+		
+		Integer countyID = (Integer) jdbcTemplate.queryForObject(
+				sql, Integer.class, countyName);
+		
+		return countyID;
+	}	
+	
 	public class AgencyRowMapper implements RowMapper<Agency>
 	{
 		@Override
@@ -866,7 +870,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentTypeInsertStatement, new String[] {"IncidentDescriptionText","IncidentID"});
+        	                connection.prepareStatement(incidentTypeInsertStatement, new String[] {"IncidentTypeID"});
         	            ps.setString(1, incidentType.getIncidentDescriptionText());
         	            ps.setInt(2, incidentType.getIncidentID());
         	            return ps;
@@ -888,7 +892,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentCircumstanceInsertStatement, new String[] {"IncidentCircumstanceText","IncidentID"});
+        	                connection.prepareStatement(incidentCircumstanceInsertStatement, new String[] {"IncidentCircumstanceID"});
         	            ps.setString(1, incidentCircumstance.getIncidentCircumstanceText());
         	            ps.setInt(2, incidentCircumstance.getIncidentID());
         	            return ps;
@@ -904,7 +908,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Integer incidentPk) {
 		String sql = "select * from IncidentCircumstance where IncidentID = ?";
 		 
-		List<IncidentCircumstance> circumstances = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentCircumstanceRowMapper());
+		List<IncidentCircumstance> circumstances = this.jdbcTemplate.query(sql, new IncidentCircumstanceRowMapper(), new Object[] { incidentPk });
 		
 		return circumstances;
 	}
@@ -929,7 +933,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Integer incidentPk) {
 		String sql = "select * from IncidentType where IncidentID = ?";
 		 
-		List<IncidentType> incidentTypes = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentTypeRowMapper());
+		List<IncidentType> incidentTypes = this.jdbcTemplate.query(sql, new IncidentTypeRowMapper(), new Object[] { incidentPk });
 		
 		return incidentTypes;
 	}
@@ -1095,9 +1099,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<TrafficStop> returnTrafficStopsFromIncident(Integer incidentPk) {
 		String sql = "select * from TrafficStop where IncidentID = ?";
 		 
-		List<TrafficStop> TrafficStops = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new TrafficStopRowMapper());
+		List<TrafficStop> TrafficStops = this.jdbcTemplate.query(sql, new TrafficStopRowMapper(), new Object[] { incidentPk });
 		
 		return TrafficStops;
+	}
+	
+	@Override
+	public List<IncidentOffense> returnOffensesFromIncident(Integer incidentPk) {
+		String sql = "select * from IncidentOffense where IncidentID = ?";
+		 
+		List<IncidentOffense> incidentOffenses = this.jdbcTemplate.query(sql, new IncidentOffenseRowMapper(), new Object[] { incidentPk });
+		
+		return incidentOffenses;
 	}
 
 	@Override
@@ -1111,7 +1124,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentOffenseInsertStatement, new String[] {"IncidentOffenseCodeID"});
+        	                connection.prepareStatement(incidentOffenseInsertStatement, new String[] {"IncidentOffenseID"});
         	            ps.setString(1, incidentOffense.getIncidentOffenseCode());
         	            ps.setString(2, incidentOffense.getIncidentOffenseText());
         	            ps.setInt(3, incidentOffense.getIncidentID());
