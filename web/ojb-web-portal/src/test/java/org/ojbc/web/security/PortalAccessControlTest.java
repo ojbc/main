@@ -16,18 +16,16 @@
  */
 package org.ojbc.web.security;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.WebUtils;
@@ -37,29 +35,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.w3c.dom.Element;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
-@SpringBootTest(properties = "--spring.config.additional-location=classpath:/", 
-classes=OjbcWebPortalApplication.class)
-@ActiveProfiles("standalone")
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
+@ActiveProfiles("standalone")
 public class PortalAccessControlTest {
     @Autowired
-    private WebApplicationContext wac;
-
-    @Autowired
-    private FilterChainProxy springSecurityFilter;
+    private WebApplicationContext context;
     
     @Autowired
     private PortalAuthenticationDetailsSource portalAuthenticationDetailsSource;
@@ -69,20 +62,20 @@ public class PortalAccessControlTest {
     
     private MockMvc mockMvc;
 
-    private final String SECURED_URI = "/portal/index";
+    private final String SECURED_URI = "/";
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        mockMvc = webAppContextSetup(wac)
-        // Enable Spring Security
-                .addFilters(springSecurityFilter).alwaysDo(print()).build();
-        
-        portalAuthenticationDetailsSource.requireOtpAuthentication=false;
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
     
     @Test
     public void itShouldDenyAnonymousAccess() throws Exception {
-        mockMvc.perform(get(SECURED_URI)).andExpect(status().isForbidden()).andReturn();
+        mockMvc.perform(get(SECURED_URI))
+        	.andExpect(status().isForbidden()).andReturn();
     }
     
     @Test
@@ -109,7 +102,7 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
             .andExpect(status().isOk()).andReturn();
         
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>" )); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>" )); 
         
     }
     
@@ -128,7 +121,7 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
                 .andExpect(status().isOk()).andReturn();
         
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>")); 
         
     }
     
@@ -142,8 +135,8 @@ public class PortalAccessControlTest {
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                 SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
-        MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
-                .andExpect(status().isForbidden())
+        MvcResult result = mockMvc.perform(get(SECURED_URI)
+        		.requestAttr("samlAssertion", samlAssertion))
                 .andExpect(MockMvcResultMatchers.forwardedUrl("/403"))
                 .andReturn();
 
@@ -171,7 +164,6 @@ public class PortalAccessControlTest {
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                 SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
-                .andExpect(status().isForbidden())
                 .andExpect(MockMvcResultMatchers.forwardedUrl("/403"))
                 .andReturn();
         
@@ -202,11 +194,11 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
             .andExpect(status().isOk()).andReturn();
         
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back</a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification</a>")); 
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link adminLink\" id=\"adminLink\" href=\"#\">Admin </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link adminLink\" id=\"adminLink\" href=\"#\">Admin</a>")); 
     }
     
     @Test
@@ -223,9 +215,9 @@ public class PortalAccessControlTest {
     	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
     			.andExpect(status().isOk()).andReturn();
     	
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back</a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification</a>")); 
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
     	
     }
@@ -245,9 +237,9 @@ public class PortalAccessControlTest {
     	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
     			.andExpect(status().isOk()).andReturn();
     	
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link rapbackLink\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back</a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link criminalIdLink\" id=\"criminalIdLink\" href=\"#\">Criminal Identification</a>")); 
         Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
     	
     }

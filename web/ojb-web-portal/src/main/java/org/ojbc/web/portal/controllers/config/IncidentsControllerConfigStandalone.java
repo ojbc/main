@@ -29,7 +29,7 @@ public class IncidentsControllerConfigStandalone implements IncidentsControllerC
 	@Resource
 	IncidentSearchInterface incidentSearchInterface;
 
-	@Resource
+	@Resource(name="detailsQueryInterfaceMockImpl")
 	DetailsQueryInterface detailsQueryInterface;
 
 	@Override

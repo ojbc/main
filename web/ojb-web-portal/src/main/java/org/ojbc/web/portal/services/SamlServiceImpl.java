@@ -39,12 +39,14 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
 @Service("samlService")
+@Profile("!standalone")
 public class SamlServiceImpl implements SamlService{
 	
 	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);

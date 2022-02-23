@@ -31,7 +31,7 @@ public class VehiclesControllerConfigStandalone implements
 	@Resource
 	VehicleSearchInterface vehicleSearchInterface;
 
-	@Resource
+	@Resource(name="detailsQueryInterfaceMockImpl")
 	DetailsQueryInterface detailsQueryInterface;
 
 	@Override

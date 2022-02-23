@@ -19,10 +19,12 @@ package org.ojbc.web.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ojbc.web.portal.services.SamlService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
 @Service("mockSamlService")
+@Profile("standalone")
 public class SamlServiceMockImpl implements SamlService{
 	
 	public Element getSamlAssertion(HttpServletRequest request) {

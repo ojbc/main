@@ -29,7 +29,7 @@ public class PeopleControllerConfigStandalone implements PeopleControllerConfigI
     @Resource (name="${personSearchRequestProcessorBean:personSearchMockImpl}")
 	PersonSearchInterface personSearchInterface;
 
-	@Resource
+	@Resource(name="detailsQueryInterfaceMockImpl")
 	DetailsQueryInterface detailsQueryInterface;
 	
 	@Override
