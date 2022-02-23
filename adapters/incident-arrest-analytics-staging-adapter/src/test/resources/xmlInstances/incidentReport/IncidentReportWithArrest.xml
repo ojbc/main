@@ -514,8 +514,8 @@
                                         xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                         lexslib:ref="IDOFFENSENdexStyle"/>
                                 </ndexia:ActivityAugmentation>
-                                <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
-                                <ndexia:OffenseText>DRIVING - LICENSE SUSPENDED</ndexia:OffenseText>
+                                <ndexia:OffenseCode>Violation of a Supreme Court Order</ndexia:OffenseCode>
+                                <ndexia:OffenseText>DRIVING - LICENSE REVOKED</ndexia:OffenseText>
                             </ndexia:Offense>         
 							<ndexia:Person>
 							 <ndexia:PersonAugmentation>
@@ -586,6 +586,7 @@
                                     <nc:MapHorizontalCoordinateText>-72847988</nc:MapHorizontalCoordinateText>
                                     <nc:MapVerticalCoordinateText>42931071</nc:MapVerticalCoordinateText>
                                 </nc:LocationMapLocation>
+                                <ext:LocationCountyCodeText>Cumberland</ext:LocationCountyCodeText>
                                 <lexslib:SameAsDigestReference
                                     xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                     lexslib:ref="INCIDENTLOCATION15999999999"/>

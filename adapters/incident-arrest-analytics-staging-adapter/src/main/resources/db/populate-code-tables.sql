@@ -49,6 +49,8 @@ insert into PretrialService (PretrialServiceID, PretrialServiceDescription) valu
 
 -- County code value for test
 insert into County (CountyName) values ('Harrison');
+insert into County (CountyName) values ('Cumberland');
+
 
 -- Disposition Type - placeholder while waiting for code values
 insert into DispositionType (DispositionDescription) values ('Convicted');

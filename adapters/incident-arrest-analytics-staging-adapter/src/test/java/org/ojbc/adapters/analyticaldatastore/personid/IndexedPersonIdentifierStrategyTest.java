@@ -36,11 +36,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@ContextConfiguration(locations={
+		"classpath:META-INF/spring/dao.xml"
+		})
 public class IndexedPersonIdentifierStrategyTest {
 
 	@Autowired

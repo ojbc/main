@@ -88,6 +88,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<TrafficStop> returnTrafficStopsFromIncident(Integer incidentPk);
 	
+	public List<IncidentOffense> returnOffensesFromIncident(Integer incidentPk);
+	
 	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
 	
 	public List<IncidentType> returnIncidentDescriptionsFromIncident(Integer incidentPk);
@@ -95,6 +97,8 @@ public interface AnalyticalDatastoreDAO {
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public Integer searchForTroopIDbyTroopName(String troopName);
+	
+	public Integer searchForCountyIDbyCountyName(String countyName);
 	
 	public Person getPerson(Integer personId);
 
