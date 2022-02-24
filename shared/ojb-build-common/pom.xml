@@ -109,6 +109,8 @@
 						<exclude>**/static/DataTables/**</exclude>
 						<exclude>**/static/bootstrap/**</exclude>
 						<exclude>**/static/jquery/**</exclude>
+						<exclude>**/static/js/**</exclude>
+						<exclude>**/static/css/**</exclude>
 					</excludes>
 					<includes>
 						<include>**/*.java</include>
