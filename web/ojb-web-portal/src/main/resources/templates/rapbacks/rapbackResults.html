@@ -177,7 +177,7 @@
 	                var requestData = {
 	                        'transactionNumber': $(this).attr("id")
 	                     };
-	                requestData[_csrf_param_name] = _csrf_token;
+	                /* requestData[_csrf_param_name] = _csrf_token; */
 		            $.post(context + 'rapbacks/subscribe', requestData, function(data) {
 		            
 		                if (data === 'success'){
@@ -221,7 +221,7 @@
 		                $( "#informationMessages" ).html(data);
 		            }
 		            else {
-		                $( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+		                $( "#searchResultsTable_wrapper" ).prepend( '<div class="alert alert-warning" role="alert">'+data+'</div>' );
 		            }
 		        }
 		        
