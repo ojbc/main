@@ -43,7 +43,7 @@ public class AppProperties {
 	private String signOutUrl = "/portal/defaultLogout"; 
 	
 	private String footerText="Copyright &copy; 2021 OJBC. All rights reserved.";
-	private String bannerPath="/images/banner/Banner.png";
+	private String bannerPath="/static/images/banner/Banner.png";
 	private String bannerInitial="OJBC";
 	private String bannerFullname="Federated Query";
 
