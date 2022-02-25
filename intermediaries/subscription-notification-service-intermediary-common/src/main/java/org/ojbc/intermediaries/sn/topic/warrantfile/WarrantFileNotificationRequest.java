@@ -128,8 +128,11 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 		
 		subjectIdentifiers = new HashMap<String, String>();
 		
-		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, personFirstName);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, personLastName);
+		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
+		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
+		
+		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
+		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		
 		String dateOfBirth = XmlUtils.xPathStringSearch(requestDocument,
 				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
