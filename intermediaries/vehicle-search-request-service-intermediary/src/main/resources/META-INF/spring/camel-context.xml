@@ -259,7 +259,7 @@
 			
 			<!-- In this case, we have errors but no search results, there is no need to call ER -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 &amp;&amp; ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="No search results returned, however, response contains error results"/>
 				<to uri="xslt:xslt/SearchResultsErrorToMergeNotificationMessage.xsl"/>	
 				<camel:to uri="direct:sendMergeMessageResponse"/>
@@ -334,7 +334,7 @@
 
 					<camel:filter>
 							<!-- This indicates that the ER service timed out or had an error condition -->
-							<camel:simple>${exchangeProperty.CamelAggregatedSize} == 1 and ${exchangeProperty.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
+							<camel:simple>${exchangeProperty.CamelAggregatedSize} == 1 &amp;&amp; ${exchangeProperty.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
 							
 							<camel:log message="The Entity Resolution service is down or timed out."/>
 					</camel:filter>
