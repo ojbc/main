@@ -14,7 +14,9 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
+drop schema if exists enhanced_auditlog;
+CREATE schema enhanced_auditlog;
+use enhanced_auditlog;
 
 
 CREATE TABLE SUBSCRIPTION_REASON_CODE (
