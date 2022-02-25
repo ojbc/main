@@ -18,12 +18,14 @@ package org.ojbc.web.portal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest(
 	args = {"--spring.config.additional-location=classpath:/"}, 
 	classes = OjbcWebPortalApplication.class)
 @ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
+@ActiveProfiles("standalone")
 public class OjbcWebPortalApplicationTests {
 
 	@Test

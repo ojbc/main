@@ -1,4 +1,4 @@
-/**
+/*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -14,4 +14,28 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
- table.dataTable.fixedHeader-floating,table.dataTable.fixedHeader-locked{background-color:white;margin-top:0 !important;margin-bottom:0 !important}table.dataTable.fixedHeader-floating{position:fixed !important}table.dataTable.fixedHeader-locked{position:absolute !important}@media print{table.fixedHeader-floating{display:none}}
+package org.ojbc.web.portal.controllers;
+import java.io.PrintWriter;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.View;
+
+@Component("myCustomView")
+public class MyCustomView implements View {
+
+  @Override
+  public String getContentType() {
+      return "text/html";
+  }
+
+  @Override
+  public void render(Map<String, ?> map, HttpServletRequest httpServletRequest,
+                     HttpServletResponse httpServletResponse) throws Exception {
+      PrintWriter writer = httpServletResponse.getWriter();
+      writer.write("msg rendered in MyCustomView: " + map.get("msg"));
+  }
+}

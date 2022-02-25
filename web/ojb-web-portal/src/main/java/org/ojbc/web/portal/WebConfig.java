@@ -124,7 +124,7 @@ public class WebConfig implements WebMvcConfigurer {
         ReloadableResourceBundleMessageSource messageSource
           = new ReloadableResourceBundleMessageSource();
          
-        messageSource.setBasename("classpath:messages");
+        messageSource.setBasename(env.getProperty("spring.config.additional-location") + "messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

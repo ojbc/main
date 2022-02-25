@@ -73,12 +73,6 @@ public class PersonSearchCommandValidator implements Validator {
 		}
 
 		PersonSearchRequest advanceSearch = personSearchCommand.getAdvanceSearch();
-		if (StringUtils.isNotBlank(advanceSearch.getPersonSocialSecurityNumber())
-		        && !advanceSearch.getPersonSocialSecurityNumber().matches("\\d{3}-\\d{2}-\\d{4}")) {
-			errors.rejectValue("advanceSearch.personSocialSecurityNumber", "ssnFormat",
-			        "SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
-		}
-
 		if (StringUtils.isNotBlank(advanceSearch.getPersonSID()) && !advanceSearch.getPersonSID().matches(sidRegex)){
 			errors.rejectValue("advanceSearch.personSID", "Pattern.personSearchCommand.advanceSearch.personSID",
 			        "invalid SID format");

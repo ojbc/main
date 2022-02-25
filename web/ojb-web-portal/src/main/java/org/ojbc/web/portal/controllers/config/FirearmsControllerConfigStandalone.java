@@ -30,7 +30,7 @@ public class FirearmsControllerConfigStandalone implements
 	@Resource
 	FirearmSearchInterface firearmSearchInterface;
 
-	@Resource
+	@Resource(name="detailsQueryInterfaceMockImpl")
 	DetailsQueryInterface detailsQueryInterface;
 
 	@Override

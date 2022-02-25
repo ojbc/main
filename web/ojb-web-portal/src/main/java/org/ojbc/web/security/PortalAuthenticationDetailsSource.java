@@ -117,25 +117,23 @@ public class PortalAuthenticationDetailsSource implements
         context.setAttribute("themePath", themePath);
         context.setAttribute("customStyleCssPath", customStyleCssPath);
         
+        String ori = null;
+        Boolean federatedQueryUserIndicator = false; 
+        
         if (samlAssertion == null)
         {
         	log.info("samlAssertion is null ");
         }	
-        
-        String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
-
+        else {
+        	ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
+        	federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
+        }
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
-        if (requireFederatedQueryUserIndicator){
-	        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
-	        
-	        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
-	        	
-	        	log.warn("User does not have FederatedQueryUserIndicator");
-	        	
-	            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
-	                    grantedAuthorities);
-	        }
+        if (requireFederatedQueryUserIndicator && BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+        	log.warn("User does not have FederatedQueryUserIndicator");
+            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
+                    grantedAuthorities);
         }
         
         SimpleGrantedAuthority rolePortalUserOTP = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL_OTP.name());

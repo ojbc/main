@@ -27,10 +27,12 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
 @Service
+@Profile("standalone")
 public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	
 	@Resource(name = "searchURIToQueryURIMap")

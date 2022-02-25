@@ -28,11 +28,11 @@ import org.springframework.context.annotation.Profile;
 @Profile("standalone")
 public class RapbackConrollerConfigStandalone implements RapbackControllerConfigInterface{
 	
-	@Resource
+	@Resource(name="rapbackSearchMockImpl")
 	RapbackSearchInterface rapbackSearchInterface;
-	@Resource
+	@Resource(name="identificationResultsQueryMockImpl")
 	IdentificationResultsQueryInterface initialResultsQueryInterface;
-	@Resource
+	@Resource(name="identificationResultsModificationMockImpl")
 	IdentificationResultsModificationInterface identificationResultsModificationInterface;
 	
     @Override

@@ -97,7 +97,7 @@ public class PersonSearchCommandValidatorTest {
 		personSearchCommand.getAdvanceSearch().setPersonSocialSecurityNumber("544-22-1122");
 		unit.validate(personSearchCommand, errors);
 		
-		Mockito.verify(errors,times(2)).rejectValue("advanceSearch.personSocialSecurityNumber", "ssnFormat","SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
+		Mockito.verify(errors,times(0)).rejectValue("advanceSearch.personSocialSecurityNumber", "ssnFormat","SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
 	}
 
 	@Test
