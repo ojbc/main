@@ -612,7 +612,9 @@
 			
 			<camel:log message="\n\n Transforming ojb subscription to FBI NGI subscription format... \n\n"/>
 
-			<setHeader name="controlID"><camel:simple>bean:uuidGenerator?method=generateUUID</camel:simple></setHeader>	
+			<setHeader name="controlID">
+				<method ref="uuidGenerator" method="generateUUID" />
+			</setHeader>	
 			
 			<setHeader name="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
 			<setHeader name="rapBackNotificatonFormat"><simple>{{fbiEbtsAdapter.rapBackNotificatonFormat}}</simple></setHeader>
