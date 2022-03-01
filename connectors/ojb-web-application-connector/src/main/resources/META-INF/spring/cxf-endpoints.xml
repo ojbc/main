@@ -900,7 +900,7 @@
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
 	        <sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
-	            <sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" url="${webapplication.connector.keystoreLocation}" />
+	            <sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" url="${webapplication.connector.httpconduit.keystoreLocation}" />
 	        </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
