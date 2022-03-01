@@ -25,16 +25,22 @@ package org.ojbc.web;
  */
 public enum SearchFieldMetadata {
 
-	StartsWith("Starts With"), Partial("Includes"), ExactMatch("Exact Match");
+	StartsWith("Starts With", "startsWith"), Partial("Includes", "partial"), ExactMatch("Exact Match", "exact");
 
 	private String metadata;
+	private String xmlValue;
 
-	private SearchFieldMetadata(String metadata) {
+	private SearchFieldMetadata(String metadata, String xmlValue) {
 		this.metadata = metadata;
+		this.xmlValue = xmlValue;
 	}
 
 	public String getMetadata() {
 		return metadata;
 	}
 
+	public String getXmlValue() {
+		return xmlValue;
+	}
+	
 }
