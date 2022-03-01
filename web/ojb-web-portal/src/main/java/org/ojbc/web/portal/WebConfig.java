@@ -70,7 +70,7 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("templates/");
         templateResolver.setCacheable(false);
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setOrder(0);
         templateResolver.setCheckExistence(true);
@@ -87,7 +87,7 @@ public class WebConfig implements WebMvcConfigurer {
     	templateResolver.setPrefix(env.getProperty("web.external.resource.home") + "/templates/");
     	templateResolver.setCacheable(false);
     	templateResolver.setSuffix(".html");
-    	templateResolver.setTemplateMode("HTML5");
+    	templateResolver.setTemplateMode("HTML");
     	templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setOrder(1);
         templateResolver.setCheckExistence(true);
