@@ -17,30 +17,18 @@
 
 -->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Landing Page</title>
+    <title>Service Buttons</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
   </head>
   <body>
       <!-- Begin page content -->
-    <div th:fragment="landingPageContent" id="landingPageContent" class="container">
-        <div th:replace="landingPage::welcomeContent"></div>
-        <hr/>
-        <div class="row mb-5">
-            <div class="col" th:replace="landingPage::announcementsContent"></div>
-        </div>
-        <div class="row mt-5 mb-5">
-            <div class="col" th:replace="serviceButtons::serviceButtonsContent"></div>
-        </div>
-        <hr/>
-        <div class="mt-5">
-            <div class="col" th:replace="landingPage::disclaimerContent"></div>
-        </div>
+    <div th:fragment="serviceButtonsContent" id="serviceButtonsContent">
+	    <script th:inline="javascript">
+	    </script>
      </div>
-    <script th:inline="javascript">
-    </script>
   </body>
 </html>

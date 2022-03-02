@@ -17,7 +17,7 @@
 
 -->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
 		<title>OJBC Portal</title>
 		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
@@ -242,8 +242,8 @@
             function showHomepage(){
                 if(homePage==="landingPage"){
                     $('#searchBarButtonDiv').css("display", "none");
-                    $('#filterColumn').addClass('d-none');                                    
-                
+                    $('#filterColumn').removeClass('d-none');                                    
+                    ojbc.populateLeftBarContentFromUrl(context + "portal/landingLeftBar");
                     ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
                 }
                 else if(homePage==="query"){
