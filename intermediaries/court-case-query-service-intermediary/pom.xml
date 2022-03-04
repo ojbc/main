@@ -180,6 +180,10 @@
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
 
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
 
 		<!-- for testing -->
 		<dependency>
