@@ -899,10 +899,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+	        <sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
+	            <sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" url="${webapplication.connector.keystoreLocation}" />
+	        </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${webapplication.connector.truststorePassword}"
-					file="${webapplication.connector.truststoreLocation}" />
+					url="${webapplication.connector.truststoreLocation}" />
 			</sec:trustManagers>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
@@ -914,7 +917,7 @@
 		<httpj:engine port="${webapplication.webServices.portNumber}">
 			<httpj:tlsServerParameters>
 				<sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
-					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.keystoreLocation}" />
+					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.engine.keystoreLocation}" />
 				</sec:keyManagers>
                 <sec:clientAuthentication want="false" 
 					required="false" />

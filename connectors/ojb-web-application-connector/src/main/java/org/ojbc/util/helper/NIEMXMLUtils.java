@@ -325,7 +325,7 @@ public class NIEMXMLUtils {
 		Element searchFieldQualifierCodeElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchQualifierCode");
 		
 		if (searchFieldMetadata != null) {
-		    searchFieldQualifierCodeElement.setTextContent(searchFieldMetadata.getMetadata());
+		    searchFieldQualifierCodeElement.setTextContent(searchFieldMetadata.getXmlValue());
 		}
 		
 		searchFieldMetadataElement.appendChild(searchFieldQualifierCodeElement);
@@ -632,7 +632,7 @@ public class NIEMXMLUtils {
 		}	
 
 		Element searchFieldQualifierCodeElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchQualifierCode");
-		searchFieldQualifierCodeElement.setTextContent(searchFieldMetadata.getMetadata());
+		searchFieldQualifierCodeElement.setTextContent(searchFieldMetadata.getXmlValue());
 		
 		searchFieldMetadataElement.appendChild(searchFieldQualifierCodeElement);
 		

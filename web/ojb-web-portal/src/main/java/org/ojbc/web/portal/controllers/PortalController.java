@@ -16,10 +16,7 @@
  */
 package org.ojbc.web.portal.controllers;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,7 +36,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -116,6 +112,7 @@ public class PortalController implements ApplicationContextAware {
 
 	private XPath xPath;
 	
+	@SuppressWarnings("unused")
 	private ApplicationContext applicationContext;
 	
     @Value("${requireOtpAuthentication:false}")
@@ -248,7 +245,7 @@ public class PortalController implements ApplicationContextAware {
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
-		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
+		model.put("stateSpecificInclude_preBodyClose", stateSpecificIncludes.get("preBodyClose"));
 		
 		if (model.get("sensitiveInfoAlert") == null) {
 			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
@@ -384,20 +381,6 @@ public class PortalController implements ApplicationContextAware {
         model.put("sensitiveInfoAlert", false); 
         return "success";
     }
-
-	private String getStateSpecificInclude(String includeKey) {
-		String includeFileName = stateSpecificIncludes.get(includeKey);
-		if (StringUtils.isNotBlank(includeFileName)) {
-			org.springframework.core.io.Resource preBodyClose = applicationContext.getResource("classpath:" + includeFileName);
-			try {
-				InputStream inputStream = preBodyClose.getInputStream();
-				return IOUtils.toString(inputStream, Charset.defaultCharset());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return "";
-	}
 
 	private List<SearchProfile> getActiveSearchProfiles(Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
