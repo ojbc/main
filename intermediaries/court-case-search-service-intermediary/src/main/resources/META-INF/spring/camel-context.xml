@@ -33,13 +33,13 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="court-case-search-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="court-case-search-service-intermediary" streamCache="true">
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="courtCaseSearchRequestEndpoint"
@@ -75,7 +75,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -91,14 +91,14 @@
 
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+			<camel:setHeader name="federatedQueryEndpointsNodeList">
 				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 			
 			<!-- Since all endpoints share the same operation and namespace, it is here -->
-			<camel:setHeader headerName="operationName"><constant>SubmitCourtCaseSearchRequest</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>SubmitCourtCaseSearchRequest</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0</constant></camel:setHeader>
 									
 			<!-- Call method to populate federated query map -->
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
@@ -107,7 +107,7 @@
 			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader headerName="requestMessageBody">
+			<camel:setHeader name="requestMessageBody">
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 			</camel:setHeader>
 
@@ -143,21 +143,21 @@
 			
 			<log message="\n\n\n In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
 			
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 			
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:federatedQuery.courtCaseSearchIntermediaryFederatedQueryTimeout}</camel:simple>
-				</completionTimeout>
+				</completionTimeoutExpression>
 				
-				<completionSize>
+				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSize>
+				</completionSizeExpression>
 				
-				<log message="\n\n\n completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.courtCaseSearchIntermediaryFederatedQueryTimeout}}"></log>
+				<log message="\n\n\n completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.courtCaseSearchIntermediaryFederatedQueryTimeout}}"></log>
 				
 				<to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -193,7 +193,7 @@
 				</camel:when>
 			</camel:choice>
 
-			<camel:setHeader headerName="searchProfile">
+			<camel:setHeader name="searchProfile">
 				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
 			
@@ -213,19 +213,19 @@
 		
 			<camel:from uri="direct:processFederatedResponse"/>
 			
-			<camel:setHeader headerName="courtCaseSearchResultNodeCount">
+			<camel:setHeader name="courtCaseSearchResultNodeCount">
 				<xpath resultType="java.lang.String">count(//ccs-res-doc:CourtCaseSearchResult)</xpath>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="errorResponseNodeCount">
+			<camel:setHeader name="errorResponseNodeCount">
 				<xpath resultType="java.lang.String">count(//srm:SearchResultsMetadata)</xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="courtCaseSearchContainerNodeCount">
+			<camel:setHeader name="courtCaseSearchContainerNodeCount">
 				<xpath resultType="java.lang.String">count(//ccs-res-doc:CourtCaseSearchResults)</xpath>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="courtCaseSearchMaxRecords">
+			<camel:setHeader name="courtCaseSearchMaxRecords">
 				<camel:simple>{{federatedQuery.courtCaseSearchIntermediaryMaxRecords}}</camel:simple>
 			</camel:setHeader>
 			
@@ -240,7 +240,7 @@
 						
 			<!-- In this case, we have errors but no search results -->
 			<camel:filter>
-				<camel:simple>${in.header.courtCaseSearchContainerNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.courtCaseSearchContainerNodeCount} == 0 &amp;&amp; ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="\n\n\n No search results returned, however, response contains error results"/>				
 			</camel:filter>
 
@@ -270,10 +270,10 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-            		<camel:setHeader headerName="operationName">
+            		<camel:setHeader name="operationName">
             			<constant>SubmitCourtCaseSearchResults</constant>
             		</camel:setHeader>
-	        		<camel:setHeader headerName="operationNamespace">
+	        		<camel:setHeader name="operationNamespace">
 	        			<constant>http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0</constant>
 	        		</camel:setHeader>
 					
@@ -292,48 +292,4 @@
 		</camel:route>
 	</camel:camelContext>
 
-	<!-- Spring Beans -->
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-
-	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
-
-	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-
-	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-	
-
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-	
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
-	</bean>
-
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-	
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-
-	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
-	</bean>	
-	
 </beans>

@@ -116,21 +116,52 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${federatedQuery.courtCase.keyPassword}">
+	        	<sec:keyStore type="jks" password="${federatedQuery.courtCase.keystorePassword}" url="${federatedQuery.courtCase.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.courtCase.truststorePassword}"
-					file="${federatedQuery.courtCase.truststoreLocation}" />
+					url="${federatedQuery.courtCase.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>			
+				    
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>				    
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				    
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>
+	</http:conduit>	
    
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">

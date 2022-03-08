@@ -119,28 +119,59 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="courtCaseSearchRequestKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.courtCaseSearch.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.courtCaseSearch.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.courtCaseSearch.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.courtCaseSearch.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.courtCaseSearch.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.courtCaseSearch.keystoreLocation}</prop>
 	</util:properties>	
 	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${federatedQuery.courtCaseSearch.keyPassword}">
+	        	<sec:keyStore type="jks" password="${federatedQuery.courtCaseSearch.keystorePassword}" url="${federatedQuery.courtCaseSearch.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.courtCaseSearch.truststorePassword}"
-					file="${federatedQuery.courtCaseSearch.truststoreLocation}" />
+					url="${federatedQuery.courtCaseSearch.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>			
+				    
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>				    
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				    
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
