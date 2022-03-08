@@ -37,10 +37,8 @@
 	<properties>
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
-		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
+		<log4j-version>2.17.1</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
-		<commons-lang-version>3.12.0</commons-lang-version>
 		<spring-version>5.3.8</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<xmlunit-version>1.6</xmlunit-version>
@@ -55,6 +53,13 @@
 	</properties>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-bom</artifactId>
+          <version>${log4j-version}</version>
+          <type>pom</type>
+          <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -152,7 +157,6 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
@@ -235,11 +239,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
@@ -263,12 +262,14 @@
   
   	  <plugin>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId><executions>
-		<execution>
-			<goals>
-			<goal>repackage</goal>
-			</goals>
-	    </execution>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot-version}</version>
+        <executions>
+			<execution>
+				<goals>
+				<goal>repackage</goal>
+				</goals>
+		    </execution>
 		</executions>
       </plugin>
   
