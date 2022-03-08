@@ -53,13 +53,19 @@
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<java-version>1.8</java-version>
 		<cxf-boot-starter-version>3.4.3</cxf-boot-starter-version>
 	</properties>
 	
 	<dependencyManagement>
 	  <dependencies>
+	    <dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-bom</artifactId>
+			<version>${log4j-version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>  
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-dependencies</artifactId>
@@ -74,11 +80,6 @@
 	      <type>pom</type>
 	      <scope>import</scope>
 	    </dependency> 
-	    <dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-bom</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>  
 	  </dependencies>
 	</dependencyManagement>
 
@@ -95,10 +96,6 @@
 		        </exclusion>
 		    </exclusions>
  	    </dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-saxon</artifactId>
-	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-starter-web</artifactId>
@@ -223,12 +220,6 @@
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
 
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version>
-		</dependency>
-
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>Entity_Resolution_Resources</artifactId>
@@ -295,14 +286,6 @@
 		</dependency>
 
 		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
 	</dependencies>
 
   <build>
@@ -313,6 +296,7 @@
     	<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
