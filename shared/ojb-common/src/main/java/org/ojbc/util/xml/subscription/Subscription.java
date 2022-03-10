@@ -47,6 +47,8 @@ public class Subscription implements Serializable {
 	
 	private String systemId;
 	
+	private String state;
+	
 	private String fullName;
 	
 	private Boolean active; 
@@ -132,7 +134,15 @@ public class Subscription implements Serializable {
 	
 	private String transactionNumber; 
 	private String ownerProgramOca; 
+	
+	public String getState() {
+		return state;
+	}
 
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 	public String getStateId() {
 		return stateId;
 	}
