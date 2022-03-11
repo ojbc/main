@@ -110,7 +110,7 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
 
 	private ITable getFilteredTableFromDataset(IDataSet dataSet, String tableName) throws Exception {
         ITable table = dataSet.getTable(tableName);
-        ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(table, new String[]{"id*", "subscriptionId", "*date", "timestamp"});
+        ITable filteredTable = DefaultColumnFilter.excludedColumnsTable(table, new String[]{"id*", "state", "subscriptionId", "*date", "timestamp"});
         
         return filteredTable;
 	}

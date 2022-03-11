@@ -804,9 +804,9 @@ public class SubscriptionSearchQueryDAO {
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
                 "insert into rapback_datastore.subscription ("
-                + "topic, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subjectName, active, subscription_category_code, "
-                + "lastValidationDate, agency_case_number, subscription_owner_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                    fullyQualifiedTopic, startDate, endDate, creationDate, validationDueDate, request.getSystemName(), 
+                + "topic, state, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subjectName, active, subscription_category_code, "
+                + "lastValidationDate, agency_case_number, subscription_owner_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                    fullyQualifiedTopic, request.getState(), startDate, endDate, creationDate, validationDueDate, request.getSystemName(), 
                     request.getSubjectName(), 1, request.getReasonCategoryCode(), creationDate, request.getAgencyCaseNumber(), subscriptionOwnerPk
                 }, "id"), keyHolder);
 

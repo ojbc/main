@@ -348,6 +348,15 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 			caseIdValElement.setTextContent(caseId);
 		}		
 	}
+	
+	private static void buildStateElement(Element parentNode, Subscription subscription) {
+		String state = subscription.getState();
+		
+		if(state != null || StringUtils.isNotBlank(state)){
+			Element stateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "Sex");
+			stateNode.setTextContent(state);
+		}
+	}
 		
 	private static void buildSubscriptionReasonCodeElement(Element parentElement, String subscriptionReasonCode){
 		
@@ -394,6 +403,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		buildPesonAugmentationElement(subjectNode,subscription);
 		
 		buildPersonTraitsNode(subjectNode, subscription);
+		
+		buildStateElement(subjectNode, subscription);
 	}
 	
 	private static void buildPersonTraitsNode(Element subjectNode, Subscription subscription) {

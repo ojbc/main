@@ -57,6 +57,7 @@ public abstract class SubscriptionRequest {
 	private String topic;
 	private String startDateString;
 	private String endDateString;
+	private String state;
 	private String subjectName;
 	private Set<String> emailAddresses;
 	private String systemName;
@@ -99,10 +100,14 @@ public abstract class SubscriptionRequest {
 		setTopic(XmlUtils.xPathStringSearch(document, "//b-2:Subscribe/b-2:Filter/b-2:TopicExpression"));
 		setTopic(StringUtils.replace(getTopic(), "topics:", "{http://ojbc.org/wsn/topics}:"));
 		
+		
+		
 		Node subscriptionMsg = XmlUtils.xPathNodeSearch(document,"//submsg-exch:SubscriptionMessage");
 		
 		setStartDateString(XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:StartDate/nc:Date"));
 		setEndDateString(XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:EndDate/nc:Date"));
+		
+		setState(XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:Subject/nc:State"));
 		
 		//Check start date versus end date here
 		if (StringUtils.isNotBlank(getStartDateString()) && StringUtils.isNotBlank(getEndDateString()))
@@ -337,6 +342,14 @@ public abstract class SubscriptionRequest {
 
 	public void setSubscriptionOwnerAgencyName(String subscriptionOwnerAgencyName) {
 		this.subscriptionOwnerAgencyName = subscriptionOwnerAgencyName;
+	}
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 
