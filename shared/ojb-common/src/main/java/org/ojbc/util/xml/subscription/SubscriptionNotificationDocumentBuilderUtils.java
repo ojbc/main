@@ -353,7 +353,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		String state = subscription.getState();
 		
 		if(state != null || StringUtils.isNotBlank(state)){
-			Element stateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "Sex");
+			Element stateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "State");
 			stateNode.setTextContent(state);
 		}
 	}
