@@ -153,10 +153,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-          .addResourceHandler("/resources/**")
-          .addResourceLocations("/resources/","file:" + System.getProperty("web.external.resource.home") + "/");
+			.addResourceHandler("/resources/**")
+			.addResourceLocations("/resources/","file:" + System.getProperty("web.external.resource.home") + "/");
         registry
-          .addResourceHandler("/static/**")
-          .addResourceLocations("/resources/static/","file:" + System.getProperty("web.external.resource.home") + "/static/");
+			.addResourceHandler("/static/**")
+			.addResourceLocations("/resources/static/","file:" + System.getProperty("web.external.resource.home") + "/static/");
+        registry
+	        .addResourceHandler("/xsl/**")
+	        .addResourceLocations("/resources/xsl/","file:" + System.getProperty("web.external.resource.home") + "/xsl/");
     }
 }
