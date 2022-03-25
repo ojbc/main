@@ -216,6 +216,18 @@
 	      <version>${entity-resolution-resources}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+		</dependency>
+		
+		<dependency>
+	    	<groupId>mysql</groupId>
+	    	<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
+		
+		
 		<!-- for testing -->
 		<dependency>
 	        <groupId>org.junit.jupiter</groupId>
