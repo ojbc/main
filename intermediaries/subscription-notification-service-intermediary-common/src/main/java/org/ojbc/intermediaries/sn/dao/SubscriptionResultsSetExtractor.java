@@ -87,7 +87,11 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	subscription.setStartDate(new DateTime(rs.getDate("startDate")));
 	            	
 	            	subscription.setActive(rs.getBoolean("active"));
-	            	
+	       
+	            	String state = rs.getString("state");
+	            	if(StringUtils.isNotEmpty(state) && state != null) {
+	            		subscription.setState(state);
+	            	}
                     Date endDate = rs.getDate("endDate");
                     if (endDate != null)
                     {
@@ -170,6 +174,7 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 		    			fbiSubscription.setTimestamp(OJBCDateUtils.toDateTime(rs.getTimestamp("report_timestamp")));
 		    			
 		    			subscription.setFbiRapbackSubscription(fbiSubscription);
+		    			subscription.setFbiId(fbiSubscriptionId);
 	    			}
 	            	map.put(id, subscription);
 	            	
@@ -213,6 +218,14 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            {
 	            	subscription.setDateOfBirth(identifierValue);
 	            }	
+	            if (identifierName.equals("race"))
+	            {
+	            	subscription.setRace(identifierValue);
+	            }
+	            if (identifierName.equals("sex"))
+	            {
+	            	subscription.setSex(identifierValue);
+	            }
 
 		 }        
 		

@@ -56,7 +56,7 @@ public abstract class NotificationRequest {
 
     protected String notificationEventIdentifier;
     protected String notifyingAgencyName;
-    private String notifyingAgencyOri;
+    protected String notifyingAgencyOri;
     protected String notifyingAgencyPhoneNumber;
     protected String notifyingSystemName;
 
