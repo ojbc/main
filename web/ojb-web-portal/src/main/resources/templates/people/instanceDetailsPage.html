@@ -1,0 +1,71 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Person Search Details</title>
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}' />
+    <link rel="stylesheet" type="text/css" th:href='@{/css/style.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/css/print.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/css/modal-frame.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
+    
+    <script th:src='@{/webjars/jquery/3.6.0/jquery.min.js}'></script>
+    <script th:src="@{/webjars/jquery-migrate/3.3.2/jquery-migrate.min.js}"></script>
+    <script th:src='@{/webjars/jquery-ui/1.13.0/jquery-ui.min.js}'></script>
+    <script th:src='@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}'></script>
+    <script th:src='@{/webjars/popper.js/1.14.7/umd/popper.min.js}'></script>
+    <script th:src='@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}'></script>
+    <script th:src='@{/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js}'></script>
+    <script type="text/javascript" th:src='@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}'></script>
+    <script type="text/javascript" th:src='@{/webjars/datatables-responsive/2.2.3/js/responsive.bootstrap4.js}'></script>
+    
+    
+    <script th:src='@{/js/ojb-web-portal.js}'></script>
+        
+  </head>
+  <body id="searchDetailsFrame">
+        <header>
+        <div class="banner" th:fragment="banner" id="banner">
+          <div th:replace="fragments/general.html :: bannerContent"></div>
+        </div>
+        </header>
+
+        <div class="card mt-1">
+          <div class="card-header font-weight-bold" id="search-results-title">
+                Incident Details
+          </div>
+          <div class="card-body" style="font-size: 12px;color: #333333; padding: 1.5em; ">
+	        <div id="incidentDetailTabsHolder" style="height:350px;overflow:scroll;" th:utext="${instanceDetails}"></div>
+          </div>
+        </div>
+
+        <footer th:replace="fragments/general.html :: footer"></footer>  
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+	        /*]]>*/
+	        $(function() {
+	        });
+		</script>
+  </body>
+</html>

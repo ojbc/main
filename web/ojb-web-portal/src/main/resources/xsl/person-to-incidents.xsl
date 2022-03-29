@@ -77,8 +77,7 @@
 			                    
 			                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
 			                    // tempDiv for css spinner - replaced upon receipt of get data
-			                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
-			                    
+			                    $('#incidentDetailTabsHolder').html(tempDiv);                                         			                    
 			                    $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 			                      $('#incidentDetailTabsHolder').html(data);
 			                    }).fail(ojbc.displayIncidentDetailFailMessage);

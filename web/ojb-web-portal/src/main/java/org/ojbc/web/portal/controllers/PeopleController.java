@@ -290,6 +290,15 @@ public class PeopleController {
 		return getConvertedSearchResult(request, systemName, detailsRequest, model);
 	}
 	
+	@RequestMapping(value = "instanceDetailsPage", method = RequestMethod.GET)
+	public String instanceDetailsPage(HttpServletRequest request, @RequestParam String systemName,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
+					throws Exception {
+		String convertedSearchResult = getConvertedSearchResult(request, systemName, detailsRequest, model);
+		model.put("instanceDetails", convertedSearchResult);
+		return "people/instanceDetailsPage";
+	}
+	
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("placements", placements);
