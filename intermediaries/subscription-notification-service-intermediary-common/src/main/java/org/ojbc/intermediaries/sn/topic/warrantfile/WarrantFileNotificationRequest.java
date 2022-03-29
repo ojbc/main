@@ -219,7 +219,7 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 
 	private String getOrigOrganizationRef() throws Exception {
 		String origOrganizerRef = XmlUtils.xPathStringSearch(requestDocument, 
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/chu:CycleTrackingIdentifierAssignment/chu:OriginatorOrganizationReference/@s:ref");
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:ActivityResponsibleOrganizationAssociation/nc:OrganizationReference/@s:ref");
 		
 		logger.info("Notifying Agency ref: " + origOrganizerRef);
 		return origOrganizerRef;
