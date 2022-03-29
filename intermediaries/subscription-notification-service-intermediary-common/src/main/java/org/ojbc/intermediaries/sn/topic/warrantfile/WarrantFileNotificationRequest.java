@@ -26,9 +26,13 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class WarrantFileNotificationRequest extends NotificationRequest{
 	
@@ -40,7 +44,140 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 
     public WarrantFileNotificationRequest(Document document) throws Exception {
         super(document);
-        buildSubjectIdMap();        
+        setUpRequest(document);
+        buildSubjectIdMap(); 
+    }
+    
+    public void setUpRequest(Document document) throws Exception{
+    	this.requestDocument = document;
+
+        String notificationEventDateTimeString = XmlUtils.xPathStringSearch(document, getNotificationEventDateRootXpath() + "/nc:DateTime");
+        String notificationEventDateOnlyString = XmlUtils.xPathStringSearch(document, getNotificationEventDateRootXpath() + "/nc:Date");
+
+        if (StringUtils.isNotEmpty(notificationEventDateTimeString)) {
+            notificationEventDate = XmlUtils.parseXmlDateTime(notificationEventDateTimeString);
+            isNotificationEventDateInclusiveOfTime = true;
+        } else if (StringUtils.isNotEmpty(notificationEventDateOnlyString)) {
+            notificationEventDate = XmlUtils.parseXmlDate(notificationEventDateOnlyString);
+            isNotificationEventDateInclusiveOfTime = false;
+        } else {
+            notificationEventDate = null;
+        }
+
+        personActivityInvolvementText = XmlUtils.xPathStringSearch(document,
+                "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:ActivityInvolvedPersonAssociation/nc:PersonActivityInvolvementText");
+
+        String personReference = XmlUtils.xPathStringSearch(document,
+                "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref");
+
+        if (StringUtils.isNotBlank(personReference)) {
+            personFirstName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonGivenName"));
+            personMiddleName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonMiddleName"));
+            personLastName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonSurName"));
+            personNameSuffix = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
+                    + "']/nc:PersonName/nc:PersonNameSuffixText"));
+            personBirthDate = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
+                    + "']/nc:PersonBirthDate/nc:Date"));
+            
+            try
+            {
+            	personAge = NotificationBrokerUtils.calculatePersonAgeFromDate(personBirthDate);	
+            }
+            catch (Exception ex)
+            {
+            	logger.error("Unable to calculate person age.");
+            }
+            	
+            NodeList aliasNodes = XmlUtils.xPathNodeListSearch(document,
+            		"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference + "']/nc:PersonAlternateName");
+
+		    if (aliasNodes != null && aliasNodes.getLength() > 0) {
+		        for (int i = 0; i < aliasNodes.getLength(); i++) {
+		            if (aliasNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+		
+		                Element aliasElement = (Element) aliasNodes.item(i);
+		
+		                Alias alias = new Alias();
+		
+		                alias.setPersonFirstName(StringUtils.strip(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonGivenName")));
+		                alias.setPersonLastName(StringUtils.strip(XmlUtils.xPathStringSearch(aliasElement, "nc:PersonSurName")));
+		                
+		                aliases.add(alias);
+		
+		            }
+		        }
+		    }
+
+            String personContactInfoReference = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:PersonContactInformationAssociation/nc:ContactInformationReference/@s:ref");
+
+            NodeList telephoneNumberNodes = XmlUtils.xPathNodeListSearch(document,
+            		"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage//nc:ContactInformation[@s:id='" + personContactInfoReference + "']/nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID");
+                                                                                                                      
+		    if (telephoneNumberNodes != null && telephoneNumberNodes.getLength() > 0) {
+		        for (int i = 0; i < telephoneNumberNodes.getLength(); i++) {
+		            if (telephoneNumberNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+		            	
+		            	if (StringUtils.isNotBlank(telephoneNumberNodes.item(i).getTextContent()))
+		            	{	
+		            		personTelephoneNumbers.add(StringUtils.strip(telephoneNumberNodes.item(i).getTextContent()));
+		            	}	
+		            }
+		        }
+		    }
+            
+            
+        } else {
+            logger.error("Unable to find person reference. Unable to XQuery for person name.");
+        }
+
+        if (StringUtils.isNotEmpty(getOfficerNameReferenceXPath()))
+        {	
+	        NodeList officerReferences = XmlUtils.xPathNodeListSearch(document, getOfficerNameReferenceXPath());
+	
+			if (officerReferences != null && officerReferences.getLength() > 0) {
+	            for (int i = 0; i < officerReferences.getLength(); i++) {
+	                if (officerReferences.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
+	
+	                    String officerReference = officerReferences.item(i).getTextContent();
+	                    String officerName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + officerReference + "']/nc:PersonName/nc:PersonFullName");
+	                    
+	                    if (StringUtils.isNotEmpty(officerName))
+	                    {	
+	                    	officerNames.add(StringUtils.strip(officerName));
+	                    }	
+	                }
+	            }
+			}    
+        }	
+			
+        notificationEventIdentifier = XmlUtils.xPathStringSearch(document, getNotificationEventIdentifierXpath());
+        notificationEventIdentifier = StringUtils.strip(notificationEventIdentifier);
+
+        if (StringUtils.isNotBlank(getNotifyingAgencyXpath()))
+        {	
+	        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
+	        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
+        }    
+	        
+        notifyingAgencyOri = StringUtils.trimToNull(XmlUtils.xPathStringSearch(document, getNotifyingAgencyOriXpath()));
+        
+        if (StringUtils.isNotBlank(getNotificationAgencyPhoneNumberXpath()))
+        {	
+	        notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
+	        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
+        }    
+	        
+        notifyingSystemName = XmlUtils.xPathStringSearch(document, getNotifyingSystemNameXPath());
+        notifyingSystemName = StringUtils.strip(notifyingSystemName);
+
+        // subjectIdentification intentionally omitted - should be populated in subclass
+
+        Node topicNode = XmlUtils.xPathNodeSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Topic");
+        String unqualifiedTopic = topicNode.getTextContent();
+        topic = NotificationBrokerUtils.getFullyQualifiedTopic(unqualifiedTopic);
     }
     
     public String getPersonFullName() {
@@ -128,16 +265,20 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 		
 		subjectIdentifiers = new HashMap<String, String>();
 		
-		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
+		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
+		this.personFirstName = firstName;
 		
-		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
+		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
+		this.personLastName = lastName;
 		
 		String dateOfBirth = XmlUtils.xPathStringSearch(requestDocument,
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
 		
 		logger.debug("Notification message DOB: " + dateOfBirth);
+		
+		this.personBirthDate = dateOfBirth;
 		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
 	}

@@ -72,7 +72,7 @@ import org.springframework.jdbc.support.KeyHolder;
  */
 public class SubscriptionSearchQueryDAO {
 
-	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
+	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.state, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, s.active, "
 			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, "
 			+ "so.federation_id as subscriptionOwner, ap.agency_name, s.timestamp as lastUpdatedDate, "
@@ -299,7 +299,7 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+		String sql = "SELECT s.id, s.topic, s.state, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
 				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName,  s.timestamp as lastUpdatedDate, s.active, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + " fbi_sub.* "
@@ -324,7 +324,7 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(@Header("subscriptionId") String subscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subjectName,  "
+		String sql = "SELECT s.id, s.topic, s.state, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subjectName,  "
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, s.active, "
 				+ "so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, s.timestamp as lastUpdatedDate,"
