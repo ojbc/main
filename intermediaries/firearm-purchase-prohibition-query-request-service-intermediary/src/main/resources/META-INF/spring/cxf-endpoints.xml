@@ -115,7 +115,7 @@
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:keyManagers keyPassword="${firearmsPurchaseProhibitionQuery.keyPassword}">
-	        	<sec:keyStore type="jks" password="${firearmsPurchaseProhibitionQuery.keystorePassword}" url="${federatedQuery.courtCase.keystoreLocation}" />
+	        	<sec:keyStore type="jks" password="${firearmsPurchaseProhibitionQuery.keystorePassword}" url="${firearmsPurchaseProhibitionQuery.keystoreLocation}" />
 	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
