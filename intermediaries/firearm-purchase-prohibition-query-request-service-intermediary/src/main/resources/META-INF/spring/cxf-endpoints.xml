@@ -114,10 +114,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${firearmsPurchaseProhibitionQuery.keyPassword}">
+	        	<sec:keyStore type="jks" password="${firearmsPurchaseProhibitionQuery.keystorePassword}" url="${federatedQuery.courtCase.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${firearmsPurchaseProhibitionQuery.truststorePassword}"
-					file="${firearmsPurchaseProhibitionQuery.truststoreLocation}" />
+					url="${firearmsPurchaseProhibitionQuery.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
@@ -169,11 +172,11 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="firearmsPurchaseProhibitionKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${firearmsPurchaseProhibitionQuery.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${firearmsPurchaseProhibitionQuery.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${firearmsPurchaseProhibitionQuery.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${firearmsPurchaseProhibitionQuery.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${firearmsPurchaseProhibitionQuery.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${firearmsPurchaseProhibitionQuery.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>
