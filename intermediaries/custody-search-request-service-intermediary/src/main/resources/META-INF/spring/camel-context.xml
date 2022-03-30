@@ -39,7 +39,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody_search_request_service_intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody_search_request_service_intermediary" streamCache="true">
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="custodySearchRequestServiceEndpoint"
