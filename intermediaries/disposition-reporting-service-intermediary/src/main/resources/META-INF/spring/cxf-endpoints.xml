@@ -81,21 +81,24 @@
 		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. -->
 	<util:properties id="criminalHistoryRecordInformationKeystoreProperties">		
 		<!-- Defines the implementation class. -->
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>		
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>		
 		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>		
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${dispositionReportingService.keystorePassword}</prop>				
-		<prop key="org.apache.ws.security.crypto.merlin.file">${dispositionReportingService.keystoreLocation}</prop>		
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>		
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${dispositionReportingService.keystorePassword}</prop>				
+		<prop key="org.apache.wss4j.crypto.merlin.file">${dispositionReportingService.keystoreLocation}</prop>		
 	</util:properties>		
 		      	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${dispositionReportingService.keyPassword}">
+	        	<sec:keyStore type="jks" password="${dispositionReportingService.keystorePassword}" url="${dispositionReportingService.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${dispositionReportingService.truststorePassword}"
-					file="${dispositionReportingService.truststoreLocation}" />
+					url="${dispositionReportingService.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
