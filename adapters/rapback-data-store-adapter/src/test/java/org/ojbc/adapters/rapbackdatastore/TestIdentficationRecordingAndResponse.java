@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -38,10 +39,9 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.codec.binary.Base64;
-
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +54,7 @@ import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportP
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -80,6 +81,12 @@ public class TestIdentficationRecordingAndResponse {
 	@Autowired
 	RapbackDAO rapbackDAO;
 
+    @Resource  
+    private DataSource dataSource;  
+
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Autowired
 	IdentificationRequestReportProcessor identificationRequestReportProcessor;
 	
@@ -102,7 +109,7 @@ public class TestIdentficationRecordingAndResponse {
 
 	@Before
 	public void setUp() throws Exception {
-		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		assertNotNull(identificationRequestReportProcessor);
 
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
@@ -164,12 +171,13 @@ public class TestIdentficationRecordingAndResponse {
 	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
 		civilRecordingRequestSuccess(); 
-		civilRecordingResultServiceSuccess();
+//		civilRecordingResultServiceSuccess();
 	}
 
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
-		
+		final String CIVIL_STATE_FINGERPRINT_SELECT="SELECT FINGER_PRINTS_FILE FROM CIVIL_FINGER_PRINTS WHERE TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID=2";
+		final String CIVIL_FBI_FINGERPRINT_SELECT="SELECT count(*) FROM CIVIL_FINGER_PRINTS WHERE TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID=1";
 		identificationReportingResponseService.reset();
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
@@ -259,6 +267,11 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(subject.getMiddleInitial(), is("D"));
 		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
 		assertThat(subject.getSexCode(), is("M"));
+		
+		byte[] stateFingerPrintsFileZipped = jdbcTemplate.queryForObject(CIVIL_STATE_FINGERPRINT_SELECT, new Object[] {TRANSACTION_NUMBER}, byte[].class);
+		assertNotNull(stateFingerPrintsFileZipped);
+		Integer fbiFingerPrintsCount = jdbcTemplate.queryForObject(CIVIL_FBI_FINGERPRINT_SELECT, new Object[] {TRANSACTION_NUMBER}, Integer.class);
+		assertThat(fbiFingerPrintsCount, is(0)); 
 		
 	}
 	
