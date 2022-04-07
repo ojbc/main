@@ -1256,7 +1256,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				" and t.otn=? " +
 				" and s.civil_sid=? ";
 		
-		List<IdentificationTransaction> identificationTransactions = jdbcTemplate.query(sql, new Object[]{otn, civilSid}, new IdentificationTransactionRowMapper()); 
+		List<IdentificationTransaction> identificationTransactions = jdbcTemplate.query(sql, new IdentificationTransactionRowMapper(), otn, civilSid); 
 		
 		return identificationTransactions;
 	}

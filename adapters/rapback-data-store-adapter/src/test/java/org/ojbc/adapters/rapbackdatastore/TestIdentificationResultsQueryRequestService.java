@@ -25,7 +25,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
@@ -39,7 +38,6 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
-import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
@@ -73,9 +71,6 @@ public class TestIdentificationResultsQueryRequestService {
     
     @EndpointInject(value = "mock:cxf:bean:identificationResultsQueryResponseService")
     protected MockEndpoint identificationInitialResultsQueryResponseServiceMock;
-
-    @Autowired
-    private RapbackDAOImpl rapbackDAO;
 
     @Test
     public void testApplicationStartup() {

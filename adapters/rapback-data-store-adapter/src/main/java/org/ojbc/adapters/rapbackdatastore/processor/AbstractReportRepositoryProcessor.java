@@ -23,10 +23,10 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xml.security.utils.Base64;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -89,7 +89,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		identificationTransaction.setTransactionNumber(transactionNumber);
 		
 		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
-		Assert.notNull(subjectNode);
+		Assert.notNull(subjectNode, "the jxdm50:Subject/nc30:RoleOfPerson node should not be null");
 		Subject subject = buildSubject(subjectNode) ;
 		identificationTransaction.setSubject(subject);
 		
@@ -122,7 +122,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(transactionNumber);
 		
 		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
-		Assert.notNull(subjectNode);
+		Assert.notNull(subjectNode, "the jxdm50:Subject/nc30:RoleOfPerson node should not be null");
 		Subject subject = identificationTransaction.getSubject() ;
 		populateSubject(subjectNode, subject); 
 		
@@ -208,7 +208,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);
 			}
 			
-			return Base64.decode(base64BinaryData);
+			return Base64.decodeBase64(base64BinaryData);
 			
 		} catch (Exception e) {			
 			log.error("Failed to retrieve binary data from the message: " + e.getMessage());			

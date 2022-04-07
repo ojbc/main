@@ -24,7 +24,6 @@ import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
 @CamelSpringBootTest
@@ -46,6 +44,7 @@ import org.w3c.dom.Document;
       })
 public class TestNsorFiveYearCheckResultsQueryProcessor {
 	
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestNsorFiveYearCheckResultsQueryProcessor.class );
     
     @Autowired

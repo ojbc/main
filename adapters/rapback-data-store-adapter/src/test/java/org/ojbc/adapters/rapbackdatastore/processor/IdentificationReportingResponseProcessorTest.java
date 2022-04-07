@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.Consts;
 import org.custommonkey.xmlunit.Diff;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +72,7 @@ public class IdentificationReportingResponseProcessorTest {
 	public static void assertAsExpected(String documentString, String expectedFileLocation) throws IOException,
 			SAXException {
 		File expectedReponseFile = new File(expectedFileLocation);
-        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Consts.UTF_8);
         
         //Use XML Unit to compare these files
         Diff myDiff = new Diff(documentString, expectedResponseAsString);

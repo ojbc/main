@@ -38,7 +38,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
@@ -53,6 +52,7 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
+import org.apache.http.Consts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
@@ -161,7 +161,7 @@ public class TestCriminalHistoryConsolidationService {
     	
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Consolidation-Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
@@ -211,7 +211,7 @@ public class TestCriminalHistoryConsolidationService {
 		
 	    //Read the criminal history update file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-IdentifierUpdate-Report.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
@@ -260,7 +260,7 @@ public class TestCriminalHistoryConsolidationService {
 		
 	    //Read the criminal history expungement file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Expungement-Report.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    

@@ -18,9 +18,9 @@ package org.ojbc.adapters.rapbackdatastore;
 
 import static org.junit.Assert.assertNotNull;
 
-
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +92,7 @@ public class MessageUtils {
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File(pathToInputFile);
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    

@@ -18,10 +18,10 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xml.security.utils.Base64;
 import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
@@ -243,7 +243,7 @@ public class SubscriptionNotificationReportingProcessor {
 		String base64BinaryData;
 		try {
 			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, pathToReport);
-			return Base64.decode(base64BinaryData);
+			return Base64.decodeBase64(base64BinaryData);
 			
 		} catch (Exception e) {			
 			log.error("Failed to retrieve binary data from the subscription reporting message: ", e);			
