@@ -25,7 +25,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Route;
 import org.apache.camel.ServiceStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

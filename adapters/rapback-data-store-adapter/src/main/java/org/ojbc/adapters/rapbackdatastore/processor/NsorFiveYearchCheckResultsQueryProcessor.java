@@ -16,7 +16,18 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.ojbc.util.xml.OjbcNamespaceContext.*;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_50;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 
 import java.util.List;
 

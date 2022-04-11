@@ -29,7 +29,6 @@ import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
-import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -50,9 +49,6 @@ public class TestRapbackSearchRequestService {
     
     @EndpointInject(value = "mock:result")
     protected MockEndpoint resultEndpoint;
-
-    @Autowired
-    private RapbackDAOImpl rapbackDAO;
 
     @Test
     public void testApplicationStartup() {

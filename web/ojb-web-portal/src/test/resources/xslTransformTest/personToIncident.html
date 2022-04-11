@@ -17,32 +17,31 @@
 
 -->
 <div class="table-responsive"><script type="text/javascript">
-			            $(function () {
-			                $('#incidentsSummary tr.clickableIncident').click(function () {
-			                
-			                    var systemName =$(this).attr('systemName');
-			                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-			                    var identificationID = encodeURI($(this).attr('identificationID'));
-			                    
-			                    
-			                    $('#incidentsSummary tr').removeClass("incidentSelected");
-			                    $(this).addClass("incidentSelected");
-			                    
-			                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"></div>';
-			                    // tempDiv for css spinner - replaced upon receipt of get data
-			                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
-			                    
-			                    $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
-			                      $('#incidentDetailTabsHolder').html(data);
-			                    }).fail(ojbc.displayIncidentDetailFailMessage);
-			                    
-			                }).hover(function () {
-			                     $(this).addClass("incidentHover");
-			                }, function () {
-			                     $(this).removeClass("incidentHover");
-			                });
-			            });
-			        </script><table id="incidentsSummary" class="detailsTable table">
+                        $(function () {
+                            $('#incidentsSummary tr.clickableIncident').click(function () {
+                            
+                                var systemName =$(this).attr('systemName');
+                                var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
+                                var identificationID = encodeURI($(this).attr('identificationID'));
+                                
+                                
+                                $('#incidentsSummary tr').removeClass("incidentSelected");
+                                $(this).addClass("incidentSelected");
+                                
+                                var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"></div>';
+                                // tempDiv for css spinner - replaced upon receipt of get data
+                                $('#incidentDetailTabsHolder').html(tempDiv);                                                                       
+                                $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
+                                  $('#incidentDetailTabsHolder').html(data);
+                                }).fail(ojbc.displayIncidentDetailFailMessage);
+                                
+                            }).hover(function () {
+                                 $(this).addClass("incidentHover");
+                            }, function () {
+                                 $(this).removeClass("incidentHover");
+                            });
+                        });
+                    </script><table id="incidentsSummary" class="detailsTable table">
       <thead>
          <tr>
             <td class="detailsTitle">TYPE/NATURE</td>

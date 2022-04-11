@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,7 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
+import org.apache.http.Consts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
@@ -115,14 +115,14 @@ public class TestCriminalHistoryDemographicUpdates {
 		notificationBrokerServiceEndpointMock.reset();
 		notificationBrokerServiceEndpointMock.expectedMessageCount(1);
 		
-		Connection conn = dataSource.getConnection();
+//		Connection conn = dataSource.getConnection();
 
 		//Create a new exchange
     	Exchange senderExchange = createSenderExchangeNotification();
     	
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryDemographicsUpdateReport/CriminalHistory-DemographicsUpdate-Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    

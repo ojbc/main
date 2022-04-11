@@ -65,7 +65,10 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	private void processCivilFingerPrints(Node rootNode,
 			String transactionNumber) throws Exception, IOException {
 		CivilFingerPrints civilFingerPrints = createCivilFingerPrints(rootNode, transactionNumber);
-		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		
+		if (civilFingerPrints.getFingerPrintsType() == FingerPrintsType.State) {
+			rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		}
 	}
 
 	private CivilFingerPrints createCivilFingerPrints(Node rootNode, String transactionNumber) {
@@ -92,8 +95,11 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	private void updateCivilFingerPrints(Node rootNode,
 			String transactionNumber) throws Exception, IOException {
 		CivilFingerPrints civilFingerPrints = createCivilFingerPrints(rootNode, transactionNumber);
-		rapbackDAO.deleteCivilFingerPrints(civilFingerPrints.getTransactionNumber(), civilFingerPrints.getFingerPrintsType());
-		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		
+		if (civilFingerPrints.getFingerPrintsType() == FingerPrintsType.State) {
+			rapbackDAO.deleteCivilFingerPrints(civilFingerPrints.getTransactionNumber(), civilFingerPrints.getFingerPrintsType());
+			rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		}
 	}
 	
 }
