@@ -120,7 +120,7 @@
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.custody.truststorePassword}"
-					file="${federatedQuery.custody.truststoreLocation}" />
+					url="${federatedQuery.custody.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
@@ -144,7 +144,7 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="custodyRequestKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.custody.keystorePassword}</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.custody.keystoreCertificateAlias}</prop>
