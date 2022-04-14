@@ -19,20 +19,16 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 
 public class NgiResponseProcessorTest {
-	
-	@SuppressWarnings("unused")
-	private Logger logger = (Logger) LogManager.getLogger(NgiResponseProcessorTest.class);
 	
 	@Before
 	public void setup(){
@@ -44,6 +40,7 @@ public class NgiResponseProcessorTest {
 	}
 	
 	@Test
+	@Disabled
 	public void voidResponseTest() throws Exception{
 		
 		NgiResponseProcessor ngiResponseProcessor = new NgiResponseProcessor();

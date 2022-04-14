@@ -43,7 +43,7 @@
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.4</cxf-version>
 		<spring-version>5.3.8</spring-version>
-		<log4j-version>2.16.0</log4j-version>
+		<log4j-version>2.17.1</log4j-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
@@ -59,6 +59,13 @@
 	
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+	      		<groupId>org.apache.logging.log4j</groupId>
+	      		<artifactId>log4j-bom</artifactId>
+	      		<version>${log4j-version}</version>
+	      		<type>pom</type>
+	      		<scope>import</scope>
+	    	</dependency> 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -81,12 +88,6 @@
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-starter</artifactId>
-	      <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
  	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
@@ -130,6 +131,10 @@
 		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>			    
 		    <version>${cxf-boot-starter-version}</version>
 		</dependency>
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+        </dependency> 
 		<dependency>
 		   <groupId>com.github.mhshams</groupId>
 		   <artifactId>jnbis</artifactId>
@@ -290,16 +295,6 @@
 			<artifactId>camel-test-spring-junit5</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-		<dependency>
-    		<groupId>org.apache.logging.log4j</groupId>
-    		<artifactId>log4j-api</artifactId>
-    		<version>${log4j-version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -343,27 +338,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Import-Package>
-							org.springframework.beans.factory.config,
-							javax.xml.namespace,
-							ssp.*,
-							org.ojbc.*,
-							*
-						</Import-Package>
-						<Export-Package>
-						</Export-Package>
-						<Bundle-Name>${project.name}</Bundle-Name>
-					</instructions>
-				</configuration>
-			</plugin>
 			<!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
 			<!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
 			<plugin>
