@@ -153,7 +153,7 @@
 	</bean>
    
  	<util:properties id="fbiEbtsAdapterKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${fbiEbtsAdapter.keystorePassword}</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${fbiEbtsAdapter.keystoreCertificateAlias}</prop>
@@ -166,18 +166,14 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+		<sec:keyManagers keyPassword="${fbiEbtsAdapter.keyPassword}">
+	    	<sec:keyStore type="jks" password="${fbiEbtsAdapter.keystorePassword}" url="${fbiEbtsAdapter.keystoreLocation}" />
+	  	</sec:keyManagers>		
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${fbiEbtsAdapter.truststorePassword}"
-					file="${fbiEbtsAdapter.truststoreLocation}" />
+					url="${fbiEbtsAdapter.truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 	</http:conduit>      
 	
@@ -213,7 +209,7 @@
 			<httpj:engine port="${fbiEbtsAdapter.fbiPortNumber}">
 				<httpj:tlsServerParameters>
 					<sec:keyManagers keyPassword="${fbiEbtsAdapter.fbi.keyPassword}">
-						<sec:keyStore type="jks" password="${fbiEbtsAdapter.fbi.keystorePassword}" file="${fbiEbtsAdapter.fbi.keystoreLocation}" />
+						<sec:keyStore type="jks" password="${fbiEbtsAdapter.fbi.keystorePassword}" url="${fbiEbtsAdapter.fbi.keystoreLocation}" />
 					</sec:keyManagers>
 					<!-- <sec:cipherSuitesFilter>
 						    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
