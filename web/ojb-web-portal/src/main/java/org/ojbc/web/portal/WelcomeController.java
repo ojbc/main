@@ -18,15 +18,10 @@ package org.ojbc.web.portal;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.services.SamlService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,15 +36,6 @@ public class WelcomeController {
 	
 	@Resource
 	SamlService samlService;
-
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null){    
-	        new SecurityContextLogoutHandler().logout(request, response, auth);
-	    }
-	    return "redirect:" + appProperties.getSignOutUrl();
-	}
 
 	@GetMapping("/logoutSuccess")
 	public String logoutSuccess(Model model) throws IOException {

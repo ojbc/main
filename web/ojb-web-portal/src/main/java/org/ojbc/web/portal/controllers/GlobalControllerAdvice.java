@@ -59,18 +59,12 @@ public class GlobalControllerAdvice {
     @Value("${customStyleCssPath:}")
     String customStyleCssPath;
     
-    @Value("${inactivityTimeout:false}")
-    Boolean inactivityTimeout;
-    
     @Value("${showSignOutButton:false}")
     Boolean showSignOutButton;
     
     @Value("${showPrintButton:false}")
     Boolean showPrintButton;
-    
-    @Value("${inactivityTimeoutInSeconds:1800}")
-    String inactivityTimeoutInSeconds;
-    
+        
     @Resource
     Map<String, String> stateSpecificHomePage;
     
@@ -85,11 +79,11 @@ public class GlobalControllerAdvice {
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
         model.addAttribute("singleClickForDetail", singleClickForDetail);
         model.addAttribute("customStyleCssPath", customStyleCssPath);
-        model.addAttribute("inactivityTimeout", inactivityTimeout);
+        model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("showSignOutButton", showSignOutButton);
         model.addAttribute("showPrintButton", showPrintButton);
         model.addAttribute("dateTimeformatter", dateTimeformatter);
-        model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
+        model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
         model.addAttribute("footerText", appProperties.getFooterText());
     }
     
