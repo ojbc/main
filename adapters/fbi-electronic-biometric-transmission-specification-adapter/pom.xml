@@ -29,12 +29,6 @@
 	<name>OJB :: fbi-electronic-biometric-transmission-specification-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
-	<parent>
-		<groupId>org.ojbc.build</groupId>
-		<artifactId>ojb-adapters-aggregate</artifactId>
-		<version>1.0.0</version>
-	</parent>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -51,7 +45,6 @@
 		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
 		<java-version>1.8</java-version>
 		<saxon-version>9.5.1-5</saxon-version>
-		<wss4j-version>1.5.6</wss4j-version>
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
 		<jnbis-version>[2.0.2,)</jnbis-version>
 		<cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
@@ -242,18 +235,6 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.ws.security</groupId>
-			<artifactId>wss4j</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>xalan</groupId>
-					<artifactId>xalan</artifactId>
-				</exclusion>
-			</exclusions>
-			<version>${wss4j-version}</version>
 		</dependency>
 
 		<!-- Test Dependencies -->

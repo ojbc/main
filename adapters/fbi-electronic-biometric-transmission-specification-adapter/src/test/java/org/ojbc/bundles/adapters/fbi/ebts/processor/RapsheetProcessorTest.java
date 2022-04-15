@@ -17,16 +17,14 @@
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.apache.ws.security.util.Base64;
+import org.junit.Assert;
 import org.junit.Test;
-
-import junit.framework.Assert;
-
 
 public class RapsheetProcessorTest {
 		
@@ -42,7 +40,7 @@ public class RapsheetProcessorTest {
 				
 		String sBase64Rapsheet = exchange.getIn().getHeader("base64Rapsheet", String.class);						
 		
-		byte[] rapsheetBytes = Base64.decode(sBase64Rapsheet);
+		byte[] rapsheetBytes = Base64.getDecoder().decode(sBase64Rapsheet);
 		
 		String sRapsheetBytes = new String(rapsheetBytes);
 		
