@@ -48,6 +48,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchProfile;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
@@ -58,6 +59,7 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.security.Authorities;
 import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -79,33 +81,11 @@ public class PortalController implements ApplicationContextAware {
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
 	OTPService otpService;
 	
+	@Resource
+    AppProperties appProperties;
+	
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
 	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
-	
-	public static final String STATE_LINK_ID = "stateGovLink";
-    public static final String QUERY_LINK_ID = "queryLink";
-	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
-	public static final String RAPBACK_LINK_ID = "rapbackLink";
-	public static final String CRIMINAL_ID_LINK_ID = "criminalIdLink";
-	private static final String ADMIN_LINK_ID = "adminLink";
-	private static final String AUDIT_LINK_ID = "auditLink";
-	public static final String HELP_LINK_ID = "helpLink";
-	public static final String HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
-    public static final String PRIVACY_LINK_ID = "privacyPolicyLink";
-    public static final String FAQ_LINK_ID = "faqLink";
-    public static final String SUGGESTIONFORM_LINK_ID = "suggestionFormLink";
-		
-	public static final String STATE_LINK_TITLE = "State.gov";
-    public static final String QUERY_LINK_TITLE = "Query";
-	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
-	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
-	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
-	public static final String ADMIN_LINK_TITLE = "Admin";
-	public static final String AUDIT_LINK_TITLE = "Audit";
-	public static final String HELP_LINK_TITLE = "Help";
-	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
-	public static final String FAQ_LINK_TITLE = "FAQ";
-	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/Report a Problem";
 	
 	private static final Log log = LogFactory.getLog(PortalController.class);
 
@@ -151,6 +131,7 @@ public class PortalController implements ApplicationContextAware {
 	@Resource
 	Map<String, String> leftMenuLinks;
 	
+	@Autowired(required=false)
 	Map<String, String> leftMenuLinkTitles;
 
     @Resource
@@ -532,23 +513,7 @@ public class PortalController implements ApplicationContextAware {
 	
 	@ModelAttribute("leftMenuLinkTitles")
 	public Map<String, String> getLeftMenuLinkTitles() {
-		
-		if(leftMenuLinkTitles == null){			
-			leftMenuLinkTitles = new HashMap<String, String>();
-			leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
-			leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
-			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
-			leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
-			leftMenuLinkTitles.put(CRIMINAL_ID_LINK_ID, CRIMINAL_ID_LINK_TITLE);
-			leftMenuLinkTitles.put(ADMIN_LINK_ID, ADMIN_LINK_TITLE);
-			leftMenuLinkTitles.put(AUDIT_LINK_ID, AUDIT_LINK_TITLE);
-			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
-			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
-			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);
-			leftMenuLinkTitles.put(FAQ_LINK_ID, FAQ_LINK_TITLE);
-			leftMenuLinkTitles.put(SUGGESTIONFORM_LINK_ID, SUGGESTIONFORM_LINK_TITLE);
-		}		
-		return leftMenuLinkTitles;
+		return appProperties.getLeftMenuLinkTitles();
 	}
 	
 	@ModelAttribute("subscriptionFilterValueToLabelMap")

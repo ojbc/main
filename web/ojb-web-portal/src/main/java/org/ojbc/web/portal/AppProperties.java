@@ -16,12 +16,40 @@
  */
 package org.ojbc.web.portal;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties("portal")
 public class AppProperties {
+	public static final String STATE_LINK_ID = "stateGovLink";
+    public static final String QUERY_LINK_ID = "queryLink";
+	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
+	public static final String RAPBACK_LINK_ID = "rapbackLink";
+	public static final String CRIMINAL_ID_LINK_ID = "criminalIdLink";
+	private static final String ADMIN_LINK_ID = "adminLink";
+	private static final String AUDIT_LINK_ID = "auditLink";
+	public static final String HELP_LINK_ID = "helpLink";
+	public static final String HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
+    public static final String PRIVACY_LINK_ID = "privacyPolicyLink";
+    public static final String FAQ_LINK_ID = "faqLink";
+    public static final String SUGGESTIONFORM_LINK_ID = "suggestionFormLink";
+		
+	public static final String STATE_LINK_TITLE = "State.gov";
+    public static final String QUERY_LINK_TITLE = "Query";
+	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
+	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
+	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
+	public static final String ADMIN_LINK_TITLE = "Admin";
+	public static final String AUDIT_LINK_TITLE = "Audit";
+	public static final String HELP_LINK_TITLE = "Help";
+	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
+	public static final String FAQ_LINK_TITLE = "FAQ";
+	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/Report a Problem";
+	
 
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private String externalTemplatesFolder ;
@@ -48,12 +76,26 @@ public class AppProperties {
 	private String bannerFullname="Federated Query";
 
 	private String enhancedAuditServerBaseUrl = "https://localhost:8443/OJB/";
+	
+	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
 	/*
 	 * demo user Saml attributes
 	 */
 	
 	public AppProperties() {
 		super();
+		leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
+		leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
+		leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
+		leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
+		leftMenuLinkTitles.put(CRIMINAL_ID_LINK_ID, CRIMINAL_ID_LINK_TITLE);
+		leftMenuLinkTitles.put(ADMIN_LINK_ID, ADMIN_LINK_TITLE);
+		leftMenuLinkTitles.put(AUDIT_LINK_ID, AUDIT_LINK_TITLE);
+		leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
+		leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
+		leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);
+		leftMenuLinkTitles.put(FAQ_LINK_ID, FAQ_LINK_TITLE);
+		leftMenuLinkTitles.put(SUGGESTIONFORM_LINK_ID, SUGGESTIONFORM_LINK_TITLE);
 	}
 
 	public String getRestServiceBaseUrl() {
@@ -214,6 +256,10 @@ public class AppProperties {
 
 	public void setEnhancedAuditServerBaseUrl(String enhancedAuditServerBaseUrl) {
 		this.enhancedAuditServerBaseUrl = enhancedAuditServerBaseUrl;
+	}
+
+	public Map<String, String> getLeftMenuLinkTitles() {
+		return leftMenuLinkTitles;
 	}
 
 }
