@@ -153,6 +153,7 @@ public class PortalController implements ApplicationContextAware {
 	@Resource
 	Map<String, String> leftMenuLinks;
 	
+	@Resource
 	Map<String, String> leftMenuLinkTitles;
 
     @Resource
