@@ -286,6 +286,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -308,6 +309,8 @@
 				</configuration>
 			</plugin>
 
+			<!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
+			<!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -316,20 +319,10 @@
 					reporting wsdl -->
 				<configuration>
 					<argLine>-Xmx1048m</argLine>
-				</configuration>
-			</plugin>
-
-			<!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
-			<!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>${maven-surefire-plugin-version}</version>
-			    <configuration>
 			        <reuseForks>false</reuseForks>
 			        <forkCount>1</forkCount>
 			        <runOrder>alphabetical</runOrder>
-			    </configuration>
+				</configuration>
 			</plugin>
 
 		</plugins>

@@ -30,13 +30,11 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-
-import junit.framework.Assert;
-
 
 
 public class SubModifyProcessorTest {

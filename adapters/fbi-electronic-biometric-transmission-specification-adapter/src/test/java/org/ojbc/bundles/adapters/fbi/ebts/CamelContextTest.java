@@ -41,6 +41,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
+import org.apache.http.Consts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
@@ -158,7 +159,7 @@ public class CamelContextTest {
 		Exchange senderExchange = new DefaultExchange(context);
 
 	    File inputFile = new File(fileName);
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    Assert.assertNotNull(inputStr);
 	    
@@ -193,7 +194,8 @@ public class CamelContextTest {
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"),
+				Consts.UTF_8);
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		
@@ -210,7 +212,7 @@ public class CamelContextTest {
     	Exchange senderExchange = new DefaultExchange(context);
 
 	    File inputFile = new File("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    Assert.assertNotNull(inputStr);
 	    
@@ -240,7 +242,8 @@ public class CamelContextTest {
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"));
+				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"),
+				Consts.UTF_8);
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		

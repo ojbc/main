@@ -42,6 +42,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
+import org.apache.http.Consts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -144,7 +145,7 @@ public class CamelContextTestRapbackNotifications {
 		Exchange senderExchange = new DefaultExchange(context);
 
 	    File inputFile = new File(pathToFile);
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    Assert.assertNotNull(inputStr);
 	    

@@ -31,7 +31,7 @@ public class NgiResponseProcessor {
 		
 		String voidResponse = getVoidResponse();
 		
-		camelExchange.getOut().setBody(voidResponse);		
+		camelExchange.getMessage().setBody(voidResponse);		
 	}
 	
 	String getVoidResponse() throws Exception{

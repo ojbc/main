@@ -19,13 +19,8 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
 import org.ojbc.bundles.adapters.fbi.ebts.util.FBIEbtsUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class FbiEmailErrorProcessor {
 

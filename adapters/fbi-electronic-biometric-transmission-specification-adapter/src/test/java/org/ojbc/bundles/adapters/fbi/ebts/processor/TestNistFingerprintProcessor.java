@@ -31,7 +31,6 @@ import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;

@@ -25,7 +25,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.apache.xml.security.utils.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -48,7 +48,7 @@ public class TestCriminalHistoryTextResponseProcessor {
 	    
 	    String rapSheet = XmlUtils.xPathStringSearch(ret, "//cht-doc:Base64BinaryObject");
 	    
-	    String str = new String(Base64.decode(rapSheet), StandardCharsets.UTF_8);
+	    String str = new String(Base64.decodeBase64(rapSheet), StandardCharsets.UTF_8);
 	    
 	    assertEquals(str,"Subject's Rap Sheet goes here");
 	    
