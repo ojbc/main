@@ -278,20 +278,13 @@
 		SSL connection -->
 	<http:conduit name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
-		<sec:keyManagers keyPassword="${rapbackDatastoreAdapter.keyPassword}">
-	        <sec:keyStore type="jks" password="${rapbackDatastoreAdapter.keystorePassword}" url="${rapbackDatastoreAdapter.keystoreLocation}" />
-	    </sec:keyManagers>
+			<sec:keyManagers keyPassword="${rapbackDatastoreAdapter.keyPassword}">
+		        <sec:keyStore type="jks" password="${rapbackDatastoreAdapter.keystorePassword}" url="${rapbackDatastoreAdapter.keystoreLocation}" />
+		    </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${rapbackDatastoreAdapter.truststorePassword}" url="${rapbackDatastoreAdapter.truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-				<!-- these filters ensure that a strong ciphersuite will be used -->
-				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 	</http:conduit>
       
