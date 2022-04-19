@@ -38,12 +38,12 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.http.Consts;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -69,7 +69,7 @@ import org.w3c.dom.NodeList;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 	
-	private static final Logger logger = (Logger) LogManager.getLogger(CamelContextTest.class);
+	private static final Log logger = LogFactory.getLog(CamelContextTest.class);
 	    
     @Resource
     private ModelCamelContext context;
@@ -77,7 +77,7 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate producerTemplate;
     
-    @EndpointInject(uri = "mock:ngiUserServiceRequestEndpoint")
+    @EndpointInject(value = "mock:ngiUserServiceRequestEndpoint")
     protected MockEndpoint fbiEbtsSubscriptionManagerService;
     
     @BeforeEach

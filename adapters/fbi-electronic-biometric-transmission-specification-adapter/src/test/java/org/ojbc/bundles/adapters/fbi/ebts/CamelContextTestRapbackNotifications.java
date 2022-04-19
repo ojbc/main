@@ -39,12 +39,12 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.http.Consts;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,7 +68,7 @@ import org.w3c.dom.Element;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTestRapbackNotifications {
 	
-	private static final Logger logger = (Logger) LogManager.getLogger(CamelContextTestRapbackNotifications.class);
+	private static final Log logger = LogFactory.getLog(CamelContextTestRapbackNotifications.class);
 	    
     @Resource
     private ModelCamelContext context;
