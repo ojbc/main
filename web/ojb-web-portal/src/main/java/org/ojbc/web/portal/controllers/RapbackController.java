@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -82,8 +83,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.google.common.base.Objects;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
@@ -778,7 +777,7 @@ public class RapbackController {
 		subscription.setSubscriptionPurpose(reasonCode);
 
 		String status = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationResultStatusCode");
-		if (Objects.equal(status, "Subscribed(State)")){
+		if (Objects.equals(status, "Subscribed(State)")){
 			Node subscriptionNode = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:Subscription");
 			String subscriptionId = XmlUtils.xPathStringSearch(subscriptionNode, "oirs-res-ext:SubscriptionIdentification/nc30:IdentificationID");
 			subscription.setSystemId(subscriptionId);

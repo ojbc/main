@@ -178,6 +178,20 @@
 		<entry key="suggestionFormLink" value="#" />
 	</util:map>
 
+	<util:map id="leftMenuLinkTitles">
+		<entry key="stateGovLink" value="State.gov" />
+		<entry key="queryLink" value="Query" />
+		<entry key="subscriptionsLink" value="Subscriptions" />
+		<entry key="rapbackLink" value="Applicant Rap Back" />
+		<entry key="criminalIdLink" value="Criminal Identification" />
+		<entry key="adminLink" value="Admin" />
+		<entry key="auditLink" value="Audit" />
+		<entry key="helpLink" value="Help" />
+		<entry key="privacyPolicyLink" value="Privacy Policies" />
+		<entry key="faqLink" value="FAQ" />
+		<!-- Disabling this link until the form is working  -->
+		<entry key="suggestionFormLink" value="Suggestions/Report a Problem" />
+	</util:map>
 	<util:map id="subscriptionFilterProperties">
 		<entry key="displaySubscriptionFilter" value="true" />
 		<entry key="validationDueWarningDays" value="30" />
