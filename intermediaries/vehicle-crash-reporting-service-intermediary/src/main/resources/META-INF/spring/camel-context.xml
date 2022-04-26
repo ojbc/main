@@ -32,7 +32,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
 		<camel:endpoint id="vehicleCrashReportingServiceEndpoint"
 			uri="cxf:bean:vehicleCrashReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${vehicleCrashReportingService.cxflogging}&amp;allowStreaming=false" />
@@ -77,7 +77,7 @@
 			<camel:from uri="direct:enrichContent"/>
 		
 			<!-- Set up derived endpoints -->
-			<camel:setHeader headerName="routingSlipEnrichContent"><simple>{{vehicleCrashReportingService.enrichContentURI}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipEnrichContent"><simple>{{vehicleCrashReportingService.enrichContentURI}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipEnrichContent} != ''</camel:simple>
@@ -96,7 +96,7 @@
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up derived endpoints -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{vehicleCrashReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipDerivedRoutes"><simple>{{vehicleCrashReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
@@ -128,24 +128,17 @@
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>	
 				
-				<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+				<camel:setHeader name="operationName"><constant>Notify</constant></camel:setHeader>	
+				<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
 				
 	            <camel:throttle timePeriodMillis="1000">
 	            	<constant>1</constant>
-	            	<to uri="notificationBrokerServiceEndpoint"/>
 	        	</camel:throttle>  
+	        	
+	        	<to uri="notificationBrokerServiceEndpoint"/>
 			</camel:split>        	
             
         </route>
 
 	</camel:camelContext>
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>	
 </beans>
