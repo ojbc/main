@@ -24,8 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>custody-query-service-intermediary</artifactId>
-	<packaging>bundle</packaging>
-	<version>2.0.0</version>  
+	<version>2.0.1</version>  
 	<name>OJB :: custody-query-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -59,6 +58,13 @@
 	<dependencyManagement>
 	    <dependencies>
 	      <dependency>
+		     <groupId>org.apache.logging.log4j</groupId>
+		     <artifactId>log4j-bom</artifactId>
+		     <version>${log4j-version}</version>
+		     <type>pom</type>
+	         <scope>import</scope>
+		  </dependency> 
+	      <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-dependencies</artifactId>
 	        <version>${spring-boot-version}</version>
@@ -72,11 +78,7 @@
 	        <type>pom</type>
 	        <scope>import</scope>
 	      </dependency> 
-	      <dependency>
-	      	<groupId>org.apache.logging.log4j</groupId>
-	      	<artifactId>log4j-bom</artifactId>
-	      	<version>${log4j-version}</version>
-	      </dependency>  
+	     
 	    </dependencies>
   	</dependencyManagement>
 
@@ -293,30 +295,6 @@
     		<applicationContextUri>META-INF/spring/camel-context.xml</applicationContextUri>
   		</configuration>
       </plugin>
-
-	  <plugin>
-	    <groupId>org.apache.felix</groupId>
-	    <artifactId>maven-bundle-plugin</artifactId>
-	    <version>${maven-bundle-plugin-version}</version>
-	    <extensions>true</extensions>
-	    <configuration>
-	      <instructions>
-			<DynamicImport-Package>*</DynamicImport-Package>
-			<Import-Package>
-			org.springframework.beans.factory.config,
-			javax.xml.namespace,
-			ssp.*,
-			org.ojbc.*,
-			org.apache.cxf.bus.spring,
-			org.apache.camel.spring.spi,
-			org.springframework.jdbc.datasource,
-			org.h2.jdbcx,
-			*
-			</Import-Package>
-	        <Bundle-Name>${project.name}</Bundle-Name>
-	      </instructions>
-	    </configuration>
-	  </plugin>
 
     </plugins>
   </build>
