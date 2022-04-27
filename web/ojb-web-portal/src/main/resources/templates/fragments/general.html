@@ -90,7 +90,9 @@
                 <li class="nav-item" th:each="entry : ${leftMenuLinks.entrySet()}" 
                     th:if="${entry.key != 'subscriptionsLink' && entry.key != 'rapbackLink' && entry.key != 'criminalIdLink'
                             && entry.key != 'queryLink' && entry.key != 'adminLink' && entry.key != 'auditLink'}">
-                  <a class="nav-link" th:classappend="${entry.key}" th:id="${entry.key}" th:href="${entry.value}" th:text="${leftMenuLinkTitles[entry.key]}"></a> 
+                  <a class="nav-link" th:classappend="${entry.key}" th:id="${entry.key}" th:href="${entry.value}"
+                        th:target="${entry.value} == '#'? '_self':'_blank'" 
+                        th:text="${leftMenuLinkTitles[entry.key]}"></a> 
                 </li>
 	          </ul>
 	          
