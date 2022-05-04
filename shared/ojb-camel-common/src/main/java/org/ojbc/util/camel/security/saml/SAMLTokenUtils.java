@@ -229,19 +229,38 @@ public class SAMLTokenUtils {
 
 	public static String getSamlAttributeFromCxfMessage(Message cxfMessage,
             SamlAttribute samlAttribute) {
-
-        if (cxfMessage != null) {
-            SAMLTokenPrincipal token = (SAMLTokenPrincipal) cxfMessage
-                    .get("wss4j.principal.result");
-            if (token == null) {
-            	SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
-            	token = (SAMLTokenPrincipal) samlSecurityContext.getUserPrincipal(); 
-            }
-            return getAttributeValueFromSamlToken(token, samlAttribute); 
-        }
-
-        return null;
+		SAMLTokenPrincipal token = getSamlTokenFromCxfMessage(cxfMessage);
+		return getAttributeValueFromSamlToken(token, samlAttribute);
     }
+	
+	public static Assertion getSamlAssertionFromCxfMessage(Message cxfMessage) {
+		
+		SAMLTokenPrincipal token = getSamlTokenFromCxfMessage(cxfMessage);	
+		if (token != null) {
+			return token.getToken().getSaml2();
+		}
+		return null;
+	}
+	
+	public static SAMLTokenPrincipal getSamlTokenFromCxfMessage(Message cxfMessage) {
+		
+		SAMLTokenPrincipal token = null;
+		if (cxfMessage != null) {
+			token = (SAMLTokenPrincipal) cxfMessage
+					.get("wss4j.principal.result");
+			if (token == null) {
+				try {
+					SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
+					token = (SAMLTokenPrincipal) samlSecurityContext.getUserPrincipal();
+				}
+				catch (Exception e) {
+					log.error("Unable to retrieve the SAML token.");
+				}
+			}
+		}
+		
+		return token;
+	}
 	
 	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
 		String attributeValue = null;

@@ -57,7 +57,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.rt.security.saml.claims.SAMLSecurityContext;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.EnhancedAuditDAO;
@@ -113,19 +112,6 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
     	String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
         String employerOri = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI);
         
-		Object token = cxfMessage.get("wss4j.principal.result");
-		
-       if (token == null) {
-       	SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
-        	token = samlSecurityContext.getUserPrincipal();
-        }
-        SAMLTokenPrincipal samlToken = null;
-
-		if (token instanceof SAMLTokenPrincipal)
-		{	
-			samlToken = (SAMLTokenPrincipal) token;
-		}
-		
         log.debug("Processing rapback search request for federationId:" + StringUtils.trimToEmpty(federationId));
         log.debug("Employer ORI : " + StringUtils.trimToEmpty(employerOri));
         
@@ -137,6 +123,7 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
         
         Document rapbackSearchResponseDocument;
 		try {
+			SAMLTokenPrincipal samlToken = SAMLTokenUtils.getSamlTokenFromCxfMessage(cxfMessage);
 			rapbackSearchResponseDocument = buildRapbackSearchResponse(samlToken, employerOri, report);
 		} catch (Exception e) {
 			log.error("Got exception building rapback search response", e);

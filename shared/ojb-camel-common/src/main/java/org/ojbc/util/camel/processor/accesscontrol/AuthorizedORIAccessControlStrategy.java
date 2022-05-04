@@ -25,12 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
-import org.opensaml.core.xml.XMLObject;
-import org.opensaml.saml.saml2.core.Assertion;
-import org.opensaml.saml.saml2.core.Attribute;
-import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.ojbc.util.model.saml.SamlAttribute;
 
 /**
  * In this strategy, we compare the ORI in the SAML token against a list of authorized ORIs.
@@ -77,46 +74,17 @@ public class AuthorizedORIAccessControlStrategy implements AccessControlStrategy
 		try
 		{
 			Message cxfMessage = ex.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
-	
-			if (assertion != null)
-			{
-				List<AttributeStatement> attributeStatements =assertion.getAttributeStatements();
-				
-				AttributeStatement attributeStatement = attributeStatements.get(0);
-				
-				List<Attribute> attributes  = attributeStatement.getAttributes();
-				
-				for (Attribute attribute : attributes)
-				{
-					String attributeName = attribute.getName();
-					
-					if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
-	
-						employerORI = attributeValueAsString;
-						
-						break;
-					}
-					
-				}	
-			}
-	
+			employerORI = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI);
+			log.info("employerORI: " + employerORI);
 			if (authorizedORIs.contains(employerORI))
 			{
 				accessControlResponse.setAuthorized(true);
 				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + " are authorized to run this query.");
-	
 			}	
 			else
 			{
 				accessControlResponse.setAuthorized(false);
 				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + " are NOT authorized to run this query.");
-				
 			}	
 		} catch (Exception exception)
 		{

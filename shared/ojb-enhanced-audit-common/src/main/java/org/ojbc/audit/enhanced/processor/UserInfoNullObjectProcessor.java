@@ -22,8 +22,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml.saml2.core.Assertion;
 
 public class UserInfoNullObjectProcessor extends AbstractUserInfoProcessor {
@@ -36,8 +36,7 @@ public class UserInfoNullObjectProcessor extends AbstractUserInfoProcessor {
 		
 		try {
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
+			Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(cxfMessage);
 
 			UserInfo userInfo = processUserInfoRequest(assertion);
 			

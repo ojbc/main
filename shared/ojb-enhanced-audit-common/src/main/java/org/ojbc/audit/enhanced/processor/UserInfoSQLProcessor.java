@@ -29,6 +29,7 @@ import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml.saml2.core.Assertion;
 
 public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
@@ -47,9 +48,9 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
 			Object token = cxfMessage.get("wss4j.principal.result");
 			
-			if (token instanceof SAMLTokenPrincipal)
+			if (token == null)
 			{
-				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+				SAMLTokenPrincipal samlToken = SAMLTokenUtils.getSamlTokenFromCxfMessage(cxfMessage);
 				
 				Assertion assertion = samlToken.getToken().getSaml2();
 	
@@ -58,7 +59,7 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 			
 			if (token instanceof X500Principal)
 			{
-				X500Principal x509Cert = (X500Principal)cxfMessage.get("wss4j.principal.result");
+				X500Principal x509Cert = (X500Principal)token;
 				
 				userInfo.setIdentityProviderId(x509Cert.getName());
 	

@@ -21,8 +21,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.rt.security.saml.claims.SAMLSecurityContext;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.opensaml.saml.saml2.core.Assertion;
 import org.w3c.dom.Element;
 
 public class CamelSAMLTokenProcessor {
@@ -37,34 +36,24 @@ public class CamelSAMLTokenProcessor {
 		
 		if (cxfMessage != null)
 		{	
-			Object token = cxfMessage.get("wss4j.principal.result");
-            if (token == null) {
-            	SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
-            	token = samlSecurityContext.getUserPrincipal(); 
-            }
-			
-			if (token instanceof SAMLTokenPrincipal)
+			Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(cxfMessage);
+			Element assertionElement = null;
+				
+			if (assertion != null)
 			{	
-				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal) token;
-				
-				Element assertionElement = null;
-				
-				if (token != null)
-				{	
-					assertionElement = samlToken.getToken().getSaml2().getDOM();
-				}
-					
-				if (assertionElement != null)
-				{
-					//Set the token header so that CXF can retrieve this on the outbound call
-					String tokenID = exchange.getExchangeId();
-					exchange.getIn().setHeader("tokenID", tokenID);
-		
-					log.info("Retrieved SAML token from inbound message and adding to token map with ID: " + tokenID);
-					
-					OJBSamlMap.putToken(tokenID, assertionElement);
-				}	
+				assertionElement = assertion.getDOM();
 			}
+				
+			if (assertionElement != null)
+			{
+				//Set the token header so that CXF can retrieve this on the outbound call
+				String tokenID = exchange.getExchangeId();
+				exchange.getIn().setHeader("tokenID", tokenID);
+	
+				log.info("Retrieved SAML token from inbound message and adding to token map with ID: " + tokenID);
+				
+				OJBSamlMap.putToken(tokenID, assertionElement);
+			}	
 		}
 	}
 

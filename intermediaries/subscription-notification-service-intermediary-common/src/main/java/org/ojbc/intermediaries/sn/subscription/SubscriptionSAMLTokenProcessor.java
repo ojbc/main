@@ -24,8 +24,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.core.xml.XMLObject;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -47,8 +47,7 @@ public class SubscriptionSAMLTokenProcessor {
 		try
 		{
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipalImpl token = (SAMLTokenPrincipalImpl)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
+			Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(cxfMessage);
 			
 			if (assertion != null)
 			{

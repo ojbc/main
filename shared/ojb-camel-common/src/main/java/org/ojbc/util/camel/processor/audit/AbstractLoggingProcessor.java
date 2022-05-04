@@ -29,8 +29,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
-import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.core.xml.XMLObject;
 import org.opensaml.saml.saml2.core.Assertion;
@@ -90,61 +89,53 @@ public abstract class AbstractLoggingProcessor {
 	        
         Message message = (Message) e.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE);
         if (message != null) {
-            SAMLTokenPrincipal principal = (SAMLTokenPrincipal) message.get("wss4j.principal.result");
-            if (principal != null) {
-                SamlAssertionWrapper aw = principal.getToken();
-                if (aw != null) {
-                    Assertion assertion = aw.getSaml2();
+            Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(message);;
 
-                    if (assertion != null) {
+            if (assertion != null) {
 
-                        Pattern redactionPattern = Pattern.compile(redactedAttributeRegex);
+                Pattern redactionPattern = Pattern.compile(redactedAttributeRegex);
 
-                        for (AttributeStatement as : assertion.getAttributeStatements()) {
+                for (AttributeStatement as : assertion.getAttributeStatements()) {
 
-                            for (Attribute a : as.getAttributes()) {
+                    for (Attribute a : as.getAttributes()) {
 
-                                String attributeName = a.getName();
-                                List<XMLObject> attributeValues = a.getAttributeValues();
+                        String attributeName = a.getName();
+                        List<XMLObject> attributeValues = a.getAttributeValues();
 
-                                if (attributeValues != null && !attributeValues.isEmpty()) {
+                        if (attributeValues != null && !attributeValues.isEmpty()) {
 
-                                    XMLObject xmlObject = attributeValues.get(0);
+                            XMLObject xmlObject = attributeValues.get(0);
 
-                                    if (xmlObject != null) {
+                            if (xmlObject != null) {
 
-                                        Element element = xmlObject.getDOM();
+                                Element element = xmlObject.getDOM();
 
-                                        if (element != null) {
+                                if (element != null) {
 
-                                            String attributeValue = element.getTextContent();
-                                            if (redactionPattern.matcher(attributeName).matches()) {
-                                                attributeValue = redactedAttributeValue;
-                                            }
-
-                                            if ("gfipm:2.0:user:FederationId".equals(attributeName)) {
-                                                logInfo.federationId = attributeValue;
-                                            } else if ("gfipm:2.0:user:EmployerName".equals(attributeName)) {
-                                                logInfo.employerName = attributeValue;
-                                            } else if ("gfipm:2.0:user:EmployerSubUnitName".equals(attributeName)) {
-                                                logInfo.employerSubUnitName = attributeValue;
-                                            } else if ("gfipm:2.0:user:SurName".equals(attributeName)) {
-                                                logInfo.userLastName = attributeValue;
-                                            } else if ("gfipm:2.0:user:GivenName".equals(attributeName)) {
-                                                logInfo.userFirstName = attributeValue;
-                                            }
-
-                                        }
+                                    String attributeValue = element.getTextContent();
+                                    if (redactionPattern.matcher(attributeName).matches()) {
+                                        attributeValue = redactedAttributeValue;
                                     }
-                                }
 
+                                    if ("gfipm:2.0:user:FederationId".equals(attributeName)) {
+                                        logInfo.federationId = attributeValue;
+                                    } else if ("gfipm:2.0:user:EmployerName".equals(attributeName)) {
+                                        logInfo.employerName = attributeValue;
+                                    } else if ("gfipm:2.0:user:EmployerSubUnitName".equals(attributeName)) {
+                                        logInfo.employerSubUnitName = attributeValue;
+                                    } else if ("gfipm:2.0:user:SurName".equals(attributeName)) {
+                                        logInfo.userLastName = attributeValue;
+                                    } else if ("gfipm:2.0:user:GivenName".equals(attributeName)) {
+                                        logInfo.userFirstName = attributeValue;
+                                    }
+
+                                }
                             }
                         }
 
-                        logInfo.idp = assertion.getIssuer().getValue();
-
                     }
                 }
+                logInfo.idp = assertion.getIssuer().getValue();
             }
         }
 
