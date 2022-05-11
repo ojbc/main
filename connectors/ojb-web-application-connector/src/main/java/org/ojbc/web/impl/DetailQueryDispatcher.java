@@ -163,16 +163,31 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			return criminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 		}
 //			if (Objects.equals(request.getQueryType(), "StateRapsheet")){
-//				return criminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
-////				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
-////						+ "xmlns:cht-doc=\"http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0\" "
-////						+ "xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\" "
-////						+ "xmlns:s=\"http://niem.gov/niem/structures/2.0\" >"
-////						+ "	<cht-doc:StateCriminalHistoryRecordDocument> "
-////						+ "		<cht-doc:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cht-doc:Base64BinaryObject> "
-////						+ "	</cht-doc:StateCriminalHistoryRecordDocument>"
-////						+ "</cht-doc:CriminalHistoryTextDocument>";
+////				return criminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+//				Thread.sleep(500);
+//				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
+//						+ "xmlns:cht-doc=\"http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0\" "
+//						+ "xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\" "
+//						+ "xmlns:s=\"http://niem.gov/niem/structures/2.0\" >"
+//						+ "	<cht-doc:StateCriminalHistoryRecordDocument> "
+//						+ "		<cht-doc:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cht-doc:Base64BinaryObject> "
+//						+ "	</cht-doc:StateCriminalHistoryRecordDocument>"
+//						+ "</cht-doc:CriminalHistoryTextDocument>";
 //			}
+//		if (Objects.equals(request.getQueryType(), "StateRapsheet")){
+//			Thread.sleep(500);
+//			return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
+//					+ "xmlns:cht-doc=\"http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0\" "
+//					+ "xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\" "
+//					+ "xmlns:s=\"http://niem.gov/niem/structures/2.0\" >"
+//					+ "	<error:PersonQueryResultError xmlns:error=\"http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0\"> "
+//					+ "		<error:ErrorText>User does not meet privilege requirements to access CJIS Hawaii. To request access, contact your IT department.</error:ErrorText> "
+//					+ "		<error:PersonRecordRequestIdentification>"
+//					+ "			<nc:IdentificationID xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\">L0120373</nc:IdentificationID>"
+//					+ "		</error:PersonRecordRequestIdentification>"
+//					+ "	</error:PersonQueryResultError>"
+//					+ "</cht-doc:CriminalHistoryTextDocument>";
+//		}
 		else if (OJBCWebServiceURIs.CRIMINAL_HISTORY_FBI.equals(requestIdSrcTxt)){
 				return fbiCriminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 //				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
