@@ -103,8 +103,11 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 				
 		if (StringUtils.isNotBlank(troop))
 		{
-			troopId = analyticalDatastoreDAO.searchForTroopIDbyTroopName(troop);
-			
+			try {
+				troopId = analyticalDatastoreDAO.searchForTroopIDbyTroopName(troop);
+			} catch (Exception e) {
+				log.info("No troops found. ");
+			}
 			if (troopId == null)
 			{
 				log.error("Unable to find troop information for: " + troop);

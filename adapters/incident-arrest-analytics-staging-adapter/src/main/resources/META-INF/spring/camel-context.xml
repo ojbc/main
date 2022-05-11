@@ -211,7 +211,7 @@
 		</camel:route>
 		
 		<camel:route id="IndexBackupRoute">
-			<from uri="timer://simpleTimer?fixedRate=true&amp;period=3600&amp;delay=300"/>
+			<from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=300"/>
 			<to uri="bean:indexedIdentifierGenerationStrategy?method=backup"/>
 			<camel:log message="Backed up index to: ${body}"/>
 		</camel:route>

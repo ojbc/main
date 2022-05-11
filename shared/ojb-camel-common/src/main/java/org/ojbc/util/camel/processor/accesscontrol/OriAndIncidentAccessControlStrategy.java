@@ -30,7 +30,8 @@ import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.ojbc.util.model.saml.SamlAttribute;
 
 public class OriAndIncidentAccessControlStrategy implements AccessControlStrategy{
-private static final Log log = LogFactory.getLog(OriAndRoleAccessControlStrategy.class);
+	
+private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStrategy.class);
 	
 	List<String> authorizedORIs;
 	
@@ -102,9 +103,9 @@ private static final Log log = LogFactory.getLog(OriAndRoleAccessControlStrategy
 				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
 				            " are NOT authorized to run this query.");
 				}else {
-				    accessControlResponse.setAccessControlResponseMessage("Only Supervisors or Firearms Registration "
-				            + "Records Personnels in the ORI: " + employerORI + 
-				            " are authorized to run this query.");
+				    accessControlResponse.setAccessControlResponseMessage("Only authorized personnel for an "
+				            + "authorized ORI: " +
+				            "are allowed to run this query.");
 				}
 				
 			}	

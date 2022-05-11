@@ -84,7 +84,7 @@
 	</bean>
    
 	<util:properties id="analyticsAdapterKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${analyticsAdapter.keystorePassword}</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${analyticsAdapter.keystoreCertificateAlias}</prop>
