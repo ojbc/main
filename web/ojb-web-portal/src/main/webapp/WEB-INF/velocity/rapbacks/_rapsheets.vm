@@ -87,6 +87,10 @@
 				#if( "$!stateRapsheet" != "" ) 
    					<div><pre>$stateRapsheet</pre></div> 
 				#end
+				#if( "$!errorText" != "" ) 
+   					<div style="color: #721c24;background-color: #f8d7da; border-color: #f5c6cb;padding: 15px; 
+   						margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;">$errorText</div> 
+				#end
 			</div>
 		</div>
         
