@@ -602,9 +602,16 @@ public class RapbackController {
 		}
 		
 		try {
-			String stateRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(stateRapsheetDoc), 
-					"/cht-doc:CriminalHistoryTextDocument//cht-doc:Base64BinaryObject");
-			model.put("stateRapsheet", stateRapsheet);
+			Document responseDocument =  OJBUtils.loadXMLFromString(stateRapsheetDoc); 
+ 			String errorText = XmlUtils.xPathStringSearch(responseDocument, "/cht-doc:CriminalHistoryTextDocument/error:PersonQueryResultError/error:ErrorText");
+
+ 			if (StringUtils.isNoneBlank(errorText)) {
+ 				model.put("errorText", errorText);
+ 			}
+ 			else {
+ 				String stateRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(stateRapsheetDoc), "/cht-doc:CriminalHistoryTextDocument/cht-doc:StateCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+ 				model.put("stateRapsheet", stateRapsheet);
+ 			}
 		} catch (Exception e){
 			throw new IllegalStateException(e.getMessage());
 		}		

@@ -173,6 +173,16 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 ////						+ "	</cht-doc:StateCriminalHistoryRecordDocument>"
 ////						+ "</cht-doc:CriminalHistoryTextDocument>";
 //			}
+////	return criminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+//				Thread.sleep(500);
+//				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
+//						+ "xmlns:cht-doc=\"http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0\" "
+//						+ "xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\" "
+//						+ "xmlns:s=\"http://niem.gov/niem/structures/2.0\" >"
+//						+ "	<cht-doc:StateCriminalHistoryRecordDocument> "
+//						+ "		<cht-doc:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cht-doc:Base64BinaryObject> "
+//						+ "	</cht-doc:StateCriminalHistoryRecordDocument>"
+//						+ "</cht-doc:CriminalHistoryTextDocument>";
 		else if (OJBCWebServiceURIs.CRIMINAL_HISTORY_FBI.equals(requestIdSrcTxt)){
 				return fbiCriminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 //				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
