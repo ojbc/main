@@ -156,7 +156,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				
-				<log message="\n\n\n completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.custodySearchIntermediaryFederatedQueryTimeout}}"></log>
+				<log message="\n\n\n completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.custodySearchIntermediaryFederatedQueryTimeout}}"></log>
 				
 				<to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -239,7 +239,7 @@
 						
 			<!-- In this case, we have errors but no search results -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 &amp;&amp; ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="\n\n\n No search results returned, however, response contains error results"/>				
 				<camel:stop/>
 			</camel:filter>

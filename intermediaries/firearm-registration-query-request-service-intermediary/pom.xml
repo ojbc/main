@@ -39,7 +39,7 @@
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
+		<log4j-version>2.17.1</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<commons-lang-version>3.12.0</commons-lang-version>
 		<spring-version>5.3.8</spring-version>
