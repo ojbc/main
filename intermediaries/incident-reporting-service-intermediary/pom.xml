@@ -24,7 +24,6 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary</artifactId>
-	<packaging>bundle</packaging>
 	<version>3.0.0</version>
 	<name>OJB :: incident-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
@@ -38,7 +37,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
+		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<log4j-version>2.17.1</log4j-version>
@@ -62,53 +61,49 @@
 	</properties>
 	
 	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel.springboot</groupId>
-				<artifactId>camel-spring-boot-dependencies</artifactId>
-				<version>${camel-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>${log4j-version}</version>
-			</dependency>
-		</dependencies>
+	  <dependencies>
+	    <dependency>
+	        <groupId>org.apache.logging.log4j</groupId>
+	        <artifactId>log4j-bom</artifactId>
+	        <version>${log4j-version}</version>
+	        <type>pom</type>
+	        <scope>import</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-dependencies</artifactId>
+	      <version>${spring-boot-version}</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel.springboot</groupId>
+	      <artifactId>camel-spring-boot-dependencies</artifactId>
+	      <version>${camel-version}</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>   
+	  </dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-	<!-- Spring Boot -->
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter</artifactId>
-	      <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
- 	    </dependency>
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-web</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-undertow</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-actuator</artifactId>
-	    </dependency>
+    <!-- Spring Boot -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator</artifactId>
+    </dependency>
 	    <!-- Camel -->
 	    <dependency>
 	        <groupId>org.apache.camel.springboot</groupId>
@@ -342,42 +337,6 @@
 					<argLine>-Xmx1024m</argLine>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-maven-plugin</artifactId>
-				<version>${camel-version}</version>
-				<!-- allows the route to be ran via 'mvn camel:run' -->
-				<configuration>
-					<applicationContextUri>META-INF/spring/camel-context.xml</applicationContextUri>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Import-Package>
-							javax.xml.namespace,
-							ssp.*,
-							org.ojbc.*,
-							org.apache.cxf.bus.spring,
-							org.apache.camel.spring.spi,
-							org.springframework.jdbc.datasource,
-							org.h2.jdbcx,
-							org.springframework.dao,
-							org.apache.commons.logging;version="[1.1,2)",
-							*
-						</Import-Package>
-						<Bundle-Name>${project.name}</Bundle-Name>
-					</instructions>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
