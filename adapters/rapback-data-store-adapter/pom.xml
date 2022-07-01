@@ -391,29 +391,6 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Import-Package>
-							org.springframework.beans.factory.config,
-							javax.xml.namespace,
-							ssp.*,
-							org.ojbc.*,
-							org.apache.cxf.bus.spring,
-							org.apache.camel.spring.spi,
-							org.springframework.jdbc.datasource,
-							org.h2.jdbcx,
-							*
-						</Import-Package>
-						<Bundle-Name>${project.name}</Bundle-Name>
-					</instructions>
-				</configuration>
-			</plugin>
 			<!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
 			<!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
 			<plugin>
