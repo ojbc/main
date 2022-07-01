@@ -36,7 +36,7 @@
 	<properties>
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
-		<log4j-version>2.17.1</log4j-version>
+		<log4j-version>2.17.2</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<commons-lang-version>3.12.0</commons-lang-version>
 		<spring-version>5.3.8</spring-version>
