@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>fbi-electronic-biometric-transmission-specification-adapter</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<name>OJB :: fbi-electronic-biometric-transmission-specification-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
@@ -314,14 +314,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin-version}</version>
-				<!-- Extra memory needed for camel context test to reference large arrest 
-					reporting wsdl -->
+				<version>2.22.2</version>
 				<configuration>
-					<argLine>-Xmx1048m</argLine>
-			        <reuseForks>false</reuseForks>
-			        <forkCount>1</forkCount>
-			        <runOrder>alphabetical</runOrder>
+					<argLine>-Xmx1024m</argLine>
+					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>
 

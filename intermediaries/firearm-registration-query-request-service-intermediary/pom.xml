@@ -24,8 +24,8 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>firearm-registration-query-request-service-intermediary</artifactId>
-	<packaging>bundle</packaging>
-	<version>2.0.0</version> 
+	<packaging>jar</packaging>
+	<version>2.0.1</version> 
 	<name>OJB :: firearm-registration-query-request-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -59,6 +59,13 @@
 	
 	<dependencyManagement>
     <dependencies>
+    	<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-bom</artifactId>
+			<version>${log4j-version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -235,16 +242,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
-		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -289,31 +286,14 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
 				<configuration>
-					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Import-Package>
-							org.springframework.beans.factory.config,
-							javax.xml.namespace,
-							ssp.*,
-							org.ojbc.*,
-							org.apache.cxf.bus.spring,
-							org.apache.camel.spring.spi,
-							org.springframework.jdbc.datasource,
-							org.h2.jdbcx,
-							*
-						</Import-Package>
-						<Export-Package>
-						</Export-Package>
-						<Bundle-Name>${project.name}</Bundle-Name>
-					</instructions>
+					<argLine>-Xmx1024m</argLine>
+					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
