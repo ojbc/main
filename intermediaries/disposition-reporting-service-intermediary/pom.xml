@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>disposition-reporting-service-intermediary</artifactId>
-	<version>2.0.1</version>
+	<version>2.0.2</version>
 	<name>OJB :: disposition-reporting-service-intermediary :: intermediary</name>
 
 	<parent>
@@ -268,6 +268,17 @@
 				</executions>
 
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<argLine>-Xmx1024m</argLine>
+					<reuseForks>false</reuseForks>
+				</configuration>
+			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
