@@ -17,9 +17,11 @@
 package org.ojbc.util.camel.processor;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SimpleMessageProcessor {
-	
+	private static final Log log = LogFactory.getLog( SimpleMessageProcessor.class );
 	
 	/**
 	 * This method will use an existing exchange and set the 'out' message 
@@ -29,7 +31,7 @@ public class SimpleMessageProcessor {
 	 */
 	public void prepareNewSimpleExchangeResponseMessage(Exchange exchange) throws Exception
 	{
-			
+		exchange.getMessage().removeHeaders("*", Exchange.DESTINATION_OVERRIDE_URL, "recipientListReplyToEndpoint");
 		exchange.getMessage().setBody(exchange.getIn().getBody());
 	}
 
