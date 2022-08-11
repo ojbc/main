@@ -35,7 +35,7 @@
 	xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
 	xmlns:cdrs-update-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
        
 	<!-- needed cxf imports -->
