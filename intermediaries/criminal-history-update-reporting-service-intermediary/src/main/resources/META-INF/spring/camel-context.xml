@@ -136,6 +136,7 @@
 
 		<camel:route id="callCriminalHistoryConsolidationRoute">
 			<from uri="direct:callCriminalHistoryConsolidation"/>
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />         
 			
 			<camel:filter>
 				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
