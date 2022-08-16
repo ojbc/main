@@ -229,7 +229,8 @@ public class SubscriptionSearchQueryDAO {
     
     public List<String> returnAgencyProfileEmailForSubscription(String subscriptionId, String subscriptionCategory)
     {
-		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
+		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, "
+				+ "agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
 				+ " AGENCY_EMAIL_CATEGORY aec "
 				+ " where s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID"
 				+ " and so.AGENCY_ID = ap.AGENCY_ID"
@@ -303,11 +304,17 @@ public class SubscriptionSearchQueryDAO {
 		
 		String sql = "SELECT s.id, s.topic, s.state, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
 				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName,  s.timestamp as lastUpdatedDate, s.active, "
-                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
-                + " fbi_sub.* "
-                + " FROM subscription s, notification_mechanism nm, rapback_datastore.subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationMechanismType, "
+                + " fbi_sub.*,  ae.agencyEmails,  "
+                + " CASE WHEN nm.notificationAddress ='consult@agency.profile' THEN ae.agencyEmails "
+                + " ELSE nm.notificationAddress END notificationAddress "
+                + " FROM subscription s, notification_mechanism nm, rapback_datastore.subscription_subject_identifier si, subscription_owner so, agency_profile ap, "
+                + "  FBI_RAP_BACK_SUBSCRIPTION fbi_sub, "
+                + "  (SELECT GROUP_CONCAT(agency_email SEPARATOR ', ')  as agencyEmails, agency_id "
+                + "  	FROM agency_contact_email "
+                + "  	GROUP BY agency_id ) ae"
                 + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
-                + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id "
+                + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id and ae.agency_id = ap.agency_id "
                 + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ? and s.active=1";
 		
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);

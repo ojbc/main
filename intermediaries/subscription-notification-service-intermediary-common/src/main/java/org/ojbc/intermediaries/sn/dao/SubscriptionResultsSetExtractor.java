@@ -20,6 +20,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -189,7 +190,10 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	subscription.setEmailAddressesToNotify(emailAddresses);
 	            }	
 	            
-	            emailAddresses.add(rs.getString("notificationAddress"));
+	            String[] notificationAddresses = StringUtils.split(rs.getString("notificationAddress"), ','); 
+	            
+	            Arrays.stream(notificationAddresses)
+	            	.forEach(emailAddresses::add);
 	            
 	            Map<String, String> subscriptionSubjectIdentifiers = subscription.getSubscriptionSubjectIdentifiers();
 
