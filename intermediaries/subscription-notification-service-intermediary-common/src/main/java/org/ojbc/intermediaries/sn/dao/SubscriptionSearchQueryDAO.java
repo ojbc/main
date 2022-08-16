@@ -306,6 +306,9 @@ public class SubscriptionSearchQueryDAO {
 				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName,  s.timestamp as lastUpdatedDate, s.active, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationMechanismType, "
                 + " fbi_sub.*,  ae.agencyEmails,  "
+                /*
+                 * If notificationAddress is the placeholder 'consult@agency.profile', use the concat string from the agency_contact_email entries of the agency
+                 */
                 + " CASE WHEN nm.notificationAddress ='consult@agency.profile' THEN ae.agencyEmails "
                 + " ELSE nm.notificationAddress END notificationAddress "
                 + " FROM subscription s, notification_mechanism nm, rapback_datastore.subscription_subject_identifier si, subscription_owner so, agency_profile ap, "
