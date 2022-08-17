@@ -30,7 +30,6 @@ import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
@@ -44,7 +43,7 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 	
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
-	private static final Log log = LogFactory.getLog( ArrestNotificationRequest.class );
+	private static final Log log = LogFactory.getLog( RapbackNotificationProcessor.class );
 	
 	@Override
 	protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception{
