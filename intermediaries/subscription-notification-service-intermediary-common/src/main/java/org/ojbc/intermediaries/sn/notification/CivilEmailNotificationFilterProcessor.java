@@ -19,27 +19,30 @@ package org.ojbc.intermediaries.sn.notification;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
+import javax.sql.DataSource;
 
+import org.apache.camel.Body;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CivilEmailNotificationFilterProcessor implements EmailEnhancementStrategy {
 	
-	@Resource
-	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
-	
 	private String civilNotificationDefaultEmailAddress="administrator@local.gov";
 	
 	private static final Log log = LogFactory.getLog( CivilEmailNotificationFilterProcessor.class );
 	
+	private JdbcTemplate jdbcTemplate;
+	
 	@Override
-	public EmailNotification enhanceEmail(EmailNotification emailNotification) {
+	public EmailNotification enhanceEmail(@Body EmailNotification emailNotification) {
 		Subscription subscription = emailNotification.getSubscription();
+		
+		log.debug("Email Notification: " + emailNotification);
+		log.debug("Subscription: " + subscription);
 		
 		String subscriptionCategoryCode = subscription.getSubscriptionCategoryCode();
 
@@ -69,7 +72,7 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 		
 		if (subscriptionCategoryCode.equals("F") || subscriptionCategoryCode.equals("J") || subscriptionCategoryCode.equals("I") || subscriptionCategoryCode.equals("S"))
 		{	
-            emailAddressesToAdd = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(subscriptionId, subscriptionCategoryCode);
+            emailAddressesToAdd = returnAgencyProfileEmailForSubscription(subscriptionId, subscriptionCategoryCode);
             
             if (emailAddressesToAdd.size() == 0)
             {
@@ -81,15 +84,23 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 		return emailAddressesToAdd;
 	}
 	
-	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
-		return subscriptionSearchQueryDAO;
-	}
-
-	public void setSubscriptionSearchQueryDAO(
-			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
-		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
-	}
-
+	
+    public List<String> returnAgencyProfileEmailForSubscription(String subscriptionId, String subscriptionCategory)
+    {
+		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
+				+ " AGENCY_EMAIL_CATEGORY aec "
+				+ " where s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID"
+				+ " and so.AGENCY_ID = ap.AGENCY_ID"
+				+ " and ap.AGENCY_ID = ace.AGENCY_ID"
+				+ " and ace.AGENCY_CONTACT_EMAIL_ID = acej.AGENCY_CONTACT_EMAIL_ID"
+				+ " and aec.AGENCY_EMAIL_CATEGORY_ID = acej.AGENCY_EMAIL_CATEGORY_ID"
+				+ " and s.id=? and aec.code=?";
+		
+        List<String> emailAddresses = this.jdbcTemplate.queryForList(sql, String.class, new Object[]{subscriptionId, subscriptionCategory});
+    	
+    	return emailAddresses;
+    }
+	
 	public String getCivilNotificationDefaultEmailAddress() {
 		return civilNotificationDefaultEmailAddress;
 	}
@@ -98,5 +109,9 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 			String civilNotificationDefaultEmailAddress) {
 		this.civilNotificationDefaultEmailAddress = civilNotificationDefaultEmailAddress;
 	}
+
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
 }
