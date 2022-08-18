@@ -168,13 +168,6 @@
 					password="${federatedQuery.firearmSearch.truststorePassword}"
 					url="${federatedQuery.firearmSearch.truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>	

@@ -269,6 +269,15 @@ public class CamelContextTest {
 		assertEquals("Nature 1", incidentTypes.get(0).getIncidentDescriptionText());
 		assertEquals("Nature 2", incidentTypes.get(1).getIncidentDescriptionText());
 		
+		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
+		
+		assertEquals(2, incidentOffenses.size());
+
+		assertEquals("Violation of a Court Order",incidentOffenses.get(0).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE SUSPENDED",incidentOffenses.get(0).getIncidentOffenseText() );
+
+		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
 		
 		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
 		
@@ -315,6 +324,8 @@ public class CamelContextTest {
 		assertEquals("MAL", trafficStops.get(0).getVehicleModel());
 		assertEquals(Integer.valueOf(2005), trafficStops.get(0).getVehicleYear());
 		assertEquals("GA", trafficStops.get(0).getVehicleRegistrationState());
+
+		
 	}
 	
 	@Test

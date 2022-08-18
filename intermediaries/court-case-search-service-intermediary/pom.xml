@@ -334,7 +334,6 @@
     		<applicationContextUri>META-INF/spring/camel-context.xml</applicationContextUri>
   		</configuration>
       </plugin>
-
     </plugins>
   </build>
 
