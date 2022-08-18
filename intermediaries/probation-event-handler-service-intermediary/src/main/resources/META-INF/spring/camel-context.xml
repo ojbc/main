@@ -230,8 +230,8 @@
 			
 			<camel:log message="\n\n\n After transform subscription: \n\n ${body} \n\n\n" />
 			
-			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
-			
+			<camel:removeHeaders pattern="*"/>
+						
 			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
 			<camel:setHeader name="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			
@@ -247,7 +247,7 @@
 			
 			<camel:log message="\n\n\n After transform unsubscription: ${body} \n\n\n" />
 			
-			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
+			<camel:removeHeaders pattern="*"/>
 			
 			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 			<camel:setHeader name="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
