@@ -37,12 +37,14 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-       	<bean id="federatedQueryResponseAggregator"
+    <bean id="federatedQueryResponseAggregator"
 		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
 	</bean>
+
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
