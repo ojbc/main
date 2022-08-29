@@ -36,6 +36,8 @@
 	<!-- Spring Beans -->
 	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
+    <bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" id="sqlLoggingProcessor" />        
+
 	<bean id="federatedQueryResponseAggregator"
 		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
 		<property name="federatedQueryManager" ref="federatedQueryManager" />

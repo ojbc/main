@@ -28,8 +28,6 @@
        "
        profile="dev">
 	
-	<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" id="sqlLoggingProcessor" />		
-	
 	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
 		<property name="userInfoProcessor" ref="userInfoNullOBjectProcessor"/>
 	</bean>		
