@@ -28,10 +28,10 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- needed cxf imports -->
@@ -43,16 +43,16 @@
 		
 		<!-- Identification Results Query Request Endpoints -->
 		<endpoint id="identificationResultsQueryRequestServiceEndpoint"
-			uri="cxf:bean:identificationResultsQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}" />
+			uri="cxf:bean:identificationResultsQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="identificationResultsQueryRequestServiceAdapterEndpoint"
-			uri="cxf:bean:identificationResultsQueryRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}" />
+			uri="cxf:bean:identificationResultsQueryRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="identificationResultsQueryResultsHandlerServiceEndpoint"
-			uri="cxf:bean:identificationResultsQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}" />
+			uri="cxf:bean:identificationResultsQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="presentIdentificationResultsQueryResultServiceEndpoint"
-			uri="cxf:bean:presentIdentificationResultsQueryResultService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}" />
+			uri="cxf:bean:presentIdentificationResultsQueryResultService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationResultsQueryIntermediary.cxflogging}&amp;allowStreaming=false" />
 
 		<!-- Identification Results Query Request flow -->
 		<route id="identificationResultsQueryRequestRoute">

@@ -26,10 +26,10 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- needed cxf imports -->
@@ -41,16 +41,16 @@
 		
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
-			uri="cxf:bean:rapbackSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}" />
+			uri="cxf:bean:rapbackSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="rapbackSearchRequestServiceAdapterEndpoint"
-			uri="cxf:bean:rapbackDataStoreAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}" />
+			uri="cxf:bean:rapbackDataStoreAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="rapbackSearchResultsHandlerServiceEndpoint"
-			uri="cxf:bean:rapbackSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}" />
+			uri="cxf:bean:rapbackSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}&amp;allowStreaming=false" />
 			
 		<endpoint id="presentRapbackSearchResultServiceEndpoint"
-			uri="cxf:bean:presentRapbackSearchResultService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}" />
+			uri="cxf:bean:presentRapbackSearchResultService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearchIntermediary.cxflogging}&amp;allowStreaming=false" />
 
 		<!-- Rapback Search Request flow -->
 		<route id="rapbackSearchRequestRoute">

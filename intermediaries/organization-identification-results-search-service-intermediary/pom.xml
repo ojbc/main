@@ -41,7 +41,7 @@
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.4</cxf-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>2.16.0</log4j-version>
+		<log4j-version>2.17.2</log4j-version>
 		<commons-lang-version>3.12.0</commons-lang-version>
 		<spring-version>5.3.8</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
@@ -91,12 +91,6 @@
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-starter</artifactId>
-	      <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
  	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
@@ -243,13 +237,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-test-spring-junit5</artifactId>
-			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
 		
@@ -299,6 +291,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
