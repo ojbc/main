@@ -594,11 +594,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = t.transaction_number) as having_subsequent_result, "
 				+ "(select count(*) > 0 from NSOR_FIVE_YEAR_CHECK nsor5year where nsor5year.transaction_number = t.transaction_number) as having_nsor_5_year_check, "
-				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.transaction_number = t.transaction_number and notification_indicator=true) as latestNotificationDate "
+				+ "ln.latestNotificationDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
 				+ "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id "
+				+ "LEFT OUTER JOIN (select max(subsq.report_timestamp) as latestNotificationDate , subsq.transaction_number "
+			    + "		FROM subsequent_results subsq WHERE notification_indicator=true GROUP BY subsq.transaction_number) ln "
+			    + "		ON ln.transaction_Number = t.transaction_number "
 				+ "WHERE (select count(*)>0 from "
 				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
 				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
@@ -608,6 +611,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:ucn is null OR upper(s.ucn) = upper(:ucn) ) "
 				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
+				+ "	AND (:notificationStartDate is null OR ln.latestNotificationDate >= :notificationStartDate ) "
+				+ "	AND (:notificationEndDate is null OR ln.latestNotificationDate <= :notificationEndDate ) "
 				+ "	AND (:excludeArchived = false OR t.archived != true ) "
 				+ "	AND (:excludeSubscribedState = false OR (t.archived = true OR (sub.id is null OR sub.id <= 0 OR sub.active = false ) OR "
 				+ " (sub.id is not null and sub.id > 0 and sub.active != false and fbi_sub.fbi_subscription_id is not null))) "
@@ -623,6 +628,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("ucn", searchRequest.getUcn()); 
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
 		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
+		paramMap.put("notificationStartDate", searchRequest.getNotificationDateStartDate()); 
+		paramMap.put("notificationEndDate", getMaxOfDay(searchRequest.getNotificationDateEndDate())); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeSubscribedState", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed_State)); 
 		paramMap.put("excludeSubscribedStateFBI", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed_State_FBI)); 

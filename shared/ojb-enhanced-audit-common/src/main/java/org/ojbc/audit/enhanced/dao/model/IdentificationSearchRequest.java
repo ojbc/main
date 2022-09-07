@@ -34,6 +34,8 @@ public class IdentificationSearchRequest {
 	private String messageId;
 	private LocalDate reportedToDate;
 	private LocalDate reportedFromDate;
+	private LocalDate notificationToDate;
+	private LocalDate notificationFromDate;
 	
 	public String getFirstName() {
 		return firstName;
@@ -99,5 +101,17 @@ public class IdentificationSearchRequest {
 	}
 	public void setReasonCode(List<String> reasonCode) {
 		this.reasonCode = reasonCode;
+	}
+	public LocalDate getNotificationToDate() {
+		return notificationToDate;
+	}
+	public void setNotificationToDate(LocalDate notificationToDate) {
+		this.notificationToDate = notificationToDate;
+	}
+	public LocalDate getNotificationFromDate() {
+		return notificationFromDate;
+	}
+	public void setNotificationFromDate(LocalDate notificationFromDate) {
+		this.notificationFromDate = notificationFromDate;
 	}
 }

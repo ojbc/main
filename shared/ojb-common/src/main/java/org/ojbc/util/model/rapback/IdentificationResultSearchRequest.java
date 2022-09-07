@@ -39,6 +39,11 @@ public class IdentificationResultSearchRequest implements Serializable{
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date reportedDateEndDate;
 	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date notificationDateStartDate; 
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date notificationDateEndDate;
+	
 	private String firstName; 
 	private String lastName; 
 	private String otn; //IdentifiedPersonTrackingIdentification
@@ -163,5 +168,41 @@ public class IdentificationResultSearchRequest implements Serializable{
 	public void setUcn(String ucn) {
 		this.ucn = ucn;
 	}
-    
+
+	public Date getNotificationDateStartDate() {
+		return notificationDateStartDate;
+	}
+
+	public void setNotificationDateStartDate(Date notificationDateStartDate) {
+		this.notificationDateStartDate = notificationDateStartDate;
+	}
+
+	public Date getNotificationDateEndDate() {
+		return notificationDateEndDate;
+	}
+
+	public void setNotificationDateEndDate(Date notificationDateEndDate) {
+		this.notificationDateEndDate = notificationDateEndDate;
+	}
+
+	public void setNotificationDateStartLocalDate(LocalDate localDate){
+		this.notificationDateStartDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	public void setNotificationDateEndLocalDate(LocalDate localDate){
+		this.notificationDateEndDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public LocalDate getNotificationDateStartLocalDate() {
+		return getNotificationDateStartDate() == null? null
+				:notificationDateStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public LocalDate getNotificationDateEndLocalDate() {
+		return getNotificationDateEndDate() == null? null
+				:notificationDateEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
 }

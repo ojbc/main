@@ -88,6 +88,9 @@ public class TestIdentificationSearchProcessor {
 		assertEquals("2011-01-01", identificationSearchRequest.getReportedFromDate().toString());
 		assertEquals("2016-01-01", identificationSearchRequest.getReportedToDate().toString());
 
+		assertEquals("2011-01-01", identificationSearchRequest.getNotificationFromDate().toString());
+		assertEquals("2016-01-01", identificationSearchRequest.getNotificationToDate().toString());
+		
 		
 		CamelContext ctx = new DefaultCamelContext(); 
 		    
