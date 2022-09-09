@@ -95,6 +95,12 @@
 				        		#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
 				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
 					        </div>
+			        		<label class="searchSubHeader">Latest Notification Date Range</label>
+					        <div class="form-group">
+				        		#springFormInput("rapbackSearchRequest.notificationDateStartDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
+				        		#springFormInput("rapbackSearchRequest.notificationDateEndDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
+				        		#springBind("rapbackSearchRequest.notificationDateStartDate")
+					        </div>
 							<label class="searchSubHeader">Identification Result Status</label>
 							<div class="form-check-inline">
 				  				<label class="form-check-label form-control-sm">
