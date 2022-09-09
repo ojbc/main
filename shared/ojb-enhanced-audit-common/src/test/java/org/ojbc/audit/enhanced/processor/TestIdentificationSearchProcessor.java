@@ -39,7 +39,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -89,6 +88,9 @@ public class TestIdentificationSearchProcessor {
 		assertEquals("2011-01-01", identificationSearchRequest.getReportedFromDate().toString());
 		assertEquals("2016-01-01", identificationSearchRequest.getReportedToDate().toString());
 
+		assertEquals("2011-01-01", identificationSearchRequest.getNotificationFromDate().toString());
+		assertEquals("2016-01-01", identificationSearchRequest.getNotificationToDate().toString());
+		
 		
 		CamelContext ctx = new DefaultCamelContext(); 
 		    

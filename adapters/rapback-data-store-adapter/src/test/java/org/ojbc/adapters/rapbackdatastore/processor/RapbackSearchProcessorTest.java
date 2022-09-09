@@ -296,9 +296,12 @@ public class RapbackSearchProcessorTest {
         
         Document civilIdentificationSearchRequest = 
         		XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
-        				+ "rapbackSearch/IdentificationResultsSearchRequestWithCriteria-Criminal.xml"));
+        				+ "rapbackSearch/IdentificationResultsSearchRequestWithCriteria-Civil.xml"));
         IdentificationResultSearchRequest civilSearchRequest = rapbackSearchProcessor.getSearchRequestFromXml(civilIdentificationSearchRequest);
         log.info(civilSearchRequest);
         assertArrayEquals(new String[]{"Available for Subscription", "Subscribed"}, civilSearchRequest.getIdentificationTransactionStatus().toArray() );
+        assertEquals(LocalDate.parse("2011-01-01"), civilSearchRequest.getNotificationDateStartLocalDate());
+        assertEquals(LocalDate.parse("2016-01-01"), civilSearchRequest.getNotificationDateEndLocalDate());
+        
     }
 }

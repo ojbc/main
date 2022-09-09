@@ -17,10 +17,10 @@
 package org.ojbc.util.model.rapback;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -38,6 +38,11 @@ public class IdentificationResultSearchRequest implements Serializable{
 	private Date reportedDateStartDate; 
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date reportedDateEndDate;
+	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date notificationDateStartDate; 
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date notificationDateEndDate;
 	
 	private String firstName; 
 	private String lastName; 
@@ -163,5 +168,41 @@ public class IdentificationResultSearchRequest implements Serializable{
 	public void setUcn(String ucn) {
 		this.ucn = ucn;
 	}
-    
+
+	public Date getNotificationDateStartDate() {
+		return notificationDateStartDate;
+	}
+
+	public void setNotificationDateStartDate(Date notificationDateStartDate) {
+		this.notificationDateStartDate = notificationDateStartDate;
+	}
+
+	public Date getNotificationDateEndDate() {
+		return notificationDateEndDate;
+	}
+
+	public void setNotificationDateEndDate(Date notificationDateEndDate) {
+		this.notificationDateEndDate = notificationDateEndDate;
+	}
+
+	public void setNotificationDateStartLocalDate(LocalDate localDate){
+		this.notificationDateStartDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	public void setNotificationDateEndLocalDate(LocalDate localDate){
+		this.notificationDateEndDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public LocalDate getNotificationDateStartLocalDate() {
+		return getNotificationDateStartDate() == null? null
+				:notificationDateStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public LocalDate getNotificationDateEndLocalDate() {
+		return getNotificationDateEndDate() == null? null
+				:notificationDateEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
 }

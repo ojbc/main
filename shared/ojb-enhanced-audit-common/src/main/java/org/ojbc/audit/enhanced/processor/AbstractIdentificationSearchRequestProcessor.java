@@ -35,6 +35,7 @@ import org.w3c.dom.NodeList;
 
 public abstract class AbstractIdentificationSearchRequestProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractIdentificationSearchRequestProcessor.class);
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -89,6 +90,20 @@ public abstract class AbstractIdentificationSearchRequestProcessor {
         	identificationSearchRequest.setReportedToDate(LocalDate.parse(endDate, formatter));
         }
        
+        String notificationStartDate = XmlUtils.xPathStringSearch(document, 
+        		" /oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:NotificationDateRange/nc30:StartDate/nc30:Date");
+        
+        if(StringUtils.isNotBlank(notificationStartDate)){
+        	identificationSearchRequest.setNotificationFromDate(LocalDate.parse(notificationStartDate, formatter));
+        }
+        
+        String notificationEndDate = XmlUtils.xPathStringSearch(document, 
+        		" /oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:NotificationDateRange/nc30:EndDate/nc30:Date");
+        
+        if(StringUtils.isNotBlank(notificationEndDate)){
+        	identificationSearchRequest.setNotificationToDate(LocalDate.parse(notificationEndDate, formatter));
+        }
+        
         NodeList civilReasonCode = XmlUtils.xPathNodeListSearch(document, "/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:CivilIdentificationReasonCode");
         List<String> reasonCode = new ArrayList<String>();
         
