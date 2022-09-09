@@ -103,7 +103,7 @@
 				            </tr>
 			            </thead>
 			            <tbody>
-			            	<xsl:apply-templates />
+			            	<xsl:apply-templates select="exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult"/>
 			            </tbody> 
 			        </table>
 			        <div id="incidentDetailTabsHolder" style="height:350px;overflow:scroll;"></div>   

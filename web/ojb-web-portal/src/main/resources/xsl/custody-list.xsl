@@ -108,7 +108,7 @@
 								<td class="detailsTitle">INFO OWNER</td>
 								<td class="detailsTitle">BOOKING DATE</td>
 							</tr>
-							<xsl:apply-templates /> 
+							<xsl:apply-templates select="cs-res-ext:CustodySearchResult"/> 
 						</table>
 						<div id="custodyDetailDataHolder"/>   
 					</xsl:otherwise>
