@@ -913,6 +913,7 @@ public class RequestMessageBuilderUtilities {
 
         appendIdentificationSearchRequestPerson(searchRequest, rootElement);
         appendIdentificationReportedDateRange(searchRequest, rootElement);
+        appendNotificationDateRange(searchRequest, rootElement);
         
         if (searchRequest.getIdentificationTransactionStatus() != null){
 	        for ( String identificationTransactionState: searchRequest.getIdentificationTransactionStatus()){
@@ -955,7 +956,21 @@ public class RequestMessageBuilderUtilities {
         }
 	}
 
-    public static final void appendDateWapper( Element parent, 
+	private static void appendNotificationDateRange(
+ 			IdentificationResultSearchRequest searchRequest, Element rootElement) {
+ 		if (searchRequest.getNotificationDateStartDate() != null || 
+ 				searchRequest.getNotificationDateEndDate() != null){
+ 			Element notificationDateRange = 
+ 					XmlUtils.appendElement(rootElement, 
+ 							OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+ 							"NotificationDateRange");
+
+ 			appendDateWapper(notificationDateRange, "StartDate", NS_NC_30, searchRequest.getNotificationDateStartLocalDate()); 
+ 			appendDateWapper(notificationDateRange, "EndDate", NS_NC_30, searchRequest.getNotificationDateEndLocalDate()); 
+ 		}
+ 	}
+
+	public static final void appendDateWapper( Element parent, 
 			String elementName, String wrapperElementNS, LocalDate localDate) {
 		if (localDate != null){
 			Element dateWrapperElement = XmlUtils.appendElement(parent, wrapperElementNS, elementName);

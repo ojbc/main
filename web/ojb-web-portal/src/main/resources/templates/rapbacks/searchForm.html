@@ -54,6 +54,12 @@
                                 <input type="text" th:field="*{reportedDateEndDate}" class="datePicker mdate form-control-sm" placeholder="To" th:errorclass="is-invalid"/>
                                 <div th:if="${#fields.hasErrors('reportedDateStartDate')}" th:errors="*{reportedDateStartDate}" class="invalid-feedback d-block error pl-2">Report Date Range error message</div>
                             </div>
+                            <label class="searchSubHeader">Latest Notification Date Range</label>
+                            <div class="form-group">
+                                <input type="text" th:field="*{notificationDateStartDate}" class="datePicker mdate form-control-sm" placeholder="From" th:errorclass="is-invalid"/>
+                                <input type="text" th:field="*{notificationDateEndDate}" class="datePicker mdate form-control-sm" placeholder="To" th:errorclass="is-invalid"/>
+                                <div th:if="${#fields.hasErrors('notificationDateStartDate')}" th:errors="*{notificationDateStartDate}" class="invalid-feedback d-block error pl-2">Latest Notification Date Range error message</div>
+                            </div>
                             <label class="searchSubHeader">Identification Result Status</label>
                             <div>
                                 <th:block th:each="status, stat : ${identificationResultStatusCodeMap}">
