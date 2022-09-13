@@ -55,15 +55,24 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 				Assertion assertion = samlToken.getToken().getSaml2();
 	
 				userInfo = processUserInfoRequest(assertion);
-			}
-			
-			if (token instanceof X500Principal)
+			} 
+			else if (token instanceof SAMLTokenPrincipal)
+			{
+				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+				
+				Assertion assertion = samlToken.getToken().getSaml2();
+	
+				userInfo = processUserInfoRequest(assertion);
+			} 
+			else if (token instanceof X500Principal)
 			{
 				X500Principal x509Cert = (X500Principal)token;
 				
 				userInfo.setIdentityProviderId(x509Cert.getName());
 	
 			}
+	
+			log.info("User Info: " + userInfo.toString());
 			
 			//Look up user info here
 			List<UserInfo> userInfoEntries = enhancedAuditDAO.retrieveUserInfoFromFederationId(userInfo.getFederationId());
