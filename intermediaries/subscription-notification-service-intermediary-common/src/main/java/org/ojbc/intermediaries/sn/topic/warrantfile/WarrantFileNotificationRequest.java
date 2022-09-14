@@ -51,11 +51,11 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
     public void setUpRequest(Document document) throws Exception{
     	this.requestDocument = document;
 
-        String notificationEventDateTimeString = XmlUtils.xPathStringSearch(document, getNotificationEventDateRootXpath() + "/nc:DateTime");
+        String notificationEventDateTimeString = "Test";
         String notificationEventDateOnlyString = XmlUtils.xPathStringSearch(document, getNotificationEventDateRootXpath() + "/nc:Date");
 
         if (StringUtils.isNotEmpty(notificationEventDateTimeString)) {
-            notificationEventDate = XmlUtils.parseXmlDateTime(notificationEventDateTimeString);
+            notificationEventDate = DateTime.now();
             isNotificationEventDateInclusiveOfTime = true;
         } else if (StringUtils.isNotEmpty(notificationEventDateOnlyString)) {
             notificationEventDate = XmlUtils.parseXmlDate(notificationEventDateOnlyString);
@@ -71,16 +71,11 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
                 "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref");
 
         if (StringUtils.isNotBlank(personReference)) {
-            personFirstName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonGivenName"));
-            personMiddleName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonMiddleName"));
-            personLastName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonSurName"));
-            personNameSuffix = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
-                    + "']/nc:PersonName/nc:PersonNameSuffixText"));
-            personBirthDate = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id='" + personReference
-                    + "']/nc:PersonBirthDate/nc:Date"));
+            personFirstName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName"));
+            personMiddleName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonMiddleName"));
+            personLastName = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName"));
+            personNameSuffix = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonNameSuffixText"));
+            personBirthDate = StringUtils.strip(XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date"));
             
             try
             {
@@ -265,16 +260,16 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 		
 		subjectIdentifiers = new HashMap<String, String>();
 		
-		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
+		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		this.personFirstName = firstName;
 		
-		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
+		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		this.personLastName = lastName;
 		
 		String dateOfBirth = XmlUtils.xPathStringSearch(requestDocument,
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWanted/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
 		
 		logger.debug("Notification message DOB: " + dateOfBirth);
 		

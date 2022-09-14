@@ -188,6 +188,7 @@
 				<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticGracePeriodStrategy" />
 				<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticGracePeriodStrategy" />
 				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value-ref="defaultGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/ncicWarrant" value-ref="defaultGracePeriodStrategy" />
 			</util:map>
 		</constructor-arg>
 	</bean>
