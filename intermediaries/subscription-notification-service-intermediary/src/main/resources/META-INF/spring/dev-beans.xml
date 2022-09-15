@@ -140,6 +140,9 @@
 	<bean id="emailEnhancementStrategy" class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
 		<property name="compositeStrategy">
 			<util:list id="emailEnhancementStrategyList">
+				<bean class="org.ojbc.intermediaries.sn.notification.StaticToEmailEnhancementStrategy">
+					<property name="staticToAddress" value="${publishSubscribe.staticToAddress}" />
+				</bean>
 				<bean class="org.ojbc.intermediaries.sn.notification.WhitelistFilteringEmailEnhancementStrategy">
 					<property name="whitelist" ref="whitelist-set" />
 				</bean>
@@ -167,6 +170,7 @@
 		<entry key="po4@localhost" value="sup@localhost" />
 		<entry key="po5@localhost" value="sup@localhost" />
 		<entry key="po6@localhost" value="sup@localhost" />
+		<entry key="testToStatic@localhost" value="sup@localhost" />
 	</util:map>
 
 	<bean id="whitelist-set" factory-bean="cc-map" factory-method="keySet" />

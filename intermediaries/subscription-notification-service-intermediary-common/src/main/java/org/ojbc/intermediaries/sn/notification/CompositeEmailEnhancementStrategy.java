@@ -20,18 +20,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * An email enhancement implementation that edits emails by passing them to a list of child editors, in sequence.
  *
  */
 public class CompositeEmailEnhancementStrategy implements EmailEnhancementStrategy {
-    
+    private static final Log log = LogFactory.getLog(CompositeEmailEnhancementStrategy.class);
+
     private List<EmailEnhancementStrategy> compositeStrategy = new ArrayList<EmailEnhancementStrategy>();
 
     @Override
     public EmailNotification enhanceEmail(EmailNotification emailNotification) {
         EmailNotification ret = emailNotification;
         for (EmailEnhancementStrategy s : compositeStrategy) {
+        	log.debug("EmailNotification:" + ret);
             ret = s.enhanceEmail(ret);
         }
         return ret;

@@ -34,15 +34,16 @@ public class StaticToEmailEnhancementStrategy implements EmailEnhancementStrateg
     public EmailNotification enhanceEmail(EmailNotification emailNotification) {
         EmailNotification ret = (EmailNotification) emailNotification.clone();
         if ( StringUtils.isNotBlank(staticToAddress)) {
+        	ret.removeAllToEmailAddresses();
             log.info("Replacing the to addresses "  + ret.getToAddressees() 
-            	+ " the static TO address " + staticToAddress);
+            	+ " with the static TO address " + staticToAddress);
             if (staticToAddress.contains(",")) {
                 String[] addresses = staticToAddress.split(",");
                 for (String address : addresses) {
                     ret.addToAddressee(address);;
                 }
             } else {
-                ret.addBccAddressee(staticToAddress);
+                ret.addToAddressee(staticToAddress);
             }
         }
         else {
