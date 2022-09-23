@@ -39,16 +39,16 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Query_Service_Warrants_Intermediary" streamCache="true">
 	
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}" />
+			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryResultsHandlerWarrantsServiceEndpoint"
-			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}" />
+			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryRequestWarrantsServiceAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryRequestWarrantsServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}"/>
+	    	uri="cxf:bean:personQueryRequestWarrantsServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}&amp;allowStreaming=false"/>
 	
 		<endpoint id="presentPersonQueryResultsWarrantsServiceEndpoint" 
-			uri="cxf:bean:presentPersonQueryResultsWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}"/>                        
+			uri="cxf:bean:presentPersonQueryResultsWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}&amp;allowStreaming=false"/>                        
 
 
 		<!-- Federated Search Request Handler-->
