@@ -128,7 +128,7 @@
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.wildlifeLicense.truststorePassword}"
-					file="${federatedQuery.wildlifeLicense.truststoreLocation}" />
+					url="${federatedQuery.wildlifeLicense.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
