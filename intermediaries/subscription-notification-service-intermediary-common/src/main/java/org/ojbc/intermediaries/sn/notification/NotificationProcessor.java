@@ -203,7 +203,7 @@ public abstract class NotificationProcessor {
 
     }
 
-    List<EmailNotification> processNotificationRequest(NotificationRequest request, Message inMessage) {
+    public List<EmailNotification> processNotificationRequest(NotificationRequest request, Message inMessage) {
 
     	//Search for subscription using the subject identifiers
         List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForSubscriptionsMatchingNotificationRequest(request);

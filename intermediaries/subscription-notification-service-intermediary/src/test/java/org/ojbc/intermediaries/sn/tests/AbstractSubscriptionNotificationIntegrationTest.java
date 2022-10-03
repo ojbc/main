@@ -190,11 +190,11 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 			//dumpEmail(email);
 
 			// all the emails should be addressed like this
-			assertEquals("po6@localhost", email.getMimeMessage().getHeader("To", ","));
+			assertEquals("testToStatic@localhost", email.getMimeMessage().getHeader("To", ","));
 			assertEquals("sup@localhost", email.getMimeMessage().getHeader("Cc", ","));
 
 			// now test what the address was that actually received them
-			if ("po6@localhost".equals(email.getEnvelopeReceiver())) {
+			if ("testToStatic@localhost".equals(email.getEnvelopeReceiver())) {
 				toFound = true;
 			} else if ("sup@localhost".equals(email.getEnvelopeReceiver())) {
 				ccFound = true;
