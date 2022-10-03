@@ -102,14 +102,14 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 		
 		String response = pollMap(federatedQueryID);
 		
-//		if (response.length() > 500)
-//		{	
-//			log.debug("Here is the response (truncated): " + response.substring(0,500));
-//		}
-//		else
-//		{
+		if (response.length() > 500)
+		{	
+			log.debug("Here is the response (truncated): " + response.substring(0,500));
+		}
+		else
+		{
 			log.debug("Here is the response: " + response);
-//		}
+		}
 		
 		//return response here
 		return response;
