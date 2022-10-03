@@ -151,7 +151,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please confirm this warrant before taking action.]]></value>
+			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.]]></value>
 		</property>
 	</bean>
 	
@@ -161,7 +161,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[Offender: $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the Washington state warrant system by ORI $emailNotification.subscription.ori. Please confirm this warrant before taking action.]]></value>
+			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the state warrant system by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.]]></value>
 		</property>
 	</bean>
 	
