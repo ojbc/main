@@ -103,9 +103,7 @@ private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStra
 				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
 				            " are NOT authorized to run this query.");
 				}else {
-				    accessControlResponse.setAccessControlResponseMessage("Only authorized personnel for an "
-				            + "authorized ORI: " +
-				            "are allowed to run this query.");
+				    accessControlResponse.setAccessControlResponseMessage("Only authorized personnel for an authorized ORI are allowed to run this query.");
 				}
 				
 			}	
