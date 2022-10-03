@@ -48,7 +48,7 @@
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
+		<ojb-enhanced-audit-common-version>[3.0.3,)</ojb-enhanced-audit-common-version>
 		<ojb-osgi-common-version>[2.0.0,)</ojb-osgi-common-version>
 		<java-version>1.8</java-version>
 	</properties>
