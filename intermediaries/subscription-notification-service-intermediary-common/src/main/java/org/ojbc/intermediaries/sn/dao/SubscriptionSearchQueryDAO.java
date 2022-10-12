@@ -220,7 +220,7 @@ public class SubscriptionSearchQueryDAO {
     	parameters.addValue("state", state);
     	
     	//TODO: Make query by state
-    	String sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1";
+    	String sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and (IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1 or DATEDIFF(s.last_match_date, NOW()) < -30)";
     	
     	List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
     	
@@ -923,6 +923,13 @@ public class SubscriptionSearchQueryDAO {
     			+ "SET available_for_subscription_start_date = ?, FBI_SUBSCRIPTION_STATUS=null WHERE subscription_id = ? ";
     	
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
+    }
+    
+    public void updateLastMatchDate(@Header("subID") String id) {
+    	final String UPDATE_LAST_MATCH_DATE = "UPDATE rapback_datastore.subscription SET LAST_MATCH_DATE=NOW()"
+    			+ "WHERE ID=?";
+    	
+    	this.jdbcTemplate.update(UPDATE_LAST_MATCH_DATE, id);
     }
     
     public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
