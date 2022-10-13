@@ -32,7 +32,6 @@ import javax.sql.DataSource;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -109,7 +108,6 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
-	@Disabled
 	public void testSaveUserAcknowledgement() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/userAcknowledgement";
@@ -134,8 +132,8 @@ public class TestAuditRestImpl {
 		userAcknowledgement.setDecisionDateTime(now);
 		userAcknowledgement.setSid("A123456789");
 		
-		ObjectMapper objectMapper = new ObjectMapper();
-		String userAcknowledgementStr = objectMapper.writeValueAsString(userAcknowledgement);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String userAcknowledgementStr = objectMapper.writeValueAsString(userAcknowledgement);
 		
 		HttpHeaders headers = new HttpHeaders();     
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));     
@@ -206,7 +204,6 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
-	@Disabled
 	public void testAuditRestUserLogin() throws Exception
 	{
 		final String uri = "http://localhost:9898/auditServer/audit/userLogin";
@@ -256,7 +253,9 @@ public class TestAuditRestImpl {
 		authenticationSearchRequest.setStartTime(LocalDateTime.now().minusDays(1));
 		authenticationSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
 		
-		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = restTemplate.postForObject(uriRetreive, authenticationSearchRequest, List.class);
+		@SuppressWarnings("unchecked")
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = 
+				(List<UserAuthenticationSearchResponse>)restTemplate.postForObject(uriRetreive, authenticationSearchRequest, List.class);
 		
 		logger.info(userAuthenticationSearchResponses.toString());
 		
@@ -281,7 +280,6 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
-	@Disabled
 	public void testSearchForFederalRapbackSubscriptionsByStateSubscriptionId() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackSubscriptionsByStateSubscriptionId";
@@ -778,6 +776,7 @@ public class TestAuditRestImpl {
 		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
 		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
 		
+		@SuppressWarnings("unchecked")
 		List<PersonSearchRequest> personSearchRequests = restTemplate.postForObject(uri, personAuditSearchRequest, List.class);
 		
 		assertEquals(1, personSearchRequests.size());
