@@ -71,7 +71,7 @@ private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStra
 			{
 				if (unAuthorizedORIs.contains(employerORI)) 
 				{
-				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI " + employerORI + 
 				            " are NOT authorized to run this query. The ORI is as an unauthorized ORI.");
 				    
 				    accessControlResponse.setAuthorized(false);
@@ -83,7 +83,7 @@ private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStra
 					if (authorizedORIs==null)
 					{
 						accessControlResponse.setAuthorized(true);
-						accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+						accessControlResponse.setAccessControlResponseMessage("Users in the ORI " + employerORI + 
 						        " are authorized to run this query.");
 						
 						return accessControlResponse;
@@ -93,14 +93,14 @@ private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStra
 			
             if (isAuthorized(employerORI, cxfMessage)){
 				accessControlResponse.setAuthorized(true);
-				accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+				accessControlResponse.setAccessControlResponseMessage("Users in the ORI " + employerORI + 
 				        " are authorized to run this query.");
 			}	
 			else{
 				accessControlResponse.setAuthorized(false);
 				
 				if (!authorizedORIs.contains(employerORI)) {
-				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI " + employerORI + 
 				            " are NOT authorized to run this query.");
 				}else {
 				    accessControlResponse.setAccessControlResponseMessage("Only authorized personnel for an authorized ORI are allowed to run this query.");

@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
-	<version>3.0.0</version> 
+	<version>3.0.1</version> 
 	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 

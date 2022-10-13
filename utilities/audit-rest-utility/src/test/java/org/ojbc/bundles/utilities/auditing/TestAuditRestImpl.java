@@ -281,6 +281,7 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
+	@Disabled
 	public void testSearchForFederalRapbackSubscriptionsByStateSubscriptionId() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackSubscriptionsByStateSubscriptionId";
@@ -546,6 +547,7 @@ public class TestAuditRestImpl {
 	}		
 	
 	@Test
+	@Disabled
 	public void testSearchForFederalRapbackNotificationsByStateSubscriptionId() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/federalRapbackNotifications";
@@ -636,6 +638,7 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
+	@Disabled
 	public void testReturnFederalRapbackSubscriptionDetail() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSub123/federalRapbackSubscriptionsDetail";
