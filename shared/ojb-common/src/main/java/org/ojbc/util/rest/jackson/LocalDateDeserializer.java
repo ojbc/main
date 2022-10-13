@@ -20,10 +20,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
 public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
     @Override

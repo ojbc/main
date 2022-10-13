@@ -30,7 +30,7 @@
 	     <ref bean="auditRestImpl" />
 	  </cxf:serviceBeans>
 	  <cxf:providers>
-	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	     <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
 	  </cxf:providers>
 	</cxf:rsServer>
 	 

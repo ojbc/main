@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.11</version> 
+	<version>5.0.12</version> 
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -52,7 +52,6 @@
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.6</xmlunit.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
-		<jackson.version>1.9.13</jackson.version>
 		
 	    <!-- Plugin versions -->
 	    <surefire.version>2.22.2</surefire.version>
@@ -83,16 +82,6 @@
 			<scope>test</scope>
 			<version>${httpcomponents.version}</version>
 		</dependency>
-         <dependency>
-             <groupId>org.codehaus.jackson</groupId>
-             <artifactId>jackson-jaxrs</artifactId>
-             <version>${jackson.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>org.codehaus.jackson</groupId>
-             <artifactId>jackson-core-asl</artifactId>
-             <version>${jackson.version}</version>
-         </dependency>		
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
