@@ -34,6 +34,9 @@
 			<j:ChargeIdentification>
 				<nc:IdentificationID>C123456</nc:IdentificationID>
 			</j:ChargeIdentification>
+            <dc-req-ext:ChargeOwnerAgency>
+                <nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
+            </dc-req-ext:ChargeOwnerAgency>
 		</j:ArrestCharge>
 	</j:Arrest>
 </dc-req-doc:DeclineChargeRequest>

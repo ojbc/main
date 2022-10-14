@@ -298,6 +298,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeOwnerAgency" type="nc:OrganizationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The agency who is responsible for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ArrestPrimarySystemIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>

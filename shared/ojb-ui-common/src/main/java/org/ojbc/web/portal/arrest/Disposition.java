@@ -63,13 +63,15 @@ public class Disposition {
     private String courtCaseNumber;
     private String muniCourtCaseNumber; 
     
+    //mapped to cch's Original Filed Charge
     private String filedCharge;
     private String filedChargeDescription; 
-    private String filedChargeLiteral; 
+    private String filedChargeLiteral;
+    private String chargeSeverityCode;
+    //mapped to cch's Disposed Charge
     private String amendedCharge;
     private String amendedChargeDescription; 
     private String amendedChargeLiteral;
-    private String chargeSeverityCode;
     private String amendedChargeSeverityCode;
     private String generalOffenseCode;
     

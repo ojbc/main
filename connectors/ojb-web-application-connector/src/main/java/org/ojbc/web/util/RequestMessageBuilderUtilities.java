@@ -2141,6 +2141,14 @@ public class RequestMessageBuilderUtilities {
         
         Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
         XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", arrestCharge.getArrestChargeIdentification());
+        
+        if (arrestCharge.getArrestType() != null)
+		{		
+        	Element chargeOwner = XmlUtils.appendElement(arrestChargeElement, 
+        			OjbcNamespaceContext.NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeOwnerAgency");
+			XmlUtils.appendTextElement(chargeOwner, OjbcNamespaceContext.NS_NC_40, "OrganizationCategoryText", 
+					arrestCharge.getArrestType().getDescription());
+		}
         return document;
 	}
 
