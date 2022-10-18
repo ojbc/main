@@ -199,7 +199,7 @@
 						<nc:Date>1970-01-01</nc:Date>
 					</ext:TermEnteredDate>
 					<ext:SentenceTermAugmentation>
-						<codes:SentenceTermCategoryCode>PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED</codes:SentenceTermCategoryCode>
+						<codes:SentenceTermCategoryCode>PROBATION PARTIALLY REVOKED</codes:SentenceTermCategoryCode>
 					</ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
 				<j:SentenceTerm s:metadata="DM01">
