@@ -18,15 +18,20 @@ package org.ojbc.util.rest.jackson;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
+
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+	
+	private static DateTimeFormatter formatter = 
+		      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     @Override
     public void serialize(LocalDateTime arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException, JsonProcessingException {
-        arg1.writeString(arg0.toString());
+        arg1.writeString(formatter.format(arg0));
     }
 }
