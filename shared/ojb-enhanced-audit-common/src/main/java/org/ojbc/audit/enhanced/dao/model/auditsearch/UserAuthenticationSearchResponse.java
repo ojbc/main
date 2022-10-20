@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -29,6 +31,7 @@ public class UserAuthenticationSearchResponse extends UserInfo {
 
 	private String userAction;
 	
+	@JsonFormat(shape = Shape.STRING)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;

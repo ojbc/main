@@ -34,7 +34,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 public class AuditSearchRequest {
 
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(shape = Shape.STRING)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime startTime;
@@ -45,7 +45,7 @@ public class AuditSearchRequest {
 	private LocalDateTime endTime;
 	
 	@DateTimeFormat(pattern="MM/dd/yyyy")
-	@JsonIgnore
+	@JsonIgnore 
 	private Date startDate;
 	
 	@DateTimeFormat(pattern="MM/dd/yyyy")
