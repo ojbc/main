@@ -28,7 +28,6 @@ import javax.annotation.Resource;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
 import org.ojbc.util.xml.XmlUtils;
@@ -43,7 +42,6 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     FbiSubscriptionProcessor fbiSubscriptionProcessor;
     
     @Test
-    @Disabled
     public void testRouteToProcessFbiSubscriptionRoute() throws Exception
     {
     	
@@ -51,7 +49,7 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     	
     	assertTrue(fbiSubscriptionProcessor.routeToProcessFbiSubscriptionRoute(civilSubscriptionDocument));
     	
-    	String base64File = XmlUtils.xPathStringSearch(civilSubscriptionDocument, "//submsg-doc:SubscriptionMessage/submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
+    	String base64File = XmlUtils.xPathStringSearch(civilSubscriptionDocument, "//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
     	
     	assertNotNull(base64File);
     	
