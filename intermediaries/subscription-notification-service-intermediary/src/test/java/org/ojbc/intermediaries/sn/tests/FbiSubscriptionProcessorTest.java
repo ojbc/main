@@ -25,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Resource;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,6 +43,7 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     @Resource
     FbiSubscriptionProcessor fbiSubscriptionProcessor;
     
+
     @Test
     public void testRouteToProcessFbiSubscriptionRoute() throws Exception
     {
@@ -49,12 +52,23 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     	
     	assertTrue(fbiSubscriptionProcessor.routeToProcessFbiSubscriptionRoute(civilSubscriptionDocument));
     	
-    	String base64File = XmlUtils.xPathStringSearch(civilSubscriptionDocument, "//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
+    }
+    
+    @Test
+    public void testProcessSubscription() throws Exception
+    {
+    	
+    	Document civilSubscriptionDocument = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/OJBC_Civil_Subscription_Request_Document.xml"));
+    	Exchange exchange = new DefaultExchange(context);
+
+    	Document document = fbiSubscriptionProcessor.processSubscription(exchange, null, civilSubscriptionDocument);
+    	
+    	String base64File = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
     	
     	assertNotNull(base64File);
     	
     	assertEquals("StateCivilFingerPrints",  new String(Base64.decodeBase64(base64File), StandardCharsets.UTF_8));
-    	
+
     }
     
 }

@@ -43,6 +43,8 @@
 			<log message="\n Operation Name: ${header.operationName} \n"/>
 			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
 			
+			<convertBodyTo type="java.lang.String"/>
+			<camel:log message="Request to send to FBI: ${body}"/>
 			<camel:choice>
 				<when>
 					<simple>${header.operationName} == 'Subscribe' </simple>
@@ -74,6 +76,7 @@
 			<convertBodyTo type="java.lang.String"/>
 			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
 			
+			<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
 			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 			
 			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
@@ -86,6 +89,7 @@
 			
 			<camel:log message="\nCalling fbi ebts service to modify the FBI subscription from FBI... \n"/>
 			
+			<camel:removeHeaders pattern="*"/>
 			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
 			<camel:setHeader name="operationName"><constant>Modify</constant></camel:setHeader>
 			

@@ -38,7 +38,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
-		id="subscription-notification-service-intermediary" streamCache="true">
+		id="subscription-notification-service-intermediary">
 		<camel:routeContextRef ref="searchQueryRoutes" />
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
 		<camel:routeContextRef ref="fbiRoutes" />
@@ -63,8 +63,8 @@
 			<camel:from uri="notificationBrokerServiceEndpoint" />
 
 			<camel:log message="This is the operation: ${header.operationName}" />
-      <convertBodyTo type="java.lang.String"/>
-      <camel:log message="Process notification Request: ${body}" loggingLevel="DEBUG"/>
+			<convertBodyTo type="java.lang.String"/>
+			<camel:log message="Process notification Request: ${body}" loggingLevel="DEBUG"/>
 
 			<camel:choice>
 				<camel:when>
@@ -430,6 +430,8 @@
 					<camel:simple>${bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute}</camel:simple>
 					
 					<camel:log message="Process FBI subscription, processor returned true."/>
+					
+					<camel:log message="body: ${body}"/>
 					
 					<to uri="direct:processPotentialFbiSubscription"/>
 				</camel:when>			 				 							 																														 				
