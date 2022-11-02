@@ -101,6 +101,12 @@ public class Subscription implements Serializable {
 	//Email notification recipients
 	private List<String> emailList = new ArrayList<String>();
 	
+	//Sending State PO Info
+	private String sendingStatePO;
+	
+	//Receiving State PO Info
+	private String receivingStatePO;
+	
 	//Category
 	private String subscriptionPurpose;
 	
@@ -134,6 +140,22 @@ public class Subscription implements Serializable {
 	
 	private String transactionNumber; 
 	private String ownerProgramOca; 
+	
+	public String getSendingStatePO() {
+		return sendingStatePO;
+	}
+
+	public void setSendingStatePO(String sendingStatePO) {
+		this.sendingStatePO = sendingStatePO;
+	}
+
+	public String getReceivingStatePO() {
+		return receivingStatePO;
+	}
+
+	public void setReceivingStatePO(String receivingStatePO) {
+		this.receivingStatePO = receivingStatePO;
+	}
 	
 	public String getState() {
 		return state;

@@ -40,6 +40,7 @@ public class StateWarrantFileNotificationRequest extends NotificationRequest{
 
     public StateWarrantFileNotificationRequest(Document document) throws Exception {
         super(document);
+        notificationEventDate = DateTime.now();
         buildSubjectIdMap();        
     }
     
@@ -56,7 +57,7 @@ public class StateWarrantFileNotificationRequest extends NotificationRequest{
         return StringUtils.strip(eventDate);
     }
     
-	@Override
+    @Override
 	protected String getNotificationEventDateRootXpath() {
 		
 		// note doesn't return nc:Date or nc:DateTime but rather returns their parent node,
@@ -82,7 +83,7 @@ public class StateWarrantFileNotificationRequest extends NotificationRequest{
 
 	private String getOrigOrganizationRef() throws Exception {
 		String origOrganizerRef = XmlUtils.xPathStringSearch(requestDocument, 
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/chu:CycleTrackingIdentifierAssignment/chu:OriginatorOrganizationReference/@s:ref");
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/notfm-ext:NotifyingOrganizationReference/@s:ref");
 		
 		logger.info("Notifying Agency ref: " + origOrganizerRef);
 		return origOrganizerRef;
@@ -128,13 +129,20 @@ public class StateWarrantFileNotificationRequest extends NotificationRequest{
 		
 		subjectIdentifiers = new HashMap<String, String>();
 		
-		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, personFirstName);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, personLastName);
+		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
+		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
+		this.personFirstName = firstName;
+		
+		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
+		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
+		this.personLastName = lastName;
 		
 		String dateOfBirth = XmlUtils.xPathStringSearch(requestDocument,
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
+				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
 		
 		logger.debug("Notification message DOB: " + dateOfBirth);
+		
+		this.personBirthDate = dateOfBirth;
 		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
 	}
@@ -150,5 +158,5 @@ public class StateWarrantFileNotificationRequest extends NotificationRequest{
 			return null;
 		}
 
-	}	
+	}
 }

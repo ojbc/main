@@ -405,6 +405,22 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		buildPersonTraitsNode(subjectNode, subscription);
 		
 		buildStateElement(subjectNode, subscription);
+		
+		buildParoleOfficersNode(subjectNode, subscription);
+	}
+	
+	private static void buildParoleOfficersNode(Element subjectNode, Subscription subscription) {
+		String sendingStatePOInfo = subscription.getSendingStatePO();
+		if(sendingStatePOInfo != null || StringUtils.isNotBlank(sendingStatePOInfo)) {
+			Element sendingPONode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "SendingStatePO");
+			sendingPONode.setTextContent(sendingStatePOInfo);
+		}
+		
+		String receivingStatePOInfo = subscription.getReceivingStatePO();
+		if(receivingStatePOInfo != null || StringUtils.isNotBlank(receivingStatePOInfo)) {
+			Element receivingPONode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "ReceivingStatePO");
+			receivingPONode.setTextContent(receivingStatePOInfo);
+		}
 	}
 	
 	private static void buildPersonTraitsNode(Element subjectNode, Subscription subscription) {

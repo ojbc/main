@@ -23,6 +23,7 @@
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
@@ -110,10 +111,16 @@
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
+					<camel:setHeader name="ori">
+						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
+					</camel:setHeader>
 					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
+					<camel:setHeader name="ori">
+						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
+					</camel:setHeader>
 					<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
 				<camel:when>

@@ -147,27 +147,39 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	
 	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Warrant File Notification [Subject $emailNotification.subjectName]"</value>
+			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
+			<value><![CDATA[
+			
+			Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
 			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.]]></value>
 		</property>
 	</bean>
 	
 	<bean id="defaultStateWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Warrant File Notification [Subject $emailNotification.subjectName]"</value>
+			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[Offender: $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-			Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the state warrant system by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.]]></value>
+			<value><![CDATA[
+#foreach ($emailAddress in $emailNotification.subscription.emailAddressesToNotify)
+#if($foreach.index == 0)
+Receiving State PO: $emailAddress
+#end
+#if($foreach.index == 1)
+Sending State PO: $emailAddress
+#end
+#end
+Offender: $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
+Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subject of a warrant entered into the state warrant system by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
+	]]></value>
 		</property>
 	</bean>
 	
 	<bean id="defaultSRFEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Warrant File Notification [Subject $emailNotification.subjectName]"</value>
+			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
