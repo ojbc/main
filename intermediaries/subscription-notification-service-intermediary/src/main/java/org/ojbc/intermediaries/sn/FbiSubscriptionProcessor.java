@@ -170,7 +170,10 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		
 		log.info("\n\n processSubscription...\n\n");		
 		
+		appendCivilFingerPrintsToSubscriptionDoc(subscriptionDoc);
+		
 		FbiRapbackSubscription fbiRapbackSubscription = null;
+		
 		
 		if( subscriptionId != null && subscriptionId > 0){
 			fbiRapbackSubscription = rapbackDao.getFbiRapbackSubscription(subscriptionId);
@@ -288,6 +291,35 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	}	
 	
 	
+	public void appendCivilFingerPrintsToSubscriptionDoc(Document document) throws Exception{
+		String civilSubscriptionReasonCode = XmlUtils.xPathStringSearch(document, 
+				"//submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");
+		log.info("Civil Subscription Reason Code: " + civilSubscriptionReasonCode );
+		
+		if (StringUtils.isNotBlank(civilSubscriptionReasonCode) 
+				&& !nonFbiSubscriptionReasonCodes.contains(civilSubscriptionReasonCode)){
+			String transactionNumber = XmlUtils.xPathStringSearch(document, 
+					"//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
+			
+			//Add civil fingerprints here
+ 			byte[] civilFingerPrint = rapbackDao.getCivilFingerPrints(transactionNumber);
+			
+			if (civilFingerPrint != null){
+				Element subscriptionMessage = (Element) XmlUtils.xPathNodeSearch(document, "//submsg-exch:SubscriptionMessage");
+				
+				Element fingerPrintDocument = XmlUtils.appendElement(subscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FingerprintDocument");
+				
+				Element documentBinary = XmlUtils.appendElement(fingerPrintDocument, OjbcNamespaceContext.NS_NC, "nc:DocumentBinary");
+				
+				Element base64BinaryObject = XmlUtils.appendElement(documentBinary, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:Base64BinaryObject");
+				
+				base64BinaryObject.setTextContent(Base64.encodeBase64String(civilFingerPrint));
+				
+				log.info("Added Civil Finger Print Base64BinaryObject"); 
+			}	
+			
+		}
+	}
 	public Document appendFbiDataToSubscriptionDoc(Document subscriptionDoc, FbiRapbackSubscription fbiRapbackSubscription) throws Exception{
 				
 		log.info("appendFbiDataToSubscriptionDoc...");
@@ -414,24 +446,6 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
 				
 				log.info("FBI Subscription Qualification: " + fbiSubscriptionQualification );
-				
-				//Add civil fingerprints here
-	 			byte[] civilFingerPrint = rapbackDao.getCivilFingerPrints(transactionNumber);
-				
-				if (civilFingerPrint != null)
-				{
-					Element subscriptionMessage = (Element) XmlUtils.xPathNodeSearch(document, "//submsg-exch:SubscriptionMessage");
-					
-					Element fingerPrintDocument = XmlUtils.appendElement(subscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FingerprintDocument");
-					
-					Element documentBinary = XmlUtils.appendElement(fingerPrintDocument, OjbcNamespaceContext.NS_NC, "nc:DocumentBinary");
-					
-					Element base64BinaryObject = XmlUtils.appendElement(documentBinary, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:Base64BinaryObject");
-					
-					base64BinaryObject.setTextContent(Base64.encodeBase64String(civilFingerPrint));
-					
-				}	
-				
 				
 				return BooleanUtils.isTrue(fbiSubscriptionQualification);
 			}

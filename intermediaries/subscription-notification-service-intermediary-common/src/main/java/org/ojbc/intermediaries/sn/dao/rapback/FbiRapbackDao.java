@@ -94,7 +94,7 @@ public class FbiRapbackDao {
 		try {
 			fingerPrintsFileZipped = jdbcTemplate.queryForObject(CIVIL_FINGERPRINT_SELECT, byte[].class, transactionNumber);
 		} catch (DataAccessException e) {
-			log.error("Query returned no results");
+			log.error("Query returned no results", e);
 		}
 		
 		byte[] fingerPrintsFileUnzipped = null;

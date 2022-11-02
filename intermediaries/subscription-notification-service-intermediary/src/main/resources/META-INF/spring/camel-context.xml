@@ -63,8 +63,8 @@
 			<camel:from uri="notificationBrokerServiceEndpoint" />
 
 			<camel:log message="This is the operation: ${header.operationName}" />
-      <convertBodyTo type="java.lang.String"/>
-      <camel:log message="Process notification Request: ${body}" loggingLevel="DEBUG"/>
+			<convertBodyTo type="java.lang.String"/>
+			<camel:log message="Process notification Request: ${body}" loggingLevel="DEBUG"/>
 
 			<camel:choice>
 				<camel:when>
@@ -160,6 +160,7 @@
 				<camel:when>
 					<camel:simple>${in.header.operationName} == 'Subscribe'</camel:simple>
 					<camel:log message="In subscribe block" />
+					<camel:log message="Body: ${body}" />
 					<camel:doTry>
 						<camel:setHeader name="subscriptionOwner">
 							<constant>SYSTEM</constant>
@@ -430,6 +431,8 @@
 					<camel:simple>${bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute}</camel:simple>
 					
 					<camel:log message="Process FBI subscription, processor returned true."/>
+					
+					<camel:log message="body: ${body}"/>
 					
 					<to uri="direct:processPotentialFbiSubscription"/>
 				</camel:when>			 				 							 																														 				

@@ -127,6 +127,37 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	}
 	
 	@Test
+	public void subscribeRapbackWithFbiData() throws Exception {
+		
+		String response = invokeRequest("Civil_Subscription_SoapRequest_Document.xml", notificationBrokerUrl);
+		
+//		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));    
+//		
+//		Thread.sleep(3000);
+//		
+//		//Query for subscription just added to confirm validation date
+//		//DB Unit doesn't have good support for this
+//		//See: http://stackoverflow.com/questions/2856840/date-relative-to-current-in-the-dbunit-dataset
+//		Map<String, String> subjectIdentifiers = new HashMap<String, String>();
+//		subjectIdentifiers.put("SID", "A9999999");
+//		
+//		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("{http://ojbc.org/wsn/topics}:person/arrest", "{http://demostate.gov/SystemNames/1.0}SystemA", "SYSTEM", subjectIdentifiers );
+//		
+//		//We should only get one result
+//		assertEquals(2, subscriptions.size());
+//		
+//		//Get the validation date from database
+//		DateTime lastValidationDate = subscriptions.get(1).getLastValidationDate();
+//		
+//		//Add one year to the current date
+//		DateTime todayPlusOneYear = new DateTime();
+//		todayPlusOneYear.plusYears(1);
+//		
+//		//Assert that the date stamp is equal for both dates.
+//		assertEquals(lastValidationDate.toString("yyyy-MM-dd"), todayPlusOneYear.toString("yyyy-MM-dd"));
+	}
+	
+	@Test
 	@DirtiesContext
 	public void testPrepareUnsubscribeMessageForFbiEbts() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
