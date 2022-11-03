@@ -202,7 +202,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
 		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest_MultipleCharges.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
-				"SID: A9999999", 3);
+				"SID: A9999999", 0);
 		
 		// there should be three messages:  one to the "to", one to the "cc", and one to the "bcc"
 		for (WiserMessage email : emails) {
@@ -228,7 +228,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
     	assertEquals(2, rowsUpdated);
     	
         notifyAndAssertBasics("notificationSoapRequest_A5008305.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
-                "SID: A5008305", 6);
+                "SID: A5008305", 0);
     }
 
     @Test
@@ -356,7 +356,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
                 "Offense Code: Robbery<br/>Offense Description: Robbery<br/><br/>\n" +
                 "Officer: Clancy Wiggum<br/>\n" +
                 "To follow up on this incident, please call Montpelier Police Department."
-                , 3);
+                , 0);
         
     }
 
@@ -379,7 +379,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
                 "Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/><br/>\n" +
                 "Offense Code: Robbery<br/>Offense Description: Robbery<br/><br/>\n" +
                 "Officer: Clancy Wiggum<br/>\n" 
-                , 3);
+                , 0);
         
     }
     
