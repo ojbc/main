@@ -36,6 +36,7 @@ public class CannabisLicensingQueryResponse {
 	private String messageId;
 	private String licenseNumber;
 	
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate expirationDate;

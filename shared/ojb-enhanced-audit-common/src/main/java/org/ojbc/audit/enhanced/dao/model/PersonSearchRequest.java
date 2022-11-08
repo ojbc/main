@@ -50,10 +50,12 @@ public class PersonSearchRequest {
 	
 	private String lastNameQualifierCode;
 	
+	@JsonFormat(shape = Shape.STRING)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobFrom;
 	
+	@JsonFormat(shape = Shape.STRING)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobTo;
