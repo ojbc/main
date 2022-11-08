@@ -132,8 +132,8 @@
 	<http:conduit
 		name="*.http-conduit">
 		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${identificationReportingService.keyPassword}">
-	        	<sec:keyStore type="jks" password="${identificationReportingService.keystorePassword}" url="${identificationReportingService.keystoreLocation}" />
+			<sec:keyManagers keyPassword="${identificationReportingService.intermediaryKeyPassword}">
+	        	<sec:keyStore type="jks" password="${identificationReportingService.intermediaryKeystorePassword}" url="${identificationReportingService.intermediaryKeystoreLocation}" />
 	   	 	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"

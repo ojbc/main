@@ -119,9 +119,28 @@ private static final Log log = LogFactory.getLog(OriAndIncidentAccessControlStra
 
 
     private boolean isAuthorized(String employerORI, Message cxfMessage) {
-        String incidentAccessIndicator = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.IncidentAccessIndicator);
-        log.debug("IncidentAccessIndicator" + StringUtils.trimToEmpty(incidentAccessIndicator));
+        String incidentAccessIndicatorString = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.IncidentAccessIndicator);
+        log.debug("IncidentAccessIndicator" + StringUtils.trimToEmpty(incidentAccessIndicatorString));
         
-        return authorizedORIs.contains(employerORI) && BooleanUtils.toBoolean(incidentAccessIndicator);
+        boolean isAuthorized = false;
+        
+        boolean incidentAccessIndicator = false;
+        
+        if (StringUtils.isNotBlank(incidentAccessIndicatorString))
+        {
+        	if (BooleanUtils.toBoolean(incidentAccessIndicatorString.trim()))
+        	{
+        		incidentAccessIndicator = true;
+        	}	
+        }
+        
+        boolean authorizedORIIndicator = authorizedORIs.contains(employerORI);
+        
+        if (incidentAccessIndicator && authorizedORIIndicator)
+        {
+        	isAuthorized = true;
+        }	
+        
+        return isAuthorized;
     }
 }

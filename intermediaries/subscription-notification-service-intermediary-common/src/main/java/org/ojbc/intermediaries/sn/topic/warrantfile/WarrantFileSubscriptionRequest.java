@@ -34,12 +34,15 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		String dateOfBirth = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
 		String gender = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Sex");
 		String race = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Race");
+		String sendingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingStatePO");
+		String receivingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingStatePO");
 
-		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO);
+
 		
 	}
 
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race) {
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
@@ -47,5 +50,7 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		subjectIdentifiers.put("sex", gender);
 		subjectIdentifiers.put("race", race);
+		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
+		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
 	}
 }

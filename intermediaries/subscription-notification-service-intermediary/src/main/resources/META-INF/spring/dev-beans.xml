@@ -165,7 +165,7 @@
 		<entry key="po4@localhost" value="sup@localhost" />
 		<entry key="po5@localhost" value="sup@localhost" />
 		<entry key="po6@localhost" value="sup@localhost" />
-		<entry key="testToStatic@localhost" value="sup@localhost" />
+		<entry key="ictsns@search.org" value="" />
 	</util:map>
 
 	<bean id="whitelist-set" factory-bean="cc-map" factory-method="keySet" />
@@ -188,6 +188,7 @@
 				<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticGracePeriodStrategy" />
 				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value-ref="defaultGracePeriodStrategy" />
 				<entry key="{http://ojbc.org/wsn/topics}:person/ncicWarrant" value-ref="defaultGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/nletsWarrant" value-ref="defaultGracePeriodStrategy" />
 			</util:map>
 		</constructor-arg>
 	</bean>
