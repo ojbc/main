@@ -56,19 +56,19 @@
 			<xsd:enumeration value="JV SUPPORT BY FATHER" />
 			<xsd:enumeration value="JV SUPPORT BY GUARDIAN" />
 			<xsd:enumeration value="JV SUPPORT BY MOTHER" />
-<!-- ADDED 05/12/20  -->		
+<!-- ADDED 05/12/20  -->
 			<xsd:enumeration value="JV CUSTODY TO PARENT" />
-			<xsd:enumeration value="JV CUSTODY TO PARENTS" />	
-			<xsd:enumeration value="JV CUSTODY TO GUARDIAN" />					
+			<xsd:enumeration value="JV CUSTODY TO PARENTS" />
+			<xsd:enumeration value="JV CUSTODY TO GUARDIAN" />
 			<xsd:enumeration value="JV INSURANCE REQUIREMENT - PARENT" />
 			<xsd:enumeration value="JV INSURANCE REQUIREMENT - PARENTS" />
-			<xsd:enumeration value="JV INSURANCE REQUIREMENT - GUARDIAN" />			
-			<xsd:enumeration value="JV INSURANCE REQUIREMENT - OTHER" />			
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - GUARDIAN" />
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - OTHER" />
 			<xsd:enumeration value="JV SUPPORT BY PARENT" />
-			<xsd:enumeration value="JV SUPPORT BY PARENTS" />	
-			<xsd:enumeration value="JV SUPPORT BY GUARDIAN" />					
-			<xsd:enumeration value="JV SUPPORT BY OTHER" />								
-<!-- ADDED 05/12/20  -->	
+			<xsd:enumeration value="JV SUPPORT BY PARENTS" />
+			<xsd:enumeration value="JV SUPPORT BY GUARDIAN" />
+			<xsd:enumeration value="JV SUPPORT BY OTHER" />
+<!-- ADDED 05/12/20  -->
 			<xsd:enumeration value="PARTICIPATE IN DEEP" />
 			<xsd:enumeration value="SEX OFFENDER REGISTRATION" />
 			<xsd:enumeration value="SEXUAL OFFENDER" />
@@ -796,7 +796,7 @@
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - TERMINATED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - CONTINUED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - TERMINATED" />
-<!-- ADDED 09/29/21  -->			
+<!-- ADDED 09/29/21  -->
 			<xsd:enumeration value="ORIGINAL SENTENCE" />
 		</xsd:restriction>
 	</xsd:simpleType>
@@ -887,7 +887,7 @@
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="FILING" />
 			<xsd:enumeration value="JUDGMENT" />
-            <xsd:enumeration value="POST-JUDGMENT"/>			
+            <xsd:enumeration value="POST-JUDGMENT"/>
 			<xsd:enumeration value="POST-SENTENCE" />
 			<xsd:enumeration value="PRE-JUDGMENT" />
 			<xsd:enumeration value="REACTIVATED CASE" />
@@ -914,6 +914,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CERTIFY/NOTIFICATION"/>
 			<xsd:enumeration value="FILING DOCUMENT" />
 			<xsd:enumeration value="FINDING" />
 			<xsd:enumeration value="HEARING" />
@@ -1071,6 +1072,7 @@
 			<xsd:enumeration value="RULE 3 DISMISSAL" />
 			<xsd:enumeration value="RULE 92(d) DISMISSAL" />
 			<xsd:enumeration value="SPOUSAL SUPPORT JUDGMENT" />
+			<xsd:enumeration value="SBI ELECTRONIC NOTIFICATION" />
 			<xsd:enumeration value="STIPULATION OF DISMISSAL" />
 			<xsd:enumeration value="SUBPOENA ISSUED" />
 			<xsd:enumeration value="SUMMARILY DISMISSED" />
@@ -1093,15 +1095,15 @@
 			<xsd:enumeration value="SUPERVISED RELEASE NOT VIOLATED" />
 			<xsd:enumeration value="SUPERVISED RELEASE VIOLATED" />
 			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />
-<!-- ADDED 09/29/21  -->				
-			<xsd:enumeration value="FINDING INCOMPETENCE TO STAND TRIAL" />			
+<!-- ADDED 09/29/21  -->
+			<xsd:enumeration value="FINDING INCOMPETENCE TO STAND TRIAL" />
 			<xsd:enumeration value="MOTION TO CONVERT ADMIN REL" />
 			<xsd:enumeration value="ORDER TO REOPEN CRIMINAL HISTORY FILE" />
 			<xsd:enumeration value="SUPERCEDING INDICTMENT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - PLED TO OTHER CHARGE" />
 			<xsd:enumeration value="GUILTY - CONTINUED FOR SENTENCING" />
 			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />
-<!-- ADDED 11/22/21  -->				
+<!-- ADDED 11/22/21  -->
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - CONTINUED"/>
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - TERMINATED"/>
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED"/>
@@ -1112,7 +1114,7 @@
 			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - TERMINATED"/>
 			<xsd:enumeration value="SUPERVISED RELEASE REVOKED" />
 <!-- ADDED 11/29/21  -->
-			<xsd:enumeration value="DISMISSED AFTER DEFERRED DISPOSITION" />											
+			<xsd:enumeration value="DISMISSED AFTER DEFERRED DISPOSITION" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventStatusCodeType">
