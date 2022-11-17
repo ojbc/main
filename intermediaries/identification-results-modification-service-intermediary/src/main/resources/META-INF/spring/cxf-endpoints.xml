@@ -113,8 +113,6 @@
        </policy:policies>
     </cxf:features>
     </cxf:cxfEndpoint>
-   
-
 
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
@@ -126,12 +124,12 @@
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${identificationModification.truststorePassword}"
-					file="${identificationModification.truststoreLocation}" />
+					url="${identificationModification.truststoreLocation}" />
 			</sec:trustManagers>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
-   
+	
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
