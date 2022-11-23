@@ -82,8 +82,8 @@
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:keyManagers keyPassword="${publishSubscribe.keyPassword}">
-					<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" url="${publishSubscribe.keystoreLocation}" />
-				</sec:keyManagers>
+				<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" url="${publishSubscribe.keystoreLocation}" />
+			</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${parole.event.truststorePassword}"

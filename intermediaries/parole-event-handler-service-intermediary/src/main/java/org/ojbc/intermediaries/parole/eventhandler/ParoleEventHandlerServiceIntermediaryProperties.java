@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "criminal.history.update")
+@ConfigurationProperties(prefix = "parole.event")
 public class ParoleEventHandlerServiceIntermediaryProperties {
 	private String dbAuditLog = "false";
 
