@@ -49,7 +49,5 @@ public class StateWarrantFileSubscriptionRequest extends SubscriptionRequest{
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		subjectIdentifiers.put("sex", gender);
 		subjectIdentifiers.put("race", race);
-		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
-		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
 	}
 }

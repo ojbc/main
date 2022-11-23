@@ -147,7 +147,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	
 	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
+			<value>Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query</value>
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[
@@ -167,7 +167,7 @@ Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subjec
 	
 	<bean id="defaultStateWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
+			<value>Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query</value>
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[
@@ -187,7 +187,7 @@ Compact Case ID: $emailNotification.subscription.agencyCaseNumber was the subjec
 	
 	<bean id="defaultSRFEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>"Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query"</value>
+			<value>Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query</value>
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
