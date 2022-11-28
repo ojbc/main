@@ -159,7 +159,11 @@
 			<camel:log message="\n\n\n After transform: \n\n ${body} \n\n\n" />
 			
 			<camel:removeHeaders pattern="*" excludePattern="tokenID|federatedQueryRequestGUID|WSAddressingReplyTo"/>
-			<camel:to uri="bean:subscriptionManagerServiceMessageProcessor?method=sendResponseMessage" />
+			
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			
+			<camel:to uri="notificationBrokerServiceEndpoint" id="notificationBrokerServiceEndpoint"/>
 		</camel:route>
 
 
@@ -175,7 +179,18 @@
 			<camel:log message="\n\n\n After paroleDocumentToSubscription.xsl, body: \n\n ${body} \n\n\n" />
 			
 			<camel:removeHeaders pattern="*" excludePattern="tokenID|federatedQueryRequestGUID|WSAddressingReplyTo"/>
-			<camel:to uri="bean:notificationBrokerServiceMessageProcessor?method=sendResponseMessage" />
+			
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
+			
+			<camel:doTry>
+				<camel:to uri="subscriptionManagerServiceEndpoint" id="subscriptionManagerServiceEndpoint"/>
+				
+		        <doCatch>
+		            <exception>org.apache.cxf.binding.soap.SoapFault</exception>
+		            <camel:log message="Unsubscription threw soap fault (unsubscription failed likely due to no active subscription): ${exception.message}"/>
+		        </doCatch>
+			</camel:doTry>			
 			
 		</camel:route>
 		
