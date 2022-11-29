@@ -160,10 +160,18 @@
 			
 			<camel:removeHeaders pattern="*" excludePattern="tokenID|federatedQueryRequestGUID|WSAddressingReplyTo"/>
 			
-			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-			<camel:setHeader name="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
 			
-			<camel:to uri="notificationBrokerServiceEndpoint" id="notificationBrokerServiceEndpoint"/>
+			<camel:doTry>
+				<camel:to uri="subscriptionManagerServiceEndpoint" id="subscriptionManagerServiceEndpoint"/>
+				
+		        <doCatch>
+		            <exception>org.apache.cxf.binding.soap.SoapFault</exception>
+		            <camel:log message="Unsubscription threw soap fault (unsubscription failed likely due to no active subscription): ${exception.message}"/>
+		        </doCatch>
+			</camel:doTry>
+			
 		</camel:route>
 
 
@@ -180,17 +188,10 @@
 			
 			<camel:removeHeaders pattern="*" excludePattern="tokenID|federatedQueryRequestGUID|WSAddressingReplyTo"/>
 			
-			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
-			<camel:setHeader name="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			
-			<camel:doTry>
-				<camel:to uri="subscriptionManagerServiceEndpoint" id="subscriptionManagerServiceEndpoint"/>
-				
-		        <doCatch>
-		            <exception>org.apache.cxf.binding.soap.SoapFault</exception>
-		            <camel:log message="Unsubscription threw soap fault (unsubscription failed likely due to no active subscription): ${exception.message}"/>
-		        </doCatch>
-			</camel:doTry>			
+			<camel:to uri="notificationBrokerServiceEndpoint" id="notificationBrokerServiceEndpoint"/>			
 			
 		</camel:route>
 		

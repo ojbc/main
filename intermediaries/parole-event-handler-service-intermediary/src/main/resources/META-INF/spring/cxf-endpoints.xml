@@ -44,12 +44,8 @@
     <camel:endpoint id="paroleEventHandlerServiceEndpoint" 
     	uri="cxf:bean:paroleEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                        
     
-    <camel:endpoint id="notificationBrokerServiceEndpoint" 
-    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
-    
-    <camel:endpoint id="subscriptionManagerServiceEndpoint" 
-    	uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
-
+    <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
+    <camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${parole.event.cxflogging}"/>                
     
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -66,7 +62,7 @@
 		serviceName="ojb-sm:SubscriptionManagerServiceService" endpointName="ojb-sm:SubscriptionManager"
 		xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>
-    
+
 	<!-- OJB Parole Event Handler Service, hosted by intermediary -->
 	<cxf:cxfEndpoint id="paroleEventHandlerService"
 		address="${publishSubscribe.paroleEventHandlerEndpoint}"
