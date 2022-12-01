@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -175,13 +176,11 @@ public class WarrantFileNotificationProcessor extends NotificationProcessor{
 
            String subscriptionSubscribingSystemName = subscription.getSubscribingSystemIdentifier();
            
-           for (String emailAddress : subscription.getEmailAddressesToNotify()) {
                
-               en = createEmailNotification(request, emailNotifications,
+           en = createEmailNotification(request, emailNotifications,
 						subscription, en, subscriptionSubscribingSystemName,
-						emailAddress, ori);
+						"ictsns@search.org", ori);
                
-           }
            
            if (isSendNotificationToSubscriptionOwner())
            {
