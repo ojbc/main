@@ -40,6 +40,11 @@
 		<camel:route id="processNotificationRoute">
 
 			<camel:from uri="direct:processNotification" />
+			
+			<camel:setHeader name="Content-Type">
+				<constant>text/plain</constant>
+			</camel:setHeader>
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
