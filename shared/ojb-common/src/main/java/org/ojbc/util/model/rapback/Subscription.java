@@ -175,6 +175,18 @@ public class Subscription {
 	private String transactionNumber; 
 	private String ownerProgramOca; 
 	
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
+	private DateTime lastMatchDate;
+	
+	public DateTime getLastMatchDate() {
+		return lastMatchDate;
+	}
+
+	public void setLastMatchDate(DateTime lastMatchDate) {
+		this.lastMatchDate = lastMatchDate;
+	}
+
 	public String getState() {
 		return state;
 	}
