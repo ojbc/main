@@ -42,7 +42,7 @@
 			<camel:from uri="direct:processNotification" />
 			
 			<camel:setHeader name="Content-Type">
-				<constant>text/plain</constant>
+				<constant>text/html</constant>
 			</camel:setHeader>
 			
 			<camel:choice>

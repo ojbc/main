@@ -356,7 +356,7 @@
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/ncicWarrant' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
-	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ncicWarrant'</camel:xpath>
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ncicWarrant'</camel:xpath>
 	      			
 	      			<camel:log message="Within Warrant Block" />
 	      			
@@ -366,7 +366,7 @@
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/nletsWarrant' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
-	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/nletsWarrant'</camel:xpath>
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/nletsWarrant'</camel:xpath>
 	      			
 	      			<camel:log message="Within NLETS Warrant Block" />
 	      			
@@ -376,7 +376,7 @@
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/srfNotification' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
-	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/srfNotification'</camel:xpath>
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/srfNotification'</camel:xpath>
 	      			
 	      			<camel:log message="Within SRF Block" />
 	      			
