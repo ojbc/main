@@ -31,6 +31,10 @@
 		</j:ArrestAgencyRecordIdentification>
 		<j:ArrestCharge>
 			<j:ChargeDescriptionText>Possession of controlled substance</j:ChargeDescriptionText>
+            <j:ChargeDisposition>
+                <dc-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</dc-req-ext:DispositionDismissalReasonText>
+                <dc-req-ext:DispositionDismissalReasonCodeText>DISCODE</dc-req-ext:DispositionDismissalReasonCodeText>
+            </j:ChargeDisposition>
 			<j:ChargeIdentification>
 				<nc:IdentificationID>C123456</nc:IdentificationID>
 			</j:ChargeIdentification>

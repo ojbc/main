@@ -2139,6 +2139,15 @@ public class RequestMessageBuilderUtilities {
         Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
         XmlUtils.appendTextElement(arrestChargeElement, NS_JXDM_60, "ChargeDescriptionText", arrestCharge.getArrestChargeDescription());
         
+        Disposition disposition = arrestCharge.getDisposition();
+        if (StringUtils.isNotBlank(disposition.getReasonForDismissal())) {
+        	Element chargeDisposition = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeDisposition");
+    		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    				"DispositionDismissalReasonText", disposition.getReasonForDismissalDescripiton());
+    		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    				"DispositionDismissalReasonCodeText", disposition.getReasonForDismissal());
+    	}
+    	
         Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
         XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", arrestCharge.getArrestChargeIdentification());
         

@@ -60,8 +60,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -104,7 +102,7 @@ public class TestAuditRestImpl {
 		
     	context.start();
     	this.jdbcTemplate = new JdbcTemplate(dataSource);
-    	restTemplate.setMessageConverters(getMessageConverters());
+//    	restTemplate.setMessageConverters(getMessageConverters());
 	}
 	
 	@Test
@@ -174,6 +172,7 @@ public class TestAuditRestImpl {
 		printResults.setMessageId("12345");
 		printResults.setSystemName("system name");
 		printResults.setSid("sid");
+		printResults.setTimestamp(LocalDateTime.now());
 		
 		UserInfo userInfo = getExampleUserInfo();
 		printResults.setUserInfo(userInfo);
@@ -784,10 +783,10 @@ public class TestAuditRestImpl {
 		//additional assertions in enhanced audit project
 	}
 	
-	private List<HttpMessageConverter<?>> getMessageConverters() {
-	    List<HttpMessageConverter<?>> converters = 
-	      new ArrayList<HttpMessageConverter<?>>();
-	    converters.add(new MappingJackson2HttpMessageConverter());
-	    return converters;
-	}
+//	private List<HttpMessageConverter<?>> getMessageConverters() {
+//	    List<HttpMessageConverter<?>> converters = 
+//	      new ArrayList<HttpMessageConverter<?>>();
+//	    converters.add(new MappingJackson2HttpMessageConverter());
+//	    return converters;
+//	}
 }

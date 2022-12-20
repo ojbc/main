@@ -25,12 +25,14 @@ public class ArrestCharge {
 	private String arrestIdentification;
 	private String arrestChargeIdentification;
 	private String arrestChargeDescription;
+	private Disposition disposition; 
     public ArrestCharge() {
     	super();
     }
 	public ArrestCharge(ArrestType arrestType) {
 		this();
 		this.setArrestType(arrestType);
+		disposition = new Disposition();
 	}
 	public String getArrestIdentification() {
 		return arrestIdentification;
@@ -59,5 +61,11 @@ public class ArrestCharge {
 	}
 	public void setArrestChargeDescription(String arrestChargeDescription) {
 		this.arrestChargeDescription = arrestChargeDescription;
+	}
+	public Disposition getDisposition() {
+		return disposition;
+	}
+	public void setDisposition(Disposition disposition) {
+		this.disposition = disposition;
 	}
 }    
