@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.dao;
 
 import java.sql.Date;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -157,6 +158,13 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
 	            	subscription.setOri(rs.getString("ori"));
 	            	subscription.setAgencyName(rs.getString("agency_name"));
+	            	
+	            	try{
+	            		subscription.setLastMatchDate(new DateTime(rs.getDate("last_match_date")));
+	            	}
+	            	catch(Exception ex) {
+	            		
+	            	}
 	            	
 	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 
 	    			if (StringUtils.isNotBlank(fbiSubscriptionId)){

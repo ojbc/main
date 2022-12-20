@@ -40,6 +40,11 @@
 		<camel:route id="processNotificationRoute">
 
 			<camel:from uri="direct:processNotification" />
+			
+			<camel:setHeader name="Content-Type">
+				<constant>text/html</constant>
+			</camel:setHeader>
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
@@ -114,12 +119,18 @@
 					<camel:setHeader name="ori">
 						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
 					</camel:setHeader>
+					<camel:setHeader name="Content-Type">
+						<constant>text/plain</constant>
+					</camel:setHeader>
 					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
 					<camel:setHeader name="ori">
 						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
+					</camel:setHeader>
+					<camel:setHeader name="Content-Type">
+						<constant>text/plain</constant>
 					</camel:setHeader>
 					<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
