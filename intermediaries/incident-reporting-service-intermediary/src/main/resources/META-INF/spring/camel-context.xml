@@ -52,25 +52,25 @@
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
 
 		<camel:endpoint id="incidentReportingPeerServiceEndpoint"
-			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+			uri="cxf:bean:incidentReportingPeerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true" />
 
 		<camel:endpoint id="ndexSubmissionServiceEndpoint"
-			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true" />
 
 		<camel:endpoint id="chargeReferralServiceEndpoint"
-				uri="cxf:bean:ChargeReferralService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+				uri="cxf:bean:ChargeReferralService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true" />
 						
 		<camel:endpoint id="chargeReferralReportingServiceEndpoint" 
-			uri="cxf:bean:ChargeReferralReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />						
+			uri="cxf:bean:ChargeReferralReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true" />						
 			
 	    <camel:endpoint id="notificationBrokerServiceEndpoint" 
-	    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>                
+	    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true"/>                
 	
 		<camel:endpoint id="arrestReportingServiceEndpoint" 
-			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>
+			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true"/>
 			
 		<camel:endpoint id="analyticalDataStorePersistenceServiceEndpoint" 
-			uri="cxf:bean:analyticalDataStorePersistenceService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>
+			uri="cxf:bean:analyticalDataStorePersistenceService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true"/>
 			
 		<!-- Incident Reporting Service Handler -->
 		<camel:route id="IncidentReportingServiceHandlerRoute">

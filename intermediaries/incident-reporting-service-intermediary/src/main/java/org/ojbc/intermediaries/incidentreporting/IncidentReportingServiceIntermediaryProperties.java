@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "incidentReportingService.")
+@ConfigurationProperties(prefix = "incident-reporting-service")
 public class IncidentReportingServiceIntermediaryProperties {
 	private String dbAuditLog = "false";
 

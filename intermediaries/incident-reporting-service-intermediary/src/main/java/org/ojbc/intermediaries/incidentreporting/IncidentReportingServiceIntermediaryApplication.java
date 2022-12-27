@@ -37,7 +37,7 @@ import org.springframework.context.annotation.ImportResource;
 public class IncidentReportingServiceIntermediaryApplication {
 	
 	@Autowired
-	IncidentReportingServiceIntermediaryProperties adatperProperties; 
+	IncidentReportingServiceIntermediaryProperties incidentReportingProperties; 
     /**
      * A main method to start this application.
      */
