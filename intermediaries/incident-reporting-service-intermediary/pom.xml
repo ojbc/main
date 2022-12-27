@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary</artifactId>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<name>OJB :: incident-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -329,7 +329,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 				<configuration>
-					<argLine>-Xmx1024m</argLine>
+					<argLine>-Xmx1536m</argLine>
 					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>

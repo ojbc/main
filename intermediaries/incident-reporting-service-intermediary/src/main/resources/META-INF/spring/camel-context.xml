@@ -51,6 +51,9 @@
 		<camel:endpoint id="incidentReportingServiceEndpoint"
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
 
+		<camel:endpoint id="incidentReportingPeerServiceEndpoint"
+			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+
 		<camel:endpoint id="ndexSubmissionServiceEndpoint"
 			uri="cxf:bean:N-DexSubmissionServiceFacade?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
 
@@ -100,7 +103,7 @@
 				
 					<camel:pipeline>
 						<camel:filter>
-							<camel:simple>${bean:callIncidentAnalyticsService.trim} == 'true'</camel:simple>
+							<camel:simple>${properties:incidentReportingService.callIncidentAnalyticsService} == true</camel:simple>
 
 							<camel:to uri="direct:callIncidentAnalyticsService" />
 
@@ -135,7 +138,7 @@
 					
 					<camel:pipeline>
 						<camel:filter>
-							<camel:simple>${bean:callNotificationBrokerService.trim} == 'true'</camel:simple>
+							<camel:simple>${properties:incidentReportingService.callNotificationBrokerService} == true</camel:simple>
 
 							<camel:to uri="direct:callNotificationBrokerService" />
 
@@ -143,7 +146,7 @@
 					</camel:pipeline>
 					<camel:pipeline>
 						<camel:filter>
-							<camel:simple>${bean:callArrestReportingService.trim} == 'true'</camel:simple>
+							<camel:simple>${properties:incidentReportingService.callArrestReportingService} == true</camel:simple>
 
 							<camel:to uri="direct:callArrestReportingService" />
 
@@ -151,7 +154,11 @@
 					</camel:pipeline>
 
 					<camel:pipeline>
-						<camel:to uri="direct:derivedRoutes" />
+						<camel:filter>
+							<camel:simple>${properties:incidentReportingService.callIncidentReportingIntermediary} == true</camel:simple>
+							
+							<camel:to uri="direct:callIncidentReportingIntermediaryPeerService" />
+						</camel:filter>						
 					</camel:pipeline>
 
 				</camel:multicast>
@@ -359,26 +366,43 @@
 			</camel:filter>
         </camel:route>		        		
         		
-		<camel:route id="derivedRoutes">
+		<camel:route id="incidentReportingIntermediaryServiceCallRoute">
 
-			<camel:from uri="direct:derivedRoutes" />
-
-			<!-- Set up derived endpoints -->
-			<!-- typically we would use the {{ }} camel construct to get the property -->
-			<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
-			<camel:setHeader name="routingSlipDerivedRoutes">
-				<simple>${bean:endpointsToCall.trim}</simple>
-			</camel:setHeader>
-
+			<camel:from uri="direct:callIncidentReportingIntermediaryPeerService" />
+			
 			<camel:filter>
-				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				<camel:simple>${properties:incidentReportingService.callIncidentReportingIntermediary} == true</camel:simple>
 
-				<camel:log
-					message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}" />
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+				
+				<camel:filter>
+					<camel:xpath>/ir:IncidentReport</camel:xpath>
+					<camel:setHeader name="operationName">
+						<constant>ReportIncident</constant>
+					</camel:setHeader>
+				</camel:filter>
+				
+				<camel:filter>
+					<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
+					<camel:setHeader name="operationName">
+						<constant>ReportIncidentUpdate</constant>
+					</camel:setHeader>
+				</camel:filter>	
+		                        		
+				<camel:setHeader name="operationNamespace">
+					<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+				</camel:setHeader>
+				
+				<log message="Incident Report Operation Name = ${in.headers.operationName}"/>
+				
+				<camel:throttle timePeriodMillis="1000">
+					<constant>1</constant>
+				</camel:throttle>
+				
+				<camel:to uri="incidentReportingPeerServiceEndpoint" />
+				
+				<camel:log message="Called incident reporting peer service endpoint." />
 
-				<camel:recipientList>
-					<camel:header>routingSlipDerivedRoutes</camel:header>
-				</camel:recipientList>
 			</camel:filter>
 
 		</camel:route>		

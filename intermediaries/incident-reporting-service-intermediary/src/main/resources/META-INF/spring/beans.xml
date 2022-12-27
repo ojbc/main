@@ -45,23 +45,6 @@
 		</constructor-arg>
 	</bean>
 	
-	<!-- typically we would use the {{ }} camel construct to get the property -->
-	<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
-    <bean id="endpointsToCall" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.camelEndpointsToCall}" />
-    </bean>	
-
-    <bean id="callNotificationBrokerService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callNotificationBrokerService}" />
-    </bean>	
-	
-    <bean id="callArrestReportingService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
-    </bean>	
-
-    <bean id="callIncidentAnalyticsService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callIncidentAnalyticsService}" />
-    </bean>	
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
