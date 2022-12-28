@@ -43,7 +43,7 @@
        ">
        
 	<!-- OJB Incident Reporting Service, hosted by this intermediary -->
-	<cxf:cxfEndpoint id="IncidentReportingService"
+	<cxf:cxfEndpoint id="incidentReportingService"
 		address="${incidentReportingService.incidentReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
