@@ -35,7 +35,7 @@
 	</parent>
 
 	<properties>
-    <spring-boot-version>2.5.14</spring-boot-version>
+        <spring-boot-version>2.5.14</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.3</cxf-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
@@ -46,15 +46,9 @@
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
 		<java-version>1.8</java-version>
-		<log4j-version>2.17.1</log4j-version>
 	</properties>
   <dependencyManagement>
     <dependencies>
-    	<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>${log4j-version}</version>
-			</dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -230,6 +224,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>

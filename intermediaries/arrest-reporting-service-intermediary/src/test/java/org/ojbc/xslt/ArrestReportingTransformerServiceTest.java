@@ -17,6 +17,7 @@
 package org.ojbc.xslt;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 
+@SuppressWarnings("unchecked")
 public class ArrestReportingTransformerServiceTest {
 			
 	private XsltTransformer xsltTransformer;
@@ -94,11 +96,11 @@ public class ArrestReportingTransformerServiceTest {
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 
 		File inputFile = new File(inputFileClasspath);		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, Charset.forName("UTF-8"));
 		SAXSource inputSaxSource = OJBUtils.createSaxSource(inputXml);
 		
 		File expectedOutputFile = new File(expectedOutputFileClasspath);
-		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
+		String expectedXml = FileUtils.readFileToString(expectedOutputFile, Charset.forName("UTF-8"));		
 		
 		File xsltFile = new File(xsltClasspath);
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
