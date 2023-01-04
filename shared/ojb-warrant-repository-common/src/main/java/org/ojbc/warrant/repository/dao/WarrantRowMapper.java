@@ -27,6 +27,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class WarrantRowMapper implements RowMapper<Warrant> {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(WarrantRowMapper.class);
 	
 	@Override

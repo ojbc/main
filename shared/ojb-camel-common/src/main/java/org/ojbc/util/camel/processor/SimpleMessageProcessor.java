@@ -21,7 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SimpleMessageProcessor {
-	private static final Log log = LogFactory.getLog( SimpleMessageProcessor.class );
+	@SuppressWarnings("unused")
+	private static final Log lxog = LogFactory.getLog( SimpleMessageProcessor.class );
 	
 	/**
 	 * This method will use an existing exchange and set the 'out' message 
