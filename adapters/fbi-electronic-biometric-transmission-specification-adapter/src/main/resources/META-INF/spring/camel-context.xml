@@ -464,7 +464,7 @@
 			
 			<log message="\n\n\n ran RapBackErrorResponseToError.xsl \n\n\n" />	
 			
-			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>${bean:uuidGenerator?method=generateUUID}</simple></setHeader>
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
 			
@@ -547,7 +547,7 @@
 			
 			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
-			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>${bean:uuidGenerator?method=generateUUID}</simple></setHeader>
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
@@ -570,7 +570,7 @@
 			
 			<log message="\n\n\n Just called RapBackSubscriptionResponseToSubscriptionCreationReport.xsl \n\n\n" />	
 			
-			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>${bean:uuidGenerator?method=generateUUID}</simple></setHeader>
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />																																							
 						
@@ -592,7 +592,7 @@
 			
 			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />	
 			
-			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>${bean:uuidGenerator?method=generateUUID}</simple></setHeader>
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
 			

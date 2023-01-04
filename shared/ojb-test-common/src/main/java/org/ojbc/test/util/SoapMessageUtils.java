@@ -96,7 +96,7 @@ public class SoapMessageUtils {
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File(inputFilePath);
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, "UTF-8");
 
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);

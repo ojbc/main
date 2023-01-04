@@ -35,7 +35,7 @@
 	</parent>
 
 	<properties>
-        <spring-boot-version>2.5.2</spring-boot-version>
+        <spring-boot-version>2.5.14</spring-boot-version>
         <camel-version>3.11.0</camel-version>
 		<!-- Dependency versions -->
 		<joda-time.version>2.2</joda-time.version>
@@ -71,7 +71,7 @@
 		<datatables.responsive.version>2.2.3</datatables.responsive.version>
 		<popper.version>1.14.7</popper.version>
 		
-		<log4j-version>2.17.1</log4j-version>
+		<log4j-version>2.17.2</log4j-version>
 		
 		<!-- Plugin versions -->
 		<guava-version>23.5-jre</guava-version>

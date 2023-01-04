@@ -35,7 +35,7 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.2</spring-boot-version>
+		<spring-boot-version>2.5.14</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<jodatime-version>2.2</jodatime-version>
 		<cxf-version>3.4.4</cxf-version>
@@ -49,7 +49,7 @@
 		<mockito.version>1.9.0</mockito.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<commonsIo.version>2.4</commonsIo.version>
-		<spring-version>5.3.8</spring-version>	
+		<spring-version>5.3.24</spring-version>	
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
 		<java-version>1.8</java-version>
 	</properties>

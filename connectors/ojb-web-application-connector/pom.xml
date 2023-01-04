@@ -44,7 +44,7 @@
 		<ojb-ui-common-version>[4.0.0,)</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[4.0.0,)</ojb-web-application-connector-extension-version>
 		<commons-lang3-version>3.12.0</commons-lang3-version>
-		<spring-version>5.3.8</spring-version>
+		<spring-version>5.3.24</spring-version>
 		<apache-commons-io-version>2.8.0</apache-commons-io-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<xmlunitcore-version>2.6.1</xmlunitcore-version>

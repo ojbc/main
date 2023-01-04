@@ -36,7 +36,7 @@
 		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<log4j-version>2.17.1</log4j-version>
+		<log4j-version>2.17.2</log4j-version>
 		<xmlunit.version>1.6</xmlunit.version>
 		<java-version>1.8</java-version>
         <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
