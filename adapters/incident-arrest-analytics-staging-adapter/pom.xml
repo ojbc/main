@@ -35,12 +35,12 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.2</spring-boot-version>
+		<spring-boot-version>2.5.14</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.4</cxf-version>
 		<saxon-version>9.5.1-5</saxon-version>
 		<commons-lang-version>3.12.0</commons-lang-version>
-		<spring-version>5.3.8</spring-version>
+		<spring-version>5.3.24</spring-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-index-common-version>[1.0.1,)</ojb-index-common-version>
