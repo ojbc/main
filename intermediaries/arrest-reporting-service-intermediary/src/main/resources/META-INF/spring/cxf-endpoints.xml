@@ -72,4 +72,22 @@
         </cxf:properties>
 	</cxf:cxfEndpoint>
 	
+	<!-- 
+		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
+	-->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+	    <sec:keyManagers keyPassword="${arrestReportingService.keyPassword}">
+	        <sec:keyStore type="jks" password="${arrestReportingService.keystorePassword}" url="${arrestReportingService.keystoreLocation}" />
+	    </sec:keyManagers>
+ 			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${arrestReportingService.truststorePassword}"
+					url="${arrestReportingService.truststoreLocation}" />
+			</sec:trustManagers>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>	
+		
 </beans>
