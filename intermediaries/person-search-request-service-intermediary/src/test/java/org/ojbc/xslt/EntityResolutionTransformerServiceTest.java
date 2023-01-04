@@ -43,7 +43,8 @@ import org.w3c.dom.NodeList;
 
 public class EntityResolutionTransformerServiceTest {
 
-    private static final Log LOG = LogFactory.getLog(EntityResolutionTransformerServiceTest.class);
+    @SuppressWarnings("unused")
+	private static final Log LOG = LogFactory.getLog(EntityResolutionTransformerServiceTest.class);
 
     private DocumentBuilder documentBuilder;
 
