@@ -78,9 +78,9 @@
 		<!-- Plugin versions -->
 		<surefire.version>2.7.2</surefire.version>
 		<t7mp.version>0.9.6</t7mp.version>
-		<complier.version>3.0</complier.version>
+		<complier.version>3.8.1</complier.version>
 		<maven.site.version>3.0</maven.site.version>
-		<maven.war.version>2.4</maven.war.version>
+		<maven.war.version>3.3.2</maven.war.version>
 		<guava-version>23.5-jre</guava-version>
 	</properties>
 
@@ -479,10 +479,10 @@
 	</profiles>
 	<reporting>
 	    <plugins>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-project-info-reports-plugin</artifactId>
-	        <version>2.4</version>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>3.4.1</version>
 	        <configuration>
 	          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
 	          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
