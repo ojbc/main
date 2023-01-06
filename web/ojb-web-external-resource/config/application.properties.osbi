@@ -7,6 +7,7 @@ server.servlet.context-path=/ojb-web-portal
 #portal.restServiceBaseUrl=http://localhost:9898
 
 logging.level.org.springframework.web=ERROR
+logging.level.org.ojbc=debug
 
 logging.file=/tmp/logs/ojb-web-portal.log
 
