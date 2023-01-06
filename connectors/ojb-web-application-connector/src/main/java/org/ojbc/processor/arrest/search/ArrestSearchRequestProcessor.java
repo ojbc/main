@@ -26,7 +26,6 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;

@@ -33,7 +33,6 @@ import org.ojbc.web.portal.controllers.simpleSearchExtractors.SIDExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SSNExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SearchTermExtractorInterface;
 import org.ojbc.web.portal.services.SearchTermsTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 
 @Resource
@@ -44,7 +43,6 @@ public class SimpleSearchParser {
 	
 	private List<SearchTermExtractorInterface> searchTermExtractors;
 	
-	@Autowired
 	public SimpleSearchParser(SIDExtractor sidExtractor, 
 			SSNExtractor ssnExtractor,
 			DOBExtractor dobExtractor,
