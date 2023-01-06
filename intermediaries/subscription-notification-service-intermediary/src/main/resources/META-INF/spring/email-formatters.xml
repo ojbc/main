@@ -147,10 +147,17 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	
 	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
-			<value>Interstate Compact Offender Tracking System (ICOTS) for Automated Wanted Person Query</value>
+			<value>ICOTS ICT-SNS Warrant Notification Compact Case # $emailNotification.subscription.agencyCaseNumber</value>
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[
+This email is a notification that the offender below was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
+
+
+Offender Name: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName
+Date of Birth: $emailNotification.notificationRequest.personBirthDate
+Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex")
+Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
 #foreach ($emailAddress in $emailNotification.subscription.emailAddressesToNotify)
 #if($foreach.index == 0)
 Receiving State PO: $emailAddress
@@ -159,9 +166,6 @@ Receiving State PO: $emailAddress
 Sending State PO: $emailAddress
 #end
 #end
-Compact Case ID: $emailNotification.subscription.agencyCaseNumber
-Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
 			]]></value>
 		</property>
 	</bean>
