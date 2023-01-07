@@ -45,7 +45,6 @@ import org.ojbc.web.WebUtils;
 import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.xml.sax.SAXException;
@@ -54,7 +53,6 @@ import org.xml.sax.SAXException;
 @SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
 	classes = OjbcWebPortalApplication.class)
 @ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
-@DirtiesContext
 public class XslTemplateTest {
 	
     private static final String CURRENT_DATE_yyyyMMdd = DateTime.now().toString("yyyy-MM-dd");
@@ -367,7 +365,7 @@ public class XslTemplateTest {
         
         String convertedHtmlSubscriptionSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, searchParams);
         
-        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertedHtmlSubscriptionSearchResult);
+        logger.debug("convertedHtmlSubscriptionSearchResult: " + convertedHtmlSubscriptionSearchResult);
                                     
         assertLinesEquals(expectedHtmlLineList, convertedHtmlSubscriptionSearchResult);                                                    
     }
@@ -395,7 +393,7 @@ public class XslTemplateTest {
         searchResultConverter.searchResultXsl = xsl;
         
         String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
-        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertResult); 
+        logger.info("convertedHtmlSubscriptionSearchResult: " + convertResult); 
         assertLinesEquals(expectedHtml, convertResult);
     }    
     

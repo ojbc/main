@@ -68,8 +68,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
@@ -126,9 +125,6 @@ public class PortalController implements ApplicationContextAware {
 	Map<String, String> searchPurposes;
 	
 	@Resource
-	Map<String, String> stateSpecificIncludes;
-	
-	@Resource
 	Map<String, String> leftMenuLinks;
 	
 	@Autowired(required=false)
@@ -181,17 +177,17 @@ public class PortalController implements ApplicationContextAware {
 		visibleProfileStateMap.put("disabled", false);
 	}
 
-    @RequestMapping("/portal/landingPage")
+    @GetMapping("/portal/landingPage")
     public String landingPage(){
 	    return "portal/landingPage::landingPageContent";
 	}
 
-    @RequestMapping("/portal/helpPage")
+    @GetMapping("/portal/helpPage")
     public String helpPage(){
 	    return "portal/helpPage";
 	}
 
-    @RequestMapping("/portal/faq")
+    @GetMapping("/portal/faq")
     public String faq(){
 	    return "portal/faq::faqContent";
 	}
@@ -226,7 +222,6 @@ public class PortalController implements ApplicationContextAware {
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
-		model.put("stateSpecificInclude_preBodyClose", stateSpecificIncludes.get("preBodyClose"));
 		
 		if (model.get("sensitiveInfoAlert") == null) {
 			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
@@ -264,7 +259,7 @@ public class PortalController implements ApplicationContextAware {
     	model.put("samlAssertion", samlAssertion);
 	}
 
-    @RequestMapping("/portal/performLogout")
+    @GetMapping("/portal/performLogout")
     public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
     	String userSignoutUrl = (String) model.get("userSignOutUrl");
     	
@@ -319,18 +314,18 @@ public class PortalController implements ApplicationContextAware {
     	return "redirect:" + userSignoutUrl;
 	}
 
-    @RequestMapping("/portal/defaultLogout")
+    @GetMapping("/portal/defaultLogout")
     public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
     	return "logoutSuccess";
     }
     
 
-    @RequestMapping("/portal/landingLeftBar")
+    @GetMapping("/portal/landingLeftBar")
     public String landingLeftBar(){
     	return "common/landingLeftBar::landingLeftBarContent";
     }
 
-    @RequestMapping(value="/portal/subscriptionsLeftBar", method=RequestMethod.POST)
+    @PostMapping(value="/portal/subscriptionsLeftBar")
     public String subscriptionsLeftBar(HttpServletRequest request, 
     		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
     		Map<String, Object> model){   
@@ -338,17 +333,17 @@ public class PortalController implements ApplicationContextAware {
     	return "common/_subscriptionsLeftBar";
     }
     
-    @RequestMapping(value="/portal/rapbackLeftBar", method=RequestMethod.POST)
+    @PostMapping(value="/portal/rapbackLeftBar")
     public String rapbackLeftBar(Map<String, Object> model){   
         return "common/_rapbackLeftBar";
     }
     
-    @RequestMapping(value="/portal/criminalIdentificationLeftBar", method=RequestMethod.POST)
+    @PostMapping(value="/portal/criminalIdentificationLeftBar")
     public String criminalIdentificationLeftBar(Map<String, Object> model){   
     	return "common/_criminalIdentificationLeftBar";
     }
     
-	@RequestMapping(value="/portal/leftBar", method=RequestMethod.POST)
+    @PostMapping(value="/portal/leftBar")
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
     	model.put("showReasonsForSearch", showReasonsForSearch);
