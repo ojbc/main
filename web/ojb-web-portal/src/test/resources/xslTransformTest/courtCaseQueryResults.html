@@ -17,24 +17,24 @@
 
 -->
 <script type="text/javascript">
-			$(function () {
-					var modalIframe = $("#modalIframe", parent.document);
-					modalIframe.height(modalIframe.contents().find("body").height() + 16);
-					
-					$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 16);
-					})
-					
-					$('#criminalCaseTabs').tabs();
-					$('#partyTabs').tabs();
-					$('.detailDataTable').DataTable({
- 						"dom": 'rt',
- 						responsive: true, 
- 						colReorder: true 
-					});
-			});
-		</script><ul class="nav nav-tabs" id="myTab" role="tablist">
+            $(function () {
+                    var modalIframe = $("#modalIframe", parent.document);
+                    modalIframe.height(modalIframe.contents().find("body").height() + 16);
+                    
+                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        var modalIframe = $("#modalIframe", parent.document);
+                        modalIframe.height(modalIframe.contents().find("body").height() + 16);
+                    })
+                    
+                    $('#criminalCaseTabs').tabs();
+                    $('#partyTabs').tabs();
+                    $('.detailDataTable').DataTable({
+                        "dom": 'rt',
+                        responsive: true, 
+                        colReorder: true 
+                    });
+            });
+        </script><ul class="nav nav-tabs" id="myTab" role="tablist">
    <li class="nav-item"><a class="nav-link active" id="criminalCaseTab" data-toggle="tab" href="#criminalCase" role="tab" aria-controls="criminalCase" aria-selected="true">CRIMINAL CASE</a></li>
    <li class="nav-item"><a class="nav-link" id="partyTab" data-toggle="tab" href="#party" role="tab" aria-controls="party" aria-selected="false">PARTY DETAIL</a></li>
    <li class="nav-item"><a class="nav-link" id="chargeTab" data-toggle="tab" href="#charge" role="tab" aria-controls="charge" aria-selected="false">CHARGE SUMMARY</a></li>
@@ -45,8 +45,7 @@
    <li class="nav-item"><a class="nav-link" id="victimTab" data-toggle="tab" href="#victim" role="tab" aria-controls="victim" aria-selected="false">VICTIMS</a></li>
    <li class="nav-item"><a class="nav-link" id="defenseAttorneyTab" data-toggle="tab" href="#defenseAttorney" role="tab" aria-controls="defenseAttorney" aria-selected="false">DEFENSE ATTORNEYS</a></li>
    <li class="nav-item"><a class="nav-link" id="prosecutorTab" data-toggle="tab" href="#prosecutor" role="tab" aria-controls="prosecutor" aria-selected="false">PROSECUTORS</a></li>
-</ul>
-<div class="tab-content" id="myTabContent">
+</ul><div class="tab-content" id="myTabContent">
    <div class="tab-pane fade show active" id="criminalCase" role="tabpanel" aria-labelledby="criminalCaseTab">
       <p>
          <div id="criminalCaseTabs">
@@ -58,38 +57,27 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th><label>Judge: </label>Donna E Kinsella
-                        </th>
-                        <th><label>Under Advisement Date: </label>03/16/1961
-                        </th>
+                        <th><label>Judge: </label>Donna E Kinsella</th>
+                        <th><label>Under Advisement Date: </label>03/16/1961</th>
                      </tr>
                      <tr>
-                        <th><label>Case Type: </label>Ownership
-                        </th>
-                        <th><label>Domestic Violence: </label>false
-                        </th>
+                        <th><label>Case Type: </label>Ownership</th>
+                        <th><label>Domestic Violence: </label>false</th>
                      </tr>
                      <tr>
-                        <th><label>Case Subtype: </label>Sub Type 2
-                        </th>
-                        <th><label>Jury Verdict: </label>true
-                        </th>
+                        <th><label>Case Subtype: </label>Sub Type 2</th>
+                        <th><label>Jury Verdict: </label>true</th>
                      </tr>
                      <tr>
-                        <th><label>Court Location: </label>County Court DIV 2
-                        </th>
-                        <th><label>Previous Case Number: </label>61459022
-                        </th>
+                        <th><label>Court Location: </label>County Court DIV 2</th>
+                        <th><label>Previous Case Number: </label>61459022</th>
                      </tr>
                      <tr>
-                        <th><label>Jurisdiction: </label>Mall Cop
-                        </th>
-                        <th><label>Other Agency Case Number: </label>hjYvSj33
-                        </th>
+                        <th><label>Jurisdiction: </label>Mall Cop</th>
+                        <th><label>Other Agency Case Number: </label>hjYvSj33</th>
                      </tr>
                      <tr>
-                        <th colspan="2"><label>Filing Date: </label>02/17/1955
-                        </th>
+                        <th colspan="2"><label>Filing Date: </label>02/17/1955</th>
                      </tr>
                   </table>
                </p>
@@ -98,44 +86,32 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th><label>Defendant: </label>Joe P Matthews
-                        </th>
+                        <th><label>Defendant: </label>Joe P Matthews</th>
                         <th colspan="2"></th>
                      </tr>
                      <tr>
-                        <th><label>Next Appearance: </label>12/17/1939
-                        </th>
+                        <th><label>Next Appearance: </label>12/17/1939</th>
                         <th colspan="2"></th>
                      </tr>
                      <tr>
-                        <th><label>Trial By: </label>Jury
-                        </th>
-                        <th><label>Custody Status: </label>Homeless Shelter
-                        </th>
+                        <th><label>Trial By: </label>Jury</th>
+                        <th><label>Custody Status: </label>Homeless Shelter</th>
                      </tr>
                      <tr>
-                        <th><label>Speedy Trial: </label>03/16/1976
-                        </th>
-                        <th><label>FTP Hold Indefinite: </label>false
-                        </th>
+                        <th><label>Speedy Trial: </label>03/16/1976</th>
+                        <th><label>FTP Hold Indefinite: </label>false</th>
                      </tr>
                      <tr>
-                        <th><label>FTA Hold Date: </label>12/30/1934
-                        </th>
-                        <th><label>FTP Hold Date: </label>09/22/1942
-                        </th>
+                        <th><label>FTA Hold Date: </label>12/30/1934</th>
+                        <th><label>FTP Hold Date: </label>09/22/1942</th>
                      </tr>
                      <tr>
-                        <th><label>FTC Hold Date: </label>05/06/1945
-                        </th>
-                        <th><label>FTPV Hold Date: </label>12/01/1970
-                        </th>
+                        <th><label>FTC Hold Date: </label>05/06/1945</th>
+                        <th><label>FTPV Hold Date: </label>12/01/1970</th>
                      </tr>
                      <tr>
-                        <th><label>Lead Attorney: </label>Willie E Burnett
-                        </th>
-                        <th><label>Attorney Waived: </label>true
-                        </th>
+                        <th><label>Lead Attorney: </label>Willie E Burnett</th>
+                        <th><label>Attorney Waived: </label>true</th>
                      </tr>
                   </table>
                </p>
@@ -156,54 +132,41 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th colspan="2"><label>State ID: </label>42745406
-                        </th>
+                        <th colspan="2"><label>State ID: </label>42745406</th>
                      </tr>
                      <tr>
-                        <th><label>Last Name: </label>Matthews
-                        </th>
-                        <th><label>Company: </label>Lorax Cleaning
-                        </th>
+                        <th><label>Last Name: </label>Matthews</th>
+                        <th><label>Company: </label>Lorax Cleaning</th>
                      </tr>
                      <tr>
-                        <th><label>First Name: </label>Joe
-                        </th>
+                        <th><label>First Name: </label>Joe</th>
                         <th colspan="2"></th>
                      </tr>
                      <tr>
-                        <th><label>Middle Name: </label>P
-                        </th>
-                        <th><label>SSN: </label>850427714
-                        </th>
+                        <th><label>Middle Name: </label>P</th>
+                        <th><label>SSN: </label>850427714</th>
                      </tr>
                      <tr>
                         <th><label>Suffix: </label></th>
-                        <th><label>DOB: </label>06/09/1930
-                        </th>
+                        <th><label>DOB: </label>06/09/1930</th>
                      </tr>
                      <tr>
-                        <th><label>Sex: </label>F
-                        </th>
-                        <th><label>Eyes: </label>HAZ
-                        </th>
+                        <th><label>Sex: </label>F</th>
+                        <th><label>Eyes: </label>HAZ</th>
                      </tr>
                      <tr>
-                        <th><label>Hair: </label>GRY
-                        </th>
-                        <th><label>Weight: </label>095 
-                        </th>
+                        <th><label>Hair: </label>GRY</th>
+                        <th><label>Weight: </label>095 </th>
                      </tr>
-                     <th><label>Height: </label>03 in
-                     </th>
-                     <th><label>Language: </label>English
-                     </th>
+                     <th><label>Height: </label>03 in</th>
+                     <th><label>Language: </label>English</th>
                      <tr>
-                        <th><label>Race: </label>A
-                        </th>
-                        <th colspan="2"><label>Juvenile: </label>true
-                        </th>
+                        <th><label>Race: </label>A</th>
+                        <th colspan="2"><label>Juvenile: </label>true</th>
                      </tr>
-                  </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+                  </table>
+                  <pre></pre>
+                  <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
                      <thead>
                         <tr>
                            <th>Address Type</th>
@@ -224,7 +187,9 @@
                            <td>01103</td>
                         </tr>
                      </tbody>
-                  </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+                  </table>
+                  <pre></pre>
+                  <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
                      <thead>
                         <tr>
                            <th>Telephone #</th>
@@ -248,19 +213,14 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th><label>License Number: </label>66026448
-                        </th>
-                        <th><label>License State: </label>NC
-                        </th>
+                        <th><label>License Number: </label>66026448</th>
+                        <th><label>License State: </label>NC</th>
                         <th><label>Commercial: </label></th>
                      </tr>
                      <tr>
-                        <th><label>License Class: </label>C
-                        </th>
-                        <th><label>License Issued: </label>03/30/1971
-                        </th>
-                        <th><label>License Expires: </label>01/24/1978
-                        </th>
+                        <th><label>License Class: </label>C</th>
+                        <th><label>License Issued: </label>03/30/1971</th>
+                        <th><label>License Expires: </label>01/24/1978</th>
                      </tr>
                   </table>
                </p>
@@ -269,15 +229,12 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th colspan="3"><label>Party ID: </label>1488478
-                        </th>
+                        <th colspan="3"><label>Party ID: </label>1488478</th>
                      </tr>
                      <tr>
                         <th><label>Juvenile ID: </label></th>
-                        <th><label>Inmate ID: </label>17051564
-                        </th>
-                        <th><label>Other ID: </label>3I9Pai8j
-                        </th>
+                        <th><label>Inmate ID: </label>17051564</th>
+                        <th><label>Other ID: </label>3I9Pai8j</th>
                      </tr>
                   </table>
                </p>
@@ -286,12 +243,10 @@
                <p>
                   <table class="detailTable">
                      <tr>
-                        <th><label>Body Marks: </label>Marks
-                        </th>
+                        <th><label>Body Marks: </label>Marks</th>
                      </tr>
                      <tr>
-                        <th><label>Clerk Comments: </label>Comments for Clerk
-                        </th>
+                        <th><label>Clerk Comments: </label>Comments for Clerk</th>
                      </tr>
                   </table>
                </p>
@@ -322,7 +277,9 @@
                   <td>03/20/1929</td>
                </tr>
             </tbody>
-         </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+         </table>
+         <pre></pre>
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Amended Charge Count</th>
@@ -474,8 +431,7 @@
       <p>
          <table class="detailTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <tr>
-               <th><label>Lead Attorney: </label>Willie E Burnett
-               </th>
+               <th><label>Lead Attorney: </label>Willie E Burnett</th>
             </tr>
          </table>
       </p>

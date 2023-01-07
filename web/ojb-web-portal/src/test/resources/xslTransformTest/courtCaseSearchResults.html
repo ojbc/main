@@ -17,33 +17,33 @@
 
 -->
 <script type="text/javascript">
-    						$(function () {
-	      
-	    						$('#courtCaseTable tr').click(function () {
-	    						
-		    						var systemName =$(this).attr('systemName');
-		    						var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-		    						var identificationID = $(this).attr('identificationID');
-		    						
-		    						
-		    						$('#courtCaseTable tr').removeClass("selected");
-		    						$(this).addClass("selected");
-		    						
-		    						var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"></div>';
-		    						// tempDiv for css spinner - replaced upon receipt of get data
-		    						$('#instanceDetailTabsHolder').html(tempDiv);                                         
-		    						
-		    						xhr = $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
-		    							$('#instanceDetailTabsHolder').html(data);
-		    						}).fail(ojbc.displayIncidentDetailFailMessage);
-	    						
-	    						}).hover(function () {
-	    								$(this).addClass("hover");
-	    							}, function () {
-	    								$(this).removeClass("hover");
-	    							});
-    						});
-    					</script><table id="courtCaseTable" class="detailsTable">
+                            $(function () {
+          
+                                $('#courtCaseTable tr').click(function () {
+                                
+                                    var systemName =$(this).attr('systemName');
+                                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
+                                    var identificationID = $(this).attr('identificationID');
+                                    
+                                    
+                                    $('#courtCaseTable tr').removeClass("selected");
+                                    $(this).addClass("selected");
+                                    
+                                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"></div>';
+                                    // tempDiv for css spinner - replaced upon receipt of get data
+                                    $('#instanceDetailTabsHolder').html(tempDiv);                                         
+                                    
+                                    xhr = $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
+                                        $('#instanceDetailTabsHolder').html(data);
+                                    }).fail(ojbc.displayIncidentDetailFailMessage);
+                                
+                                }).hover(function () {
+                                        $(this).addClass("hover");
+                                    }, function () {
+                                        $(this).removeClass("hover");
+                                    });
+                            });
+                        </script><table id="courtCaseTable" class="detailsTable">
    <tr>
       <td class="detailsTitle">CASE NUMBER</td>
       <td class="detailsTitle">CAPTION/STYLE</td>
@@ -55,6 +55,4 @@
       <td>Thornton Municipal Court vs. Joe P Matthews</td>
       <td>Early</td>
    </tr>
-   
-</table>
-<div id="instanceDetailTabsHolder"></div>
+   </table><div id="instanceDetailTabsHolder"></div>

@@ -70,8 +70,6 @@ public class PortalControllerTest {
 		unitWithSAMLToken.samlService = samlService;
 		unit.searchProfilesEnabled = getSearchProfilesEnabledMap();
 		unitWithSAMLToken.searchProfilesEnabled = getSearchProfilesEnabledMap();
-		unit.stateSpecificIncludes = getStateSpecificIncludes();
-		unitWithSAMLToken.stateSpecificIncludes = getStateSpecificIncludes();
 	}
 
 	private Map<String, String> getSearchProfilesEnabledMap() {
@@ -84,13 +82,6 @@ public class PortalControllerTest {
 		return mapToReturn;
 	}
 	
-	private Map<String, String> getStateSpecificIncludes() {
-		Map<String, String> mapToReturn = new HashMap<String, String>();
-		mapToReturn.put("preBodyClose", "");
-		
-		return mapToReturn;
-	}
-
 	@Test
 	public void testIndex() throws Exception
 	{

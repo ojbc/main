@@ -17,37 +17,37 @@
 
 -->
 <script type="text/javascript">
-							$(function () {
-								$('#custodyTable tr').click(function () {
-								
-									var systemName =$(this).attr('systemName');
-									var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-									var identificationID = $(this).attr('identificationID');
-																		
-									$('#custodyTable tr').removeClass("selected");
-									$(this).addClass("selected");
-									var divHeight = $('#searchDetailsFrame').height() - $('#personInformationInModal').height() - 12; 
-									var tempDiv = '<div id="modalIframeSpinner" style="height:' + divHeight + 'px;width:100%"></div>';
-									// tempDiv for css spinner - replaced upon receipt of get data
-									
-									$('#custodyDetailDataHolder').html(tempDiv);                                         
-								
-									xhr = $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
-										$('#custodyDetailDataHolder').html(data);
-										
-				  						var modalIframe = $("#modalIframe", parent.document);
-				  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
-										
-									}).fail(ojbc.displayCustodyDetailFailMessage)
-									.done();
-								
-								}).hover(function () {
-										$(this).addClass("custodyDetailHover");
-								}, function () {
-										$(this).removeClass("custodyDetailHover");
-								});
-							});
-						</script><table id="custodyTable" class="detailsTable">
+                            $(function () {
+                                $('#custodyTable tr').click(function () {
+                                
+                                    var systemName =$(this).attr('systemName');
+                                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
+                                    var identificationID = $(this).attr('identificationID');
+                                                                        
+                                    $('#custodyTable tr').removeClass("selected");
+                                    $(this).addClass("selected");
+                                    var divHeight = $('#searchDetailsFrame').height() - $('#personInformationInModal').height() - 12; 
+                                    var tempDiv = '<div id="modalIframeSpinner" style="height:' + divHeight + 'px;width:100%"></div>';
+                                    // tempDiv for css spinner - replaced upon receipt of get data
+                                    
+                                    $('#custodyDetailDataHolder').html(tempDiv);                                         
+                                
+                                    xhr = $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
+                                        $('#custodyDetailDataHolder').html(data);
+                                        
+                                        var modalIframe = $("#modalIframe", parent.document);
+                                        modalIframe.height(modalIframe.contents().find("body").height() + 16);
+                                        
+                                    }).fail(ojbc.displayCustodyDetailFailMessage)
+                                    .done();
+                                
+                                }).hover(function () {
+                                        $(this).addClass("custodyDetailHover");
+                                }, function () {
+                                        $(this).removeClass("custodyDetailHover");
+                                });
+                            });
+                        </script><table id="custodyTable" class="detailsTable">
    <tr>
       <td class="detailsTitle">BOOKING NUMBER</td>
       <td class="detailsTitle">INFO OWNER</td>
@@ -58,5 +58,4 @@
       <td>County Jail</td>
       <td>04/25/2016</td>
    </tr>
-</table>
-<div id="custodyDetailDataHolder"></div>
+</table><div id="custodyDetailDataHolder"></div>
