@@ -33,7 +33,7 @@
 	</parent>
 
 	<properties>
-		<camel.version>3.11.0</camel.version>
+		<camel.version>3.11.7</camel.version>
 		<cxf.version>3.4.4</cxf.version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<spring-version>5.3.24</spring-version>	
@@ -47,6 +47,8 @@
 		
 		<!-- Plugin versions -->
     	<surefire.version>2.22.2</surefire.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
     <dependencyManagement>
         <dependencies>
