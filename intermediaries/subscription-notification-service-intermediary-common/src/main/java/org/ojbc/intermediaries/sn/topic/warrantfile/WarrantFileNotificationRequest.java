@@ -223,6 +223,7 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 	@Override
 	protected String getNotificationEventIdentifierXpath() {
 
+		//FIX THIS
 		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/chu:CycleTrackingIdentifierAssignment/nc:Case/nc:ActivityIdentification/nc:IdentificationID";
 	}
 		
@@ -260,22 +261,9 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 		
 		subjectIdentifiers = new HashMap<String, String>();
 		
-		String firstName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonGivenName");
-		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
-		this.personFirstName = firstName;
+		String agencyCaseNumber = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/nc:ActivityIdentification/nc:IdentificationID");
 		
-		String lastName = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonName/nc:PersonSurName");
-		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
-		this.personLastName = lastName;
-		
-		String dateOfBirth = XmlUtils.xPathStringSearch(requestDocument,
-				"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-exch:Person[@s:id=../notfm-ext:NotifyingWarrant/jxdm41:Warrant/jxdm41:CourtOrderDesignatedSubject/nc:RoleOfPersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
-		
-		logger.debug("Notification message DOB: " + dateOfBirth);
-		
-		this.personBirthDate = dateOfBirth;
-		
-		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.AGENCY_CASE_NUMBER, agencyCaseNumber);
 	}
 
 	@Override
