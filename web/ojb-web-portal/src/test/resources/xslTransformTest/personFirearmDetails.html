@@ -94,25 +94,26 @@
          </tr>
       </table>
    </div>
-</div><table class="detailsTable">
+</div>
+<table class="detailsTable">
    <tr>
       <td colspan="8" class="detailsTitle">FIREARM REGISTRATIONS</td>
    </tr>
    <tr>
       <td id="firearmRegistrationsHolderTD">
          <div id="firearmRegistrations" style="overflow:auto; width:100%; height:auto"><script type="text/javascript">
-            $(function () {
-                $("#registrationList").accordion({
-                    heightStyle: "content",         
-                    active: false,
-                    collapsible: true,
-                    activate: function( event, ui ) { 
-                        var modalIframe = $("#modalIframe", parent.document);
-                        modalIframe.height(modalIframe.contents().find("body").height() + 16);
-                    }
-                } );
-            });
-        </script><div id="registrationList">
+			$(function () {
+				$("#registrationList").accordion({
+					heightStyle: "content",			
+					active: false,
+  					collapsible: true,
+  					activate: function( event, ui ) { 
+  						var modalIframe = $("#modalIframe", parent.document);
+  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+  					}
+				} );
+			});
+		</script><div id="registrationList">
                <h3>Firearm Registration - 123456 (Current)</h3>
                <div class="table-responsive">
                   <table class="detailsTable table">

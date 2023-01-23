@@ -235,6 +235,8 @@ public class PortalController implements ApplicationContextAware {
 	private void putUserSignoutUrlAndSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
 			throws Exception {
 		StringBuilder sb = new StringBuilder();
+		
+		log.info("userSignOutUrl in putUserSignoutUrlAndSamlAssertionIntoModel: " + userSignOutUrl);
     	sb.append(userSignOutUrl);
     	
     	Element samlAssertion = (Element)request.getAttribute("samlAssertion");
