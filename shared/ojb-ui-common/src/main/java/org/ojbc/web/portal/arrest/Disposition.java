@@ -17,8 +17,10 @@
 package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -38,6 +40,7 @@ public class Disposition {
 	private String source; 
 	private String arrestIdentification;
 	private String arrestChargeIdentification;
+	private Boolean isChargeReviewed; 
 	private String dispositionIdentification;
 	private String arrestOri;
 	
@@ -111,6 +114,8 @@ public class Disposition {
     private String caseType; 
     private String year; 
     private String caseNumber; 
+    
+    private List<String> nonFinalDispoCodeIds = Arrays.asList("89", "110", "121"); 
 
     public Disposition() {
     	super();
@@ -457,5 +462,27 @@ public class Disposition {
 	}
 	public void setSource(String source) {
 		this.source = source;
+	}
+	public Boolean getIsChargeReviewed() {
+		return isChargeReviewed;
+	}
+	public void setIsChargeReviewed(Boolean isChargeReviewed) {
+		this.isChargeReviewed = isChargeReviewed;
+	}
+	
+	public Boolean isFinalDisposition() {
+		boolean isFinal = true;
+		
+		int deferredDays = Optional.ofNullable(getDeferredYears()).map(i->i*360).orElse(0)
+    			+ Optional.ofNullable(getDeferredDays()).map(i->i.intValue()).orElse(0);
+		
+		if (deferredDays > 0 && (this.alternateSentences == null || !alternateSentences.contains("121"))) {
+			isFinal = false; 
+		}
+		else if (nonFinalDispoCodeIds.contains(this.dispositionCode)) {
+			isFinal = false; 
+		}
+		
+		return isFinal;
 	}
 }    
