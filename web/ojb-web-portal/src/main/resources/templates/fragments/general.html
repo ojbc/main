@@ -162,10 +162,13 @@
 	      var idleTime;
 	      var oTable;
 	      $(function(){
-	    	  
+              console.log("inactivityTimeout on general.html: " + inactivityTimeout);
+              console.log("inactivityTimeoutInSeconds on general.html: " + inactivityTimeoutInSeconds);
+
 	    	  if( inactivityTimeout ){
 	    		  ojbc.reloadPage();
 	    		  $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+	    			  /* console.log("activity detected"); */ 
 	   	              clearTimeout(idleTime);
 	   	              ojbc.reloadPage();
    	              });

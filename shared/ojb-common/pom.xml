@@ -52,7 +52,7 @@
 		<java-version>1.8</java-version>
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.6</xmlunit.version>
-		<javax.mail.version>1.4.7</javax.mail.version>
+		<javax.mail.version>1.6.2</javax.mail.version>
 		
 	    <!-- Plugin versions -->
 	    <surefire.version>2.22.2</surefire.version>
@@ -150,9 +150,9 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
 			<version>${javax.mail.version}</version>
 		</dependency>	
 		<dependency>

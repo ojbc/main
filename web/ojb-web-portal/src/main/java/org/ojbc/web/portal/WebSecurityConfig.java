@@ -93,14 +93,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         providers.add(preauthAuthProvider());
         return new ProviderManager(providers);
     }
-    
+
     @Bean
-    public PreAuthenticatedAuthenticationProvider preauthAuthProvider() {
-    	PreAuthenticatedAuthenticationProvider preauthAuthProvider =
-    		new PreAuthenticatedAuthenticationProvider();
-    	preauthAuthProvider.setPreAuthenticatedUserDetailsService(
-    			new PreAuthenticatedGrantedAuthoritiesUserDetailsService());
-    	return preauthAuthProvider;
+    PreAuthenticatedAuthenticationProvider preauthAuthProvider() {
+        PreAuthenticatedAuthenticationProvider preauthAuthProvider =
+                new PreAuthenticatedAuthenticationProvider();
+        preauthAuthProvider.setPreAuthenticatedUserDetailsService(
+                new PreAuthenticatedGrantedAuthoritiesUserDetailsService());
+        return preauthAuthProvider;
     }
     
     public SamlAuthenticationFilter samlAuthenticationFilter(

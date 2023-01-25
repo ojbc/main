@@ -62,6 +62,7 @@ public class AppProperties {
 	private String mailSenderHost; 
 	private Integer mailSenderPort; 
 	private String mailSenderTransportProtocol; 
+	private String mailSenderSmtpSSlProtocol="TLSv1.2"; 
 	private String mailSenderSmtpAuth; 
 	private String mailSenderSmtpStarttlesEnable; 
 	private String mailSenderDebug; 
@@ -260,6 +261,14 @@ public class AppProperties {
 
 	public Map<String, String> getLeftMenuLinkTitles() {
 		return leftMenuLinkTitles;
+	}
+
+	public String getMailSenderSmtpSSlProtocol() {
+		return mailSenderSmtpSSlProtocol;
+	}
+
+	public void setMailSenderSmtpSSlProtocol(String mailSenderSmtpSSlProtocol) {
+		this.mailSenderSmtpSSlProtocol = mailSenderSmtpSSlProtocol;
 	}
 
 }
