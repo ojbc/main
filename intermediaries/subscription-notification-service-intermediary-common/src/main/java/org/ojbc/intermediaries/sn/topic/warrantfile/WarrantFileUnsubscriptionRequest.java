@@ -32,18 +32,18 @@ public class WarrantFileUnsubscriptionRequest extends UnSubscriptionRequest{
 		String firstName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
 		String lastName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
 		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
-		
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
+		String subscriptionQualifier =  XmlUtils.xPathStringSearch(document, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, subscriptionQualifier);
 	}
 
 	public WarrantFileUnsubscriptionRequest(String topic, List<String> emailAddresses, String systemName, String subscriptionQualifier, 
 			String firstName, String lastName, String dateOfBirth) {
 		
 		super(topic, emailAddresses, systemName, subscriptionQualifier);
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, subscriptionQualifier);
 	}
 
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth) {
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String subscriptionQualifier) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);

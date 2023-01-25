@@ -159,11 +159,15 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	subscription.setOri(rs.getString("ori"));
 	            	subscription.setAgencyName(rs.getString("agency_name"));
 	            	
+	            	
 	            	try{
-	            		subscription.setLastMatchDate(new DateTime(rs.getDate("last_match_date")));
+	            		Date subscriptionDate = rs.getDate("last_match_date");
+	            		if(subscriptionDate != null) {
+	            			subscription.setLastMatchDate(new DateTime(subscriptionDate));
+	            		}
 	            	}
 	            	catch(Exception ex) {
-	            		
+	            		log.info("Unable to get last match date.");
 	            	}
 	            	
 	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 

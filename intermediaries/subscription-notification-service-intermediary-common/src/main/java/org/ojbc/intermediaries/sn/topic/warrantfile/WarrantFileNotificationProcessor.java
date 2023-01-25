@@ -176,11 +176,13 @@ public class WarrantFileNotificationProcessor extends NotificationProcessor{
 
            String subscriptionSubscribingSystemName = subscription.getSubscribingSystemIdentifier();
            
+           for (String emailAddress : subscription.getEmailAddressesToNotify()) {
                
-           en = createEmailNotification(request, emailNotifications,
+               en = createEmailNotification(request, emailNotifications,
 						subscription, en, subscriptionSubscribingSystemName,
-						"ictsns@search.org", ori);
+						emailAddress, ori);
                
+           }
            
            if (isSendNotificationToSubscriptionOwner())
            {

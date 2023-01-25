@@ -18,7 +18,6 @@ package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import java.util.HashMap;
 
-
 import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -41,7 +40,7 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 
 		
 	}
-
+	
 	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
@@ -50,5 +49,7 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		subjectIdentifiers.put("sex", gender);
 		subjectIdentifiers.put("race", race);
+		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
+		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
 	}
 }
