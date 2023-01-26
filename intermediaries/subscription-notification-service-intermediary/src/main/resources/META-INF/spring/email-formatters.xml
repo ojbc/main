@@ -154,19 +154,13 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 This email is a notification that the offender below was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
 
 Warrant Issued by ORI: $emailNotification.subscription.ori
-Offender Name: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName
-Date of Birth: $emailNotification.notificationRequest.personBirthDate
+Offender Name: $emailNotification.subscription.personLastName, $emailNotification.subscription.personFirstName
+Date of Birth: $emailNotification.subscription.dateOfBirth
 Offender Case #: $emailNotification.subscription.agencyCaseNumber
 Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex")
 Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-#foreach ($emailAddress in $emailNotification.subscription.emailAddressesToNotify)
-#if($foreach.index == 1)
-Sending State PO: $emailAddress
-#if($foreach.index == 0)
-Receiving State PO: $emailAddress
-#end
-#end
-#end
+Sending State PO: $emailNotification.subscriptionSubjectIdentifiers.get("sendingStatePO") 
+Receiving State PO: $emailNotification.subscriptionSubjectIdentifiers.get("receivingStatePO") 
 			]]></value>
 		</property>
 	</bean>

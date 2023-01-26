@@ -22,7 +22,7 @@ import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
 
 public class SRFSubscriptionProcessor extends SubscriptionProcessor{
-	private static final String WARRANT_FILE_TOPIC = "{http://ojbc.org/wsn/topics}:person/nletsWarrant";
+	private static final String WARRANT_FILE_TOPIC = "{http://ojbc.org/wsn/topics}:person/srfNotification";
 	
 	@Override
 	protected SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(

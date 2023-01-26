@@ -41,7 +41,7 @@
         <cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit.version>1.5</xmlunit.version> 
-		<sn-intermediary-common-version>[3.0.0,)</sn-intermediary-common-version>
+		<sn-intermediary-common-version>[3.0.2,)</sn-intermediary-common-version>
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version> 

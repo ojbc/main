@@ -263,7 +263,7 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 		
 		String agencyCaseNumber = XmlUtils.xPathStringSearch(requestDocument, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWarrant/jxdm41:Warrant/nc:ActivityIdentification/nc:IdentificationID");
 		
-		subjectIdentifiers.put(SubscriptionNotificationConstants.AGENCY_CASE_NUMBER, agencyCaseNumber);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, agencyCaseNumber);
 	}
 
 	@Override
