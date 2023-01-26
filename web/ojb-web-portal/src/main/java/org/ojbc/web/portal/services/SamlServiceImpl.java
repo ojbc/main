@@ -150,11 +150,11 @@ public class SamlServiceImpl implements SamlService{
             customAttributes.put(SamlAttribute.SupervisoryRoleIndicator, "true");
 //            customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
-            customAttributes.put(SamlAttribute.EmailAddressText, "haiqi@search.org"); 
+            customAttributes.put(SamlAttribute.EmailAddressText   , "haiqi@search.org"); 
             if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
-
+            customAttributes.put(SamlAttribute.IncidentAccessIndicator, "false");
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);

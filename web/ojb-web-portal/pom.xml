@@ -231,7 +231,8 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
-			<version>${saxonHe.version}</version>
+			<version>${saxonHe.version}</version><!--$NO-MVN-MAN-VER$--> 
+			<!-- version 9.9 causes Hawaii portal rapback search failure-->
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>

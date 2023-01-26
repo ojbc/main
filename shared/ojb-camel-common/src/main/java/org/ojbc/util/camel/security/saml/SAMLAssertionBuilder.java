@@ -172,6 +172,7 @@ public class SAMLAssertionBuilder {
 			addAttributeToList(customAttributes, SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator,attributes);	
 			addAttributeToList(customAttributes, SamlAttribute.SupervisoryRoleIndicator,attributes);	
 			addAttributeToList(customAttributes, SamlAttribute.EmployerOrganizationCategoryText,attributes);	
+			addAttributeToList(customAttributes, SamlAttribute.IncidentAccessIndicator,attributes);	
 			
 			List<AttributeStatementBean> attributeStatementBeans = new ArrayList<AttributeStatementBean>();
 			

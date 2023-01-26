@@ -16,7 +16,9 @@
  */
 package org.ojbc.web.portal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -67,6 +69,8 @@ public class AppProperties {
 	private String mailSenderSmtpStarttlesEnable; 
 	private String mailSenderDebug; 
 	
+	private Boolean requireIncidentAccessControl = false; 
+	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
 	private String signOutUrl = "/portal/defaultLogout"; 
@@ -79,6 +83,8 @@ public class AppProperties {
 	private String enhancedAuditServerBaseUrl = "https://localhost:8443/OJB/";
 	
 	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
+	
+	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
 	/*
 	 * demo user Saml attributes
 	 */
@@ -269,6 +275,18 @@ public class AppProperties {
 
 	public void setMailSenderSmtpSSlProtocol(String mailSenderSmtpSSlProtocol) {
 		this.mailSenderSmtpSSlProtocol = mailSenderSmtpSSlProtocol;
+	}
+
+	public Boolean getRequireIncidentAccessControl() {
+		return requireIncidentAccessControl;
+	}
+
+	public void setRequireIncidentAccessControl(Boolean requireIncidentAccessControl) {
+		this.requireIncidentAccessControl = requireIncidentAccessControl;
+	}
+
+	public List<String> getPeopleSearchSourcesRequireIncidentAccess() {
+		return peopleSearchSourcesRequireIncidentAccess;
 	}
 
 }

@@ -149,6 +149,9 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" />
 		<entry key="Mental Health/Firearms Prohibition"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" />
+        <entry key="RMS - Hawaii County" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/RMS/1.0}SubmitPersonSearchRequest-HawaiiCounty" />
+        <entry key="RMS - Kauai County" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/RMS/1.0}SubmitPersonSearchRequest-KauaiCounty" />
+        <entry key="RMS - Maui County" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/RMS/1.0}SubmitPersonSearchRequest-MauiCounty" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">

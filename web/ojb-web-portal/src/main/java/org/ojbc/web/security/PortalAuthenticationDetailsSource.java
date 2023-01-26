@@ -30,6 +30,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
@@ -100,6 +101,9 @@ public class PortalAuthenticationDetailsSource implements
 
 	@Resource
 	RestEnhancedAuditClient restEnhancedAuditClient;
+	
+	@Resource
+    AppProperties appProperties;
 
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
@@ -233,13 +237,25 @@ public class PortalAuthenticationDetailsSource implements
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name())); 
             }
             
+            SimpleGrantedAuthority roleAuthQuery = new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name());
             if (requirePortalQueryAccessControl){
             	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) || BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
-            		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name()));
+            		grantedAuthorities.add(roleAuthQuery);
             	}
             }
             else {
-                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name())); 
+                grantedAuthorities.add(roleAuthQuery); 
+            }
+            
+            SimpleGrantedAuthority roleAuthIncidentAccess = new SimpleGrantedAuthority(Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES.name());
+            if (appProperties.getRequireIncidentAccessControl() && grantedAuthorities.contains(roleAuthQuery)) {
+            	String incidentAccessIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IncidentAccessIndicator); 
+            	if (BooleanUtils.toBoolean(incidentAccessIndicator)) {
+            		grantedAuthorities.add(roleAuthIncidentAccess); 
+            	}
+            }
+            else {
+            	grantedAuthorities.add(roleAuthIncidentAccess); 
             }
         }
         

@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.portal.controllers;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
@@ -51,11 +53,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -128,13 +130,16 @@ public class PeopleController {
 	@Resource
 	SamlService samlService;
 
+	@Resource
+    AppProperties appProperties;
+
 	@InitBinder("personSearchCommand")
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.addValidators(personSearchCommandValidator);
 	}
 
-	@RequestMapping(value = "/searchForm", method = RequestMethod.GET)
+	@GetMapping(value = "/searchForm")
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        @RequestParam(value = "activeSearchTab", defaultValue = "simpleSearchTab") String activeSearchTab,
 	        Map<String, Object> model) {
@@ -193,7 +198,7 @@ public class PeopleController {
 	}
 
 	//http://host/ojbc_web_portal/people/filter post
-	@RequestMapping(value="filter", method = RequestMethod.POST)
+	@PostMapping(value="filter")
 	public String filter(@ModelAttribute("personFilterCommand") @Valid PersonFilterCommand personFilterCommand, 
 			BindingResult errors, Map<String, Object> model) {
 		
@@ -230,7 +235,7 @@ public class PeopleController {
 		return personSearchResultPage;
 	}
 	
-    @RequestMapping(value="clearFilter", method = RequestMethod.GET)
+    @GetMapping(value="clearFilter")
     public String clearFilter( Map<String, Object> model ) {
         
         //reset the mostRecentSearchResult. 
@@ -249,7 +254,7 @@ public class PeopleController {
         return personSearchResultPage;
     }
 	
-	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
+	@PostMapping(value = "advanceSearch")
 	public String advanceSearch(HttpServletRequest request,  @Valid @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentSearch(personSearchCommand);
@@ -267,7 +272,7 @@ public class PeopleController {
 		return performSearchAndReturnResults(model, personSearchRequest, request);
 	}
 
-	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
+	@GetMapping(value = "searchDetails")
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
@@ -283,14 +288,14 @@ public class PeopleController {
 		return "people/searchDetails";
 	}
 
-	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)
+	@GetMapping(value = "instanceDetails")
 	public @ResponseBody String instanceDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		return getConvertedSearchResult(request, systemName, detailsRequest, model);
 	}
 	
-	@RequestMapping(value = "instanceDetailsPage", method = RequestMethod.GET)
+	@GetMapping(value = "instanceDetailsPage")
 	public String instanceDetailsPage(HttpServletRequest request, @RequestParam String systemName,
 			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 					throws Exception {
@@ -304,6 +309,7 @@ public class PeopleController {
         model.addAttribute("placements", placements);
         model.addAttribute("states", states);
         model.addAttribute("showJuvenileSearchTab", showJuvenileSearchTab);
+        
     }
     
 	@ModelAttribute("races")
@@ -327,7 +333,19 @@ public class PeopleController {
 	}
 	
 	@ModelAttribute("systemsToQuery")
-	public Map<String, String> getSystemsToQuery() {
+	public Map<String, String> getSystemsToQuery(Authentication authentication) {
+		
+		Map<String, String> systemsToQuery = new LinkedHashMap<>();
+		systemsToQuery.putAll(systemsToQuery_people);
+		if (appProperties.getRequireIncidentAccessControl() 
+				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
+			boolean containsIncidentAccess = authentication.getAuthorities().stream()
+					.anyMatch(authority -> authority.getAuthority().equals(Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES.name()));
+			if (!containsIncidentAccess) {
+				appProperties.getPeopleSearchSourcesRequireIncidentAccess()
+					.forEach(systemsToQuery_people::remove);
+			}
+		}
 		return systemsToQuery_people;
 	}
 	

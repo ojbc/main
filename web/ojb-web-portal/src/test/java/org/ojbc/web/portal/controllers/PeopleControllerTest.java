@@ -44,6 +44,7 @@ import org.ojbc.web.PersonSearchInterface;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
@@ -123,6 +124,7 @@ public class PeopleControllerTest {
 		unit.samlService = samlService;
 		unit.personSearchForm="people/searchForm::personSearchFormContent";
 		unit.personSearchResultPage="people/_searchResult";
+		unit.appProperties = new AppProperties(); 
 		
 		unit.config = new PeopleControllerConfigInterface() {
 			
@@ -343,7 +345,7 @@ public class PeopleControllerTest {
 	public void systemsToQueryReturnsValueFromMap() {
 		Map<String, String> hashMap = new HashMap<String, String>();
 		unit.systemsToQuery_people = hashMap;
-		assertSame(hashMap, unit.getSystemsToQuery());
+		assertSame(hashMap.size(), unit.getSystemsToQuery(null).size());
 	}
 	
 	@Test
