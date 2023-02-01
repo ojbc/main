@@ -75,7 +75,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -174,7 +173,7 @@ public class RapbackController {
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
 	}
     
-	@RequestMapping(value = "/rapbackResults", method = RequestMethod.GET)
+	@GetMapping(value = "/rapbackResults")
 	public String rapbackResults(HttpServletRequest request, 
 	        Map<String, Object> model) {
 		
@@ -229,7 +228,7 @@ public class RapbackController {
 		return "rapbacks/rapbackResults::rapbackResultsContent";
 	}
 	
-	@RequestMapping(value = "rapbackAdvancedSearch", method = RequestMethod.POST)
+	@PostMapping(value = "rapbackAdvancedSearch")
 	public String advanceSearch(HttpServletRequest request,
 			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
@@ -243,7 +242,7 @@ public class RapbackController {
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 	
-	@RequestMapping(value = "auditPrintResults", method = RequestMethod.POST)
+	@PostMapping(value = "auditPrintResults")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void auditInitialResultsPrint(HttpServletRequest request,
 			@RequestParam String messageId,
@@ -284,7 +283,7 @@ public class RapbackController {
 		restEnhancedAuditClient.auditPrintResults(printResults);
 	}
 
-	@RequestMapping(value = "auditRapsheetPrint", method = RequestMethod.POST)
+	@PostMapping(value = "auditRapsheetPrint")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void auditRapsheetPrint(HttpServletRequest request,
 			@RequestParam String messageId,
@@ -350,7 +349,7 @@ public class RapbackController {
 		
 	}
 	
-	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.GET)
+	@GetMapping(value = "criminalIdentificationAdvancedSearch")
 	public String criminalIdentificationAdvancedSearch(HttpServletRequest request,
 			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest searchRequest,
 			BindingResult errors, Map<String, Object> model) throws Exception {
@@ -393,7 +392,7 @@ public class RapbackController {
 		return "rapbacks/criminalIdentificationResults::criminalIdentificationResultsContent";
 	}
 
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	@GetMapping(value = "searchForm")
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
@@ -406,7 +405,7 @@ public class RapbackController {
 		return "rapbacks/searchForm::searchFormContent";
 	}
 
-	@RequestMapping(value = "criminalIdentificationSearchForm", method = RequestMethod.GET)
+	@GetMapping(value = "criminalIdentificationSearchForm")
 	public String criminalIdentificationSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 			Map<String, Object> model) {
 		
@@ -453,7 +452,7 @@ public class RapbackController {
 		return identificationTransactionStatus;
 	}
 
-	@RequestMapping(value = "initialResults/{sid}/{transactionNumber}", method = RequestMethod.GET)
+	@GetMapping(value = "initialResults/{sid}/{transactionNumber}")
 	public String initialResults(HttpServletRequest request, 
 			@PathVariable("sid") String sid,
 			@PathVariable("transactionNumber") String transactionNumber,
@@ -467,7 +466,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "nsorCheckResults/{transactionNumber}", method = RequestMethod.GET)
+	@GetMapping(value = "nsorCheckResults/{transactionNumber}")
 	public String nsorCheckResults(HttpServletRequest request, 
 			@PathVariable("transactionNumber") String transactionNumber,
 			Map<String, Object> model) {
@@ -480,7 +479,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "initialResults/{transactionNumber}", method = RequestMethod.GET)
+	@GetMapping(value = "initialResults/{transactionNumber}")
 	public String initialCriminalResults(HttpServletRequest request, 
 			@PathVariable("transactionNumber") String transactionNumber,
 			Map<String, Object> model) {
@@ -493,7 +492,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiRapsheet}", method = RequestMethod.GET)
+	@GetMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiRapsheet}")
 	public String getStateRapsheet(HttpServletRequest request, 
 			@PathVariable("sid") String sid,
 			@PathVariable("transactionNumber") String transactionNumber,
@@ -511,7 +510,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "fbiRapsheet/{transactionNumber}", method = RequestMethod.GET)
+	@GetMapping(value = "fbiRapsheet/{transactionNumber}")
 	@ResponseBody
 	public String getFbiRapsheet(HttpServletRequest request, 
 			@PathVariable("transactionNumber") String transactionNumber,
@@ -605,7 +604,7 @@ public class RapbackController {
 			Document responseDocument =  OJBUtils.loadXMLFromString(stateRapsheetDoc); 
  			String errorText = XmlUtils.xPathStringSearch(responseDocument, "/cht-doc:CriminalHistoryTextDocument/error:PersonQueryResultError/error:ErrorText");
 
- 			if (StringUtils.isNoneBlank(errorText)) {
+ 			if (StringUtils.isNotBlank(errorText)) {
  				model.put("errorText", errorText);
  			}
  			else {
@@ -618,7 +617,7 @@ public class RapbackController {
 						
 	}
 	
-	@RequestMapping(value = "subsequentResults", method = RequestMethod.GET)
+	@GetMapping(value = "subsequentResults")
 	public String subsequentResults(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		try {
@@ -630,7 +629,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "subscribe", method = RequestMethod.POST)
+	@PostMapping(value = "subscribe")
 	public @ResponseBody String subscribe(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		
@@ -652,7 +651,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "archive", method = RequestMethod.GET)
+	@GetMapping(value = "archive")
 	public @ResponseBody String archive(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		try {
@@ -673,7 +672,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "unarchive", method = RequestMethod.GET)
+	@GetMapping(value = "unarchive")
 	public @ResponseBody String unarchive(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		try {
@@ -694,7 +693,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
+	@GetMapping(value = "unsubscribe")
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
@@ -712,7 +711,7 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "validate", method = RequestMethod.GET)
+	@GetMapping(value = "validate")
 	public @ResponseBody String validate(HttpServletRequest request, @RequestParam String subscriptionId,
 			@RequestParam String reasonCode,
 			Map<String, Object> model) {
@@ -847,7 +846,7 @@ public class RapbackController {
 	}
 
 	
-	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.GET)
+	@GetMapping(value = "/criminalIdentificationsResults")
 	public String criminalIdentificationResults(HttpServletRequest request, 
 			Map<String, Object> model) {
 		
@@ -862,7 +861,7 @@ public class RapbackController {
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
-	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.GET)
+	@GetMapping(value = "/criminalIdentificationDefaultSearch")
 	public String criminalIdentificationDefaultSearch(HttpServletRequest request, 
 			Map<String, Object> model) {
 		

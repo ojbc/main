@@ -339,14 +339,16 @@ public class PeopleController {
 		systemsToQuery.putAll(systemsToQuery_people);
 		if (appProperties.getRequireIncidentAccessControl() 
 				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
+			log.info("Granted Authorities: " + authentication.getAuthorities());
 			boolean containsIncidentAccess = authentication.getAuthorities().stream()
 					.anyMatch(authority -> authority.getAuthority().equals(Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES.name()));
+			log.info("containsIncidentAccess: " + containsIncidentAccess);
 			if (!containsIncidentAccess) {
 				appProperties.getPeopleSearchSourcesRequireIncidentAccess()
-					.forEach(systemsToQuery_people::remove);
+					.forEach(systemsToQuery::remove);
 			}
 		}
-		return systemsToQuery_people;
+		return systemsToQuery;
 	}
 	
 	@ModelAttribute("systemsToQuery_disabled")

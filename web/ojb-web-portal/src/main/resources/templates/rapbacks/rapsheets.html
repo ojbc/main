@@ -64,7 +64,7 @@
             <!-- http://wiki.apache.org/velocity/CheckingForNull -->
             <div th:if="${stateRapsheet != ''}"><pre th:utext="${stateRapsheet}">State Rapsheet</pre></div> 
             <div style="color: #721c24;background-color: #f8d7da; border-color: #f5c6cb;padding: 15px; 
-                margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;" th:if="${errorText != ''}">Error Text</div> 
+                margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;" th:if="${errorText!= null &&  errorText!= ''}">Error Text</div> 
         </div>
     </div>
     <script th:inline="javascript">
