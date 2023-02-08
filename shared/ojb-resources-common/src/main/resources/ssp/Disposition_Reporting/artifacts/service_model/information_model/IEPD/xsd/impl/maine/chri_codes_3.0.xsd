@@ -1052,7 +1052,7 @@
 			<xsd:enumeration value="ORD SEALING CR REC-NOT SEALED" />
 			<xsd:enumeration value="ORD SEALING CR RECORDS-SEALED" />
 			<xsd:enumeration value="ORDER FORFEITURE DISTRIBUTION" />
-			<xsd:enumeration value="ORDER TO REOPEN CRIM HIST FILE" />
+			<xsd:enumeration value="ORDER RE REOPN CRIM HIST FILE" />
 			<xsd:enumeration value="ORIGINAL" />
 			<xsd:enumeration value="OTHER DOMESTIC REL JUDGMENT" />
 			<xsd:enumeration value="OTHER FINDING" />
