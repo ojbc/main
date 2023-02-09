@@ -962,6 +962,7 @@
 			<xsd:enumeration value="ASSURANCE OF DISCONTINUANCE" />
 			<xsd:enumeration value="BAIL AND PLEADING" />
 			<xsd:enumeration value="BOUNDOVER TO SC" />
+			<xsd:enumeration value="CASE TRANSFERRED TO ODYSSEY" />
 			<xsd:enumeration value="CHILD SUPPORT JUDGMENT" />
 			<xsd:enumeration value="COMMUTATION" />
 			<xsd:enumeration value="CONSENT DECREE" />
@@ -973,6 +974,9 @@
 			<xsd:enumeration value="DEFERRED DISPOSITION" />
 			<xsd:enumeration value="DENIED" />
 			<xsd:enumeration value="DIMINIMUS" />
+			<xsd:enumeration value="DIS BY DA/AG-AFT DEFERRED DISP" />
+			<xsd:enumeration value="DIS BY DA/AG-FEDERAL COURT" />
+			<xsd:enumeration value="DIS BY DA/AG-JUVENILE" />
 			<xsd:enumeration value="DIS FND INCOMPTNCE STAND TRIAL" />
 			<xsd:enumeration value="DISMISSED" />
 			<xsd:enumeration value="DISMISSED - PLAINTIFF FTA" />
@@ -980,6 +984,7 @@
 			<xsd:enumeration value="DISMISSED BY CLERK RULE 48(B)(2)" />
 			<xsd:enumeration value="DISMISSED BY COURT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTED IN SUPERIOR COURT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTMENT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - INSUFFICIENT EVIDENCE" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - OTHER" />
@@ -1044,10 +1049,18 @@
 			<xsd:enumeration value="NOT GUILTY" />
 			<xsd:enumeration value="OFFENSE COMMITTED" />
 			<xsd:enumeration value="OFFENSE NOT COMMITTED" />
+			<xsd:enumeration value="ORD SEALING CR REC-NOT SEALED" />
+			<xsd:enumeration value="ORD SEALING CR RECORDS-SEALED" />
+
+<!-- Added on Feb 9th 2023 -->			
+			<xs:enumeration value="ORD SEALING JV REC-NOT SEALED"/>
+			<xs:enumeration value="ORD SEALING JV RECORDS-SEALED"/>
+			
 			<xsd:enumeration value="ORDER FORFEITURE DISTRIBUTION" />
-			<xsd:enumeration value="ORDER RE REOPN CRIM HIST FILE" />
+			<xsd:enumeration value="ORDER TO REOPEN CRIM HIST FILE" />
 			<xsd:enumeration value="ORIGINAL" />
 			<xsd:enumeration value="OTHER DOMESTIC REL JUDGMENT" />
+			<xsd:enumeration value="OTHER FINDING" />
 			<xsd:enumeration value="OTHER MARRIAGE DISS JUDGMENT" />
 			<xsd:enumeration value="PARDON" />
 			<xsd:enumeration value="PARENTAGE JUDGMENT" />
