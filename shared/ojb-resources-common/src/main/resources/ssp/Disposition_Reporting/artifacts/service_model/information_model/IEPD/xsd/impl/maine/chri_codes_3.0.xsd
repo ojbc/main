@@ -863,6 +863,8 @@
 			<xsd:enumeration value="WITNESS UNAVAILABLE" />
 <!-- ADDED 11/29/21  -->
 			<xsd:enumeration value="AMENDED" />
+<!-- ADDED 10/18/22  -->
+			<xsd:enumeration value="SENT TO SBI" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventActionCodeType">
