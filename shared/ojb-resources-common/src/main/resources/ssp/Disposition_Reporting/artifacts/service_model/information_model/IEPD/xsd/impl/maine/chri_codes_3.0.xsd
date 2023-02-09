@@ -1053,8 +1053,8 @@
 			<xsd:enumeration value="ORD SEALING CR RECORDS-SEALED" />
 
 <!-- Added on Feb 9th 2023 -->			
-			<xs:enumeration value="ORD SEALING JV REC-NOT SEALED"/>
-			<xs:enumeration value="ORD SEALING JV RECORDS-SEALED"/>
+			<xsd:enumeration value="ORD SEALING JV REC-NOT SEALED"/>
+			<xsd:enumeration value="ORD SEALING JV RECORDS-SEALED"/>
 			
 			<xsd:enumeration value="ORDER FORFEITURE DISTRIBUTION" />
 			<xsd:enumeration value="ORDER TO REOPEN CRIM HIST FILE" />
