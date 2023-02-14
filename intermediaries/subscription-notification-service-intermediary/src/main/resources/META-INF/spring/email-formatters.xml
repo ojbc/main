@@ -151,16 +151,24 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 		</property>
 		<property name="emailBodyTemplate">
 			<value><![CDATA[
-This email is a notification that the offender below was the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
+This email is a notification that the offender below may be the subject of a warrant entered into the NCIC Wanted Person File by ORI $emailNotification.subscription.ori. Please follow state and FBI protocols to confirm this warrant before taking action.
 
 Warrant Issued by ORI: $emailNotification.subscription.ori
 Offender Name: $emailNotification.subscription.personLastName, $emailNotification.subscription.personFirstName
 Date of Birth: $emailNotification.subscription.dateOfBirth
 Offender Case #: $emailNotification.subscription.agencyCaseNumber
 Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex")
-Race: $emailNotification.subscriptionSubjectIdentifiers.get("race") 
-Sending State PO: $emailNotification.subscriptionSubjectIdentifiers.get("sendingStatePO") 
-Receiving State PO: $emailNotification.subscriptionSubjectIdentifiers.get("receivingStatePO") 
+Race: $emailNotification.subscriptionSubjectIdentifiers.get("race")
+#foreach ($sendingStatePO in $emailNotification.subscriptionSubjectIdentifiers.get("sendingStatePO").split(": "))
+#if($foreach.index == 0)
+Sending State PO: $sendingStatePO.split(",")[1].trim() $sendingStatePO.split(",")[0].trim()
+#end
+#end
+#foreach ($receivingStatePO in $emailNotification.subscriptionSubjectIdentifiers.get("receivingStatePO").split(": "))
+#if($foreach.index == 0)
+Receiving State PO: $receivingStatePO.split(",")[1].trim() $receivingStatePO.split(",")[0].trim()
+#end
+#end
 			]]></value>
 		</property>
 	</bean>
