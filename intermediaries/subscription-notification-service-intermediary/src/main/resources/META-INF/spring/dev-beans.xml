@@ -135,17 +135,13 @@
 	<bean id="emailEnhancementStrategy" class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
 		<property name="compositeStrategy">
 			<util:list id="emailEnhancementStrategyList">
-				<bean class="org.ojbc.intermediaries.sn.notification.StaticToEmailEnhancementStrategy">
-					<property name="staticToAddress" value="${publishSubscribe.staticToAddress}" />
-				</bean>
-				<bean class="org.ojbc.intermediaries.sn.notification.WhitelistFilteringEmailEnhancementStrategy">
-					<property name="whitelist" ref="whitelist-set" />
-				</bean>
-				<bean class="org.ojbc.intermediaries.sn.notification.CCLookupEmailEnhancementStrategy">
-					<property name="ccLookupMap" ref="cc-map" />
+				<bean class="org.ojbc.intermediaries.sn.notification.SendingStatePOEmailEnhancementStrategy">
 				</bean>
 				<bean class="org.ojbc.intermediaries.sn.notification.StaticBCCEmailEnhancementStrategy">
 					<property name="bccAddress" value="${publishSubscribe.bcc}" />
+				</bean>
+				<bean class="org.ojbc.intermediaries.sn.notification.StaticToEmailEnhancementStrategy">
+					<property name="staticToAddress" value="${publishSubscribe.staticToAddress}" />
 				</bean>
 			</util:list>
 		</property>
