@@ -24,6 +24,7 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<pdr-report-ext:ServiceOperationDescriptionText>ReportProsecutionDecisionRecording</pdr-report-ext:ServiceOperationDescriptionText>
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>0056444</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
