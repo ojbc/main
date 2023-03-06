@@ -18,6 +18,16 @@ drop schema if exists rapback_datastore;
 CREATE schema rapback_datastore;
 use rapback_datastore;
 
+CREATE TABLE TOTP_USER (
+                ID INT AUTO_INCREMENT NOT NULL,
+                USER_NAME VARCHAR(300),
+                SECRET_KEY VARCHAR(300),
+                VALIDATION_CODE SMALLINT,
+                SCRATCH_CODES VARCHAR(300),
+                DATE_CREATED TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                PRIMARY KEY (ID)
+);
+
 CREATE TABLE AGENCY_EMAIL_CATEGORY (
                 AGENCY_EMAIL_CATEGORY_ID IDENTITY NOT NULL,
                 CODE VARCHAR(50) NOT NULL,
