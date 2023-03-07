@@ -213,7 +213,30 @@
 										
 			</choice>
 		</route>
-		
+		  <route>
+            <from uri="cxfrs:bean:totpServer" />
+            <log
+                message="Entering TOTP User REST route: Http method ${header.CamelHttpMethod}" />
+            <log message="REST path is ${header.CamelHttpPath}, operation name: ${header.operationName}" />
+            <choice>
+                <when>
+                    <simple>${header.operationName} == 'saveTotpUser'</simple>
+                    <to uri="direct:saveTotpUser" />
+                </when>
+                <when>
+                    <simple>${header.operationName} == 'getTotpUserByUserName'</simple>
+                    <to uri="direct:getTotpUserByUserName" />
+                </when>
+                <when>
+                    <simple>${header.operationName} == 'deleteTotpUserByUserName'</simple>
+                    <to uri="direct:deleteTotpUserByUserName" />
+                </when>
+                <when>
+                    <simple>${header.operationName} == 'returnTotpUsers'</simple>
+                    <to uri="direct:returnTotpUsers" />
+                </when>
+            </choice>
+		</route>
 		<route id="directRetrievePersonSearchRequestByPerson">
 			<from uri="direct:retrievePersonSearchRequestByPerson" />
 			
@@ -479,7 +502,27 @@
 		<route id="directAuditUserAcknowledgement">
 			<from uri="direct:auditUserAcknowledgement" />
 			<bean ref="auditRestImpl" method="auditUserAcknowledgement" />
-		</route>			
+		</route>
+					
+        <route id="directSaveTotpUserType">
+            <from uri="direct:saveTotpUser" />
+            <bean ref="totpUserRestImpl" method="saveTotpUser" />
+        </route>        
+        
+        <route id="directGetTotpUserByUserNameType">
+            <from uri="direct:getTotpUserByUserName" />
+            <bean ref="totpUserRestImpl" method="getTotpUserByUserName" />
+        </route>        
+        
+        <route id="directDeleteTotpUserByUserNameType">
+            <from uri="direct:deleteTotpUserByUserName" />
+            <bean ref="totpUserRestImpl" method="deleteTotpUserByUserName" />
+        </route>
+                
+        <route id="directReturnTotpUsers">
+            <from uri="direct:returnTotpUsers" />
+            <bean ref="totpUserRestImpl" method="returnTotpUsers" />
+        </route>        
 	</camel:camelContext>
 	
 </beans>

@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.utilities.auditing;
+package org.ojbc.bundles.utilities.auditing.rest;
 
 import java.util.List;
 

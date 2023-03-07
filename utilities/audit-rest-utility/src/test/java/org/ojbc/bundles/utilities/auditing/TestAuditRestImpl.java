@@ -49,7 +49,6 @@ import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
-import org.ojbc.bundles.utiltities.auditing.application.AuditRestUtility;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
@@ -94,7 +93,7 @@ public class TestAuditRestImpl {
     //This is used to update database to achieve desired state for test
 	private JdbcTemplate jdbcTemplate;
 	
-	@Resource(name="dataSourceSubscriptions")
+	@Resource(name="dataSourceRapback")
 	private DataSource dataSource;
 	
 	@BeforeEach

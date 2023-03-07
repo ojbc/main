@@ -34,4 +34,13 @@
 	  </cxf:providers>
 	</cxf:rsServer>
 	 
+	<cxf:rsServer id="totpServer" address="${auditRestUtility.totpRestEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="totpUserRestImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>
+	 
 </beans>

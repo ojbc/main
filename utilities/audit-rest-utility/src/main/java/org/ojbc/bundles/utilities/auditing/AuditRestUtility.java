@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.utiltities.auditing.application;
+package org.ojbc.bundles.utilities.auditing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
  * A sample Spring Boot application that starts the Camel routes.
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@ComponentScan({"org.ojbc.bundles.utiltities.auditing.application"})
+@ComponentScan({"org.ojbc.bundles.utiltities.auditing"})
 @ImportResource(value = {"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/beans.xml"})
@@ -38,11 +38,11 @@ public class AuditRestUtility extends SpringBootServletInitializer{
 	public static void main(String[] args) {
         SpringApplication.run(AuditRestUtility.class, args);
     }
-	
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-	   // Do any additional configuration here
-	   return builder.build();
-	}
+
+    @Bean
+    RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
+        return builder.build();
+    }
 }
 
