@@ -19,10 +19,10 @@ CREATE schema rapback_datastore;
 use rapback_datastore;
 
 CREATE TABLE TOTP_USER (
-                ID INT AUTO_INCREMENT NOT NULL,
+                ID IDENTITY NOT NULL,
                 USER_NAME VARCHAR(300),
                 SECRET_KEY VARCHAR(300),
-                VALIDATION_CODE SMALLINT,
+                VALIDATION_CODE INTEGER,
                 SCRATCH_CODES VARCHAR(300),
                 DATE_CREATED TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 PRIMARY KEY (ID)
