@@ -50,7 +50,7 @@ public class TotpUserDAOImpl implements TotpUserDAO {
 		log.debug("Inserting row into TOTP user table");
 		
         final String totpInsertStatement="INSERT INTO TOTP_USER "
-        		+ "(ID, USER_NAME, SECRET_KEY, VALIDATION_CODE, SCRATCH_CODES) values (TOTP_USER_SEQ.NEXTVAL, ?,?,?,?)";
+        		+ "(USER_NAME, SECRET_KEY, VALIDATION_CODE, SCRATCH_CODES) values (?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
