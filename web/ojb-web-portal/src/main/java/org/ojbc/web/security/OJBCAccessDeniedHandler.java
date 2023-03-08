@@ -24,10 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.portal.totp.CredentialRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,13 +42,17 @@ import org.w3c.dom.Element;
 
 @Service("ojbcAccessDeniedHandler")
 public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
-    @Value("${requireOtpAuthentication:false}")
+	private final Log log = LogFactory.getLog(this.getClass());
+
+	@Value("${requireOtpAuthentication:false}")
     Boolean requireOtpAuthentication;
 
     @Value("${requireFederatedQueryUserIndicator:true}")
     boolean requireFederatedQueryUserIndicator;
     
-	private final Log log = LogFactory.getLog(this.getClass());
+    @Autowired(required = false)
+    private CredentialRepository credentialRepository;
+
 	
 	@Override
 	public void handle(HttpServletRequest request,
@@ -64,9 +72,9 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 
     	if (BooleanUtils.isTrue(requireOtpAuthentication) && !otpRoleGranted)
 		{
+    		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
 			if (requireFederatedQueryUserIndicator)
 			{
-				Element samlAssertion = (Element)request.getAttribute("samlAssertion");
 		        Boolean federatedQueryUserIndicator =
 		        		BooleanUtils.toBooleanObject(
 		        				SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederatedQueryUserIndicator));
@@ -76,10 +84,24 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 		        	request.getRequestDispatcher("/403").forward(request, response);
 		        }
 			}
-	        
+			String userEmail = getUserEmail(samlAssertion);
 			log.info("User doesn't have OTP role.");
-			request.getRequestDispatcher("/otp/inputForm").forward(request, response);
+			log.info("User Email: " + userEmail);
+			if (credentialRepository != null) {
+				if (credentialRepository.getUser(userEmail) != null) {
+					request.getRequestDispatcher("/code/inputForm").forward(request, response);
+				}
+				else {  //Show the QR code for user to register
+					request.getRequestDispatcher("/code/qrCode/" + userEmail)
+						.forward(request, response);
+				}
+			}
+			else {
+				request.getRequestDispatcher("/otp/inputForm").forward(request, response);
+				return;
+			}
 			return;
+
 		}	
 		
 		if (!request.isUserInRole(Authorities.AUTHZ_PORTAL.name()))
@@ -89,6 +111,18 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			return;
 		}	
 
+	}
+	
+	private String getUserEmail(Element samlAssertion) {
+        String userEmail = StringUtils.EMPTY;
+		try {
+			userEmail = XmlUtils.xPathStringSearch(samlAssertion, 
+					"/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return userEmail;
 	}
 
 }

@@ -13,12 +13,15 @@ portal.externalTemplatesFolder=/usr/local/search/osbi/ojb-web-external-resource/
 
 portal.inactivity-timeout=true
 #Default to 1800 seconds. 
-#portal.inactivity-timeout-in-seconds=1800
+portal.inactivity-timeout-in-seconds=1800
+server.servlet.session.timeout=120m
+server.servlet.session.cookie.max-age=120m
 
 #OTP Authentication
 #requireOtpAuthentication=true
 #otpServiceBean=OTPServiceMemoryImpl
 #otpServiceBean=totpServiceMemoryImpl
+#portal.totpUserServerBaseUrl=http://localhost:8085/OJB/totpUser/
 #otpGeneratorBean=DefaultOtpGenerator
 #otpValidityPeriodInMinutes=1M
 #otpOutOfBandSendStrategyBean=EmailOutOfBandSendStrategy
@@ -29,6 +32,7 @@ ojbcMailSenderBean=mockMailSender
 #portal.mailSenderHost=smtp.gmail.com
 #portal.mailSenderPort=587
 #portal.mailSenderTransportProtocol=smtp
+#portal.mailSenderSmtpSSlProtocol=TLSv1.2
 #portal.mailSenderSmtpAuth=true
 #portal.mailSenderSmtpStarttlesEnable=true
 #portal.mailSenderDebug=true
@@ -82,7 +86,7 @@ civilRapbackSubscriptionPeriod=5
 #showPersonSearchToSubscriptionButton=true
 
 enableEnhancedAudit=true
-
+enhancedAuditServerBaseUrl=https://localhost:8443/OJB/
 #Default subscription topic from person search results
 #defaultPersonSearchSubscriptionTopic={http://ojbc.org/wsn/topics}:person/incident
 #defaultPersonSearchSubscriptionTopic={http://ojbc.org/wsn/topics}:person/arrest
@@ -119,3 +123,7 @@ portal.bannerInitial=OJBC
 portal.bannerFullname=Federated Query
 portal.footerText=Copyright &copy; 2020 OJBC. All rights reserved.
 
+portal.requireIncidentAccessControl=true
+portal.peopleSearchSourcesRequireIncidentAccess[0]=RMS - Hawaii County
+portal.peopleSearchSourcesRequireIncidentAccess[1]=RMS - Kauai County
+portal.peopleSearchSourcesRequireIncidentAccess[2]=RMS - Maui County

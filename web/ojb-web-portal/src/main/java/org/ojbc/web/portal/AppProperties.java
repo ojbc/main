@@ -81,6 +81,7 @@ public class AppProperties {
 	private String bannerFullname="Federated Query";
 
 	private String enhancedAuditServerBaseUrl = "https://localhost:8443/OJB/";
+	private String totpUserServerBaseUrl = "https://localhost:8443/OJB/totpUser/";
 	
 	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
 	
@@ -287,6 +288,14 @@ public class AppProperties {
 
 	public List<String> getPeopleSearchSourcesRequireIncidentAccess() {
 		return peopleSearchSourcesRequireIncidentAccess;
+	}
+
+	public String getTotpUserServerBaseUrl() {
+		return totpUserServerBaseUrl;
+	}
+
+	public void setTotpUserServerBaseUrl(String totpUserServerBaseUrl) {
+		this.totpUserServerBaseUrl = totpUserServerBaseUrl;
 	}
 
 }

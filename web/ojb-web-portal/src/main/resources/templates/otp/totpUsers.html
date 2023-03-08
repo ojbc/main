@@ -1,0 +1,127 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<title>OJBC Portal</title>
+		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+		<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+	    <!-- Begin page content -->
+	    <div th:fragment="resultsPage">
+	      <div id="loadingAjaxPane" ></div>
+        <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Manage TOTP Users</li>
+           </ol>
+        </nav>
+        <div id="searchResultsList" th:fragment="resultsList" >
+          <table id="totpUsersTable" class="table table-striped table-bordered dt-responsive display responsive" style="width: 100%; border-spacing: 0;">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Date Registered</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+             <th:block th:each="totpUser:${totpUsers}">
+                  <tr th:id="${totpUser.id}">
+                    <td th:text="${totpUser.userName}"/>
+                    <td th:text="${totpUser.dateCreated}"/>
+                    <td> 
+                     <a href="#" class="removeUser" style="margin-right:3px" title="Remove Registered Token" data-toggle="tooltip">
+					             <i class="fas fa-trash-alt fa-lg"></i>
+					           </a>
+                    </td>
+                  </tr>
+              </th:block>
+            </tbody>
+          </table>
+          <script th:inline="javascript">
+		          /*<![CDATA[*/
+			          var _csrf_token = /*[[${_csrf.token}]]*/ '';
+			          var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+			        /*]]>*/
+              $(function(){
+                  var table = $('#totpUsersTable').DataTable({
+                	  responsive: true, 
+                	  fixedHeader: {header: true}, 
+                    buttons: [
+                        {
+                            extend: 'csvHtml5',
+                            title:'RAPUP Tool TOTP User List',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            title:'RAPUP Tool TOTP User List',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            title:'RAPUP Tool TOTP User List',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        'colvis'
+                    ]
+                  });
+                  
+                  table.buttons().container()
+                   .appendTo( '#totpUsersTable_length' ).addClass("mr-5");
+                  
+                  $('#totpUsersTable tbody').on('click', 'a.removeUser',function() {
+                	    userName = $(this).closest("tr").children("td").first().text();
+                      var requestData = {
+                          'id': $(this).closest("tr").attr("id"), 
+                          'userName': userName
+                      };
+                      bootpopup({
+                          title: "", 
+                          showclose: false,
+                          content: [
+                                { p: {text: "Do you want to unenroll the 2nd factor token for the user " + userName + "?"}}
+                                ], 
+                          no: function() {},
+                          yes: function(data, array, event) {  
+                        	    requestData[_csrf_param_name] = _csrf_token;
+                              xhr = $.post(context + "totpUser/delete", requestData, function(data) {
+                                  $('#portalContent').html(data); 
+                              }).fail(ojbc.displayFailMessage);
+                          },
+                      });
+
+                   });
+              });
+          </script>
+        </div>
+	    </div>
+	
+	</body>
+</html>

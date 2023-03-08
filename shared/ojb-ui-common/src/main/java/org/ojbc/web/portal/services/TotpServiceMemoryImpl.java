@@ -22,8 +22,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,9 +41,6 @@ public class TotpServiceMemoryImpl implements OTPService{
 	 */
 	@Value("${otpValidityPeriodInMinutes:5M}")
 	String otpValidityPeriod;
-	
-	@Resource (name="${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
-	OtpOutOfBandSendStrategy otpOutOfBandSendStrategy;
 	
 	@Override
 	public boolean confirmOTP(String userIdentifier, String enteredOtp) {
