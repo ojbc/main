@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
@@ -46,6 +48,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver;
     @PropertySource(value = "${spring.config.additional-location}ojbc-web-application-connector.cfg")
 })
 public class WebConfig implements WebMvcConfigurer {
+	private static final Log log = LogFactory.getLog( WebConfig.class );
     @Autowired 
     AppProperties appProperties;
     @Autowired 
@@ -55,7 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
      * @return
      */
     @Bean  
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+    static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
     	PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer(); 
     	propertySourcesPlaceholderConfigurer.setIgnoreUnresolvablePlaceholders(Boolean.TRUE);
         return propertySourcesPlaceholderConfigurer;
@@ -63,7 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")
-    public ClassLoaderTemplateResolver templateResolver() {
+    ClassLoaderTemplateResolver templateResolver() {
 
     	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 
@@ -80,7 +83,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")
-    public FileTemplateResolver externalTemplateResolver() {
+    FileTemplateResolver externalTemplateResolver() {
     	
     	FileTemplateResolver templateResolver = new FileTemplateResolver();
     	
@@ -97,7 +100,7 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Bean
     @Description("Thymeleaf template engine with Spring integration")
-    public SpringTemplateEngine templateEngine() {
+    SpringTemplateEngine templateEngine() {
 
     	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.addTemplateResolver(templateResolver());
@@ -110,7 +113,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     @Description("Thymeleaf view resolver")
-    public ViewResolver thymeleafViewResolver() {
+    ViewResolver thymeleafViewResolver() {
 
     	ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
@@ -120,7 +123,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public MessageSource messageSource() {
+    MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource
           = new ReloadableResourceBundleMessageSource();
          
@@ -138,7 +141,7 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Bean
     @ConditionalOnProperty(name = "ojbcMailSenderBean", havingValue = "ojbcMailSender")
-    public JavaMailSender ojbcMailSender() {
+    JavaMailSender ojbcMailSender() {
     	JavaMailSenderImpl ojbcMailSender = new JavaMailSenderImpl(); 
     	ojbcMailSender.setHost(appProperties.getMailSenderHost());
     	ojbcMailSender.setPort(appProperties.getMailSenderPort());
@@ -147,7 +150,9 @@ public class WebConfig implements WebMvcConfigurer {
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.auth", appProperties.getMailSenderSmtpAuth()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", appProperties.getMailSenderSmtpStarttlesEnable()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.ssl.protocols", appProperties.getMailSenderSmtpSSlProtocol()); 
-    	ojbcMailSender.getJavaMailProperties().put("mail.debug", appProperties.getMailSenderDebug()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.debug", appProperties.getMailSenderDebug());
+    	
+    	log.info("Created ojbcMailSender bean with the properties: " + ojbcMailSender.getJavaMailProperties());
     	return ojbcMailSender;
     }
     
