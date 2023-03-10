@@ -63,7 +63,7 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
         email.setSubject(subject);
         email.setText(body.toString());
         
-        if (StringUtils.isNoneBlank(emailFromAddress))
+        if (StringUtils.isNotBlank(emailFromAddress))
         {	
         	email.setFrom(emailFromAddress);
         }	
