@@ -1,4 +1,4 @@
-#spring.profiles.active=standalone,rapback-search,arrest-search
+application.propertiesa#spring.profiles.active=standalone,rapback-search,arrest-search
 spring.main.allow-bean-definition-overriding=true
 spring.profiles.active=audit-search,arrest-search,policy-acknowledgement,access-control,person-search,incident-search,firearms-search,vehicle-search,criminal-history-query,warrants-query,firearms-query,incident-report-query,juvenile-query,person-to-court-case-search,court-case-query,person-to-custody-search,custody-query,vehicle-crash-query,firearms-purchase-prohibition-query,wildlife-license-query,professional-license-query,cannabis-license-query,person-vehicle-to-incident-search,suggestionForm,rapback-search,initial-results-query,identification-results-modification,subscriptions,initial-results-query,subscriptions,ojb-web-connector-extension-beans
 #spring.profiles.active=audit-search,person-search,incident-search,vehicle-search,firearms-search,person-vehicle-to-incident-search,warrants-query,criminal-history-query,firearms-query,incident-report-query,subscriptions,policy-acknowledgement,access-control,ojb-web-connector-extension-beans,juvenile-query,rapback-search,initial-results-query,identification-results-modification,person-to-court-case-search,court-case-query,person-to-custody-search,custody-query,vehicle-crash-query,firearms-purchase-prohibition-query,suggestionForm,rapbacks,wildlife-license-query,professional-license-query,cannabis-license-query
@@ -18,16 +18,17 @@ server.servlet.session.timeout=120m
 server.servlet.session.cookie.max-age=120m
 
 #OTP Authentication
-#requireOtpAuthentication=true
+requireOtpAuthentication=true
 #otpServiceBean=OTPServiceMemoryImpl
-#otpServiceBean=totpServiceMemoryImpl
-#portal.totpUserServerBaseUrl=http://localhost:8085/OJB/totpUser/
+otpServiceBean=totpServiceMemoryImpl
+portal.totpUserServerBaseUrl=https://demo-intermediary:8085/OJB/totpUser/
+#portal.totpUserServerBaseUrl=https://demo-intermediary:8085/OJB/totpUser/
 #otpGeneratorBean=DefaultOtpGenerator
 #otpValidityPeriodInMinutes=1M
 #otpOutOfBandSendStrategyBean=EmailOutOfBandSendStrategy
 #otpLength=5
 
-ojbcMailSenderBean=mockMailSender
+#ojbcMailSenderBean=mockMailSender
 #ojbcMailSenderBean=ojbcMailSender
 #portal.mailSenderHost=smtp.gmail.com
 #portal.mailSenderPort=587
