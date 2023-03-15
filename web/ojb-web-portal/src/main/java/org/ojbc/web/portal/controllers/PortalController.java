@@ -74,7 +74,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion", "incidentSystemsToQuery"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
@@ -221,7 +221,7 @@ public class PortalController implements ApplicationContextAware {
 		model.put("personFilterCommand", new PersonFilterCommand());
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
-		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
+		model.put("searchLinksHtml", getSearchLinksHtml(model, authentication));
 		
 		if (model.get("sensitiveInfoAlert") == null) {
 			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
@@ -360,13 +360,19 @@ public class PortalController implements ApplicationContextAware {
         return "success";
     }
 
-	private List<SearchProfile> getActiveSearchProfiles(Authentication authentication) {
+	private List<SearchProfile> getActiveSearchProfiles(Map<String, Object> model, Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
 		
 		addProfileToReturnListIfVisible(visibleProfiles, "people", "Person Search");
 		
 		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
-			addProfileToReturnListIfVisible(visibleProfiles, "incident", "Incident Search");
+			
+			@SuppressWarnings("unchecked")
+			Map<String, String> incidentSystemsToQuery = (Map<String, String>) model.get("incidentSystemsToQuery");
+
+			if (incidentSystemsToQuery.size() > 0) {
+				addProfileToReturnListIfVisible(visibleProfiles, "incident", "Incident Search");
+			}
 			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "Vehicle Search");
 		}
 		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "Firearm Search");
@@ -381,10 +387,10 @@ public class PortalController implements ApplicationContextAware {
 		}
 	}
 	
-	String getSearchLinksHtml(Authentication authentication) {
+	String getSearchLinksHtml(Map<String, Object> model, Authentication authentication) {
 		StringBuilder links = new StringBuilder();
 
-		for(SearchProfile profile : getActiveSearchProfiles(authentication)) {
+		for(SearchProfile profile : getActiveSearchProfiles(model, authentication)) {
 			links.append("<a id='").append(getLinkId(profile)).append("' href='#' class='dropdown-item small ")
 				.append(getLinkId(profile)).append("'>");
 			links.append(profile.getDisplayName());

@@ -27,6 +27,7 @@ import org.joda.time.DateTime;
 import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.config.IncidentsControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.IncidentSearchCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
@@ -43,15 +44,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.w3c.dom.Element;
 
 @Controller
-@Profile({"incident-search", "standalone"})
+@Profile({"incident-search", "standalone", "incidentSystemsToQuery"})
 @RequestMapping("/incidents")
 public class IncidentsController {
 	public static final String PAGINATE_URL = "../incidents/paginate";
@@ -91,12 +93,15 @@ public class IncidentsController {
 	@Resource
 	SamlService samlService;
 
+	@Resource
+    AppProperties appProperties;
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 	}
 
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	@GetMapping(value = "searchForm")
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
@@ -112,7 +117,7 @@ public class IncidentsController {
 		return "incidents/searchForm::searchFormContent";
 	}
 	
-	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
+	@PostMapping(value = "advanceSearch")
 	public String advanceSearch(HttpServletRequest request, @ModelAttribute("incidentSearchCommand") IncidentSearchCommand incidentSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentIncidentSearch(incidentSearchCommand);
@@ -130,7 +135,7 @@ public class IncidentsController {
 		return performSearchAndReturnResults(request, model, incidentSearchRequest);
 	}
 
-	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
+	@GetMapping(value = "incidentDetails")
 	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
 	        Authentication authentication) throws InterruptedException {
@@ -157,8 +162,10 @@ public class IncidentsController {
 	}
 	
 	@ModelAttribute("systemsToQuery")
-	public Map<String, String> getSystemsToQuery() {
-		return systemsToQuery_incidents;
+	public Map<String, String> getSystemsToQuery(Map<String, Object> model) {
+		@SuppressWarnings("unchecked")
+		Map<String, String> systemsToQuery = (Map<String, String>) model.get("incidentSystemsToQuery");
+		return systemsToQuery;
 	}
 	
 	@ModelAttribute("systemsToQuery_disabled")

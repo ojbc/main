@@ -252,8 +252,9 @@ public class IncidentControllerTest {
 	@Test
 	public void systemsToQueryReturnsValueFromMap() {
 		Map<String, String> hashMap = new HashMap<String, String>();
-		unit.systemsToQuery_incidents = hashMap;
-		assertSame(hashMap, unit.getSystemsToQuery());
+		
+		model.put("incidentSystemsToQuery", hashMap);
+		assertSame(hashMap, unit.getSystemsToQuery(model));
 	}
 	
 	@Test

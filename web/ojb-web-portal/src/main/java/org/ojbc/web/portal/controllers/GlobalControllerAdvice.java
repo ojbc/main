@@ -18,15 +18,19 @@ package org.ojbc.web.portal.controllers;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -39,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
-@SessionAttributes({"showPrintButton", "sensitiveInfoAlert", "userLogonInfo" })
+@SessionAttributes({"showPrintButton", "sensitiveInfoAlert", "userLogonInfo", "incidentSystemsToQuery" })
 public class GlobalControllerAdvice {
 	
 	@Resource
@@ -65,6 +69,9 @@ public class GlobalControllerAdvice {
     @Value("${showPrintButton:false}")
     Boolean showPrintButton;
         
+	@Resource
+	Map<String, String> systemsToQuery_incidents;
+	
     @Resource
     Map<String, String> stateSpecificHomePage;
     
@@ -91,6 +98,27 @@ public class GlobalControllerAdvice {
     public Map<String, String> getStateSpecificHomePage() {
     	return stateSpecificHomePage;
     }
+    
+    @ModelAttribute("incidentSystemsToQuery")
+	public Map<String, String> getIncidentSystemsToQuery(Authentication authentication) {
+		
+		Map<String, String> incidentSystemsToQuery = new LinkedHashMap<>();
+		incidentSystemsToQuery.putAll(systemsToQuery_incidents);
+		if (appProperties.getRequireIncidentAccessControl() 
+				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
+			log.info("Granted Authorities: " + authentication.getAuthorities());
+			boolean containsIncidentAccess = SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES);
+			log.info("containsIncidentAccess: " + containsIncidentAccess);
+			if (!containsIncidentAccess) {
+				appProperties.getPeopleSearchSourcesRequireIncidentAccess()
+					.stream()
+					.map(item->StringUtils.substringAfter(item, "RMS - "))
+					.forEach(incidentSystemsToQuery::remove);
+			}
+		}
+		return incidentSystemsToQuery;
+	}
+
 
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
     public @ResponseBody String handle405Exception(HttpServletRequest request, Exception ex){
