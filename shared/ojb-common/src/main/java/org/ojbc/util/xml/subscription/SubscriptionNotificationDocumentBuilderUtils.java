@@ -51,6 +51,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	public static final String NON_CRIMINAL_JUSTICE_EMPLOYMENT = "I";
 	public static final String CRIMINAL_JUSTICE_EMPLOYMENT = "J";
 	public static final String SECURITY_CLEARANCE_INFORMATION_ACT = "S";
+	public static final String PROBATION_CODE = "Probation";
+	public static final String PAROLE_CODE = "Parole";
 	
 	@SuppressWarnings("unused")
 	private static final Log logger = LogFactory.getLog(SubscriptionNotificationDocumentBuilderUtils.class);
@@ -367,7 +369,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
-			if (CRIMINAL_JUSTICE_INVESTIGATIVE.equals(subscriptionReasonCode) || CRIMINAL_JUSTICE_SUPERVISION.equals(subscriptionReasonCode))
+			if (CRIMINAL_JUSTICE_INVESTIGATIVE.equals(subscriptionReasonCode) || CRIMINAL_JUSTICE_SUPERVISION.equals(subscriptionReasonCode) || PROBATION_CODE.equals(subscriptionReasonCode) || PAROLE_CODE.equals(subscriptionReasonCode))
 			{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
