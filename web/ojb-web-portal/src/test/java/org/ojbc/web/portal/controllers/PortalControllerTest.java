@@ -52,6 +52,9 @@ public class PortalControllerTest {
 	public void setup() {
 		request = new MockHttpServletRequest();
 		
+		Map<String, String> incidentSystemsToQuery = new HashMap<>();
+		incidentSystemsToQuery.put("Law Enforcement RMS", "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS");
+		model.put("incidentSystemsToQuery", incidentSystemsToQuery);
 		samlService = new SamlService() {
 			@Override
 			public Element getSamlAssertion(HttpServletRequest request) {
