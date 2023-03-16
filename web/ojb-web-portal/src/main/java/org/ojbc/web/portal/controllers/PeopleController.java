@@ -340,8 +340,7 @@ public class PeopleController {
 		if (appProperties.getRequireIncidentAccessControl() 
 				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
 			log.info("Granted Authorities: " + authentication.getAuthorities());
-			boolean containsIncidentAccess = authentication.getAuthorities().stream()
-					.anyMatch(authority -> authority.getAuthority().equals(Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES.name()));
+			boolean containsIncidentAccess = SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES);
 			log.info("containsIncidentAccess: " + containsIncidentAccess);
 			if (!containsIncidentAccess) {
 				appProperties.getPeopleSearchSourcesRequireIncidentAccess()
