@@ -50,10 +50,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@Profile({"incident-search", "standalone", "incidentSystemsToQuery"})
+@Profile({"incident-search", "standalone"})
+@SessionAttributes({"incidentSystemsToQuery"})
 @RequestMapping("/incidents")
 public class IncidentsController {
 	public static final String PAGINATE_URL = "../incidents/paginate";
