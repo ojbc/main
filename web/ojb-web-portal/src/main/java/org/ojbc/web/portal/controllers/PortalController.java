@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -140,6 +141,9 @@ public class PortalController implements ApplicationContextAware {
     
 	@Resource
 	Map<String, String> subscriptionFilterValueToLabelMap;
+	
+	@Resource
+	Map<String, String> systemsToQuery_incidents;
 	
 	@Value("#{getObject('rapbackFilterOptionsMap')}")
 	Map<String, String> rapbackFilterOptionsMap;
@@ -527,6 +531,26 @@ public class PortalController implements ApplicationContextAware {
 	@ModelAttribute("rapbackFilterOptionsMap")
 	public Map<String, String> getRapbackFilterOptionsMap(){
 	    return rapbackFilterOptionsMap;
+	}
+
+    @ModelAttribute("incidentSystemsToQuery")
+	public Map<String, String> getIncidentSystemsToQuery(Authentication authentication) {
+		
+		Map<String, String> incidentSystemsToQuery = new LinkedHashMap<>();
+		incidentSystemsToQuery.putAll(systemsToQuery_incidents);
+		if (appProperties.getRequireIncidentAccessControl() 
+				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
+			log.info("Granted Authorities: " + authentication.getAuthorities());
+			boolean containsIncidentAccess = SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES);
+			log.info("containsIncidentAccess: " + containsIncidentAccess);
+			if (!containsIncidentAccess) {
+				appProperties.getPeopleSearchSourcesRequireIncidentAccess()
+					.stream()
+					.map(item->StringUtils.substringAfter(item, "RMS - "))
+					.forEach(incidentSystemsToQuery::remove);
+			}
+		}
+		return incidentSystemsToQuery;
 	}
 
 	private void debugPrintAssertion(Element assertionElement) throws Exception{

@@ -154,7 +154,7 @@ public class SamlServiceImpl implements SamlService{
             if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
-            customAttributes.put(SamlAttribute.IncidentAccessIndicator, "false");
+            customAttributes.put(SamlAttribute.IncidentAccessIndicator, "true");
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
