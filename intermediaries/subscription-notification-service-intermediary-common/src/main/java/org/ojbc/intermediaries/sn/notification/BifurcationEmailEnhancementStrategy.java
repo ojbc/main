@@ -26,26 +26,44 @@ import org.apache.commons.logging.LogFactory;
  * An email edit strategy that adds a static BCC to every email notification. The bccAddress property is a comma-separated string of email addresses.
  * 
  */
-public class ArizonaICTEmailEnhancementStrategy implements EmailEnhancementStrategy {
+public class BifurcationEmailEnhancementStrategy implements EmailEnhancementStrategy {
 
-    private static final Log log = LogFactory.getLog(ArizonaICTEmailEnhancementStrategy.class);
-
-    private final String PROBATION_EMAIL = "az-isc-prob@courts.az.gov";
+    private static final Log log = LogFactory.getLog(BifurcationEmailEnhancementStrategy.class);
     
-    private final String PAROLE_EMAIL = "ISC_PAROLE@azadc.gov";
+    private String probationEmail; 
+    
+	private String paroleEmail;
+	
+	 public String getProbationEmail() {
+			return probationEmail;
+		}
+
+		public void setProbationEmail(String probationEmail) {
+			this.probationEmail = probationEmail;
+		}
+
+		public String getParoleEmail() {
+			return paroleEmail;
+		}
+
+		public void setParoleEmail(String paroleEmail) {
+			this.paroleEmail = paroleEmail;
+		}
     
 	@Override
     public EmailNotification enhanceEmail(EmailNotification emailNotification) {
         EmailNotification ret = (EmailNotification) emailNotification.clone();
-        String sendingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("sendingStatePO");
-        log.info(sendingStatePOEmail);
         if(StringUtils.isNotEmpty(ret.getSubscription().getSubscriptionCategoryCode()) && ret.getSubscription().getSubscriptionCategoryCode().equals("Parole")) {
+            log.info("Subscription ID: " + ret.getSubscription().getId() + " is this type of subscription: " + ret.getSubscription().getSubscriptionCategoryCode() + ". Updating email to be "
+            		+ paroleEmail);
         	ret.removeAllToEmailAddresses();
-        	ret.addToAddressee(PAROLE_EMAIL);
+        	ret.addToAddressee(paroleEmail);
         }
         else if(StringUtils.isNotEmpty(ret.getSubscription().getSubscriptionCategoryCode()) && ret.getSubscription().getSubscriptionCategoryCode().equals("Probation")) {
+        	log.info("Subscription ID: " + ret.getSubscription().getId() + " is this type of subscription: " + ret.getSubscription().getSubscriptionCategoryCode() + ". Updating email to be "
+            		+ probationEmail);
         	ret.removeAllToEmailAddresses();
-        	ret.addToAddressee(PROBATION_EMAIL);
+        	ret.addToAddressee(probationEmail);
         }
         else {
         	log.info("Unable to get subscription category");
