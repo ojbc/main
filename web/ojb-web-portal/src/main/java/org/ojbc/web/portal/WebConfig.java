@@ -149,6 +149,7 @@ public class WebConfig implements WebMvcConfigurer {
     	ojbcMailSender.getJavaMailProperties().put("mail.transport.protocol", appProperties.getMailSenderTransportProtocol()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.auth", appProperties.getMailSenderSmtpAuth()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", appProperties.getMailSenderSmtpStarttlesEnable()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.required", appProperties.getMailSenderSmtpStarttlesEnable()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.ssl.protocols", appProperties.getMailSenderSmtpSSlProtocol()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.debug", appProperties.getMailSenderDebug()); 
     	

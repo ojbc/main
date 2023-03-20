@@ -27,10 +27,11 @@ public final class SecurityContextUtils {
 
 
 	public static boolean hasAuthority(Authentication authentication, Authorities authority) {
-		
-		for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
-			if (grantedAuthority.getAuthority().equals(authority.name()))
-				return true; 
+		if (authentication != null) {
+			for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
+				if (grantedAuthority.getAuthority().equals(authority.name()))
+					return true; 
+			}
 		}
 		return false;
 	}
