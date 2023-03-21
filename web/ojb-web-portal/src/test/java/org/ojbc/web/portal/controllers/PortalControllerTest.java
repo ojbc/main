@@ -15,9 +15,9 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.controllers;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 
 import java.io.StringReader;
@@ -33,6 +33,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -47,11 +48,11 @@ public class PortalControllerTest {
 	private MockHttpServletRequest request;
 	private UserSession userSession;
 	private SamlService samlService;
+	private AppProperties appProperties; 
 
 	@Before
 	public void setup() {
 		request = new MockHttpServletRequest();
-		
 		Map<String, String> incidentSystemsToQuery = new HashMap<>();
 		incidentSystemsToQuery.put("Law Enforcement RMS", "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS");
 		model.put("incidentSystemsToQuery", incidentSystemsToQuery);
@@ -62,10 +63,15 @@ public class PortalControllerTest {
 			}
 		};
 		
+		appProperties = mock(AppProperties.class); 
 		unit = new PortalController();
 		unitWithSAMLToken = new PortalController();
 		unitWithSAMLToken.samlService = samlService;
+		unitWithSAMLToken.systemsToQuery_incidents = incidentSystemsToQuery;
+		unitWithSAMLToken.appProperties = appProperties;
 		
+		unit.systemsToQuery_incidents = incidentSystemsToQuery;
+		unit.appProperties = appProperties;
 		userSession = mock(UserSession.class);
 		
 		unit.userSession = userSession;

@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
-@SessionAttributes({"showPrintButton", "sensitiveInfoAlert", "userLogonInfo", "incidentSystemsToQuery" })
+@SessionAttributes({"showPrintButton", "sensitiveInfoAlert", "userLogonInfo"})
 public class GlobalControllerAdvice {
 	
 	@Resource
