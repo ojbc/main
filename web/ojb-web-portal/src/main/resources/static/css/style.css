@@ -1259,3 +1259,9 @@ input .shortDigit{
 #rapbackDetailsFrame table{
 	line-height: .6!important;
 }
+
+pre{
+	white-space: pre-wrap;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
