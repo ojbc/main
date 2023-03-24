@@ -22,15 +22,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 public final class SecurityContextUtils {
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(SecurityContextUtils.class);
 
 
 	public static boolean hasAuthority(Authentication authentication, Authorities authority) {
-		
-		for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
-			if (grantedAuthority.getAuthority().equals(authority.name()))
-				return true; 
+		if (authentication != null) {
+			log.info("Granted Authorities: " + authentication.getAuthorities());
+			for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
+				if (grantedAuthority.getAuthority().equals(authority.name()))
+					return true; 
+			}
 		}
 		return false;
 	}

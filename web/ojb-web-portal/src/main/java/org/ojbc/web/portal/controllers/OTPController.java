@@ -106,7 +106,7 @@ public class OTPController {
 
 	}
 
-	@RequestMapping(value = "submitOtp", method = RequestMethod.POST)
+	@PostMapping(value = "submitOtp")
 	public String submitOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
 			Map<String, Object> model) throws Exception {
 	

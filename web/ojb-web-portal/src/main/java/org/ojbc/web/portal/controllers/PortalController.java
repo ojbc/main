@@ -196,12 +196,6 @@ public class PortalController implements ApplicationContextAware {
 	    return "portal/faq::faqContent";
 	}
     
-//	 @GetMapping("/")
-//	 public String handle(Model model) {
-//		 model.addAttribute("msg", "test msg from controller");
-//		 return "myCustomView";
-//	 }
-
     @GetMapping("/")
     public String index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
 
@@ -225,6 +219,9 @@ public class PortalController implements ApplicationContextAware {
 		model.put("personFilterCommand", new PersonFilterCommand());
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
+		
+		Map<String, String> incidentSystemsToQuery = getIncidentSystemsToQuery(authentication); 
+		model.put("incidentSystemsToQuery", incidentSystemsToQuery); 
 		model.put("searchLinksHtml", getSearchLinksHtml(model, authentication));
 		
 		if (model.get("sensitiveInfoAlert") == null) {
@@ -533,14 +530,12 @@ public class PortalController implements ApplicationContextAware {
 	    return rapbackFilterOptionsMap;
 	}
 
-    @ModelAttribute("incidentSystemsToQuery")
 	public Map<String, String> getIncidentSystemsToQuery(Authentication authentication) {
 		
 		Map<String, String> incidentSystemsToQuery = new LinkedHashMap<>();
 		incidentSystemsToQuery.putAll(systemsToQuery_incidents);
 		if (appProperties.getRequireIncidentAccessControl() 
 				&& appProperties.getPeopleSearchSourcesRequireIncidentAccess().size()>0) {
-			log.info("Granted Authorities: " + authentication.getAuthorities());
 			boolean containsIncidentAccess = SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES);
 			log.info("containsIncidentAccess: " + containsIncidentAccess);
 			if (!containsIncidentAccess) {
