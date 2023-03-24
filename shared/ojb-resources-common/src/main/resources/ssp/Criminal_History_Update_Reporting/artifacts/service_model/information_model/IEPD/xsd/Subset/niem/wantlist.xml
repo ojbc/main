@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<w:WantList w:release="3.0-with-domain-updates" w:product="NIEM"
-  w:nillableDefault="true"
+<w:WantList w:release="3.0" w:product="NIEM" w:nillableDefault="true"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-  xmlns:usps-3.0.1="http://publication.niem.gov/niem/codes/usps_states/3.0/1/"
-  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/">
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+  xmlns:usps-3.0.1="http://publication.niem.gov/niem/codes/usps_states/3.0/1/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/">
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="false"/>
@@ -32,6 +13,7 @@
   <w:Element w:name="j:CaseNumberText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseProsecutionAttorney" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Court" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Offense" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="false"/>
@@ -45,10 +27,13 @@
   <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:RapSheetTransactionControlIdentification"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Sentence" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Binary" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="false"/>
@@ -82,6 +67,10 @@
       w:name="j:ActivityChargeAssociationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ArrestType" w:isRequested="false">
+    <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:CaseOfficialType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseOfficialAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
@@ -93,10 +82,14 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="j:ChargeType" w:isRequested="false">
+    <w:ElementInType w:name="j:ChargeCountQuantity"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:ChargeEnhancingFactor"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeFilingDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
@@ -106,6 +99,10 @@
     <w:ElementInType w:name="j:ChargeTrackingIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:CourtType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="false">
@@ -121,6 +118,10 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:Charge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="j:OffenseType" w:isRequested="false">
+    <w:ElementInType w:name="j:OffenseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationIdentification"

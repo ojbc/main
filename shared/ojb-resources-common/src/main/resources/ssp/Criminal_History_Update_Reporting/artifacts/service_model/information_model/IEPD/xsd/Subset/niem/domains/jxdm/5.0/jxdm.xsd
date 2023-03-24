@@ -1,30 +1,75 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
+    <xs:appinfo>
+      <term:LocalTerm term="NCIC" literal="National Crime Information Center"/>
+      <term:LocalTerm term="PRISM" literal="Performance and Registration Information Systems Management"/>
+      <term:LocalTerm term="VINA" literal="Vehicle Identification Number Analysis"/>
+      <term:LocalTerm term="AFIS" literal="Automated Fingerprint Identification System"/>
+      <term:LocalTerm term="USDOT" literal="United States Department of Transportation"/>
+      <term:LocalTerm term="APCO" literal="Association of Public-Safety Communications Officials (APCO) - International, Inc."/>
+      <term:LocalTerm term="NLETS" literal="National Law Enforcement Telecommunication Systems"/>
+      <term:LocalTerm term="NIBRS" literal="National Incident Based Reporting System"/>
+      <term:LocalTerm term="MCO" literal="Manufacturer's certificate of origin"/>
+      <term:LocalTerm term="TripleI" literal="III - Interstate Identification Index system"/>
+      <term:LocalTerm term="MMUCC" literal="Model Minimum Uniform Crash Criteria"/>
+      <term:LocalTerm term="SAFESTAT" literal="Safety Status Measurement System"/>
+      <term:LocalTerm term="XRay" literal="X-Ray"/>
+      <term:LocalTerm term="ISSN" literal="International Standard Serial Number"/>
+      <term:LocalTerm term="TYPA" literal="(Article) Type"/>
+      <term:LocalTerm term="UCR" literal="Uniform Crime Reporting"/>
+      <term:LocalTerm term="ICC" literal="Interstate Commerce Commission"/>
+      <term:LocalTerm term="DEA" literal="Drug Enforcement Administration"/>
+      <term:LocalTerm term="EMS" literal="Emergency Medical Service"/>
+      <term:LocalTerm term="Amber" literal="America's Missing: Broadcast Emergency Response"/>
+      <term:LocalTerm term="LIS" literal="License Plate State"/>
+      <term:LocalTerm term="FIPS" literal="Federal Information Processing Standards"/>
+      <term:LocalTerm term="BOP" literal="Bureau of Prisons"/>
+      <term:LocalTerm term="HME" literal="Hazardous Material Endorsement"/>
+      <term:LocalTerm term="Brady" literal="Brady Law"/>
+      <term:LocalTerm term="CHRI" literal="Criminal History Record Information"/>
+      <term:LocalTerm term="Alpha" definition="Letter(s)"/>
+      <term:LocalTerm term="XRays" literal="X-Rays"/>
+      <term:LocalTerm term="VICAP" literal="Violent Criminal Apprehension Program"/>
+      <term:LocalTerm term="DOT" literal="Department of Transportation"/>
+      <term:LocalTerm term="NICB" literal="National Insurance Crime Bureau"/>
+      <term:LocalTerm term="GDEP" literal="Geographic-Drug Enforcement Program"/>
+      <term:LocalTerm term="CMV" literal="Commercial Motor Vehicle"/>
+      <term:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics"/>
+      <term:LocalTerm term="TYPO" literal="(ORI) Type"/>
+      <term:LocalTerm term="FBI" literal="Federal Bureau of Investigation"/>
+      <term:LocalTerm term="MCSIP" literal="Motor Carrier Safety Improvement Process"/>
+      <term:LocalTerm term="ANSID20" literal="The Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators"/>
+      <term:LocalTerm term="Multi" literal="Multiple"/>
+      <term:LocalTerm term="POST" literal="Peace Official Standards and Training"/>
+      <term:LocalTerm term="NDEx" literal="National Data Exchange"/>
+      <term:LocalTerm term="REALID" definition="Public Law 109&#x2013;13, 119 Statute 302, enacted May 11, 2005, was an Act of Congress that modified U.S. federal law pertaining to security, authentication, and issuance procedures standards for the state driver's licenses and identification (ID) cards, as well as various immigration issues pertaining to terrorism."/>
+      <term:LocalTerm term="JABS" literal="JABS" definition="Joint Automated Booking System"/>
+      <term:LocalTerm term="IBIS" literal="Integrated Ballistic Identification System"/>
+      <term:LocalTerm term="LEOKA" literal="Law Enforcement Officer Killed or Assaulted"/>
+      <term:LocalTerm term="LSTA" definition="State/Country Index"/>
+      <term:LocalTerm term="FFLID" literal="federal firearms license"/>
+      <term:LocalTerm term="NDEX" literal="National Data Exchange"/>
+      <term:LocalTerm term="ORI" definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems."/>
+      <term:LocalTerm term="VIN" literal="Vehicle Identification Number"/>
+      <term:LocalTerm term="IAFIS" literal="Integrated Automated Fingerprint Identification System"/>
+      <term:LocalTerm term="TYP" literal="(Firearm) Type"/>
+      <term:LocalTerm term="HazMat" literal="Hazardous Materials"/>
+      <term:LocalTerm term="CDL" literal="Commercial Driver's License"/>
+      <term:LocalTerm term="MACR" literal="Monthly Arrest and Citation Register"/>
+      <term:LocalTerm term="RES" literal="Registration State"/>
+      <term:LocalTerm term="USMS" literal="United States Marshal Service"/>
+      <term:LocalTerm term="MO" literal="Modus Operandi"/>
+      <term:LocalTerm term="ISBN" literal="International Standard Book Number"/>
+      <term:LocalTerm term="DHS" literal="Department of Homeland Security"/>
+      <term:LocalTerm term="CODIS" literal="Combined DNA Index System"/>
+    </xs:appinfo>
   </xs:annotation>
-  <xs:import schemaLocation="../../../codes/fbi_ncic/3.0/fbi_ncic.xsd" namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.0/"/>
-  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
-  <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
-  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:import namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" schemaLocation="../../../codes/fbi_ncic/3.0/fbi_ncic.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../proxy/xsd/3.0/xs.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd"/>
   <xs:complexType name="ActivityAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about an activity.</xs:documentation>
@@ -56,7 +101,11 @@
       <xs:documentation>A data type for the apprehension of a subject by a peace official.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType"/>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="CaseAugmentationType">
@@ -99,13 +148,27 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -160,7 +223,11 @@
       <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType"/>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="OrganizationAugmentationType">
@@ -278,6 +345,11 @@
       <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ArrestAgency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An agency which employs the arresting official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
     <xs:annotation>
       <xs:documentation>Additional information about a case.</xs:documentation>
@@ -308,6 +380,11 @@
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeCountQuantity" type="niem-xs:nonNegativeInteger" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A number of times a person is charged with committing the same crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
@@ -326,6 +403,11 @@
   <xs:element name="ChargeEnhancingFactorDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a factor or reason that makes a charge more serious.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date a charge was filed.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
@@ -348,6 +430,16 @@
       <xs:documentation>A unique identification number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Court" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DriverLicense" type="j:DriverLicenseType" nillable="true">
     <xs:annotation>
       <xs:documentation>A license issued to a person granting driving privileges.</xs:documentation>
@@ -366,6 +458,11 @@
   <xs:element name="Offense" type="j:OffenseType" nillable="true">
     <xs:annotation>
       <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OffenseType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
@@ -431,6 +528,11 @@
   <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RapSheetTransactionControlIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A Transaction Control Number (TCN) is the identification for a fingerprint event, submitted from the Livescan device to AFIS when transmitting fingerprints.  The TCN links the offender to the fingerprint event.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Sentence" type="j:SentenceType" nillable="true">
