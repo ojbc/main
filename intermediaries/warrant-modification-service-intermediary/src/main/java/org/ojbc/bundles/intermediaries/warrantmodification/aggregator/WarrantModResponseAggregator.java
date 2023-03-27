@@ -19,25 +19,23 @@ package org.ojbc.bundles.intermediaries.warrantmodification.aggregator;
 import java.util.List;
 
 import org.apache.camel.Exchange;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class WarrantModResponseAggregator {
 
-	private Logger logger = Logger.getLogger(WarrantModResponseAggregator.class);
-	
-	private static final String REQUEST_TIMER = "START_WARRANT_MOD_TIMER";
+	private static final Log log = LogFactory.getLog(WarrantModResponseAggregator.class);
 	
 	@SuppressWarnings("unchecked")
 	public void prepareResponseExchange(Exchange groupedExchange){
 		
-		List<Exchange> groupExchList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
+		List<Exchange> groupExchList = groupedExchange.getIn().getBody(List.class);
 		        					
-		if(groupExchList.isEmpty() || groupExchList.size() != 2 
-				|| !REQUEST_TIMER.equals(groupExchList.get(0).getIn().getBody(String.class)) ){
+		if(groupExchList.isEmpty() || groupExchList.size() != 2){
 			
-			logger.error("\n\n\n Missing exchange, Stopping route. \n\n\n");
+			log.error("\n\n\n Missing exchange, Stopping route. \n\n\n");
 			
-			groupedExchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
+			groupedExchange.setRouteStop(true);
 			
 			return;
 		}
@@ -54,7 +52,7 @@ public class WarrantModResponseAggregator {
 												
 		groupedExchange.getIn().setHeader("operationName", warantRespExchange.getIn().getHeader("operationName"));
 
-		logger.info("\n\n\n Successfully prepared Warrant Mod Response in group exchange \n\n\n");
+		log.info("\n\n\n Successfully prepared Warrant Mod Response in group exchange \n\n\n");
 	}
 	
 }
