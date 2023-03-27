@@ -1255,13 +1255,3 @@ input .shortDigit{
     border-top-left-radius: inherit; 
     border-top-right-radius: inherit; 
 }
-
-#rapbackDetailsFrame table{
-	line-height: .6!important;
-}
-
-pre{
-	white-space: pre-wrap;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-}
