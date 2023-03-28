@@ -69,8 +69,8 @@
                 </div>
             </div>
             <div id="nsorResultTab">
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorDemographicsDocuments}">
-                    <pre th:utext="${item}">NSOR Demographics Documents</pre>
+                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorDemographicsDocuments}" th:utext="${item}">
+                    NSOR Demographics Documents
                 </div>
                 <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorSearchResultsDocuments}">
                     <pre th:utext="${item}">NSOR Search Results Documents</pre>
