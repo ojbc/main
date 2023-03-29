@@ -55,10 +55,5 @@
         display:none;
 	}
 	
-	pre{
-	    white-space: pre-wrap;
-	    word-break: keep-all;
-	    overflow-wrap: anywhere;
-	}
 }
 	
