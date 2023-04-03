@@ -176,13 +176,9 @@ public class WarrantFileNotificationProcessor extends NotificationProcessor{
 
            String subscriptionSubscribingSystemName = subscription.getSubscribingSystemIdentifier();
            
-           for (String emailAddress : subscription.getEmailAddressesToNotify()) {
-               
-               en = createEmailNotification(request, emailNotifications,
-						subscription, en, subscriptionSubscribingSystemName,
-						emailAddress, ori);
-               
-           }
+           en = createEmailNotification(request, emailNotifications,
+					subscription, en, subscriptionSubscribingSystemName,
+					subscription.getSubscriptionOwnerEmailAddress(), ori);
            
            if (isSendNotificationToSubscriptionOwner())
            {
