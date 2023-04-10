@@ -79,7 +79,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionCitationCodeText" type="nc:TextType">
+	<xsd:element name="ProsecutionCitationCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code assigned by the prosecution with regard to a wanted person.
 			</xsd:documentation>
@@ -122,7 +122,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="GeneralOffenseCharacterCodeText" type="nc:TextType"
-		substitutionGroup="j:OffenseAugmentationPoint">
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that may be used to further define the offense.</xsd:documentation>
 		</xsd:annotation>
