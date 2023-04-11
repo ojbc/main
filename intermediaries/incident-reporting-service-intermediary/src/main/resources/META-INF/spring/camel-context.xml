@@ -33,7 +33,7 @@
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"  	
     xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.4.xsd
        ">
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
@@ -141,7 +141,7 @@
 					
 					<camel:pipeline>
 						<camel:filter>
-							<camel:xpath>/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:Charge</camel:xpath>							
+							<camel:simple>${in.header.chargeReferralReporting} != 'true'</camel:simple>
 
 							<camel:log message="calling charge referral reporting service"/>
 							 
