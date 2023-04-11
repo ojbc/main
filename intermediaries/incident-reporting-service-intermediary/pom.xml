@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.3</version>
 	<name>OJB :: incident-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -39,7 +39,7 @@
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
 		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
+		<camel-version>3.11.4</camel-version>
 		<log4j-version>2.17.1</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<spring-version>5.3.24</spring-version>
