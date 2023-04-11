@@ -16,6 +16,9 @@
  */
 package org.ojbc.web.portal;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.ajp.AbstractAjpProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class ServerSetup {
     AppProperties appProperties; 
     
     @Bean
-    public ServletWebServerFactory servletContainer() {
+    ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() ;
         
         if (appProperties.getAjpEnabled()) {
@@ -42,6 +45,15 @@ public class ServerSetup {
             final AbstractAjpProtocol<?> protocol = (AbstractAjpProtocol<?>) ajpConnector.getProtocolHandler();
             ajpConnector.setSecure(false);
             protocol.setSecretRequired(false);  
+            try
+            {
+                protocol.setAddress( InetAddress.getByName( "0.0.0.0" ) );
+            }
+            catch( UnknownHostException e )
+            {
+                e.printStackTrace();
+            }
+            
             tomcat.addAdditionalTomcatConnectors(ajpConnector);
         }
      
