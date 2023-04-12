@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/cyfs/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/cyfs/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xs:annotation>
     <xs:documentation>Children, Youth, and Family Services</xs:documentation>
+    <xs:appinfo>
+      <term:LocalTerm term="PHI" literal="Protected Health Information"/>
+      <term:LocalTerm term="NCANDS" literal="National Child Abuse and Neglect Data System" definition="The National Child Abuse and Neglect Data System (NCANDS) is a voluntary data collection system that gathers information from all 50 states, the District of Columbia, and Puerto Rico about reports of child abuse and neglect. NCANDS was established in response to the Child Abuse Prevention and Treatment Act of 1988. The data are used to examine trends in child abuse and neglect across the country, and key findings are published in our Child Welfare Outcomes Reports to Congress and annual Child Maltreatment reports."/>
+      <term:LocalTerm term="AFCARS" literal="Adoption and Foster Care Analysis Reporting System" definition="The Adoption and Foster Care Analysis and Reporting System (AFCARS) collects case-level information from state and tribal title IV-E agencies on all children in foster care and those who have been adopted with title IV-E agency involvement."/>
+      <term:LocalTerm term="IV-D" literal="Title IV Part D" definition="Title IV-D of the Social Security Act addressing Child Support and Establishment of Paternity."/>
+      <term:LocalTerm term="ICWA" literal="Indian Child Welfare Act" definition="The Indian Child Welfare Act (ICWA) is a federal law that seeks to keep American Indian children with American Indian families."/>
+      <term:LocalTerm term="TANF" literal="Temporary Assistance for Needy Families"/>
+      <term:LocalTerm term="ASFA" literal="Adoption and Safe Families Act" definition="A Federal law to promote the adoption of children in foster care."/>
+      <term:LocalTerm term="ADD" literal="Attention Deficit Disorder"/>
+      <term:LocalTerm term="GPA" literal="Grade Point Average"/>
+      <term:LocalTerm term="NCIC" literal="National Crime Information Center"/>
+      <term:LocalTerm term="IV-E" literal="Title IV Part E" definition="Title IV-E of the Social Security Act addressing Federal Payments for Foster Care and Adoption Assistance."/>
+      <term:LocalTerm term="ADHD" literal="Attention Deficit-Hyperactivity Disorder"/>
+      <term:LocalTerm term="ICPC" literal="Interstate Compact on the Placement of Children"/>
+      <term:LocalTerm term="IV-A" literal="Title IV Part A" definition="Title IV-A of the Social Security Act addressing Block Grants To States For Temporary Assistance For Needy Families."/>
+      <term:LocalTerm term="FCN" literal="File Control Number"/>
+      <term:LocalTerm term="UCCJEA" literal="Uniform Child Custody Jurisdiction And Enforcement Act"/>
+      <term:LocalTerm term="IVE" literal="Title IV Part E"/>
+    </xs:appinfo>
   </xs:annotation>
-  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
-  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd"/>
   <xs:complexType name="PersonCaseAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for a relationship between a person and a case.</xs:documentation>

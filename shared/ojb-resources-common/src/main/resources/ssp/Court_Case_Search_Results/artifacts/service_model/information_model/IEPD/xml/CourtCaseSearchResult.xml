@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal 
+	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either 
+	source code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the 
+	RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS 
+	ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, 
+	OR NON-INFRINGEMENT. See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5 
+	Copyright 2012-2017 Open Justice Broker Consortium -->
 <ccs-res-doc:CourtCaseSearchResults
 	xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
 	xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0 ../xsd/exchange_schema.xsd ">
-	<ccs-res-ext:CourtCaseSearchResult
-		structures:id="Result_01">
+	<ccs-res-ext:CourtCaseSearchResult structures:id="Result_01">
 		<nc:Case structures:id="Case_01">
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>current case status</nc:StatusDescriptionText>
@@ -47,9 +33,16 @@
 				</j:CaseCourt>
 				<j:CaseOtherIdentification>
 					<nc:IdentificationID>other case number</nc:IdentificationID>
-					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText
-					</nc:IdentificationCategoryDescriptionText>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
 				</j:CaseOtherIdentification>
+				<j:CaseProsecutionAttorney>
+					<j:CaseOfficialStartDate>
+						<nc:Date>2014-12-10</nc:Date>
+					</j:CaseOfficialStartDate>
+					<ccs-res-ext:ProsecutionOrganization>
+						<nc:OrganizationName>ACME Prosecutors</nc:OrganizationName>
+					</ccs-res-ext:ProsecutionOrganization>
+				</j:CaseProsecutionAttorney>
 			</j:CaseAugmentation>
 		</nc:Case>
 		<nc:Person structures:id="Person_01" structures:metadata="M001">
@@ -108,8 +101,7 @@
 			</nc:LastUpdatedDate>
 		</nc:Metadata>
 	</ccs-res-ext:CourtCaseSearchResult>
-	<ccs-res-ext:CourtCaseSearchResult
-		structures:id="Result_02">
+	<ccs-res-ext:CourtCaseSearchResult structures:id="Result_02">
 		<nc:Case structures:id="Case_02">
 			<nc:CaseGeneralCategoryText>nc:CaseGeneralCategoryText</nc:CaseGeneralCategoryText>
 			<nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>

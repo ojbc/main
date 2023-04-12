@@ -78,4 +78,9 @@
 			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+		<xsd:element name="ProsecutionOrganization" type="nc:OrganizationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A prosecution organization.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
