@@ -37,9 +37,9 @@
                 TIMED ONE-TIME PASSWORD REGISTRATION
           </div>
           <div class="card-body" style="font-size: 12px;color: #333333; padding: 1.5em; ">
-            <form method="post" id="otpForm" th:object="${otpFormCommand}">
+            <form method="post" id="otpForm" th:object="${otpFormCommand}" th:with="currentDate=${#dates.createNow()}">
               <p>Please scan the QR code using Microsoft or Google Authenticator App to sign up the secondary token:</p>
-              <img th:src="@{/code/generate/} + ${userName}"/>
+              <img th:src="@{/code/generate/} + ${userName} + '/' + ${#dates.millisecond(currentDate)}"/>
               
               <div class="alert alert-primary mt-3" role="alert">When you are done scanning, click 
                 <a class="btn btn-primary" role="button" th:href="@{/}" id="home">Continue</a> 

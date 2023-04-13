@@ -50,6 +50,7 @@ public class TotpUserRestService implements TotpUserService{
 
 	@Override
 	public Integer saveTotpUser(TotpUser totpUser) {
+		log.info("calling the rest service to save a new TOTP user: " + totpUser); 
 		return this.webClient.post().uri("")
 				.body(BodyInserters.fromValue(totpUser))
 				.retrieve()

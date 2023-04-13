@@ -67,7 +67,7 @@ public class CodeController {
 	@Resource (name="${otpServiceBean:totpServiceMemoryImpl}")
 	OTPService otpService;
 
-    @GetMapping(value="/generate/{username}", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value="/generate/{username}/{millisecond}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] generate(@PathVariable String username) 
     		throws WriterException, IOException {
         final GoogleAuthenticatorKey key = gAuth.createCredentials(username);
