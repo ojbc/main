@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -29,13 +31,14 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({"classpath:META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
 @ComponentScan({"org.ojbc.web", "org.ojbc.util.mail", "org.ojbc.processor", "org.ojbc.routes"})
 public class OjbcWebPortalApplication {
-
-	@SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(OjbcWebPortalApplication.class);
+	
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(OjbcWebPortalApplication.class, args);
 		
-//		for (String name : applicationContext.getBeanDefinitionNames()) {
-//			System.out.println(name);
-//		}
+		for (String name : applicationContext.getBeanDefinitionNames()) {
+			if ("totpServiceMemoryImpl".equals(name))
+			log.info("totpServiceMemoryImpl bean created!");
+		}
 	}
 }

@@ -17,24 +17,34 @@
 package org.ojbc.web.portal.totp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.TotpUser;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import reactor.core.publisher.Mono;
+
 @Service
 @Profile({"audit-search"})
 public class TotpUserRestService implements TotpUserService{
+	private final Log log = LogFactory.getLog(this.getClass());
+
 	private final WebClient webClient;
 
 	public TotpUserRestService(WebClient.Builder webClientBuilder, @Autowired AppProperties appProperties) {
 		this.webClient = webClientBuilder.baseUrl(appProperties.getTotpUserServerBaseUrl())
+				.defaultHeaders(this::addDefaultHeaders)
 				.codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024)) .build();
 	}
 
@@ -50,7 +60,10 @@ public class TotpUserRestService implements TotpUserService{
 	@Override
 	public TotpUser getTotpUserByUserName(String userName) {
 		return  this.webClient.get().uri(userName)
-				.retrieve()
+				.retrieve()				
+				.onStatus(HttpStatus.NO_CONTENT::equals, response->{
+					log.info("Media type: " + response.headers().contentType()); 
+					return Mono.justOrEmpty(null);})
 				.bodyToMono( TotpUser.class)
 				.block();
 	}
@@ -74,5 +87,12 @@ public class TotpUserRestService implements TotpUserService{
 				.block();
 	}
 	
+	private void addDefaultHeaders(final HttpHeaders headers) {
+	    headers.add(HttpHeaders.EXPIRES, "0");
+	    headers.add(HttpHeaders.PRAGMA, "no-cache");
+	    headers.addAll(HttpHeaders.CACHE_CONTROL, Arrays.asList("private",  "no-store", "max-age=0"));
+	    headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+	    headers.add(HttpHeaders.ACCEPT, "application/json");
+	  }
 	
 }
