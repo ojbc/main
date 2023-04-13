@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<pcq-res-doc:ProsecutionCaseQueryResults xmlns:pcq-res-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0"
-	xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal 
+	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either 
+	source code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the 
+	RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS 
+	ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, 
+	OR NON-INFRINGEMENT. See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5 
+	Copyright 2012-2017 Open Justice Broker Consortium -->
+<pcq-res-doc:ProsecutionCaseQueryResults
+	xmlns:pcq-res-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0"
+	xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0 ../xsd/ProsecutionCaseQueryResults.xsd">
 	<pcq-res-ext:ProsecutionCase>
 		<nc:DocumentCreationDate>
@@ -34,6 +25,15 @@
 		</nc:DocumentFiledDate>
 		<nc:Case structures:id="Case_01">
 			<nc:ActivityCategoryText>Felony</nc:ActivityCategoryText>
+			<nc:ActivityStatus>
+				<nc:StatusDescriptionText>CLOSED</nc:StatusDescriptionText>
+			</nc:ActivityStatus>
+			<nc:ActivityDisposition>
+				<nc:DispositionDate>
+					<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+				</nc:DispositionDate>
+				<nc:DispositionText>ANC</nc:DispositionText>
+			</nc:ActivityDisposition>
 			<nc:CaseTitleText>State vs.</nc:CaseTitleText>
 			<nc:CaseDocketID>CD12951</nc:CaseDocketID>
 			<nc:CaseFiling>
@@ -50,9 +50,43 @@
 					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 					<j:ChargeDescriptionText> Charge Description
 					</j:ChargeDescriptionText>
+					<j:ChargeDisposition>
+						<nc:DispositionDate>
+							<nc:DateTime>2018-03-14T15:40:00</nc:DateTime>
+						</nc:DispositionDate>
+						<j:ChargeDispositionOtherText>DWP BY Prosecutor</j:ChargeDispositionOtherText>
+					</j:ChargeDisposition>
 					<j:ChargeFilingDate>
 						<nc:Date>2016-10-13</nc:Date>
 					</j:ChargeFilingDate>
+					<j:ChargeSentence structures:id="Charge_Sent_01">
+						<nc:ActivityCategoryText>Prison/Jail</nc:ActivityCategoryText>
+						<nc:ActivityDateRange>
+							<nc:StartDate>
+								<nc:DateTime>2018-03-14T15:40:00</nc:DateTime>
+							</nc:StartDate>
+							<nc:EndDate>
+								<nc:DateTime>2019-03-14T15:40:00</nc:DateTime>
+							</nc:EndDate>
+						</nc:ActivityDateRange>
+						<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+						<nc:ActivityStatus>
+							<nc:StatusDescriptionText>nc:StatusDescriptionText</nc:StatusDescriptionText>
+						</nc:ActivityStatus>
+						<j:SentenceCharge>
+							<j:ChargeDescriptionText>709-906(1)(9) HRS Abuse of family or household members</j:ChargeDescriptionText>
+							<j:ChargeDisposition>
+								<j:ChargeDispositionOtherText>DPNCP</j:ChargeDispositionOtherText>
+							</j:ChargeDisposition>
+						</j:SentenceCharge>
+						<j:SentenceTerm>
+							<j:TermDuration>P1Y</j:TermDuration>
+						</j:SentenceTerm>
+						<j:SupervisionFineAmount>
+							<nc:Amount>2000.00</nc:Amount>
+						</j:SupervisionFineAmount>
+						<pcq-res-ext:SentenceParentEventText>Arraignment</pcq-res-ext:SentenceParentEventText>
+					</j:ChargeSentence>
 					<j:ChargeSequenceID>001</j:ChargeSequenceID>
 					<j:ChargeSeverityLevel>
 						<j:SeverityLevelDescriptionText>Class A</j:SeverityLevelDescriptionText>
@@ -135,6 +169,17 @@
 					<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor</j:JudicialOfficialCategoryText>
 				</j:CaseProsecutionAttorney>
 			</j:CaseAugmentation>
+			<pcq-res-ext:CaseReferral>
+				<nc:ActivityDate>
+					<nc:Date>2016-11-23</nc:Date>
+				</nc:ActivityDate>
+				<nc:ReferralEntity>
+					<nc:EntityOrganization>
+						<nc:OrganizationName>HPD</nc:OrganizationName>
+					</nc:EntityOrganization>
+				</nc:ReferralEntity>
+			</pcq-res-ext:CaseReferral>
+			<pcq-res-ext:CaseStageCodeText>Stage Code</pcq-res-ext:CaseStageCodeText>
 		</nc:Case>
 		<j:Arrest structures:id="Arrest_01">
 			<nc:ActivityDate>
@@ -347,5 +392,12 @@
 			<nc:Activity structures:ref="Offense_01" />
 			<nc:Case structures:ref="Case_01" />
 		</j:ActivityCaseAssociation>
+		<j:ActivityLocationAssociation>
+			<nc:Activity structures:ref="Charge_Sent_01" />
+			<nc:Location>
+				<nc:LocationDescriptionText>OCCC</nc:LocationDescriptionText>
+			</nc:Location>
+			<nc:Location structures:ref="Booking_01" />
+		</j:ActivityLocationAssociation>
 	</pcq-res-ext:ProsecutionCase>
 </pcq-res-doc:ProsecutionCaseQueryResults>
