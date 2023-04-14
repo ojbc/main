@@ -257,7 +257,7 @@ public class CamelContextTest {
 		}	
 		
 		//Sleep while a response is generated
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		
 		ndexServiceMock.assertIsSatisfied();
 		chargeReferralServiceMock.assertIsSatisfied();

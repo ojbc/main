@@ -72,9 +72,25 @@
 		<camel:endpoint id="analyticalDataStorePersistenceServiceEndpoint" 
 			uri="cxf:bean:analyticalDataStorePersistenceService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}&amp;lazyStartProducer=true"/>
 			
+		<camel:endpoint id="incidentReportFileEndpoint"
+			uri="file:///${incidentReportingService.inputFileEndpoint}/" />
+			
 		<!-- Incident Reporting Service Handler -->
 		<camel:route id="IncidentReportingServiceHandlerRoute">
 			<camel:from uri="incidentReportingServiceEndpoint" />
+			
+			<!-- This wiretap will save the input message -->
+			<camel:filter>
+				<camel:simple>${properties:incidentReportingService.saveInputFile} == true</camel:simple>
+				
+				<camel:setHeader name="CamelFileName">
+					<camel:simple>Incident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+				</camel:setHeader>
+				
+				<camel:log message="saving to file system: ${in.header.CamelFileName}"/>
+				
+				<camel:wireTap uri="incidentReportFileEndpoint"/>
+			</camel:filter>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
@@ -141,7 +157,7 @@
 					
 					<camel:pipeline>
 						<camel:filter>
-							<camel:simple>${in.header.chargeReferralReporting} != 'true'</camel:simple>
+							<camel:simple>${in.header.chargeReferralReporting} > 0</camel:simple>
 
 							<camel:log message="calling charge referral reporting service"/>
 							 
@@ -284,7 +300,7 @@
         
             <from uri="direct:callChargeReferralReportingService"/>
             
-            <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
+            <log message="CallChargeReferralReportingService_Route..." />
                         			
 			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
 			
