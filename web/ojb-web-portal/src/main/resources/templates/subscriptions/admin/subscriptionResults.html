@@ -142,18 +142,18 @@
 		    // listener for click on any editSubscriptionLink button
 		    $('#searchResultsTable').on('click', '.viewDetails',function(event) {
 		        event.preventDefault();
-		        var editMvcUrl = encodeURI(this.href);
+		        var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminAdvancedSearch");
 		        var row = $(this).closest('tr'); 
 		        row.siblings().removeClass("selected");
 		        row.addClass("selected");
 		        
 		        var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
-		        if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
-		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
-		        }
-		        else{
-		            $('#subscriptionModal .modal-dialog').removeClass('modal-sm'); 
-		        }
+                if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+                    $('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+                }
+                else{
+                    $('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+                }
 		        
 		        $.get(editMvcUrl, function(data){
 		            $('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');              
