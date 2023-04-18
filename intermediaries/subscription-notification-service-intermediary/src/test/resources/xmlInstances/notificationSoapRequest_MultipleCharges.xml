@@ -53,7 +53,7 @@
                         <ojbc-notification:NotifyingArrest s:id="A001">
                             <jxdm41:Arrest>
                                 <nc:ActivityDate>
-                                    <nc:Date>2014-10-16</nc:Date>
+                                    <nc:Date>2023-04-18</nc:Date>
                                 </nc:ActivityDate>
                                 <jxdm41:ArrestAgency>
                                     <nc:OrganizationName>HONOLULU POLICE DEPARTMENT</nc:OrganizationName>
@@ -74,7 +74,7 @@
                                 </jxdm41:ArrestCharge>
                                 <jxdm41:Booking>
                                     <nc:ActivityDate>
-                                        <nc:Date>2014-10-16</nc:Date>
+                                        <nc:Date>2023-04-18</nc:Date>
                                     </nc:ActivityDate>
                                     <jxdm41:BookingSubject>
                                         <nc:RoleOfPersonReference s:ref="P001"/>
