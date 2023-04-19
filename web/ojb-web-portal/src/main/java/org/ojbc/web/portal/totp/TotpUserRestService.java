@@ -64,7 +64,7 @@ public class TotpUserRestService implements TotpUserService{
 				.retrieve()				
 				.onStatus(HttpStatus.NO_CONTENT::equals, response->{
 					log.info("Media type: " + response.headers().contentType()); 
-					return Mono.justOrEmpty(null);})
+					return Mono.empty();})
 				.bodyToMono( TotpUser.class)
 				.block();
 	}
@@ -93,7 +93,6 @@ public class TotpUserRestService implements TotpUserService{
 	    headers.add(HttpHeaders.PRAGMA, "no-cache");
 	    headers.addAll(HttpHeaders.CACHE_CONTROL, Arrays.asList("private",  "no-store", "max-age=0"));
 	    headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
-	    headers.add(HttpHeaders.ACCEPT, "application/json");
 	  }
 	
 }
