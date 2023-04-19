@@ -1,31 +1,77 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
+    <xs:appinfo>
+      <term:LocalTerm term="NCIC" literal="National Crime Information Center"/>
+      <term:LocalTerm term="PRISM" literal="Performance and Registration Information Systems Management"/>
+      <term:LocalTerm term="VINA" literal="Vehicle Identification Number Analysis"/>
+      <term:LocalTerm term="AFIS" literal="Automated Fingerprint Identification System"/>
+      <term:LocalTerm term="USDOT" literal="United States Department of Transportation"/>
+      <term:LocalTerm term="APCO" literal="Association of Public-Safety Communications Officials (APCO) - International, Inc."/>
+      <term:LocalTerm term="NLETS" literal="National Law Enforcement Telecommunication Systems"/>
+      <term:LocalTerm term="NIBRS" literal="National Incident Based Reporting System"/>
+      <term:LocalTerm term="MCO" literal="Manufacturer's certificate of origin"/>
+      <term:LocalTerm term="TripleI" literal="III - Interstate Identification Index system"/>
+      <term:LocalTerm term="MMUCC" literal="Model Minimum Uniform Crash Criteria"/>
+      <term:LocalTerm term="SAFESTAT" literal="Safety Status Measurement System"/>
+      <term:LocalTerm term="XRay" literal="X-Ray"/>
+      <term:LocalTerm term="ISSN" literal="International Standard Serial Number"/>
+      <term:LocalTerm term="TYPA" literal="(Article) Type"/>
+      <term:LocalTerm term="UCR" literal="Uniform Crime Reporting"/>
+      <term:LocalTerm term="ICC" literal="Interstate Commerce Commission"/>
+      <term:LocalTerm term="DEA" literal="Drug Enforcement Administration"/>
+      <term:LocalTerm term="EMS" literal="Emergency Medical Service"/>
+      <term:LocalTerm term="Amber" literal="America's Missing: Broadcast Emergency Response"/>
+      <term:LocalTerm term="LIS" literal="License Plate State"/>
+      <term:LocalTerm term="FIPS" literal="Federal Information Processing Standards"/>
+      <term:LocalTerm term="BOP" literal="Bureau of Prisons"/>
+      <term:LocalTerm term="HME" literal="Hazardous Material Endorsement"/>
+      <term:LocalTerm term="Brady" literal="Brady Law"/>
+      <term:LocalTerm term="CHRI" literal="Criminal History Record Information"/>
+      <term:LocalTerm term="Alpha" definition="Letter(s)"/>
+      <term:LocalTerm term="XRays" literal="X-Rays"/>
+      <term:LocalTerm term="VICAP" literal="Violent Criminal Apprehension Program"/>
+      <term:LocalTerm term="DOT" literal="Department of Transportation"/>
+      <term:LocalTerm term="NICB" literal="National Insurance Crime Bureau"/>
+      <term:LocalTerm term="GDEP" literal="Geographic-Drug Enforcement Program"/>
+      <term:LocalTerm term="CMV" literal="Commercial Motor Vehicle"/>
+      <term:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics"/>
+      <term:LocalTerm term="TYPO" literal="(ORI) Type"/>
+      <term:LocalTerm term="FBI" literal="Federal Bureau of Investigation"/>
+      <term:LocalTerm term="MCSIP" literal="Motor Carrier Safety Improvement Process"/>
+      <term:LocalTerm term="ANSID20" literal="The Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators"/>
+      <term:LocalTerm term="Multi" literal="Multiple"/>
+      <term:LocalTerm term="POST" literal="Peace Official Standards and Training"/>
+      <term:LocalTerm term="NDEx" literal="National Data Exchange"/>
+      <term:LocalTerm term="REALID" definition="Public Law 109&#x2013;13, 119 Statute 302, enacted May 11, 2005, was an Act of Congress that modified U.S. federal law pertaining to security, authentication, and issuance procedures standards for the state driver's licenses and identification (ID) cards, as well as various immigration issues pertaining to terrorism."/>
+      <term:LocalTerm term="JABS" literal="JABS" definition="Joint Automated Booking System"/>
+      <term:LocalTerm term="IBIS" literal="Integrated Ballistic Identification System"/>
+      <term:LocalTerm term="LEOKA" literal="Law Enforcement Officer Killed or Assaulted"/>
+      <term:LocalTerm term="LSTA" definition="State/Country Index"/>
+      <term:LocalTerm term="FFLID" literal="federal firearms license"/>
+      <term:LocalTerm term="NDEX" literal="National Data Exchange"/>
+      <term:LocalTerm term="ORI" definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems."/>
+      <term:LocalTerm term="VIN" literal="Vehicle Identification Number"/>
+      <term:LocalTerm term="IAFIS" literal="Integrated Automated Fingerprint Identification System"/>
+      <term:LocalTerm term="TYP" literal="(Firearm) Type"/>
+      <term:LocalTerm term="HazMat" literal="Hazardous Materials"/>
+      <term:LocalTerm term="CDL" literal="Commercial Driver's License"/>
+      <term:LocalTerm term="MACR" literal="Monthly Arrest and Citation Register"/>
+      <term:LocalTerm term="RES" literal="Registration State"/>
+      <term:LocalTerm term="USMS" literal="United States Marshal Service"/>
+      <term:LocalTerm term="MO" literal="Modus Operandi"/>
+      <term:LocalTerm term="ISBN" literal="International Standard Book Number"/>
+      <term:LocalTerm term="DHS" literal="Department of Homeland Security"/>
+      <term:LocalTerm term="CODIS" literal="Combined DNA Index System"/>
+      <term:LocalTerm term="DNA" literal="Deoxyribonucleic acid"/>
+    </xs:appinfo>
   </xs:annotation>
-  <xs:import schemaLocation="../../../codes/ansi_d20/3.1/ansi_d20.xsd" namespace="http://release.niem.gov/niem/codes/ansi_d20/3.1/"/>
-  <xs:import schemaLocation="../../../codes/fbi_ncic/3.1/fbi_ncic.xsd" namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"/>
-  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
-  <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
-  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:import namespace="http://release.niem.gov/niem/codes/ansi_d20/3.1/" schemaLocation="../../../codes/ansi_d20/3.1/ansi_d20.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" schemaLocation="../../../codes/fbi_ncic/3.1/fbi_ncic.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../proxy/xsd/3.0/xs.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd"/>
   <xs:complexType name="ActivityCaseAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
@@ -35,6 +81,19 @@
         <xs:sequence>
           <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityLocationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a location.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -68,38 +127,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="CDLHolderCodeSimpleType">
-    <xs:annotation>
-      <xs:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="1">
-        <xs:annotation>
-          <xs:documentation>The cited driver held a current CLP or CDL, or if no valid CLP/CDLlicense, his/her previous license was a CDL or his/her CLP had been disqualified and the citation had been issued prior to the expiration date of the CLP.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="2">
-        <xs:annotation>
-          <xs:documentation>No - The cited driver has a current base license, has never held a license, or holds no current license and the previous license was a base license.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="9">
-        <xs:annotation>
-          <xs:documentation>Unknown</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:complexType name="CDLHolderCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="j:CDLHolderCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:complexType name="CaseAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a case.</xs:documentation>
@@ -127,6 +154,50 @@
       <xs:extension base="j:JudicialOfficialType"/>
     </xs:complexContent>
   </xs:complexType>
+  <xs:simpleType name="CDLHolderCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>The cited driver held a current CLP or CDL, or if no valid CLP/CDLlicense, his/her previous license was a CDL or his/her CLP had been disqualified and the citation had been issued prior to the expiration date of the CLP.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="9">
+        <xs:annotation>
+          <xs:documentation>Unknown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>No - The cited driver has a current base license, has never held a license, or holds no current license and the previous license was a base license.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CDLHolderCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a code set indicating at the time of the citation, whether the individual holds a Commercial Driver License (CDL) or, in the case of an unlicensed driver, whether the individual's last held license was a CDL.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="j:CDLHolderCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType">
+        <xs:sequence>
+          <xs:element ref="j:ChargeDispositionOtherText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ChargeType">
     <xs:annotation>
       <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -138,8 +209,10 @@
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
@@ -345,6 +418,21 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SentenceType">
+    <xs:annotation>
+      <xs:documentation>A data type for a punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:SentenceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SupervisionFineAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="SeverityLevelType">
     <xs:annotation>
       <xs:documentation>A data type for a sentencing guideline severity level assigned to a charge by a judge or supervising agency.</xs:documentation>
@@ -384,9 +472,26 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="TermType">
+    <xs:annotation>
+      <xs:documentation>A data type for a duration length either in specific terms or as a range.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityLocationAssociation" type="j:ActivityLocationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Arrest" type="j:ArrestType" nillable="true">
@@ -432,16 +537,6 @@
   <xs:element name="BookingAgency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An organization which processes a booking.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="CDLHolder" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a code indicating whether or not the driver held a CDL/CLP at the time of the citation.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="CDLHolderCode" type="j:CDLHolderCodeType" substitutionGroup="j:CDLHolder" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A code indicating whether or not the driver held a CDL/CLP at the time of the citation.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
@@ -494,6 +589,16 @@
       <xs:documentation>An attorney who prosecutes a case.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CDLHolder" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a code indicating whether or not the driver held a CDL/CLP at the time of the citation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CDLHolderCode" type="j:CDLHolderCodeType" substitutionGroup="j:CDLHolder" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A code indicating whether or not the driver held a CDL/CLP at the time of the citation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Charge" type="j:ChargeType" nillable="true">
     <xs:annotation>
       <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -524,6 +629,16 @@
       <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDispositionOtherText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An additional set of information beyond or separate from the outcome of a charge, such as the processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a charge was filed.</xs:documentation>
@@ -532,6 +647,11 @@
   <xs:element name="ChargeQualifierText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An additional piece of information that clarifies a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSentence" type="j:SentenceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
@@ -689,6 +809,21 @@
       <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="SentenceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SentenceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific charge in a court case resulting in a sentence.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceTerm" type="j:TermType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="SeverityLevelDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A narrative description of a severity level assigned to a charge.</xs:documentation>
@@ -714,6 +849,11 @@
       <xs:documentation>An identification of a criminal offense within a code book.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="SupervisionFineAmount" type="nc:AmountType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A pecuniary criminal punishment or penalty payable to the public treasury</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="TelephoneNumberHomeIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if this is the person's home number; false otherwise.</xs:documentation>
@@ -727,6 +867,11 @@
   <xs:element name="TelephoneNumberWorkIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if this is a work number; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermDuration" type="niem-xs:duration" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific range or duration of a term.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

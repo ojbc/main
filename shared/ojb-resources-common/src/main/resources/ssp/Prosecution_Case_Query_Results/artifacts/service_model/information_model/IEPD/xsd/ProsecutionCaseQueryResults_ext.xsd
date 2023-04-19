@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
-<xsd:schema xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
-	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
-	elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd" />
+<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal
+	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either
+	source code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the
+	RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS
+	ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT,
+	OR NON-INFRINGEMENT. See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5
+	Copyright 2012-2017 Open Justice Broker Consortium -->
+<xsd:schema xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" elementFormDefault="qualified"
+	attributeFormDefault="qualified" version="1">
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/"
+		schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+		schemaLocation="query-results-metadata.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+		schemaLocation="query-request-error-reporting.xsd" />
 	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="ProsecutionCaseQueryResultsType">
@@ -88,6 +87,7 @@
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -102,12 +102,14 @@
 			<xsd:documentation>Victim Rights Assertion text.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType" substitutionGroup="j:ArrestAugmentationPoint">
+	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A tracking number associated with an arrest.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge involves domestic violence; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -127,12 +129,14 @@
 			<xsd:documentation>The type of party.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PartyConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:EntityAugmentationPoint">
+	<xsd:element name="PartyConfidentialIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if party information is confidential; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonConfidentialIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if person information is confidential; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -142,7 +146,8 @@
 			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an
 				OTN.
@@ -154,17 +159,20 @@
 			<xsd:documentation>True if a case is confidential; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DefaultLocationIndicator" type="niem-xs:boolean" substitutionGroup="nc:LocationAugmentationPoint">
+	<xsd:element name="DefaultLocationIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:LocationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a location is the default location; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PreferredLocationIndicator" type="niem-xs:boolean" substitutionGroup="nc:LocationAugmentationPoint">
+	<xsd:element name="PreferredLocationIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:LocationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a location is the preferred location; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xs:boolean" substitutionGroup="j:DriverLicenseAugmentationPoint">
+	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a driver license is for a commercial vehicle; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -184,13 +192,15 @@
 			<xsd:documentation>Previously filed docket entries.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:DocumentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the public and other parties are restricted from viewing the document; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:DocumentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the public is restricted from viewing the document; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -210,6 +220,24 @@
 	<xsd:element name="ProsecutionCaseQueryResultsRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for a prosecution case query results document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseReferral" type="nc:ReferralType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A recommendation of a person to a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseStageCodeText" type="nc:TextType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>CaseStageCodeText.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="SentenceParentEventText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Parent Event to a Sentence.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
