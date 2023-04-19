@@ -82,6 +82,7 @@ public class AppProperties {
 
 	private String enhancedAuditServerBaseUrl = "https://localhost:8443/OJB/";
 	private String totpUserServerBaseUrl = "https://localhost:8443/OJB/totpUser/";
+	private String otpAuthTotpURL = "ojbc-portal";
 	
 	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
 	
@@ -296,6 +297,14 @@ public class AppProperties {
 
 	public void setTotpUserServerBaseUrl(String totpUserServerBaseUrl) {
 		this.totpUserServerBaseUrl = totpUserServerBaseUrl;
+	}
+
+	public String getOtpAuthTotpURL() {
+		return otpAuthTotpURL;
+	}
+
+	public void setOtpAuthTotpURL(String otpAuthTotpURL) {
+		this.otpAuthTotpURL = otpAuthTotpURL;
 	}
 
 }

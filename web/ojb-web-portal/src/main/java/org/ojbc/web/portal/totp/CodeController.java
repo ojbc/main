@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.otp.OTPFormCommand;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,9 @@ public class CodeController {
 	@Autowired
     private GoogleAuthenticator gAuth;
 	
+	@Resource
+    AppProperties appProperties;
+	
 	@Resource (name="${otpServiceBean:totpServiceMemoryImpl}")
 	OTPService otpService;
 
@@ -75,7 +79,7 @@ public class CodeController {
         //I've decided to generate QRCode on backend site
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-        String otpAuthURL = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL("ojbc-portal", username, key);
+        String otpAuthURL = GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(appProperties.getOtpAuthTotpURL(), username, key);
 
         BitMatrix bitMatrix = qrCodeWriter.encode(otpAuthURL, BarcodeFormat.QR_CODE, 200, 200);
         
