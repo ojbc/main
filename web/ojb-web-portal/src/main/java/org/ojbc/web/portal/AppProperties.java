@@ -67,7 +67,7 @@ public class AppProperties {
 	private String mailSenderSmtpSSlProtocol="TLSv1.2"; 
 	private String mailSenderSmtpAuth; 
 	private String mailSenderSmtpStarttlesEnable; 
-	private String mailSenderDebug; 
+	private String mailSenderDebug="true"; 
 	
 	private Boolean requireIncidentAccessControl = false; 
 	

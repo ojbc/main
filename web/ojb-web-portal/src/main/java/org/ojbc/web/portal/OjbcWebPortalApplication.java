@@ -37,8 +37,8 @@ public class OjbcWebPortalApplication {
 		ApplicationContext applicationContext = SpringApplication.run(OjbcWebPortalApplication.class, args);
 		
 		for (String name : applicationContext.getBeanDefinitionNames()) {
-			if ("totpServiceMemoryImpl".equals(name))
-			log.info("totpServiceMemoryImpl bean created!");
+			if ("credentialRepository".equals(name))
+			log.info("credentialRepository bean created!");
 		}
 	}
 }
