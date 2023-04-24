@@ -53,6 +53,8 @@ public class Subscription implements Serializable {
 	
 	private String fullName;
 	
+	private String otherIdentificationId;
+	
 	private Boolean active; 
 	
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
@@ -325,6 +327,14 @@ public class Subscription implements Serializable {
 	
 	public String getFormattedFbiId() {
 		return fbiId == null? "No FBI UCN found" : fbiId;
+	}
+	
+	public String getOtherIdentificationId() {
+		return otherIdentificationId;
+	}
+
+	public void setOtherIdentificationId(String otherIdentificationId) {
+		this.otherIdentificationId = otherIdentificationId;
 	}
 
 	@Override

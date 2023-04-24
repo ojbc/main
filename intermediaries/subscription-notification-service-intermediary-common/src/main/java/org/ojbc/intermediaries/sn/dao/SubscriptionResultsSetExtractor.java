@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.dao;
 
 import java.sql.Date;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -214,6 +215,13 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            String identifierName = rs.getString("identifierName");
 	            String identifierValue = rs.getString("identifierValue");
 	            
+	            String propertyName=rs.getString("propertyName");
+	            String propertyValue=rs.getString("propertyValue");
+	            
+	            if(identifierName.equals("OffenderID")) {
+	            	subscription.setOtherIdentificationId(propertyValue);
+	            }
+	            
 	            subscriptionSubjectIdentifiers.put(identifierName, identifierValue);
 	            
 	            if (identifierName.equals(SubscriptionNotificationConstants.LAST_NAME))
@@ -238,6 +246,11 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            {
 	            	subscription.setSex(identifierValue);
 	            }
+	            if (identifierName.equals("fbiNum")) {
+	            	subscription.setFbiId(identifierValue);
+	            }
+	            
+	        
 
 		 }        
 		

@@ -19,6 +19,7 @@ package org.ojbc.intermediaries.sn.topic.warrantfile;
 import java.util.HashMap;
 
 import org.apache.camel.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
@@ -36,6 +37,8 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		String fbiNum = XmlUtils.xPathStringSearch(document, "//jxdm41:PersonFBIIdentification/nc:IdentificationID");
 		String sendingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingStatePO");
 		String receivingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingStatePO");
+		String offenderId = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonOtherIdentification/nc:IdentificationID");
+		subscriptionProperties.put("OffenderID", offenderId);
 
 		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum);
 
@@ -50,7 +53,12 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		subjectIdentifiers.put("sex", gender);
 		subjectIdentifiers.put("race", race);
-		subjectIdentifiers.put("fbiNum", fbiNum);
+		if(StringUtils.isNotEmpty(fbiNum)) {
+			subjectIdentifiers.put("fbiNum", fbiNum);
+		}
+		else { 
+			subjectIdentifiers.put("fbiNum", "N/A");
+		}
 		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
 		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
 	}

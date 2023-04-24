@@ -121,6 +121,8 @@ public class Subscription {
 	
 	private String fullName;
 	
+	private String otherIdentificationId;
+	
 	@JsonSerialize(using = JodaDateTimeSerializer.class)
 	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private LocalDate gracePeriodStartDate;
@@ -661,6 +663,14 @@ public class Subscription {
 
 	public void setLastUpdatedDate(DateTime lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+	
+	public String getOtherIdentificationId() {
+		return otherIdentificationId;
+	}
+
+	public void setOtherIdentificationId(String otherIdentificationId) {
+		this.otherIdentificationId = otherIdentificationId;
 	}
 
 	@JsonIgnore

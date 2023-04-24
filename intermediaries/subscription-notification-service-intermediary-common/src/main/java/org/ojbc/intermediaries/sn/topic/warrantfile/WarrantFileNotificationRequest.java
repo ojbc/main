@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;

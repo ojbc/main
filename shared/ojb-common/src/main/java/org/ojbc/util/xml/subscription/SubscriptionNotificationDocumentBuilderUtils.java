@@ -404,6 +404,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildPesonAugmentationElement(subjectNode,subscription);
 		
+		buildPersonOtherIdentification(subjectNode, subscription);
+		
 		buildPersonTraitsNode(subjectNode, subscription);
 		
 		buildStateElement(subjectNode, subscription);
@@ -425,6 +427,14 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		}
 	}
 	
+	private static void buildPersonOtherIdentification(Element subjectNode, Subscription subscription) {
+		String personId = subscription.getOtherIdentificationId();
+		if(StringUtils.isNotEmpty(personId)) {
+			Element personIdNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonOtherIdentification");
+			personIdNode.setTextContent(personId);
+		}
+		
+	}
 	private static void buildPersonTraitsNode(Element subjectNode, Subscription subscription) {
 		
 		String gender = subscription.getSex();
