@@ -54,7 +54,7 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element ref="submsg-ext:FingerprintIdentificationTransactionIdentification" minOccurs="0" />					
+					<xsd:element ref="submsg-ext:FingerprintIdentificationTransactionIdentification" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0" />
 					<xsd:element ref="nc:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0" />
@@ -63,13 +63,15 @@
 					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure" minOccurs="0" />
 					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0" />
 					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="submsg-ext:Supervision" minOccurs="0" maxOccurs="unbounded"/>	
-					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="submsg-ext:Supervision" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>	
-					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded"/>					
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="submsg-ext:SendingStateText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="submsg-ext:ReceivingStateText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -151,23 +153,18 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalSubscriptionReasonCode" type="submsg-ext:CriminalSubscriptionReasonCodeType"
-		 >
+	<xsd:element name="CriminalSubscriptionReasonCode" type="submsg-ext:CriminalSubscriptionReasonCodeType">
 		<xsd:annotation>
 			<xsd:documentation>A code value for the reason for creating a subscription
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	<xsd:element name="Supervision" type="submsg-ext:SupervisionType">	
-	<xsd:annotation>
+	<xsd:element name="Supervision" type="submsg-ext:SupervisionType">
+		<xsd:annotation>
 			<xsd:documentation>A process of overseeing, supervising, or keeping track in some capacity of a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	
-	
 	<xsd:complexType name="SupervisionType">
 		<xsd:complexContent>
 			<xsd:extension base="nc:SupervisionType">
@@ -177,16 +174,12 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-
-	
 	<xsd:element name="SupervisionDateRange" type="nc:DateRangeType">
 		<xsd:annotation>
 			<xsd:documentation>A period of supervision.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-
-	
 	<xsd:complexType name="CriminalSubscriptionReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:CriminalSubscriptionReasonCodeSimpleType">
@@ -397,8 +390,8 @@
 	</xsd:element>
 	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A designation of the individual to whose attention a response is to be directed, relating to a subscription on
-				a subject's rap sheet.
+			<xsd:documentation>A designation of the individual to whose attention a response is to be directed, relating to a
+				subscription on a subject's rap sheet.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -411,6 +404,18 @@
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
 			<xsd:documentation>The term for which a subscription is active.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SendingStateText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An offender's state of origin.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReceivingStateText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The state an offender is transferring to.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<submsg-doc:SubscriptionMessage s20:id="A001" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s20="http://niem.gov/niem/structures/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
+	<submsg-ext:SubscriptionRelatedCaseIdentification>
+		<nc:IdentificationID>1533715</nc:IdentificationID>
+	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:Subject>
+		<nc:PersonBirthDate>
+			<nc:Date>1955-01-15</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Homer</nc:PersonGivenName>
+			<nc:PersonSurName>Simpson</nc:PersonSurName>
+			<nc:PersonFullName>Homer Simpson</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonOtherIdentification>
+		<nc:PersonRaceText>White</nc:PersonRaceText>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<jxdm41:PersonAugmentation>
+			<jxdm41:PersonFBIIdentification>
+				<nc:IdentificationID>VCCCNL9TK</nc:IdentificationID>
+			</jxdm41:PersonFBIIdentification>
+		</jxdm41:PersonAugmentation>
+	</submsg-ext:Subject>
+	<nc:ContactEmailID>po1@localhost</nc:ContactEmailID>
+	<nc:ContactEmailID>po2@localhost</nc:ContactEmailID>
+	<submsg-ext:SystemName>{http:// ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+				</submsg-ext:SystemName>
+	<submsg-ext:SubscriptionQualifierIdentification>
+		<nc:IdentificationID>2259</nc:IdentificationID>
+	</submsg-ext:SubscriptionQualifierIdentification>
+	<nc:DateRange>
+		<nc:StartDate>
+			<nc:Date>2021-08-08</nc:Date>
+		</nc:StartDate>
+		<nc:EndDate>
+			<nc:Date>2021-08-08</nc:Date>
+		</nc:EndDate>
+	</nc:DateRange>
+	<submsg-ext:SubscriptionIdentification>
+		<nc:IdentificationID>1110711</nc:IdentificationID>
+		<nc:IdentificationSourceText>Subscriptions
+					</nc:IdentificationSourceText>
+	</submsg-ext:SubscriptionIdentification>
+	<submsg-ext:SendingStateText>New Jersey</submsg-ext:SendingStateText>
+	<submsg-ext:ReceivingStateText>Alaska</submsg-ext:ReceivingStateText>
+</submsg-doc:SubscriptionMessage>
