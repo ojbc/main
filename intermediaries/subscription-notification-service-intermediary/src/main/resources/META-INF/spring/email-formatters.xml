@@ -148,7 +148,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
 			<value><![CDATA[
-			$emailNotification.subscription.state - ICOTS ICT-SNS Warrant Notification Compact Case # $emailNotification.subscription.agencyCaseNumber
+			$emailNotification.subscription.state  - Person ID $emailNotification.subscription.otherIdentificationId - ICOTS ICT-SNS Warrant Notification Compact Case # $emailNotification.subscription.agencyCaseNumber
 			]]></value>
 		</property>
 		<property name="emailBodyTemplate">
@@ -165,10 +165,16 @@ Race: $emailNotification.subscriptionSubjectIdentifiers.get("race")
 #if($foreach.index == 0)
 Sending State PO: $sendingStatePO.split(",")[1].trim() $sendingStatePO.split(",")[0].trim()
 #end
+#if($foreach.index == 1)
+Sending State: $sendingStatePO.split(",")[1].trim()
+#end
 #end
 #foreach ($receivingStatePO in $emailNotification.subscriptionSubjectIdentifiers.get("receivingStatePO").split(": "))
 #if($foreach.index == 0)
 Receiving State PO: $receivingStatePO.split(",")[1].trim() $receivingStatePO.split(",")[0].trim()
+#end
+#if($foreach.index == 1)
+Receiving State: $receivingStatePO.split(",")[1].trim()
 #end
 #end
 			]]></value>
