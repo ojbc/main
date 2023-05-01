@@ -354,7 +354,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	private static void buildStateElement(Element parentNode, Subscription subscription) {
 		String state = subscription.getState();
 		
-		if(state != null || StringUtils.isNotBlank(state)){
+		if(state != null || StringUtils.isNotEmpty(state)){
 			Element stateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "State");
 			stateNode.setTextContent(state);
 		}
