@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -60,7 +61,8 @@ public class TotpUserRestService implements TotpUserService{
 
 	@Override
 	public TotpUser getTotpUserByUserName(String userName) {
-		return  this.webClient.get().uri(userName)
+		return  this.webClient.post().uri("userName")
+				.body(BodyInserters.fromValue(userName))
 				.retrieve()				
 				.onStatus(HttpStatus.NO_CONTENT::equals, response->{
 					log.info("Media type: " + response.headers().contentType()); 
@@ -71,8 +73,8 @@ public class TotpUserRestService implements TotpUserService{
 
 	@Override
 	public Integer deleteTotpUserByUserName(String userName) {
-		return this.webClient.delete()
-		        .uri(userName)
+		return this.webClient.method(HttpMethod.DELETE)
+		        .body(BodyInserters.fromValue(userName))
 		        .retrieve()
 		        .bodyToMono(Integer.class)
 		        .block();

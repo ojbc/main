@@ -98,7 +98,6 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			}
 			else {
 				request.getRequestDispatcher("/otp/inputForm").forward(request, response);
-				return;
 			}
 			return;
 

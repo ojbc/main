@@ -21,7 +21,6 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,15 +36,15 @@ public interface TotpUserRestInterface {
    @Consumes(MediaType.APPLICATION_JSON)
    public Integer saveTotpUser(TotpUser totpUser);
    
-   @GET
-   @Path("/{userName}")
+   @POST
+   @Path("/userName")
    @Produces(MediaType.APPLICATION_JSON)
-   public TotpUser getTotpUserByUserName(@PathParam("userName") String userName);
+   public TotpUser getTotpUserByUserName(String userName);
    
    @DELETE
-   @Path("/{userName}")
+   @Path("")
    @Produces(MediaType.APPLICATION_JSON)
-   public Integer deleteTotpUserByUserName(@PathParam("userName") String userName);
+   public Integer deleteTotpUserByUserName(String userName);
    
    @GET
    @Path("/totpUsers")

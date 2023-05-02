@@ -38,8 +38,7 @@
 
 		<route>
 			<from uri="cxfrs:bean:auditServer" />
-			<log
-				message="Entering audit REST route: Http method ${header.CamelHttpMethod}" />
+			<log message="Entering audit REST route: Http method ${header.CamelHttpMethod}" />
 			<log message="REST path is ${header.CamelHttpPath}, operation name: ${header.operationName}" />
 			<choice>
 				<when>
@@ -215,8 +214,7 @@
 		</route>
 		  <route>
             <from uri="cxfrs:bean:totpServer" />
-            <log
-                message="Entering TOTP User REST route: Http method ${header.CamelHttpMethod}" />
+            <log message="Entering TOTP User REST route: Http method ${header.CamelHttpMethod}" />
             <log message="REST path is ${header.CamelHttpPath}, operation name: ${header.operationName}" />
             <choice>
                 <when>
