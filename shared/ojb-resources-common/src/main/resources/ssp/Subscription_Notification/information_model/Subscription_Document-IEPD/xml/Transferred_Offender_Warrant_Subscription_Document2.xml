@@ -25,6 +25,15 @@
 	<submsg-ext:SubscriptionRelatedCaseIdentification>
 		<nc:IdentificationID>1533715</nc:IdentificationID>
 	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:SubscribingOrganization>
+		<nc:OrganizationPrimaryContactInformation>
+			<nc:ContactMailingAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStateName>New Jersey</nc:LocationStateName>
+				</nc:StructuredAddress>
+			</nc:ContactMailingAddress>
+		</nc:OrganizationPrimaryContactInformation>
+	</submsg-ext:SubscribingOrganization>
 	<submsg-ext:Subject>
 		<nc:PersonBirthDate>
 			<nc:Date>1955-01-15</nc:Date>
