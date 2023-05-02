@@ -148,7 +148,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
 		<property name="emailSubjectTemplate">
 			<value><![CDATA[
-			$emailNotification.subscription.state  - Person ID $emailNotification.subscription.otherIdentificationId - ICOTS ICT-SNS Warrant Notification Compact Case # $emailNotification.subscription.agencyCaseNumber
+			$emailNotification.subscription.state  - Person ID $emailNotification.subscription.otherIdentificationId - ICOTS ICT-SNS Warrant Notification Compact Case # $emailNotification.subscription.agencyCaseNumber - $emailNotification.subscription.subscriptionCategoryCode
 			]]></value>
 		</property>
 		<property name="emailBodyTemplate">
