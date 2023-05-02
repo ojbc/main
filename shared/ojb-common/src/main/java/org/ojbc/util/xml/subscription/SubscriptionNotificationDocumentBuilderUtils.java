@@ -354,9 +354,22 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	private static void buildStateElement(Element parentNode, Subscription subscription) {
 		String state = subscription.getState();
 		
-		if(state != null || StringUtils.isNotBlank(state)){
+		if(state != null || StringUtils.isNotEmpty(state)){
 			Element stateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "State");
 			stateNode.setTextContent(state);
+		}
+		
+		String sendingState = subscription.getSendState();
+		String receivingState = subscription.getRecState();
+		
+		if(StringUtils.isNotEmpty(sendingState)) {
+			Element sendingStateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "SendingState");
+			sendingStateNode.setTextContent(sendingState);
+		}
+		
+		if(StringUtils.isNotEmpty(receivingState)) {
+			Element receivingStateNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "ReceivingState");
+			receivingStateNode.setTextContent(receivingState);
 		}
 	}
 		
@@ -431,7 +444,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		String personId = subscription.getOtherIdentificationId();
 		if(StringUtils.isNotEmpty(personId)) {
 			Element personIdNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonOtherIdentification");
-			personIdNode.setTextContent(personId);
+			Element identificationNode =  XmlUtils.appendElement(personIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			identificationNode.setTextContent(personId);
 		}
 		
 	}

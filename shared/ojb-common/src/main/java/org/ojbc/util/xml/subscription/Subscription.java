@@ -53,6 +53,10 @@ public class Subscription implements Serializable {
 	
 	private String fullName;
 	
+	private String recState;
+	
+	private String sendState;
+	
 	private String otherIdentificationId;
 	
 	private Boolean active; 
@@ -515,6 +519,22 @@ public class Subscription implements Serializable {
 
 	public void setRace(String race) {
 		this.race = race;
+	}
+	
+	public String getRecState() {
+		return recState;
+	}
+
+	public void setRecState(String recState) {
+		this.recState = recState;
+	}
+
+	public String getSendState() {
+		return sendState;
+	}
+
+	public void setSendState(String sendState) {
+		this.sendState = sendState;
 	}
 
 }

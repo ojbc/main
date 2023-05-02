@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.camel.Message;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,8 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 	public WarrantFileSubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception {
 
 		super(message, allowedEmailAddressPatterns);
+		
+		subscriptionProperties = new HashMap<String, String>();
 
 		String firstName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
 		String lastName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
@@ -38,14 +41,17 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		String sendingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingStatePO");
 		String receivingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingStatePO");
 		String offenderId = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonOtherIdentification/nc:IdentificationID");
+		String sendingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingState");
+		String receivingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingState");
 		subscriptionProperties.put("OffenderID", offenderId);
 
-		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum, sendingState, receivingState);
 
 		
 	}
 	
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO, String fbiNum) {
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO, String fbiNum,
+			String sendingState, String receivingState) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
@@ -61,5 +67,7 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		}
 		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
 		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
+		subjectIdentifiers.put("sendingState", sendingState);
+		subjectIdentifiers.put("receivingState", receivingState);
 	}
 }
