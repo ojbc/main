@@ -30,14 +30,14 @@ portal.totpUserServerBaseUrl=https://demo-intermediary:8085/OJB/totpUser/
 #otpLength=5
 
 #ojbcMailSenderBean=mockMailSender
-#ojbcMailSenderBean=ojbcMailSender
-#portal.mailSenderHost=smtp.gmail.com
-#portal.mailSenderPort=587
-#portal.mailSenderTransportProtocol=smtp
-#portal.mailSenderSmtpSSlProtocol=TLSv1.2
-#portal.mailSenderSmtpAuth=true
-#portal.mailSenderSmtpStarttlesEnable=true
-#portal.mailSenderDebug=true
+ojbcMailSenderBean=ojbcMailSender
+portal.mailSenderHost=smtp.gmail.com
+portal.mailSenderPort=587
+portal.mailSenderTransportProtocol=smtp
+portal.mailSenderSmtpSSlProtocol=TLSv1.2
+portal.mailSenderSmtpAuth=true
+portal.mailSenderSmtpStarttlesEnable=true
+portal.mailSenderDebug=true
 #emailFromAddress=xxx@gmail.com
 #emailRecipientsLogMessageOnly=xxx@search.org
 
@@ -139,3 +139,5 @@ portal.peopleSearchSourcesRequireIncidentAccess[1]=RMS - Kauai County
 portal.peopleSearchSourcesRequireIncidentAccess[2]=RMS - Maui County
 
 fedIdsWithAdminAccess=HIJIS:IDP:HCJDC:USER:demouser
+
+portal.otpAuthTotpURL=ojbc-portal-dev
