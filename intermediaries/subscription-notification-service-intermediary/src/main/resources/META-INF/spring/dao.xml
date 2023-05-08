@@ -33,6 +33,7 @@
 		<property name="gracePeriodStrategy" ref="gracePeriodStrategy"/>
 		<property name="validationExemptionFilter" ref="validationExemptionFilter"/>
 		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:false}"/>
+		<property name="baseNotificationsOnEventDate" value="${publishSubscribe.baseNotificationsOnEventDate:true}"/>
     </bean>
 
 	<bean id="arrestSubscriptionProcessor"
