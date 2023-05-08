@@ -86,7 +86,7 @@
 	</xsl:template>
 	
 	<xsl:template match="/warrant:Warrants/warrant-ext:eBWResults/warrant-ext:eBWResult">
-		<h3><xsl:value-of select="concat('WARRANT ID: ', jxdm:Warrant/nc:ActivityIdentification/nc:IdentificationID)" /></h3>
+		<h3><xsl:value-of select="concat('WARRANT ID: ', jxdm:Warrant/nc:ActivityIdentification/nc:IdentificationID, ' - ' , jxdm:Warrant/nc:ActivityStatus/nc:StatusDescriptionText)" /></h3>
 		<div>
 			<table style="width:100%">
 	            <tr>
