@@ -33,6 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
@@ -215,12 +216,23 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            String identifierName = rs.getString("identifierName");
 	            String identifierValue = rs.getString("identifierValue");
 	            
-	            String propertyName=rs.getString("propertyName");
-	            String propertyValue=rs.getString("propertyValue");
-	            
-	            if(identifierName.equals("OffenderID")) {
-	            	subscription.setOtherIdentificationId(propertyValue);
+	            if(DaoUtils.hasColumn(rs, "propertyName") && DaoUtils.hasColumn(rs, "propertyValue")) {
+            		String propertyName=rs.getString("propertyName");
+            		String propertyValue=rs.getString("propertyValue");
+            		if(StringUtils.isNotEmpty(propertyName) && StringUtils.isNotEmpty(propertyValue)) {
+            			if(propertyName.equals("OffenderID")) {
+     	  	            	subscription.setOtherIdentificationId(propertyValue);
+     	  	            }
+     	  	            if(propertyName.equals("sendingState")) {
+     	  	            	subscription.setSendingState(propertyValue);
+     	  	            }
+     	  	            if (propertyName.equals("receivingState")) {
+     	  	            	subscription.setReceivingState(propertyValue);
+     	  	            }
+            		}
+	  	           
 	            }
+	          
 	            
 	            subscriptionSubjectIdentifiers.put(identifierName, identifierValue);
 	            
@@ -249,7 +261,12 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            if (identifierName.equals("fbiNum")) {
 	            	subscription.setFbiId(identifierValue);
 	            }
-	            
+	            if (identifierName.equals("sendingState")) {
+	            	subscription.setSendingState(identifierValue);
+	            }
+	            if (identifierName.equals("receivingState")) {
+	            	subscription.setReceivingState(identifierValue);
+	            }
 	        
 
 		 }        

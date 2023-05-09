@@ -77,15 +77,16 @@ public class SubscriptionSearchQueryDAO {
 			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, "
 			+ "so.federation_id as subscriptionOwner, ap.agency_name, s.timestamp as lastUpdatedDate, "
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
-			+ "si.identifierValue, nm.notificationAddress, "
+			+ "si.identifierValue, nm.notificationAddress, pr.propertyName, pr.propertyValue, "
 			+ "nm.notificationMechanismType, fs.* "
 			+ "FROM rapback_datastore.subscription s "
-			+ "LEFT JOIN rapback_datastore.fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "	
+			+ "		LEFT JOIN rapback_datastore.fbi_rap_back_subscription fs ON fs.subscription_id = s.id "	
+			+ "		LEFT JOIN rapback_datastore.subscription_properties pr ON pr.subscriptionId = s.id,"
 			+ "     rapback_datastore.notification_mechanism nm, 	rapback_datastore.subscription_subject_identifier si, "		
-			+ "     rapback_datastore.subscription_owner so  "
-			+ "LEFT JOIN rapback_datastore.agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
+			+ "  rapback_datastore.subscription_owner so    "
+			+ "		LEFT JOIN rapback_datastore.agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
 			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id "
-			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID";
+			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID ";
 	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     
@@ -400,7 +401,8 @@ public class SubscriptionSearchQueryDAO {
         };
 
         String queryString = BASE_QUERY_STRING + " and s.startDate <=? and ((s.startDate <=? and s.endDate >?) or (s.startDate <=? and s.endDate is null)) and s.topic=? and active=1 and ";
-        queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierValue='*')) ");
+        queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierValue='*') "
+        		+ "or s.id in (select subscriptionId from rapback_datastore.subscription_properties where propertyName='OffenderID'))");
 
         Object[] subjectIdArray = buildCriteriaArray(subjectIdentifiers);
         criteriaArray = ArrayUtils.addAll(criteriaArray, subjectIdArray);
@@ -483,6 +485,7 @@ public class SubscriptionSearchQueryDAO {
 
         if (StringUtils.isNotBlank(id)) {
             String queryString = BASE_QUERY_STRING + " and s.id=?";
+            log.debug("Query string: " + queryString);
         	ret = this.jdbcTemplate.query(queryString, resultSetExtractor, id);
         }
 
@@ -535,8 +538,13 @@ public class SubscriptionSearchQueryDAO {
         String queryString = BASE_QUERY_STRING + staticCriteria.toString()
                 + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
         queryString+= " order by subscriptionOwnerEmailAddress";
+        
+        log.debug("Query string: " + queryString);
+        
         ret = this.jdbcTemplate.query(queryString, resultSetExtractor, criteriaArray);
 
+        log.debug("Query completed.");
+        
         return ret;
 
     }
@@ -577,6 +585,8 @@ public class SubscriptionSearchQueryDAO {
     	
     	
     	String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(request.getTopic());
+    	
+    	log.debug("About to get subscriptions.");
     	
     	List<Subscription> subscriptions = getSubscriptions(request.getSubscriptionSystemId(), 
     			fullyQualifiedTopic, request.getSubjectIdentifiers(), request.getSystemName(), request.getSubscriptionOwner());

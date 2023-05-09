@@ -44,14 +44,15 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		String sendingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingState");
 		String receivingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingState");
 		subscriptionProperties.put("OffenderID", offenderId);
+		subscriptionProperties.put("sendingState", sendingState);
+		subscriptionProperties.put("receivingState", receivingState);
 
-		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum, sendingState, receivingState);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum);
 
 		
 	}
 	
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO, String fbiNum,
-			String sendingState, String receivingState) {
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO, String fbiNum) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
@@ -67,7 +68,5 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		}
 		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
 		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
-		subjectIdentifiers.put("sendingState", sendingState);
-		subjectIdentifiers.put("receivingState", receivingState);
 	}
 }
