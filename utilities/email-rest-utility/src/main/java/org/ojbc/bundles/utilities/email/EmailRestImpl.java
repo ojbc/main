@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.mail.Email;
@@ -38,6 +38,7 @@ public class EmailRestImpl implements EmailInterface {
 	@Value("${emailRestUtility.fromAddress:test@localhost.local}")
 	String fromAddress;
 	
+	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
 	
 	public Response sendEmail(Email email) {
@@ -46,7 +47,7 @@ public class EmailRestImpl implements EmailInterface {
         
         emailToSend.setFrom(fromAddress);
         
-        if (StringUtils.isBlank(email.getTo()) || StringUtils.isBlank(email.getSubject()) ||  StringUtils.isBlank(email.getBody()))
+        if (StringUtils.isAnyBlank(email.getTo(), email.getSubject(), email.getBody()))
         {
         	return Response.status(Status.BAD_REQUEST).entity(email).build();
         }	

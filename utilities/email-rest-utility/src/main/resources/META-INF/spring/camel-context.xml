@@ -23,13 +23,11 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
        ">
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-
-	<context:component-scan base-package="org.ojbc.bundles.utilities.email, org.ojbc.util.mail" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="email_rest_utility_context">
@@ -54,21 +52,4 @@
 
 	</camel:camelContext>
 	
-	<!-- Production implementation of the JavaMailSender interface, supporting 
-		both JavaMail MimeMessages and Spring SimpleMailMessages -->
-	<bean id="ojbcMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="${emailRestUtility.host}" />
-		<property name="port" value="${emailRestUtility.port}" />
- 
-		<!-- The name of the property, following JavaBean naming conventions -->
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">false</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>
-
 </beans>

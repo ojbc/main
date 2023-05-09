@@ -23,22 +23,22 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.mail.Email;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=EmailRestUtility.class)
+@ActiveProfiles("dev")
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/test-beans.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml"})
+		"classpath:META-INF/spring/test-beans.xml"})
 public class TestEmailRestImpl {
 
 	private Logger logger = Logger.getLogger(TestEmailRestImpl.class.getName());
@@ -49,7 +49,7 @@ public class TestEmailRestImpl {
     @Resource
     private RestTemplate restTemplate;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
     	context.start();
