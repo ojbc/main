@@ -42,7 +42,6 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 
 final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<Subscription>>{
     
-    @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
     
     private GracePeriodStrategy gracePeriodStrategy;

@@ -61,7 +61,7 @@ public class VehicleCrashNotificationProcessorTest {
 													+"Agency: Maine Auburn Police Department\n"
 													+"Officer: John V. Matthews<br/>\n"
 													+"Citation #:CitationNumber <br/>\n"
-													+"If you require more information, please utilize the Federated Query Tool – https://ojbc.maine.gov/ojb-web-portal/portal/index or call Maine State Police";
+													+"If you require more information, please utilize the Federated Query Tool - https://ojbc.maine.gov/ojb-web-portal/portal/index or call Maine State Police";
     
     private static final Log log = LogFactory.getLog(VehicleCrashNotificationProcessorTest.class);
 	
