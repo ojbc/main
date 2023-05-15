@@ -271,6 +271,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_WARRANT_EXT = "http://ojbc.org/IEPD/Extensions/Warrants/1.0";
 	public static final String NS_NC = "http://niem.gov/niem/niem-core/2.0";
 	public static final String NS_NC_30 = "http://release.niem.gov/niem/niem-core/3.0/";
+	public static final String NS_NC_30_1 = "http://release.niem.gov/niem/niem-core/3.0/1/";
 	public static final String NS_NC_40 = "http://release.niem.gov/niem/niem-core/4.0/";
 	public static final String NS_WARRANT = "http://ojbc.org/IEPD/Exchange/Warrants/1.0";
 	public static final String NS_STRUCTURES = "http://niem.gov/niem/structures/2.0";
@@ -285,6 +286,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_WARRANT_EXT = "warrant-ext";
 	public static final String NS_PREFIX_NC = "nc";
 	public static final String NS_PREFIX_NC_30 = "nc30";
+	public static final String NS_PREFIX_NC_30_1 = "nc31";
 	public static final String NS_PREFIX_NC_40 = "nc40";
 	public static final String NS_PREFIX_WARRANT = "warrant";
 	public static final String NS_PREFIX_STRUCTURES = "s";

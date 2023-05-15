@@ -69,6 +69,9 @@ public class Subscription {
 
     private String topic;
 	
+	private String sendingState;
+    private String receivingState;
+    
 	private String personFirstName;
     private String personLastName;
     private String personFullName;
@@ -671,6 +674,22 @@ public class Subscription {
 
 	public void setOtherIdentificationId(String otherIdentificationId) {
 		this.otherIdentificationId = otherIdentificationId;
+	}
+	
+    public String getSendingState() {
+		return sendingState;
+	}
+
+	public void setSendingState(String sendingState) {
+		this.sendingState = sendingState;
+	}
+
+	public String getReceivingState() {
+		return receivingState;
+	}
+
+	public void setReceivingState(String receivingState) {
+		this.receivingState = receivingState;
 	}
 
 	@JsonIgnore
