@@ -253,29 +253,29 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+
+	
+	
 	<xsd:element name="IncidentSubject" type="inc-ext:IncidentSubjectType" />
 	<xsd:complexType name="IncidentSubjectType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person, in the role of a subject, related to an incident.
-			</xsd:documentation>
+			<xsd:documentation>A data type for a person, in the role of a subject, related to an incident.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:SubjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectInCustodyIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
 					<xsd:element ref="j:Citation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
+		</xsd:complexContent>	
+	</xsd:complexType>	
 	<xsd:complexType name="LocationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a geophysical location.
@@ -1769,6 +1769,46 @@
 					<xsd:documentation>Victim</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
+			<xsd:enumeration value="FTHR">
+				<xsd:annotation>
+					<xsd:documentation>Father</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>			
+			<xsd:enumeration value="GRDN">
+				<xsd:annotation>
+					<xsd:documentation>Guardian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>					
+			<xsd:enumeration value="MTHR">
+				<xsd:annotation>
+					<xsd:documentation>Mother</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>				
+			<xsd:enumeration value="AGWK">
+				<xsd:annotation>
+					<xsd:documentation>Agency Worker</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>				
+			<xsd:enumeration value="VIC">
+				<xsd:annotation>
+					<xsd:documentation>Victim</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>						
+			<xsd:enumeration value="VICR">
+				<xsd:annotation>
+					<xsd:documentation>Victim Representative</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>					
+			<xsd:enumeration value="VICD">
+				<xsd:annotation>
+					<xsd:documentation>Deceased Victim</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>								
+			<xsd:enumeration value="VICP">
+				<xsd:annotation>
+					<xsd:documentation>Victim/Parent</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>				
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>

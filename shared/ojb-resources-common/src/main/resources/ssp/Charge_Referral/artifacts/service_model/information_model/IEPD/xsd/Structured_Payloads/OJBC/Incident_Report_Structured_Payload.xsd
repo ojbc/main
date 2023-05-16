@@ -924,6 +924,46 @@
 					<xsd:documentation>Victim</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
+			<xsd:enumeration value="FTHR">
+				<xsd:annotation>
+					<xsd:documentation>Father</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>			
+			<xsd:enumeration value="GRDN">
+				<xsd:annotation>
+					<xsd:documentation>Guardian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>					
+			<xsd:enumeration value="MTHR">
+				<xsd:annotation>
+					<xsd:documentation>Mother</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>				
+			<xsd:enumeration value="AGWK">
+				<xsd:annotation>
+					<xsd:documentation>Agency Worker</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>				
+			<xsd:enumeration value="VIC">
+				<xsd:annotation>
+					<xsd:documentation>Victim</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>						
+			<xsd:enumeration value="VICR">
+				<xsd:annotation>
+					<xsd:documentation>Victim Representative</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>					
+			<xsd:enumeration value="VICD">
+				<xsd:annotation>
+					<xsd:documentation>Deceased Victim</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>								
+			<xsd:enumeration value="VICP">
+				<xsd:annotation>
+					<xsd:documentation>Victim/Parent</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>					
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>
