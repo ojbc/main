@@ -19,7 +19,6 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -56,6 +55,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
@@ -145,17 +145,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private DateTime toDateTime(Timestamp timestamp){
 		return timestamp == null? null : new DateTime(timestamp); 
-	}
-	
-	private boolean hasColumn(ResultSet rs, String columnName) throws SQLException {
-	    ResultSetMetaData rsmd = rs.getMetaData();
-	    int columns = rsmd.getColumnCount();
-	    for (int x = 1; x <= columns; x++) {
-	        if (columnName.toLowerCase().equals(rsmd.getColumnName(x).toLowerCase())) {
-	            return true;
-	        }
-	    }
-	    return false;
 	}
 	
 	private java.sql.Date toSqlDate(DateTime date){
@@ -431,7 +420,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setAvailableForSubscriptionStartDate(toDateTime(rs.getTimestamp("Available_For_Subscription_Start_Date")));
 		identificationTransaction.setFbiSubscriptionStatus(rs.getString("FBI_SUBSCRIPTION_STATUS"));
 
-		if (hasColumn(rs, "subscription_id"))
+		if (DaoUtils.hasColumn(rs, "subscription_id"))
 		{
 			Integer subscriptionId = rs.getInt("subscription_id"); 
 			identificationTransaction.setSubscriptionId(subscriptionId);

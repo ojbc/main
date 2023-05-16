@@ -37,12 +37,10 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd	   
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<routeContext id="subscription-management-routes" xmlns="http://camel.apache.org/schema/spring">	
