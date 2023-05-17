@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phisr-doc:PersonHealthInformationSearchRequest xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+                                                xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                                xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+                                                xmlns:phisr-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0"
+                                                xmlns:phisr-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
+                                                xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
+                                                xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+                                                xmlns:ac-phi-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/PersonHealthInformationCodes/1.0"
+                                                xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0">
+   <nc:Person structures:id="Person_01">
+      <nc:PersonBirthDate>
+			      <nc:Date>1968-12-17</nc:Date>
+		    </nc:PersonBirthDate>
+      <j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+      <nc:PersonName>
+			      <nc:PersonGivenName>Otis</nc:PersonGivenName>
+			      <nc:PersonMiddleName>H.</nc:PersonMiddleName>
+			      <nc:PersonSurName>Strong</nc:PersonSurName>
+		    </nc:PersonName>
+      <ac-phi-codes:PersonRaceCode>A</ac-phi-codes:PersonRaceCode>
+      <j:PersonSexCode>F</j:PersonSexCode>
+   </nc:Person>
+   <nc:Identity structures:id="ALIAS001">
+		    <nc:IdentityPersonRepresentation>
+			      <nc:PersonBirthDate>
+				        <nc:Date>1960-10-07</nc:Date>
+			      </nc:PersonBirthDate>
+			      <nc:PersonName>
+				        <nc:PersonGivenName>Walter</nc:PersonGivenName>
+				        <nc:PersonSurName>Heisenberg</nc:PersonSurName>
+			      </nc:PersonName>
+			      <j:PersonSexCode>M</j:PersonSexCode>
+		    </nc:IdentityPersonRepresentation>
+	  </nc:Identity>
+   <nc:Identity structures:id="ALIAS002">
+		    <nc:IdentityPersonRepresentation>
+			      <nc:PersonBirthDate>
+				        <nc:Date>1959-09-07</nc:Date>
+			      </nc:PersonBirthDate>
+			      <nc:PersonName>
+				        <nc:PersonGivenName>Walt</nc:PersonGivenName>
+				        <nc:PersonMiddleName>Hartwell</nc:PersonMiddleName>
+				        <nc:PersonSurName>Jackson</nc:PersonSurName>
+			      </nc:PersonName>
+			      <j:PersonSexCode>M</j:PersonSexCode>
+		    </nc:IdentityPersonRepresentation>
+	  </nc:Identity>
+   <nc:Identity structures:id="ALIAS003">
+		    <nc:IdentityPersonRepresentation>
+			      <nc:PersonBirthDate>
+				        <nc:Date>1961-09-09</nc:Date>
+			      </nc:PersonBirthDate>
+			      <nc:PersonName>
+				        <nc:PersonGivenName>Walt</nc:PersonGivenName>
+				        <nc:PersonSurName>White</nc:PersonSurName>
+			      </nc:PersonName>
+			      <j:PersonSexCode>M</j:PersonSexCode>
+		    </nc:IdentityPersonRepresentation>
+	  </nc:Identity>
+   <nc:PersonAliasIdentityAssociation>
+		    <nc:Person structures:ref="Person_01"/>
+		    <nc:Identity structures:ref="ALIAS001"/>
+		    <nc:Identity structures:ref="ALIAS002"/>
+		    <nc:Identity structures:ref="ALIAS003"/>
+	  </nc:PersonAliasIdentityAssociation>
+   <phisr-ext:SourceSystemNameText/>
+</phisr-doc:PersonHealthInformationSearchRequest>
