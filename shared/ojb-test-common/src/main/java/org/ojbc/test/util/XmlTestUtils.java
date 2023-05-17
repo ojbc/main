@@ -17,6 +17,7 @@
 package org.ojbc.test.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.custommonkey.xmlunit.DetailedDiff;
@@ -26,6 +27,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.jupiter.api.Assertions;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * A class of utilities to support assertions/comparisons of XML documents.
@@ -82,5 +84,29 @@ public class XmlTestUtils {
 		Assertions.assertEquals(0, diffCount, detailedDiff.toString());
 		
 	}
-	
+
+	/**
+	 * Compare two XML docs with the elements in the elementNamesToIgnore array ignored. 
+	 * 
+	 * @param expectedXmlString
+	 * @param actualTransformedXml
+	 * @param elementNamesToIgnore
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static void compareDocs(String expectedXmlString,
+			String actualTransformedXml, String... elementNamesToIgnore)
+			throws SAXException, IOException {
+
+		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		detailedDiff
+				.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+						elementNamesToIgnore));
+
+		Assertions.assertEquals(0, detailedDiff
+				.getAllDifferences().size(), detailedDiff.toString());
+	}
 }
