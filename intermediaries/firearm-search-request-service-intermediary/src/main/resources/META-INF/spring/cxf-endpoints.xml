@@ -78,6 +78,11 @@
  					</wsam:Addressing> 
  				</wsp:Policy> 
  			</policy:policies> 
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+				<property name="logBinary" value="${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+				<property name="verbose" value="true" />
+			</bean>	 			
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
 	
