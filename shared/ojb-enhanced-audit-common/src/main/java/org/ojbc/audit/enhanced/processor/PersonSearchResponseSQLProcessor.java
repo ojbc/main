@@ -68,7 +68,7 @@ public class PersonSearchResponseSQLProcessor extends AbstractPersonSearchRespon
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit person search result: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 		
