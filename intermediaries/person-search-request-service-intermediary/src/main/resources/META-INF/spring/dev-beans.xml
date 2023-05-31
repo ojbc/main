@@ -62,6 +62,7 @@
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" value="${federatedQuery.personSearch.personSearchRequestServiceVehicleCrashEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="${federatedQuery.personSearch.personSearchRequestServiceWildlifeSearchEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="${federatedQuery.personSearch.personSearchRequestServiceProfessionalSearchEndpoint}" />
+				<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/ProsecutionCaseSearch/1.0}SubmitPersonSearchRequest-Honolulu" value="${federatedQuery.personSearch.personSearchRequestServiceProsecutionCaseEndpoint}" />
 			</util:map>				
 		</property>
  	</bean>
@@ -78,6 +79,7 @@
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" value="personSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="personSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="personSearchRequestServiceAdapterEndpoint" />
+		<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/ProsecutionCaseSearch/1.0}SubmitPersonSearchRequest-Honolulu" value="personSearchRequestServiceAdapterEndpoint" />
 	</util:map>
 	
 	<util:map id="addressToAdapterURIMap" map-class="java.util.HashMap" >
@@ -92,5 +94,6 @@
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceVehicleCrashEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition"  />
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceWildlifeSearchEndpoint}" value="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceProfessionalSearchEndpoint}" value="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
+		<entry key="${federatedQuery.personSearch.personSearchRequestServiceProsecutionCaseEndpoint}" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/ProsecutionCaseSearch/1.0}SubmitPersonSearchRequest-Honolulu" />
 	</util:map>
 </beans>
