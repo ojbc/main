@@ -31,8 +31,10 @@ public class OJBCWebServiceURIs {
 	public static final String JUVENILE_HISTORY = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
 	public static final String JUVENILE_HISTORY_SEARCH = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
 	public static final String COURT_CASE = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
+	public static final String PROSECUTION_CASE = "{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest";
 	public static final String JAIL = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
 	public static final String COURT_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
+	public static final String PROSECUTION_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0}SubmitProsecutionCaseQueryRequest";
 	public static final String JAIL_DETAIL = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
 	public static final String VEHICLE_CRASH = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";
 	public static final String WILDLIFE_LICENSING = "{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License";

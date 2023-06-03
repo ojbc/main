@@ -217,8 +217,8 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
-		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
-			
+		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt) || 
+				OJBCWebServiceURIs.PROSECUTION_CASE.equalsIgnoreCase(requestIdSrcTxt)){
 			return personToCourtCaseSearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (OJBCWebServiceURIs.COURT_CASE_DETAIL.equals(requestIdSrcTxt)){

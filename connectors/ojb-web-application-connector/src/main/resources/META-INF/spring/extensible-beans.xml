@@ -87,6 +87,14 @@
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" 
 			value="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"/>
 		
+		<!-- Prosecution Case search --> 
+		<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/ProsecutionCaseSearch/1.0}SubmitPersonSearchRequest-Honolulu" 
+			value="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"/>
+		
+		<!-- Prosecution Case detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest" 
+			value="{http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0}SubmitProsecutionCaseQueryRequest"/>
+		
 		<!-- Court Case detail --> 
 		<entry key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest" 
 			value="{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest"/>
