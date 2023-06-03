@@ -24,7 +24,6 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
@@ -46,6 +45,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class TestCourtCaseSearchRequestServiceIntermediary {
 	
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestCourtCaseSearchRequestServiceIntermediary.class );
 	
     @Resource

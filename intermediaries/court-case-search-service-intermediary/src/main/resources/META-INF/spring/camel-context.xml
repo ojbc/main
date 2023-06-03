@@ -22,7 +22,6 @@
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:ctx="http://www.springframework.org/schema/context"
 	xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
 	xmlns:extResults="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0"
@@ -31,9 +30,8 @@
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 
 	<!-- needed cxf imports -->

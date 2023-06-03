@@ -31,7 +31,6 @@ import org.springframework.context.annotation.ImportResource;
 		"classpath:META-INF/spring/cxf-endpoints.xml", 
 		"classpath:META-INF/spring/beans.xml", 
 		"classpath:META-INF/spring/dev-beans.xml"})
-
 public class CourtCaseSearchServiceIntermediaryApplication {
 	@Autowired
 	CourtCaseSearchServiceIntermediaryProperties adatperProperties; 

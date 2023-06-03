@@ -44,13 +44,16 @@
 				<entry
 					key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"
 					value="Court Case search timed out or had an error." />
+				<entry
+					key="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"
+					value="Prosecution Court Case search timed out or had an error." />
 			</util:map>
 		</property>
 		<property name="uriToErrorSystemNameMap">
 			<util:map>
 				<entry
-					key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"
-					value="Court Case Repository" />
+					key="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"
+					value="Prosecution Court Case Repository" />
 			</util:map>
 		</property>
 		<!-- TODO element name wrong -->
@@ -70,6 +73,9 @@
 				<entry
 					key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"
 					value="${federatedQuery.courtCaseSearchRequestEndpoint}" />
+				<entry
+					key="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"
+					value="${federatedQuery.courtCaseSearchRequestEndpoint}" />
 			</util:map>
 		</property>
 	</bean>
@@ -78,6 +84,9 @@
 		map-class="java.util.HashMap">
 		<entry
 			key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"
+			value="courtCaseSearchRequestServiceAdapterEndpoint" />
+		<entry
+			key="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"
 			value="courtCaseSearchRequestServiceAdapterEndpoint" />
 	</util:map>
 
