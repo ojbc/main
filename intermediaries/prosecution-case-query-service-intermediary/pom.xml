@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.ojbc.bundles.intermediaries</groupId>
+	<artifactId>prosecution-case-query-service-intermediary</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<name>OJB :: prosecution-case-query-service-intermediary :: intermediary</name>
+	<url>http://www.search.org</url>
+
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-intermediaries-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring-boot-version>2.5.14</spring-boot-version>
+		<camel-version>3.11.7</camel-version>
+		<log4j-version>2.20.0</log4j-version>
+		<cxf-version>3.4.4</cxf-version>
+		<spring-version>5.3.24</spring-version>
+		<xmlunit-version>1.6</xmlunit-version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
+		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
+		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[5.0.0,)</ojb-common-version>
+		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
+		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
+		<java-version>1.8</java-version>
+		<cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
+	</properties>
+	
+	<dependencyManagement>
+	  <dependencies>
+	    <dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-bom</artifactId>
+			<version>${log4j-version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>  
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-dependencies</artifactId>
+	      <version>${spring-boot-version}</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel.springboot</groupId>
+	      <artifactId>camel-spring-boot-dependencies</artifactId>
+	      <version>${camel-version}</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency> 
+	  </dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+	
+	<!-- Spring Boot -->
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter</artifactId>
+ 	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-undertow</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-actuator</artifactId>
+	    </dependency>
+	    <!-- Camel -->
+	    <dependency>
+	        <groupId>org.apache.camel.springboot</groupId>
+	        <artifactId>camel-spring-boot</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.camel.springboot</groupId>
+	        <artifactId>camel-spring-boot-xml-starter</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.camel.springboot</groupId>
+	        <artifactId>camel-spring-boot-starter</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.camel.springboot</groupId>
+	        <artifactId>camel-stream-starter</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.camel</groupId>
+	        <artifactId>camel-api</artifactId>
+	    </dependency>    
+	    <dependency>
+	        <groupId>org.apache.camel</groupId>
+	        <artifactId>camel-core-xml</artifactId>
+	    </dependency>    
+		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>			    
+		    <version>${cxf-boot-starter-version}</version>
+		</dependency>
+
+		<!-- Camel libs -->
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-core</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-saxon</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-spring</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-cxf</artifactId>
+	    </dependency>
+
+		<!-- CXF libs -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf.services.sts</groupId>
+			<artifactId>cxf-services-sts-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+		</dependency>
+
+		<!-- ws-security -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- OJB Shared Bundles -->
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-fedquery-common</artifactId>
+	      <version>${ojb-fedquery-common-version}</version>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-common</artifactId>
+	      <version>${ojb-common-version}</version>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-camel-common</artifactId>
+	      <version>${ojb-camel-common-version}</version>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-resources-common</artifactId>
+	      <version>${ojb-resources-common-version}</version>
+	    </dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+
+		<!-- for testing -->
+		<dependency>
+		     <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+
+		 <dependency>
+	        <groupId>org.junit.jupiter</groupId>
+	        <artifactId>junit-jupiter-engine</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+	    <dependency>
+	        <groupId>org.junit.platform</groupId>
+	        <artifactId>junit-platform-launcher</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+
+	    <dependency>
+	        <groupId>org.junit.vintage</groupId>
+	        <artifactId>junit-vintage-engine</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.utilities</groupId>
+			<artifactId>h2-mock-database</artifactId>
+			<version>${h2-mock-database-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- logging -->
+	</dependencies>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <finalName>${artifactId}</finalName>
+
+    <plugins>
+    	<plugin>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-maven-plugin</artifactId>
+        	<version>${spring-boot-version}</version>
+        	<executions>
+        		<execution>
+        			<goals>
+        				<goal>repackage</goal>
+        			</goals>
+        		</execution>
+        	</executions>
+        
+        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+        </configuration>
+      </plugin>
+      
+        <plugin>
+        	<groupId>org.apache.maven.plugins</groupId>
+        	<artifactId>maven-surefire-plugin</artifactId>
+        	<version>2.22.2</version>
+        	<configuration>
+        		<argLine>-Xmx1024m</argLine>
+        		<reuseForks>false</reuseForks>
+        	</configuration>
+        </plugin>
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-maven-plugin</artifactId>
+        <version>${camel-version}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
