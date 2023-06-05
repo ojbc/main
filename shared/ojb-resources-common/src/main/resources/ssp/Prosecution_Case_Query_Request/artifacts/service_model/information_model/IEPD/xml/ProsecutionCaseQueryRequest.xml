@@ -18,10 +18,12 @@
 
 -->
 <pcq-req-doc:ProsecutionCaseQueryRequest xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:pcq-req-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryRequest/1.0" xmlns:pcq-req-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryRequest/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryRequest/1.0 ../xsd/ProsecutionCaseQueryRequest.xsd">
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:pcq-req-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryRequest/1.0" 
+	xmlns:pcq-req-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryRequest/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryRequest/1.0 ../xsd/ProsecutionCaseQueryRequest.xsd">
 	<intel:SystemIdentification>
 		<nc:IdentificationID>prosecution case record ID</nc:IdentificationID>
 		<nc:SystemName>prosecution case record source</nc:SystemName>

@@ -36,6 +36,7 @@ import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
 import org.ojbc.processor.person.query.ProfessionalLicensingRequestProcessor;
+import org.ojbc.processor.person.query.ProsecutionCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.processor.person.query.WildlifeLicensingRequestProcessor;
@@ -91,6 +92,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private CourtCaseQueryRequestProcessor courtCaseQueryRequestProcessor;
+	
+	@Autowired(required=false)
+	private ProsecutionCaseQueryRequestProcessor prosecutionCaseQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	private VehicleCrashQueryRequestProcessor vehicleCrashQueryRequestProcessor;
@@ -224,6 +228,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.COURT_CASE_DETAIL.equals(requestIdSrcTxt)){
 			
 			return courtCaseQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.PROSECUTION_CASE_DETAIL.equals(requestIdSrcTxt)){
+			
+			return prosecutionCaseQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (OJBCWebServiceURIs.JAIL.equals(requestIdSrcTxt)){
 			
@@ -400,6 +408,14 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	public void setSearchURIToQueryURIMap(Map<String, String> searchURIToQueryURIMap) {
 		this.searchURIToQueryURIMap = searchURIToQueryURIMap;
+	}
+
+	public ProsecutionCaseQueryRequestProcessor getProsecutionCaseQueryRequestProcessor() {
+		return prosecutionCaseQueryRequestProcessor;
+	}
+
+	public void setProsecutionCaseQueryRequestProcessor(ProsecutionCaseQueryRequestProcessor prosecutionCaseQueryRequestProcessor) {
+		this.prosecutionCaseQueryRequestProcessor = prosecutionCaseQueryRequestProcessor;
 	}
 
 }

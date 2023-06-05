@@ -2223,6 +2223,20 @@ public class RequestMessageBuilderUtilities {
         }
         
 		return document;
+	}
+
+	public static String createProsecutionCaseQueryRequest(String identificationID, String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<pcq-req-doc:ProsecutionCaseQueryRequest");
+		sb.append("	xmlns:pcq-req-doc=\"http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryRequest/1.0\"");
+		sb.append("	xmlns:intel=\"http://release.niem.gov/niem/domains/intelligence/3.1/\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<intel:SystemIdentification>");
+		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		<nc:SystemName>" + identificationSourceText + "</nc:SystemName>");
+		sb.append("	</intel:SystemIdentification>");
+		sb.append("</pcq-req-doc:ProsecutionCaseQueryRequest");
+		return sb.toString();
 	}	
     
 }
