@@ -88,8 +88,8 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader name="operationName"><constant>SubmitCourtCaseQueryRequest</constant></camel:setHeader>
-			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>SubmitProsecutionCaseQueryRequest</constant></camel:setHeader>
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
 			<camel:setHeader name="adapterURI">
@@ -134,7 +134,7 @@
 			<camel:to uri="direct:aggregateFederatedQuery" />		
 		</camel:route>
 	
-		<!--  Court Case History Results Handler Route -->
+		<!--  Prosecution Case History Results Handler Route -->
 		<camel:route>
 			<camel:from uri="proseuctionCaseQueryResultsHandlerEndpoint"/>
 			
@@ -156,7 +156,7 @@
 			<camel:log message="\n\n\n Entering Query Results Handler \n\n\n "></camel:log>
 			
 			<camel:setHeader name="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}Court-Case-Query-Request-Service</constant>
+				<constant>{http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0}Prosecution-Case-Query-Request-Service</constant>
 			</camel:setHeader>
 			
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
@@ -210,10 +210,10 @@
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
             		<camel:setHeader name="operationName">
-            			<constant>SubmitCourtCaseQueryResults</constant>
+            			<constant>SubmitProsecutionCaseQueryResults</constant>
             		</camel:setHeader>
 	        		<camel:setHeader name="operationNamespace">
-	        			<constant>http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0</constant>
+	        			<constant>http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0</constant>
 	        		</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			

@@ -83,7 +83,7 @@
    </cxf:cxfEndpoint>      
 
                         
-    <!-- Court Case Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
+    <!-- Prosecution Case Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
 	<cxf:cxfEndpoint id="proseuctionCaseQueryRequestAdapterService"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Request/schema/SIP_WS_1.2/Prosecution_Case_Query_Request_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Request-ServiceService"
@@ -98,9 +98,9 @@
 	</cxf:cxfEndpoint>
 
 	
-    <!-- Present Court Case Query Results typically hosted by a Web App, called by broker, address set dynamically-->
+    <!-- Present Prosecution Case Query Results typically hosted by a Web App, called by broker, address set dynamically-->
     <cxf:cxfEndpoint id="courtCasePresentQueryResultsService"
-        address="${federatedQuery.presentCourtCaseQueryResultsEndpoint}"
+        address="${federatedQuery.presentProsecutionCaseQueryResultsEndpoint}"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Results/schema/SIP_WS_1.2/Prosecution_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Results-ServiceService" 
         endpointName="ojbc:Prosecution-Case-Query-Results-Secure-Service"
