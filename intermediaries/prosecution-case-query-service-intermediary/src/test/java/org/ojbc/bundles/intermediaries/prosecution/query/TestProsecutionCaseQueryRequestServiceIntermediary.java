@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.intermediaries.courtcase.search;
+package org.ojbc.bundles.intermediaries.prosecution.query;
 
 import static org.junit.Assert.assertTrue;
 
