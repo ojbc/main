@@ -30,6 +30,9 @@
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
+	<pdr-report-ext:ReportIdentification>
+		<nc:IdentificationID>ID349234</nc:IdentificationID>
+	</pdr-report-ext:ReportIdentification>
 	<pdr-report-ext:ChargeFilingDate>
 		<nc:Date>2022-01-10</nc:Date>
 	</pdr-report-ext:ChargeFilingDate>

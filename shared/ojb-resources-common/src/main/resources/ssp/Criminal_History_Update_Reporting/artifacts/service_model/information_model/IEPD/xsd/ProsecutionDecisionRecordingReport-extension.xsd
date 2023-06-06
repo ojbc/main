@@ -57,6 +57,7 @@
 					<xsd:element ref="pdr-report-ext:ProsecutionCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionEnhancedCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionDispositionCodeText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdr-report-ext:ReportIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:ChargeFilingDate" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Court" minOccurs="0" />
@@ -119,6 +120,12 @@
 	<xsd:element name="ChargeFilingDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date the charges were filed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReportIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Identification information for a report..
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
