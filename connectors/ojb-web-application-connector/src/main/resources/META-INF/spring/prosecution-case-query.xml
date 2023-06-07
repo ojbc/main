@@ -45,8 +45,8 @@
 			</cxf:properties>
 		</cxf:cxfEndpoint>       
        
-	   <!-- Incident Report Request and Response Endpoints -->
-	   <bean id="prosecutionCaseQueryRequestProcessor" class="org.ojbc.processor.person.query.ProseuctionCaseQueryRequestProcessor">
+	   <!-- Prosecution Report Request and Response Endpoints -->
+	   <bean id="prosecutionCaseQueryRequestProcessor" class="org.ojbc.processor.person.query.ProsecutionCaseQueryRequestProcessor">
 	   		<property name="replyToAddress"><value>${webapplication.personSearch.prosecutionCaseQueryRequestReplyToEndpoint}</value></property>
 	   		<property name="prosecutionCaseQueryRequestMessageProcessor" ref="prosecutionCaseQueryRequestMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="prosecutionCaseQueryRequestResponseMap"/>

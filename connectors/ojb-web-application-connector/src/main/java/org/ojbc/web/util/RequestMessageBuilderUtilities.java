@@ -2235,7 +2235,7 @@ public class RequestMessageBuilderUtilities {
 		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
 		sb.append("		<nc:SystemName>" + identificationSourceText + "</nc:SystemName>");
 		sb.append("	</intel:SystemIdentification>");
-		sb.append("</pcq-req-doc:ProsecutionCaseQueryRequest");
+		sb.append("</pcq-req-doc:ProsecutionCaseQueryRequest>");
 		return sb.toString();
 	}	
     
