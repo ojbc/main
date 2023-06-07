@@ -30,6 +30,12 @@
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
+	<pdr-report-ext:OriginatingAgencyCaseNumber>
+		<nc:IdentificationID>567</nc:IdentificationID>
+	</pdr-report-ext:OriginatingAgencyCaseNumber>
+	<pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>
+		<nc:IdentificationID>899</nc:IdentificationID>
+	</pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>	
 	<pdr-report-ext:ReportIdentification>
 		<nc:IdentificationID>ID349234</nc:IdentificationID>
 	</pdr-report-ext:ReportIdentification>

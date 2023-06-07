@@ -54,6 +54,7 @@
 					<xsd:element ref="pdr-report-ext:CycleTrackingIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:FingerprintTransactionControlNumber" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:OriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdr-report-ext:UpdatedOriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionEnhancedCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionDispositionCodeText" minOccurs="0" maxOccurs="unbounded" />
@@ -99,6 +100,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="UpdatedOriginatingAgencyCaseNumber" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Updated Case or incident number assigned by law enforcement agency.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ProsecutionCitationCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code assigned by the prosecution with regard to a wanted person.
