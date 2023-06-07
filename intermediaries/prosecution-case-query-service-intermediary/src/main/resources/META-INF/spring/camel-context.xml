@@ -45,7 +45,7 @@
 
 
 		<!-- Federated Search Request Handler-->
-		<camel:route>
+		<camel:route id="prosecutionCaseQueryRequestRoute">
 			<camel:from uri="prosecutionCaseQueryRequestServiceEndpoint" />
 			
 			<camel:choice>
@@ -80,11 +80,11 @@
 
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
-
+            <camel:log message="request body: ${body}" />
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
 			<camel:setHeader name="federatedQueryEndpointsNodeList">
-				<camel:xpath>//nc30:IdentificationSourceText</camel:xpath>
+				<camel:xpath>//nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
@@ -93,7 +93,7 @@
 									
 			<!-- Since this is a query, we only call one endpoint -->						
 			<camel:setHeader name="adapterURI">
-				<camel:xpath resultType="java.lang.String">//nc30:IdentificationSourceText</camel:xpath>
+				<camel:xpath resultType="java.lang.String">//nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
@@ -115,7 +115,7 @@
 			<camel:log message="Timer started"/>
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>//nc30:IdentificationSourceText</camel:xpath>
+				<camel:xpath>//nc30:SystemName</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
 				<camel:recipientList>

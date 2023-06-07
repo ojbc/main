@@ -60,6 +60,7 @@
 						<prop key="webapplication.subscription.subscriptionManagerSecureEndpoint"/>
 						<prop key="webapplication.personSearch.courtCaseSearchRequestResultsEndpoint"/>
 						<prop key="webapplication.personQuery.courtCaseQueryRequestResultsEndpoint"/>
+						<prop key="webapplication.personQuery.prosecutionCaseQueryRequestResultsEndpoint"/>
 						<prop key="webapplication.personSearch.custodySearchRequestResultsEndpoint"/>
 						<prop key="webapplication.personQuery.custodyQueryRequestResultsEndpoint"/>
 						<prop key="webapplication.personQuery.personQueryVehicleCrashEndpoint"/>
