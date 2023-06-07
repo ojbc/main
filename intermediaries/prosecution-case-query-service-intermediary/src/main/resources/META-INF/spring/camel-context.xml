@@ -31,26 +31,26 @@
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="court-case-query-service-intermediary" streamCache="true">
 	
-		<endpoint id="proseuctionCaseQueryRequestServiceEndpoint"
-			uri="cxf:bean:proseuctionCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${proseuctionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+		<endpoint id="prosecutionCaseQueryRequestServiceEndpoint"
+			uri="cxf:bean:prosecutionCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
-		<endpoint id="proseuctionCaseQueryResultsHandlerEndpoint"
-			uri="cxf:bean:proseuctionCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${proseuctionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+		<endpoint id="prosecutionCaseQueryResultsHandlerEndpoint"
+			uri="cxf:bean:prosecutionCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
-	    <endpoint id="proseuctionCaseQueryRequestAdapterEndpoint" 
-	    	uri="cxf:bean:proseuctionCaseQueryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${proseuctionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
+	    <endpoint id="prosecutionCaseQueryRequestAdapterEndpoint" 
+	    	uri="cxf:bean:prosecutionCaseQueryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 	
-		<endpoint id="courtCasePresentQueryResultsEndpoint" 
-			uri="cxf:bean:courtCasePresentQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${proseuctionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
+		<endpoint id="prosecutionCasePresentQueryResultsEndpoint" 
+			uri="cxf:bean:prosecutionCasePresentQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
 
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
-			<camel:from uri="proseuctionCaseQueryRequestServiceEndpoint" />
+			<camel:from uri="prosecutionCaseQueryRequestServiceEndpoint" />
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:proseuctionCaseQuery.dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:prosecutionCaseQuery.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:convertBodyTo type="java.lang.String" />
 					
@@ -136,11 +136,11 @@
 	
 		<!--  Prosecution Case History Results Handler Route -->
 		<camel:route>
-			<camel:from uri="proseuctionCaseQueryResultsHandlerEndpoint"/>
+			<camel:from uri="prosecutionCaseQueryResultsHandlerEndpoint"/>
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:proseuctionCaseQuery.dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:prosecutionCaseQuery.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -174,13 +174,13 @@
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				<completionTimeoutExpression>
-					<camel:simple>${properties:proseuctionCaseQueryIntermediaryFederatedQueryTimeout}</camel:simple>
+					<camel:simple>${properties:prosecutionCaseQueryIntermediaryFederatedQueryTimeout}</camel:simple>
 				</completionTimeoutExpression>
 				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				<log
-					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{proseuctionCaseQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{prosecutionCaseQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 

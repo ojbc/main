@@ -44,16 +44,16 @@
        
     <!-- hosted by OJB -->
     <cxf:cxfEndpoint 
-        id="proseuctionCaseQueryRequestService"
-        address="${federatedQuery.proseuctionCaseQueryEndpoint}"
+        id="prosecutionCaseQueryRequestService"
+        address="${federatedQuery.prosecutionCaseQueryEndpoint}"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Request/schema/SIP_WS_1.2/Prosecution_Case_Query_Request_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Request-ServiceService"
         endpointName="ojbc:Prosecution-Case-Query-Request-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="proseuctionCaseQueryKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.proseuctionCase.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.properties" value-ref="prosecutionCaseQueryKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.prosecutionCase.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
@@ -61,16 +61,16 @@
 	  
     <!-- hosted by broker, called by adapter, address is static  --> 
     <cxf:cxfEndpoint 
-        id="proseuctionCaseQueryResultsHandlerService"
-        address="${federatedQuery.proseuctionCaseQueryResultsHandlerEndpoint}"
+        id="prosecutionCaseQueryResultsHandlerService"
+        address="${federatedQuery.prosecutionCaseQueryResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Results/schema/SIP_WS_1.2/Prosecution_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Results-ServiceService" 
         endpointName="ojbc:Prosecution-Case-Query-Results-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0">
         <cxf:features>
             <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${proseuctionCaseQueryIntermediaryCxflogging}" />
-                <property name="verbose" value="${proseuctionCaseQueryIntermediaryCxflogging}" />
+                <property name="prettyLogging" value="${prosecutionCaseQueryIntermediaryCxflogging}" />
+                <property name="verbose" value="${prosecutionCaseQueryIntermediaryCxflogging}" />
             </bean>             
 	        <policy:policies>
 		        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
@@ -84,7 +84,7 @@
 
                         
     <!-- Prosecution Case Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
-	<cxf:cxfEndpoint id="proseuctionCaseQueryRequestAdapterService"
+	<cxf:cxfEndpoint id="prosecutionCaseQueryRequestAdapterService"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Request/schema/SIP_WS_1.2/Prosecution_Case_Query_Request_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Request-ServiceService"
         endpointName="ojbc:Prosecution-Case-Query-Request-Secure-Service"
@@ -92,14 +92,14 @@
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="proseuctionCaseQueryKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.proseuctionCase.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.properties" value-ref="prosecutionCaseQueryKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.prosecutionCase.keystoreCertificateAlias}" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
 	
     <!-- Present Prosecution Case Query Results typically hosted by a Web App, called by broker, address set dynamically-->
-    <cxf:cxfEndpoint id="courtCasePresentQueryResultsService"
+    <cxf:cxfEndpoint id="prosecutionCasePresentQueryResultsService"
         address="${federatedQuery.presentProsecutionCaseQueryResultsEndpoint}"
         wsdlURL="classpath:ssp/Prosecution_Case_Query_Results/schema/SIP_WS_1.2/Prosecution_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Prosecution-Case-Query-Results-ServiceService" 
@@ -107,8 +107,8 @@
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0">
         <cxf:features>
             <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${proseuctionCaseQueryIntermediaryCxflogging}" />
-                <property name="verbose" value="${proseuctionCaseQueryIntermediaryCxflogging}" />
+                <property name="prettyLogging" value="${prosecutionCaseQueryIntermediaryCxflogging}" />
+                <property name="verbose" value="${prosecutionCaseQueryIntermediaryCxflogging}" />
             </bean>             
 			<policy:policies>
 			  <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
@@ -124,13 +124,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${federatedQuery.proseuctionCase.keyPassword}">
-	        	<sec:keyStore type="jks" password="${federatedQuery.proseuctionCase.keystorePassword}" url="${federatedQuery.proseuctionCase.keystoreLocation}" />
+			<sec:keyManagers keyPassword="${federatedQuery.prosecutionCase.keyPassword}">
+	        	<sec:keyStore type="jks" password="${federatedQuery.prosecutionCase.keystorePassword}" url="${federatedQuery.prosecutionCase.keystoreLocation}" />
 	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${federatedQuery.proseuctionCase.truststorePassword}"
-					url="${federatedQuery.proseuctionCase.truststoreLocation}" />
+					password="${federatedQuery.prosecutionCase.truststorePassword}"
+					url="${federatedQuery.prosecutionCase.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
@@ -174,19 +174,19 @@
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${federatedQuery.proseuctionCase.keystoreCertificateAlias}" value="${federatedQuery.proseuctionCase.keyPassword}"/>
+                <entry key="${federatedQuery.prosecutionCase.keystoreCertificateAlias}" value="${federatedQuery.prosecutionCase.keyPassword}"/>
             </map>
         </property>
 	</bean>
    
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
-	<util:properties id="proseuctionCaseQueryKeystoreProperties">
+	<util:properties id="prosecutionCaseQueryKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.proseuctionCase.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.proseuctionCase.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.proseuctionCase.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.prosecutionCase.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.prosecutionCase.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${federatedQuery.prosecutionCase.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>
