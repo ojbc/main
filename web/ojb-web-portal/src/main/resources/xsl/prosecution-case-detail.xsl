@@ -77,8 +77,41 @@
 	</xsl:template>
 	
 	<xsl:template match="pcq-res-ext:ProsecutionCase" mode="details">
-	   <xsl:text>details tab content </xsl:text>
+        <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Case Number</th>
+                    <th>Status</th>
+                    <th>Disposition</th>
+                    <th>Disposition Final Date/Time</th>
+                    <th>Prosecutor</th>
+                    <th>Ref Agency</th>
+                    <th>Referral Date</th>
+                    <th>Stage Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <xsl:apply-templates select="nc:Case" mode="details"/>
+            </tbody>
+        </table>
 	</xsl:template>
+	
+   <xsl:template match="nc:Case" mode="details">
+        <xsl:variable name="personAttorneyId"><xsl:value-of select="j:CaseAugmentation/j:CaseProsecutionAttorney/nc:RoleOfPerson/@structures:ref"/></xsl:variable>
+        <tr>
+            <td><xsl:value-of select="nc:CaseDocketID"/></td>
+            <td><xsl:value-of select="nc:ActivityStatus/nc:StatusDescriptionText"/></td>
+            <td><xsl:value-of select="nc:ActivityDisposition/nc:DispositionText"/></td>
+            <td><xsl:value-of select="nc:ActivityDisposition/nc:DispositionDate/nc:DateTime"/></td>
+            <td>
+                <xsl:apply-templates select="ancestor::pcq-res-ext:ProsecutionCase/nc:Person[@structures:id= $personAttorneyId]/nc:PersonName" mode="primaryName"/>
+            </td>
+            <td><xsl:value-of select="pcq-res-ext:CaseReferral/nc:ReferralEntity/nc:EntityOrganization/nc:OrganizationName"/></td>
+            <td><xsl:value-of select="pcq-res-ext:CaseReferral/nc:ActivityDate/nc:Date"/></td>
+            <td><xsl:value-of select="pcq-res-ext:CaseStageCodeText"/></td>
+        </tr>   
+    </xsl:template>
+	
 	<xsl:template match="pcq-res-ext:ProsecutionCase" mode="judgment">
 	   <xsl:text>judgment tab content </xsl:text>
 	</xsl:template>
