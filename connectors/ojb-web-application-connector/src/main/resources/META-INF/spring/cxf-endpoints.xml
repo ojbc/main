@@ -149,6 +149,10 @@
 		<camel:endpoint id="courtCaseQueryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
+	    <!-- Prosecution Case Query Endpoint -->
+		<camel:endpoint id="prosecutionCaseQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:prosecutionCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
 	    <!-- Custody Search Endpoint -->
 		<camel:endpoint id="personToCustodySearchResultsHandlerServiceEndpoint"
 			uri="cxf:bean:personToCustodySearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
@@ -725,6 +729,28 @@
 		serviceName="ojbc:Court-Case-Query-Results-Service" endpointName="ojbc:Court-Case-Query-Results-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
 		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+       	
+	<!-- Prosecution Case Query Results Service, hosted by Web Application -->
+	<cxf:cxfEndpoint id="prosecutionCaseQueryResultsHandlerService"
+		address="${webapplication.personQuery.prosecutionCaseQueryRequestResultsEndpoint}"
+        wsdlURL="classpath:ssp/Prosecution_Case_Query_Results/schema/SIP_WS_1.2/Prosecution_Case_Query_Results_Service.wsdl"
+        serviceName="ojbc:Prosecution-Case-Query-Results-ServiceService" 
+        endpointName="ojbc:Prosecution-Case-Query-Results-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0">
+		 <cxf:features> 
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${webapplication.Cxflogging}" />
+                <property name="verbose" value="${webapplication.Cxflogging}" />
+            </bean>             
  			<policy:policies> 
  				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
  					<wsam:Addressing> 
