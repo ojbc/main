@@ -113,9 +113,66 @@
     </xsl:template>
 	
 	<xsl:template match="pcq-res-ext:ProsecutionCase" mode="judgment">
-	   <xsl:text>judgment tab content </xsl:text>
+        <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Charge</th>
+                    <th>S/C</th>
+                    <th>Count</th>
+                    <th>Disposition</th>
+                    <th>Disposition Final Date/Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseCharge"/>
+            </tbody>
+        </table>
 	</xsl:template>
+    <xsl:template match="j:CaseCharge">
+        <tr>
+            <td><xsl:value-of select="normalize-space(j:ChargeDescriptionText)"/></td>
+            <td><xsl:value-of select="j:ChargeSeverityLevel/j:SeverityLevelDescriptionText"/></td>
+            <td><xsl:value-of select="j:ChargeCountQuantity"/></td>
+            <td><xsl:value-of select="j:ChargeDisposition/j:ChargeDispositionOtherText"/></td>
+            <td><xsl:value-of select="j:ChargeDisposition/nc:DispositionDate/nc:DateTime"/></td>
+        </tr>   
+    </xsl:template>
+    
 	<xsl:template match="pcq-res-ext:ProsecutionCase" mode="sentencing">
-	   <xsl:text>sentencing tab content </xsl:text>
+        <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Judgment</th>
+                    <th>Disposition</th>
+                    <th>Type</th>
+                    <th>Amt</th>
+                    <th>Loc</th>
+                    <th>Start</th>
+                    <th>Duration</th>
+                    <th>End</th>
+                    <th>Parent Event</th>
+                </tr>
+            </thead>
+            <tbody>
+                <xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseCharge/j:ChargeSentence"/>
+            </tbody>
+        </table>
 	</xsl:template>
+    <xsl:template match="j:ChargeSentence">
+        <xsl:variable name="chargeSentenceId">
+            <xsl:value-of select="@structures:id"/>
+        </xsl:variable>
+        <tr>
+            <td><xsl:value-of select="normalize-space(j:SentenceCharge/j:ChargeDescriptionText)"/></td>
+            <td><xsl:value-of select="j:SentenceCharge/j:ChargeDisposition/j:ChargeDispositionOtherText"/></td>
+            <td><xsl:value-of select="nc:ActivityCategoryText"/></td>
+            <td><xsl:value-of select="j:SupervisionFineAmount/nc:Amount"/></td>
+            <td><xsl:value-of select="ancestor::pcq-res-ext:ProsecutionCase/j:ActivityLocationAssociation[nc:Activity/@structures:ref=$chargeSentenceId]/nc:Location/nc:LocationDescriptionText"/></td>
+            <td><xsl:value-of select="nc:ActivityDateRange/nc:StartDate/nc:DateTime"/></td>
+            <td><xsl:value-of select="nc:ActivityDateRange/nc:EndDate/nc:DateTime"/></td>
+            <td><xsl:value-of select="j:SentenceTerm/j:TermDuration"/></td>
+            <td><xsl:value-of select="pcq-res-ext:SentenceParentEventText"/></td>
+        </tr>   
+    </xsl:template>
+    
 </xsl:stylesheet>
