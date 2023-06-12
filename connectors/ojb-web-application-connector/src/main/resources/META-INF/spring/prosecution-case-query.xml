@@ -21,10 +21,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"      
        xmlns:util="http://www.springframework.org/schema/util"  
        xsi:schemaLocation="
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        "
 		profile="prosecution-case-query"       
@@ -63,4 +67,26 @@
 		</bean>
 
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="prosecutionCaseQueryRequestResponseMap"/>
+		
+		<!-- Prosecution Case Query Results Service, hosted by Web Application -->
+	    <cxf:cxfEndpoint id="prosecutionCaseQueryResultsHandlerService"
+	        address="${webapplication.personQuery.prosecutionCaseQueryRequestResultsEndpoint}"
+	        wsdlURL="classpath:ssp/Prosecution_Case_Query_Results/schema/SIP_WS_1.2/Prosecution_Case_Query_Results_Service.wsdl"
+	        serviceName="ojbc:Prosecution-Case-Query-Results-ServiceService" 
+	        endpointName="ojbc:Prosecution-Case-Query-Results-Secure-Service"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0">
+	         <cxf:features> 
+	            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+	                <property name="prettyLogging" value="${webapplication.Cxflogging}" />
+	                <property name="verbose" value="${webapplication.Cxflogging}" />
+	            </bean>             
+	            <policy:policies> 
+	                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+	                    <wsam:Addressing> 
+	                        <wsp:Policy /> 
+	                    </wsam:Addressing> 
+	                </wsp:Policy> 
+	            </policy:policies> 
+	        </cxf:features>  
+	    </cxf:cxfEndpoint>
 </beans>
