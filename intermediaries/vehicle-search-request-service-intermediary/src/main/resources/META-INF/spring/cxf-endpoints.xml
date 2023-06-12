@@ -70,6 +70,10 @@
 		serviceName="ojbc:Vehicle_Search_Results_Service_Service" endpointName="ojbc:Vehicle_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/VehicleSearchResultsService/1.0">
 		 <cxf:features> 
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+                <property name="verbose" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+            </bean>             
  			<policy:policies> 
  				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
  					<wsam:Addressing> 
@@ -88,6 +92,10 @@
 		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
 		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
 		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+                <property name="verbose" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+            </bean>             
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
 					<wsam:Addressing>
@@ -105,6 +113,10 @@
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+                <property name="verbose" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+            </bean>             
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
 					<wsam:Addressing>
@@ -122,6 +134,10 @@
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+                <property name="verbose" value="${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+            </bean>             
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
 					<wsam:Addressing>
