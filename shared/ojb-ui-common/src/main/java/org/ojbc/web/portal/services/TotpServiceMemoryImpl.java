@@ -29,7 +29,8 @@ import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service("totpServiceMemoryImpl")
+//@Service("totpServiceMemoryImpl")
+//This is commented out on Hawaii's request to build a NTOTP war.  --hw
 public class TotpServiceMemoryImpl implements OTPService{
 
 	private final Log log = LogFactory.getLog(this.getClass());
