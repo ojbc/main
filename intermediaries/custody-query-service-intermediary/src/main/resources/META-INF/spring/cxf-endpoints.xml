@@ -66,13 +66,17 @@
 		endpointName="ojbc:Custody-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
      <cxf:features>
-      <policy:policies>
-        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-          <wsam:Addressing>
-            <wsp:Policy/>
-          </wsam:Addressing>
-        </wsp:Policy>
-       </policy:policies>
+		<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+		    <property name="prettyLogging" value="${custodyQueryIntermediaryCxflogging}" />
+		    <property name="verbose" value="${custodyQueryIntermediaryCxflogging}" />
+		</bean>             
+		<policy:policies>
+		  <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+		    <wsam:Addressing>
+		      <wsp:Policy/>
+		    </wsam:Addressing>
+		  </wsp:Policy>
+		 </policy:policies>
     </cxf:features>
    </cxf:cxfEndpoint>      
 
@@ -100,13 +104,17 @@
 		endpointName="ojbc:Custody-Query-Results-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
      	<cxf:features>
-	      <policy:policies>
-	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-	          <wsam:Addressing>
-	            <wsp:Policy/>
-	          </wsam:Addressing>
-	        </wsp:Policy>
-	       </policy:policies>
+	        <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+	            <property name="prettyLogging" value="${custodyQueryIntermediaryCxflogging}" />
+	            <property name="verbose" value="${custodyQueryIntermediaryCxflogging}" />
+	        </bean>             
+			<policy:policies>
+			  <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+			    <wsam:Addressing>
+			      <wsp:Policy/>
+			    </wsam:Addressing>
+			  </wsp:Policy>
+			</policy:policies>
 	    </cxf:features>
     </cxf:cxfEndpoint>
 

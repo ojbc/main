@@ -16,10 +16,12 @@
  */
 package org.ojbc.bundles.intermediaries;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.annotation.Resource;
+
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
-import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.custodyquery.CustodyQueryServiceIntermediaryApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,12 +33,14 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(classes=CustodyQueryServiceIntermediaryApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@UseAdviceWith
 public class TestCustodyQueryService {
+    @Resource
+    private ModelCamelContext context;
 
     @Test
     public void testApplicationStartup()
     {
+    	context.start();
     	assertTrue(true);
     }	
 }
