@@ -57,7 +57,7 @@
 			<wsdl:input name="ChargeResponse" message="tns:ChargeResponse" />
 		</wsdl:operation>
 		<wsdl:operation name="SubmitChargeModifyResponse">
-			<wsdl:input name="ChargeModifyResponse" message="tns:ChargePendingResponse" />
+			<wsdl:input name="ChargeModifyResponse" message="tns:ChargeModifyResponse" />
 		</wsdl:operation>
 		<wsdl:operation name="SubmitChargePendingResponse">
 			<wsdl:input name="ChargePendingResponse" message="tns:ChargePendingResponse" />
