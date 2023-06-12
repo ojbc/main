@@ -35,18 +35,15 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.2</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<log4j-version>2.17.1</log4j-version>
+		<spring-boot-version>2.5.14</spring-boot-version>
+		<camel-version>3.11.7</camel-version>
+		<log4j-version>2.20.0</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
-		<commons-lang-version>3.12.0</commons-lang-version>
-		<spring-version>5.3.8</spring-version>
-		<apache-commons-io-version>1.3.2</apache-commons-io-version>
+		<spring-version>5.3.24</spring-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
-		<osgi-core-version>1.4.0</osgi-core-version>
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
@@ -101,14 +98,6 @@
       <artifactId>spring-boot-actuator</artifactId>
     </dependency>
     
-    <!-- OSGI -->
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>${osgi-core-version}</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- Camel libs -->
 			 <dependency>
 		        <groupId>org.apache.camel.springboot</groupId>
@@ -237,14 +226,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${apache-commons-io-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -278,6 +266,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
