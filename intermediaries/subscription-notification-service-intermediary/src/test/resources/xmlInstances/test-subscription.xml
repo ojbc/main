@@ -51,11 +51,17 @@
 						<nc:PersonSurName>Simpson</nc:PersonSurName>
 						<nc:PersonFullName>Homer Simpson</nc:PersonFullName>
 					</nc:PersonName>
+					<nc:PersonOtherIdentification>
+					   <nc:IdentificationID>123456789</nc:IdentificationID>
+                    </nc:PersonOtherIdentification>
 					<jxdm41:PersonAugmentation>
 						<jxdm41:PersonFBIIdentification>
 							<nc:IdentificationID>VCCCNL9TK</nc:IdentificationID>
 						</jxdm41:PersonFBIIdentification>
 					</jxdm41:PersonAugmentation>
+					<nc:State>AZ</nc:State>
+					<nc:SendingState>AZ</nc:SendingState>
+					<nc:ReceivingState>KS</nc:ReceivingState>
 					<nc:Sex>M</nc:Sex>
 					<nc:Race>White</nc:Race>
 				</submsg-ext:Subject>
