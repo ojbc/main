@@ -48,14 +48,10 @@ public class SendingStatePOEmailEnhancementStrategy implements EmailEnhancementS
         if(StringUtils.isNotBlank(sendingStatePOEmail)) {
         	String[] splitArr = StringUtils.split(sendingStatePOEmail, ":");
         	if(splitArr.length == 2) {
-        		sendingStateEmail = splitArr[1].trim();
-        		Set<String> cloneSet = ret.getToAddresseeSet();
+        		sendingStateEmail = splitArr[1].trim().substring(0, splitArr[1].length()-5);
+        		log.info(sendingStateEmail);
         		ret.removeAllToEmailAddresses();
-        		for(String emailAddress : cloneSet) {
-        			if(emailAddress.equals(sendingStateEmail)) {
-        				ret.addToAddressee(emailAddress);
-        			}
-        		}
+        		ret.addToAddressee(sendingStateEmail);
         		if(ret.getToAddresseeSet().size() != 1)
         		{
         			log.info("Email address not found in notification mechanism table");

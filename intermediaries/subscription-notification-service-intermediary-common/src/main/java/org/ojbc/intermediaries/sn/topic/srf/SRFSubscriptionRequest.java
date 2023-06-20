@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 
 import org.apache.camel.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
@@ -28,18 +29,32 @@ public class SRFSubscriptionRequest extends SubscriptionRequest{
 	public SRFSubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception {
 
 		super(message, allowedEmailAddressPatterns);
+		
+		subscriptionProperties = new HashMap<String, String>();
 
 		String firstName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
 		String lastName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
 		String dateOfBirth = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
 		String gender = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Sex");
 		String race = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Race");
+		String fbiNum = XmlUtils.xPathStringSearch(document, "//jxdm41:PersonFBIIdentification/nc:IdentificationID");
+		String sendingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingStatePO");
+		String receivingStatePO = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingStatePO");
+		String offenderId = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonOtherIdentification/nc:IdentificationID");
+		String sendingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:SendingState");
+		String receivingState = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:ReceivingState");
+		String ssn = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonSSNIdentification/nc:IdentificationID");
+		subscriptionProperties.put("OffenderID", offenderId);
+		subscriptionProperties.put("sendingState", sendingState);
+		subscriptionProperties.put("receivingState", receivingState);
 
-		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race, sendingStatePO, receivingStatePO, fbiNum, ssn);
+
 		
 	}
-
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race) {
+	
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race, String sendingStatePO, String receivingStatePO, String fbiNum, 
+			String ssn) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
@@ -47,5 +62,14 @@ public class SRFSubscriptionRequest extends SubscriptionRequest{
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		subjectIdentifiers.put("sex", gender);
 		subjectIdentifiers.put("race", race);
+		if(StringUtils.isNotEmpty(fbiNum)) {
+			subjectIdentifiers.put("fbiNum", fbiNum);
+		}
+		else { 
+			subjectIdentifiers.put("fbiNum", "N/A");
+		}
+		subjectIdentifiers.put("sendingStatePO", sendingStatePO);
+		subjectIdentifiers.put("receivingStatePO", receivingStatePO);
+		subjectIdentifiers.put("socialSecurityNum", ssn);
 	}
 }

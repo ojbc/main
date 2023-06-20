@@ -135,14 +135,14 @@
 	<bean id="emailEnhancementStrategy" class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
 		<property name="compositeStrategy">
 			<util:list id="emailEnhancementStrategyList">
-				<!-- <bean class="org.ojbc.intermediaries.sn.notification.SendingStatePOEmailEnhancementStrategy">
-				</bean> -->
+				 <bean class="org.ojbc.intermediaries.sn.notification.SendingStatePOEmailEnhancementStrategy">
+				</bean> 
 				<bean class="org.ojbc.intermediaries.sn.notification.StaticBCCEmailEnhancementStrategy">
 					<property name="bccAddress" value="${publishSubscribe.bcc}" />
 				</bean>
-				<bean class="org.ojbc.intermediaries.sn.notification.StaticToEmailEnhancementStrategy">
+				<!-- <bean class="org.ojbc.intermediaries.sn.notification.StaticToEmailEnhancementStrategy">
 					<property name="staticToAddress" value="${publishSubscribe.staticToAddress}" />
-				</bean>
+				</bean> -->
 			</util:list>
 		</property>
 	</bean>
