@@ -31,8 +31,6 @@
 	        <script th:inline="javascript">
 	            /*<![CDATA[*/
 		            var context = /*[[@{/}]]*/ '';
-		            var _csrf_token = /*[[${_csrf.token}]]*/ '';
-		            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	            /*]]>*/
 	            $(function(){
 	                $('#portalContent').off('change', '#subscriptionStatus')
@@ -42,9 +40,13 @@
 	                    var formData = $('#filterSubscriptionForm').serialize();
 	                    //console.log("formData:" + formData); 
 	                    //console.log("validateLinkExists:" + validateLinkExists); 
+	                    console.log("_csrf_param_name:" + _csrf_param_name); 
+	                    console.log("_csrf_token:" + _csrf_token); 
 	                                                    
-	                    $.post(context + 'subscriptions/filter/' + validateLinkExists ,   
-	                        {subscriptionStatus: $('#subscriptionStatus').val(), _csrf_param_name:_csrf_token},           
+	                    $.get(context + 'subscriptions/filter/' ,   
+	                        {'subscriptionStatus': $('#subscriptionStatus').val(),
+	                    	'showValidationButton': validateLinkExists
+	                    	},           
 	                        function(data) {    
 	                            if (validateLinkExists){                
 	                                $('#portalContent').html(data);

@@ -102,7 +102,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,8 +150,6 @@ public class SubscriptionsController {
 
 	@Value("${defaultPersonSearchSubscriptionTopic:}")
 	String defaultPersonSearchSubscriptionTopic;
-	
-	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Value("${validateSubscriptionButton:false}")
 	String validateSubscriptionButton;
@@ -322,18 +319,20 @@ public class SubscriptionsController {
 			informationMessage = "Failed retrieving subscriptions";
 			e.printStackTrace();
 		}			
-		logger.debug("Subscription results raw xml:\n" + rawResults);
+		log.debug("Subscription results raw xml:\n" + rawResults);
 		model.put("subscriptionSearchRequest", subscriptionSearchRequest);
 		log.info("subscription Search results: " + rawResults);
 		convertSubscriptionSearchResults(model, informationMessage, rawResults, subscriptionSearchRequest);
 	}
 
 
-	@RequestMapping(value="filter/{showValidationButton}", method = RequestMethod.POST)
-	public String filter(@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
-			@PathVariable("showValidationButton") Boolean showValidationButton,
-			BindingResult errors, Map<String, Object> model) {
+	@GetMapping(value="filter")
+	public String filter(@RequestParam String subscriptionStatus, 
+			@RequestParam Boolean showValidationButton, Map<String, Object> model) {
 		
+		SubscriptionFilterCommand subscriptionFilterCommand = new SubscriptionFilterCommand(); 
+		subscriptionFilterCommand.setSubscriptionStatus(subscriptionStatus);
+		log.info("In the filter method."); 
 		String filterInput;
 		//we do not wish to re-filter on filtered results - we always filter on results from a non-filtered search
 		if(userSession.getSavedMostRecentSubscriptionSearchResult() == null){
@@ -347,12 +346,12 @@ public class SubscriptionsController {
 		//saving filtered results allows pagination to function:
 		userSession.setMostRecentSearchResult(filteredResults);	
 
-		logger.debug("Filtered Result: \n" + filteredResults);
+		log.debug("Filtered Result: \n" + filteredResults);
 				
 		//transform the filtered xml results into html		
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 		convertSubscriptionSearchResults(model, "", filteredResults, subscriptionSearchRequest);
-		if (showValidationButton){
+		if (BooleanUtils.isTrue(showValidationButton)){
 			return "subscriptions/subscriptionResults::subscriptionResultsContent";
 		}
 		else{
@@ -364,7 +363,7 @@ public class SubscriptionsController {
 			Map<String, Object> model) {
 		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
 
-		logger.info("inside filter() for status: " + subscriptionStatus);
+		log.info("inside filter() for status: " + subscriptionStatus);
 						
 		// filter xml with parameters passed in
 		subscriptionFilterCommand.setCurrentDate(new Date());
@@ -375,9 +374,9 @@ public class SubscriptionsController {
 		subscriptionFilterCommand.setValidationDueWarningDays(iValidationDueWarningDays);
 		model.put("subscriptionFilterCommand", subscriptionFilterCommand);
 		
-		logger.info("Using subscriptionFilterCommand: " + subscriptionFilterCommand);
+		log.info("Using subscriptionFilterCommand: " + subscriptionFilterCommand);
 		
-		logger.info("\n * filterInput = \n" + filterInput);
+		log.info("\n * filterInput = \n" + filterInput);
 		
 		return searchResultConverter.filterXml(filterInput, subscriptionFilterCommand);
 		
@@ -388,11 +387,11 @@ public class SubscriptionsController {
 	 * displayed for adding a subscription. Another method calls the service 
 	 * to create the subscription
 	 */
-	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
+	@GetMapping(value="addSubscription")
 	public String getAddSubscriptionModal(HttpServletRequest request,@RequestParam Map<String,String> allRequestParams,
 			Map<String, Object> model) throws Exception{
 		
-		logger.debug("All request params: " + allRequestParams.toString());
+		log.debug("All request params: " + allRequestParams.toString());
 		
 		Subscription subscription = new Subscription();
 
@@ -450,13 +449,13 @@ public class SubscriptionsController {
 		if (StringUtils.isNotBlank(sourcePage))
 		{	
 			model.put("sourcePage", sourcePage);
-			logger.info("Source page: " + sourcePage);
+			log.info("Source page: " + sourcePage);
 		}
 		
 		
 		model.put("subscription", subscription);
 			
-		logger.info("inside addSubscription()");
+		log.info("inside addSubscription()");
 		
 		return "subscriptions/addSubscriptionDialog/addSubscriptionModal::addSubscriptionModalContent";
 	}
@@ -507,11 +506,11 @@ public class SubscriptionsController {
 	}
 	
 	
-	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
+	@GetMapping(value="arrestForm")
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
-		logger.info("inside arrestForm()");		
+		log.info("inside arrestForm()");		
 				
 		Subscription subscription = (Subscription) model.get("subscription");
 		
@@ -520,7 +519,7 @@ public class SubscriptionsController {
 			subscription = new Subscription();
 		}	
 		
-		logger.info("Subscription: " + subscription.toString());
+		log.info("Subscription: " + subscription.toString());
 		initDatesForAddForm(subscription, model, ARREST_TOPIC_SUB_TYPE);
 				
 		// pre-populate an email field on the form w/email from saml token
@@ -541,12 +540,12 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/arrestForm::arrestFormContent";
 	}
 	
-	@RequestMapping(value="rapbackForm", method=RequestMethod.GET)
+	@GetMapping(value="rapbackForm")
 	public String getRapbackForm(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
 			Map<String, Object> model) throws Exception{
 		
-		logger.info("inside getRapbackForm()");		
+		log.info("inside getRapbackForm()");		
 		initDatesForAddRapbackForm(subscription, model);
 		
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
@@ -639,11 +638,11 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);		
 	}
 	
-	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
+	@GetMapping(value="incidentForm")
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
-		logger.info("inside incidentForm()");
+		log.info("inside incidentForm()");
 		
 		Subscription subscription = (Subscription) model.get("subscription");
 		
@@ -652,7 +651,7 @@ public class SubscriptionsController {
 			subscription = new Subscription();
 		}	
 		
-		logger.debug("Subscription: " + subscription.toString());
+		log.debug("Subscription: " + subscription.toString());
 		
 		initDatesForAddForm(subscription, model, INCIDENT_TOPIC_SUB_TYPE);
 		
@@ -668,11 +667,11 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/incidentForm::incidentFormContent";
 	}
 
-	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
+	@GetMapping(value="chCycleForm")
 	public String getChCycleForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
-		logger.info("inside getChCycleForm()");
+		log.info("inside getChCycleForm()");
 		
 		Subscription subscription = (Subscription) model.get("subscription");
 		
@@ -681,7 +680,7 @@ public class SubscriptionsController {
 			subscription = new Subscription();
 		}	
 		
-		logger.info("Subscription: " + subscription.toString());
+		log.info("Subscription: " + subscription.toString());
 				
 		initDatesForAddForm(subscription, model, CHCYCLE_TOPIC_SUB_TYPE);
 		
@@ -697,11 +696,11 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/chCycleForm::chCycleFormContent";
 	}	
 	
-	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.GET)
+	@GetMapping(value="vehicleCrashForm")
 	public String getVehicleCrashForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
-		logger.info("inside getVehicleCrashForm()");
+		log.info("inside getVehicleCrashForm()");
 		
 		Subscription subscription = (Subscription) model.get("subscription");
 		
@@ -710,7 +709,7 @@ public class SubscriptionsController {
 			subscription = new Subscription();
 		}	
 		
-		logger.info("Subscription: " + subscription.toString());
+		log.info("Subscription: " + subscription.toString());
 				
 		initDatesForAddForm(subscription, model, PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
 		
@@ -736,7 +735,7 @@ public class SubscriptionsController {
 			BindingResult errors, 
 			Map<String, Object> model) {
 								
-		logger.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
+		log.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
 		
 		String sourcePage = allRequestParams.get("sourcePage");
 		
@@ -756,7 +755,7 @@ public class SubscriptionsController {
 				
 			} catch (Exception e) {
 				errorsList = Arrays.asList("An error occurred while processing subscription");				
-				logger.error("Failed processing subscription: " + e);
+				log.error("Failed processing subscription: " + e);
 			}									
 		}	
 		
@@ -767,7 +766,7 @@ public class SubscriptionsController {
 		
 		String errorMsgsWarnMsgsJson = getErrorsWarningsJson(errorsList, subWarningsList);
 		
-		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
+		log.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
 		
 		SaveSubscriptionResponse subscriptionResponse = new SaveSubscriptionResponse();
 		
@@ -776,7 +775,7 @@ public class SubscriptionsController {
 		if (StringUtils.isNotBlank(sourcePage))
 		{	
 			subscriptionResponse.setSourcePage(sourcePage);
-			logger.info("Source page: " + sourcePage);
+			log.info("Source page: " + sourcePage);
 		}
 		
 		return subscriptionResponse;
@@ -848,14 +847,14 @@ public class SubscriptionsController {
 			throw new Exception("subscription was null");
 		}
 				
-		logger.info("Calling subscribe operation...");
-		logger.info("email lists: " + subscription.getEmailList()); 
+		log.info("Calling subscribe operation...");
+		log.info("email lists: " + subscription.getEmailList()); 
 		
 		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
 		
 		FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, getFederatedQueryId(), samlElement);
 				
-		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
+		log.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
 		
 		List<String> subRespErrorsList = null;
 		
@@ -994,7 +993,7 @@ public class SubscriptionsController {
 				
 				responseErrorList.add(sError);
 				
-				logger.info("\n Parsed/received error: " + sError);				
+				log.info("\n Parsed/received error: " + sError);				
 			}
 		}
 						
@@ -1027,7 +1026,7 @@ public class SubscriptionsController {
 			List<String> invalidEmailList = subInvalidEmailResp.getInvalidEmailList();
 			
 			if(invalidEmailList == null || invalidEmailList.isEmpty()){
-				logger.warn("Determined Invalid email, but received no email address values");
+				log.warn("Determined Invalid email, but received no email address values");
 			}
 			
 			rErrorMsg = "Invalid Email(s): ";
@@ -1069,7 +1068,7 @@ public class SubscriptionsController {
 		}else if(SubscriptionResponseType.SUBSCRIPTION_SUCCESS == responseType){
 		
 			rErrorMsg="";
-			logger.warn("Attempt was made to get subscription response error type for a scenario where the "
+			log.warn("Attempt was made to get subscription response error type for a scenario where the "
 					+ "subscription response was actually 'success'");
 		
 		}else{
@@ -1153,14 +1152,14 @@ public class SubscriptionsController {
 				initDatesForEditVehicleCrashForm(model);
 			}
 											
-			logger.info("Subscription Edit Request: " + subscription);
+			log.info("Subscription Edit Request: " + subscription);
 			model.put("subscription", subscription);	
 											
 		}catch(Exception e){
 			
 			model.put("initializationSucceeded", false);			
 			e.printStackTrace();
-			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
+			log.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
 			model.put("subscription", new Subscription());	
 		}
 		
@@ -1179,7 +1178,7 @@ public class SubscriptionsController {
 		Subscription subscription = subQueryResultProcessor
 				.parseSubscriptionQueryResults(subQueryResponseDoc);
 
-		logger.info("Subscription Query Results: \n" + subscription.toString());
+		log.info("Subscription Query Results: \n" + subscription.toString());
 
 		return subscription;
 	}
@@ -1198,7 +1197,7 @@ public class SubscriptionsController {
 
 		Document subQueryResponseDoc = getDocBuilder().parse(new InputSource(new StringReader(subQueryResponse)));
 
-		logger.info("subQueryResponseDoc: \n");
+		log.info("subQueryResponseDoc: \n");
 		XmlUtils.printNode(subQueryResponseDoc);
 
 		return subQueryResponseDoc;
@@ -1218,7 +1217,7 @@ public class SubscriptionsController {
 			@RequestParam String subscriptionsJsonString, 
 			Map<String, Object> model) throws com.fasterxml.jackson.databind.JsonMappingException, JsonProcessingException {
 		List<Subscription> subscriptions = parseSubscriptions(subscriptionsJsonString);
-		logger.info("Received subscriptions to validate: " + subscriptions);
+		log.info("Received subscriptions to validate: " + subscriptions);
 
 		Element samlAssertion = samlService.getSamlAssertion(request);
 						
@@ -1271,13 +1270,13 @@ public class SubscriptionsController {
 				if(faultableSoapResponse == null){
 					
 					failedIdList.add(subscription.getSystemId());
-					logger.error("FAILED! to validate id: " + subscription.getSystemId());
+					log.error("FAILED! to validate id: " + subscription.getSystemId());
 					continue;
 				}
 				
 				boolean isValidated = getValidIndicatorFromValidateResponse(faultableSoapResponse);
 				
-				logger.info("isValidated: " + isValidated + " - for id: " + subscription.getSystemId());
+				log.info("isValidated: " + isValidated + " - for id: " + subscription.getSystemId());
 
 				if(isValidated){
 					validatedIdList.add(subscription.getSystemId());	
@@ -1287,7 +1286,7 @@ public class SubscriptionsController {
 				
 			}catch(Exception e){				
 				failedIdList.add(subscription.getSystemId());
-				logger.error("FAILED! to validate id: " + subscription.getSystemId() + ", " + e);
+				log.error("FAILED! to validate id: " + subscription.getSystemId() + ", " + e);
 			}														
 		}
 				
@@ -1382,8 +1381,8 @@ public class SubscriptionsController {
 
 		Element samlAssertion = samlService.getSamlAssertion(request);	
 		
-		logger.info("in unsubscribe");
-		logger.info("subscriptions to unsubscribe: " + subscriptions);
+		log.info("in unsubscribe");
+		log.info("subscriptions to unsubscribe: " + subscriptions);
 //					
 //		ObjectMapper objectMapper = new ObjectMapper();
 //		List<Subscription> subscriptions = objectMapper.readValue(subscriptionStrings, new TypeReference<List<Subscription>>(){});
@@ -1438,12 +1437,12 @@ public class SubscriptionsController {
 						
 		}catch(Exception e){
 			e.printStackTrace();
-			logger.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
+			log.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
 			informationMessage = "Failed retrieving subscriptions";
 		}
 		SubscriptionFilterCommand subscriptionFilterCommand = (SubscriptionFilterCommand) model.get("subscriptionFilterCommand");
 		String filteredResults = filterResults(rawResults, subscriptionFilterCommand, model);
-		logger.info("Filtered Result: \n" + filteredResults);								
+		log.info("Filtered Result: \n" + filteredResults);								
 		convertSubscriptionSearchResults(model, informationMessage, filteredResults,
 				subscriptionSearchRequest);		
 		
@@ -1526,7 +1525,7 @@ public class SubscriptionsController {
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		
-		logger.info("\n* * * * inside updateSubscription() * * * *\n\n: " + subscription + "\n");
+		log.info("\n* * * * inside updateSubscription() * * * *\n\n: " + subscription + "\n");
 		Element samlElement = samlService.getSamlAssertion(request);		
 						
 		// get potential spring mvc controller validation errors from validating UI values
@@ -1546,7 +1545,7 @@ public class SubscriptionsController {
 		}
 		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
 		
-		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
+		log.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
 		
 		return errorsWarningsJson;
 	}
@@ -1583,7 +1582,7 @@ public class SubscriptionsController {
 			return null;
 		}
 		
-		logger.info("person sid: " + sid);
+		log.info("person sid: " + sid);
 		
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();				
 		personSearchRequest.setPersonSID(sid);	
@@ -1599,7 +1598,7 @@ public class SubscriptionsController {
 			searchContent = config.getPersonSearchBean().invokePersonSearchRequest(personSearchRequest,		
 					getFederatedQueryId(), samlAssertion);					
 		} catch (Exception e) {		
-			logger.error("Exception thrown while invoking person search request:\n" + e);
+			log.error("Exception thrown while invoking person search request:\n" + e);
 		}
 			
 		Document personSearchResultDoc = null;
@@ -1609,10 +1608,10 @@ public class SubscriptionsController {
 				DocumentBuilder docBuilder = getDocBuilder();		
 				personSearchResultDoc = docBuilder.parse(new InputSource(new StringReader(searchContent)));						
 			}catch(Exception e){
-				logger.error("Exception thrown while parsing search content Document:\n" + e);
+				log.error("Exception thrown while parsing search content Document:\n" + e);
 			}			
 		}else{
-			logger.error("searchContent was blank");
+			log.error("searchContent was blank");
 		}
 
 		NodeList psrNodeList = null;
@@ -1622,10 +1621,10 @@ public class SubscriptionsController {
 				psrNodeList = XmlUtils.xPathNodeListSearch(personSearchResultDoc, 
 						"/emrm-exc:EntityMergeResultMessage/emrm-exc:EntityContainer/emrm-ext:Entity/psres:PersonSearchResult");
 			} catch (Exception e) {
-				logger.error("Exception thrown - getting nodes from PersonSearchResult:\n" + e);
+				log.error("Exception thrown - getting nodes from PersonSearchResult:\n" + e);
 			}			
 		}else{
-			logger.error("personSearchResultDoc was null");
+			log.error("personSearchResultDoc was null");
 		}
 								
 		String systemId = null;
@@ -1635,10 +1634,10 @@ public class SubscriptionsController {
 				Node psrNode = psrNodeList.item(0);			
 				systemId = XmlUtils.xPathStringSearch(psrNode, "intel:SystemIdentifier/nc:IdentificationID");						
 			}catch(Exception e){
-				logger.error("Exception thrown referencing IdentificationID xpath: \n" + e);
+				log.error("Exception thrown referencing IdentificationID xpath: \n" + e);
 			}						
 		}else{
-			logger.error("Search Results (SystemIdentifier/nc:IdentificationID) count != 1");
+			log.error("Search Results (SystemIdentifier/nc:IdentificationID) count != 1");
 		}
 				
 		return systemId;
@@ -1665,11 +1664,11 @@ public class SubscriptionsController {
 					getFederatedQueryId(), samlAssertion);
 			
 		} catch (Exception e) {
-			logger.error("Exception invoking details request:\n" + e);			
+			log.error("Exception invoking details request:\n" + e);			
 		}
 									
 		if("noResponse".equals(detailsContent)){			
-			logger.error("No response from Criminial History");			
+			log.error("No response from Criminial History");			
 		}
 		
 		Document detailsDoc = null;
@@ -1678,7 +1677,7 @@ public class SubscriptionsController {
 			try {
 				detailsDoc = getDocBuilder().parse(new InputSource(new StringReader(detailsContent)));
 			} catch (Exception e){
-				logger.error("Exception parsing detailsContent:\n" + detailsContent + "\n, exception:\n" + e);
+				log.error("Exception parsing detailsContent:\n" + detailsContent + "\n, exception:\n" + e);
 			}		
 		}
 						
@@ -1695,7 +1694,7 @@ public class SubscriptionsController {
 					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:RapSheetPerson/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
 					
 		}catch(Exception e){
-			logger.error("Exception while getting fbi id from rapsheet: \n" + e);
+			log.error("Exception while getting fbi id from rapsheet: \n" + e);
 		}		
 		return fbiId;
 	}
@@ -1728,7 +1727,7 @@ public class SubscriptionsController {
 					.collect(Collectors.toList());
 			
 		}catch(Exception e){
-			logger.error("Exception while getting dob from rapsheet \n" + e);
+			log.error("Exception while getting dob from rapsheet \n" + e);
 		}
 		
 		return dobs;
