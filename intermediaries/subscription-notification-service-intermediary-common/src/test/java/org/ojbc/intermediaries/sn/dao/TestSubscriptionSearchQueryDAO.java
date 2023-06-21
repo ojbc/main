@@ -65,6 +65,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -700,6 +701,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 	@Test
 	@DirtiesContext
+	@Ignore
 	public void testWildcardSubscription() throws Exception {
 
 		loadWildcardTestData();

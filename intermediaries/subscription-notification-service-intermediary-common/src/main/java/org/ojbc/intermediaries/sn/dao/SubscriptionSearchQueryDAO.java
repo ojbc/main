@@ -215,14 +215,19 @@ public class SubscriptionSearchQueryDAO {
      * @param topic the topic of the subscription
      * @return the list of matching subscription objects
      */
-    public List<Subscription> searchForSubscriptionsByTopic(@Header("topic") String topic, @Header("state") String state) {
+    public List<Subscription> searchForSubscriptionsByTopic(@Header("topic") String topic, @Header("state") String state, @Header("useLastMatchDate") boolean useLastMatchDate) {
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("topic", topic);
     	parameters.addValue("state", state);
+    	String sqlQuery;
     	
     	//TODO: Make query by state
-    	String sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and (IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1 or DATEDIFF(s.last_match_date, NOW()) < -30)";
-    	
+    	if(useLastMatchDate) {
+    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and (IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1 or DATEDIFF(s.last_match_date, NOW()) < -30)";
+    	}
+    	else {
+    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1";
+    	}
     	List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
     	
     	return subscriptions;
@@ -402,7 +407,7 @@ public class SubscriptionSearchQueryDAO {
 
         String queryString = BASE_QUERY_STRING + " and s.startDate <=? and ((s.startDate <=? and s.endDate >?) or (s.startDate <=? and s.endDate is null)) and s.topic=? and active=1 and ";
         queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierValue='*') "
-        		+ "or s.id in (select subscriptionId from rapback_datastore.subscription_properties where propertyName='OffenderID'))");
+        		+ "and s.id in (select subscriptionId from rapback_datastore.subscription_properties where propertyName='OffenderID'))");
 
         Object[] subjectIdArray = buildCriteriaArray(subjectIdentifiers);
         criteriaArray = ArrayUtils.addAll(criteriaArray, subjectIdArray);
