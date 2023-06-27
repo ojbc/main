@@ -554,6 +554,32 @@ public class SubscriptionSearchQueryDAO {
 
     }
     
+    public List<Subscription> searchForSubscriptionByCaseNumber(@Header("agencyCaseNum") String agencyCaseNum) {
+    	List<Subscription> ret = new ArrayList<Subscription>();
+    	
+    	List<String> criteriaList = new ArrayList<String>();
+        
+        StringBuffer staticCriteria = new StringBuffer();
+
+        if (StringUtils.isNotBlank(agencyCaseNum))
+        {
+        	criteriaList.add(agencyCaseNum.trim());
+        	staticCriteria.append(" and s.agency_case_number=?");
+        }	
+        
+        Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
+        
+        String queryString = BASE_QUERY_STRING + staticCriteria.toString();
+        
+        log.debug("Query string: " + queryString);
+        
+        ret = this.jdbcTemplate.query(queryString, resultSetExtractor, criteriaArray);
+
+        log.debug("Query completed.");
+        
+        return ret;
+    }
+    
     
     public Integer subscribe(@Header("subscriptionRequest")SubscriptionRequest request){
     	Number subscriptionId = subscribe(request, new LocalDate());

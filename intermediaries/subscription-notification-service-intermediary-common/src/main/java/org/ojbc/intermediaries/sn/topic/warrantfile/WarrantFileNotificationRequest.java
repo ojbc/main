@@ -229,7 +229,7 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 	
 	@Override
 	protected String getNotifyingSystemNameXPath(){
-		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingActivityReportingSystemNameText";
+		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingWanted/notfm-ext:ICTSWQNotificationSystemNameText";
 	}
 	
 	@Override
