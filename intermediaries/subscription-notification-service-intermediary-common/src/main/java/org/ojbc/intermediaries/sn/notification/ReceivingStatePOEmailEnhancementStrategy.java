@@ -21,36 +21,36 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * An email edit strategy that sets the to address as the Sending State PO for the email notification. This email strategy is used primarily for ICT notifications.
+ * An email edit strategy that sets the to address as the Receiving State PO for the email notification. This email strategy is used primarily for ICT notifications.
  * 
  */
-public class SendingStatePOEmailEnhancementStrategy implements EmailEnhancementStrategy {
+public class ReceivingStatePOEmailEnhancementStrategy implements EmailEnhancementStrategy {
 
-    private static final Log log = LogFactory.getLog(SendingStatePOEmailEnhancementStrategy.class);
+    private static final Log log = LogFactory.getLog(ReceivingStatePOEmailEnhancementStrategy.class);
 
 	@Override
     public EmailNotification enhanceEmail(EmailNotification emailNotification) {
         EmailNotification ret = (EmailNotification) emailNotification.clone();
-        String sendingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("sendingStatePO");
-        log.info("Full sending state Email and Name Info from Subscription:" + sendingStatePOEmail);
-        if(StringUtils.isNotBlank(sendingStatePOEmail)) {
-        	String[] splitArr = StringUtils.split(sendingStatePOEmail, ":");
+        String receivingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("receivingStatePO");
+        log.info("Full receiving state Email and Name Info from Subscription:" +  receivingStatePOEmail);
+        if(StringUtils.isNotBlank(receivingStatePOEmail)) {
+        	String[] splitArr = StringUtils.split(receivingStatePOEmail, ":");
         	if(splitArr.length == 2) {
-        		String sendingStateEmail = splitArr[1].trim().substring(0, splitArr[1].length()-5);
-        		log.info(sendingStateEmail);
+        		String receivingStateEmail = splitArr[1].trim().substring(0, splitArr[1].length()-5);
+        		log.info(receivingStateEmail);
         		ret.removeAllToEmailAddresses();
-        		ret.addToAddressee(sendingStateEmail);
+        		ret.addToAddressee(receivingStateEmail);
         		if(ret.getToAddresseeSet().size() != 1)
         		{
-        			log.info("Email address not found in subscription subject identifier. ");
+        			log.info("Email address not found in subscription subject identifier");
         		}
         	}
         	else {
-        		log.error("Invalid Subscription Identifier format for Sending State PO. ");
+        		log.error("Invalid Subscription Identifier format for Receiving State PO. ");
         	}
         }
         else {
-        	log.error("Sending State PO Email Address not found");
+        	log.error("Receiving State PO Email Address not found");
         }
         return ret;
        
