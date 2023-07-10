@@ -44,7 +44,10 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
 		<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
-			uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+
+		<camel:endpoint id="criminalHistoryUpdateReportingSSLServiceEndpoint"
+			uri="cxf:bean:criminalHistoryUpdateReportingSSLService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
     
     	<camel:endpoint id="notificationBrokerServiceEndpoint" 
     		uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}"/>              
@@ -52,12 +55,30 @@
 		<camel:endpoint id="criminalhistoryUpdateReportingAdapterServiceEndpoint"
 			uri="cxf:bean:criminalhistoryUpdateReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
 	
+	
+		
+		<camel:route id="CriminalHistoryUpdateReportingSSLServiceHandlerRoute">
+		
+			<camel:from uri="criminalHistoryUpdateReportingSSLServiceEndpoint" />
+			
+			<camel:to uri="direct:processCriminalHistory"/>
+
+		</camel:route>
+	
 		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute">
 		
 			<camel:from uri="CriminalHistoryUpdateReportingServiceEndpoint" />
 			
+			<camel:to uri="direct:processCriminalHistory"/>
+			
+		</camel:route>
+		
+		<camel:route id="CriminalHistoryUpdateReportingServiceDirectRoute">	
+		
+			<camel:from uri="direct:processCriminalHistory"/> 
+			
 			<!-- Connector developed by CHRI does not support ws-addressing -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			<camel:to uri="bean:criminalHistoryUpdateMessageProcessor?method=processRequestPayload"/>
 
 			<convertBodyTo type="java.lang.String" />
 

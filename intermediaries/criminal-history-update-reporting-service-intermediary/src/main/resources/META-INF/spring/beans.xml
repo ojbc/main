@@ -39,6 +39,10 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
        
      <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+     
+     <bean id="criminalHistoryUpdateMessageProcessor" class="org.ojbc.intermediaries.crimhistoryupdate.processor.CriminalHistoryUpdateMessageProcessor" >
+     	<property name="messageProcessor" ref="messageProcessor" />
+     </bean>
 	
 	<bean id="cycleIdToNotifXsltParamMapper" class="org.ojbc.intermediaries.crimhistoryupdate.CycleIdToNotifXsltParamMapper">
 		<property name="cycleIdToNotifXsltParamMap" ref="cycleIdToNotifXsltParamMap" />

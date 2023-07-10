@@ -38,7 +38,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
            
 	<!-- hosted by this intermediary, invoked by connector -->
-	<cxf:cxfEndpoint id="CriminalHistoryUpdateReportingService"
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
 		address="${criminalHistoryReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
@@ -49,12 +49,35 @@
 			<entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" />
 		</cxf:properties> 
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+				<property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+				<property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+			</bean>	 			
+ 		</cxf:features>			
+	</cxf:cxfEndpoint>           
+           
+	<!-- hosted by this intermediary, invoked by connector, no WS Policy on this binding -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingSSLService"
+		address="${criminalHistoryReportingServiceNoWSSecurityEndpoint}"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+				<property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+				<property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+			</bean>	 			
+ 		</cxf:features>		
 	</cxf:cxfEndpoint>	
 	
 	<!-- hosted by adapter, called by intermediary -->
     <cxf:cxfEndpoint 
         id="criminalhistoryUpdateReportingAdapterService"
-        address="${criminalHistoryReportingServiceEndpoint.adapterEndpoint}" 
+        address="${criminalHistoryReportingServiceAdapterEndpoint}" 
 		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
