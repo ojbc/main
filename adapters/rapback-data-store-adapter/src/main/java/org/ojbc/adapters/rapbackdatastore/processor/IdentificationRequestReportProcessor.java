@@ -47,7 +47,7 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 			@Header("transactionCategoryText") String transactionCategoryText, 
 			@Header("identificationID") String transactionNumber) throws Exception {
 		
-		log.info("Processing CIVIL Identification Request report");
+		log.info("Processing CIVIL Identification Request report with transaction number: " + transactionNumber);
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
 
