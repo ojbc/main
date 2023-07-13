@@ -106,6 +106,11 @@ public final class EmailNotification {
         }
     }
     
+    public void addBlockedEmailAddress(String emailAddress) {
+    	log.debug("Email address " + emailAddress + " is not in the whitelist, adding to blocked list");
+    	blockedAddressees.add(emailAddress);
+    }
+    
     public void removeAllToEmailAddresses()
     {
     	toAddressees = new HashSet<String>();
