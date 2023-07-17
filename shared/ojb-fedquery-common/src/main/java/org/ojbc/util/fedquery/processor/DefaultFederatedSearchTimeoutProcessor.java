@@ -76,11 +76,17 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 			if (uriToErrorMessageMap.containsKey(endpointThatDidNotRespond))
 			{
 				
+				log.info("Adding error for: " + endpointThatDidNotRespond);
+				
 				if (searchResultsMetadata == null)
 				{	
 					Element wrapperElement = (Element)XmlUtils.xPathNodeSearch(response, "/OJBAggregateResponseWrapper");
 					Element errorContainerElement = XmlUtils.appendElement(wrapperElement, parentElementNamespace, parentElementName);
 					searchResultsMetadata = XmlUtils.appendElement(errorContainerElement, OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+				}
+				else
+				{
+					searchResultsMetadata = (Element)XmlUtils.xPathNodeSearch(response, "//srm:SearchResultsMetadata");
 				}
 				
 				Element searchRequestError = XmlUtils.appendElement(searchResultsMetadata, OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchRequestError");
@@ -97,6 +103,9 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 			}	
 		}
 
+		log.info("Error node: ");
+		XmlUtils.printNode(XmlUtils.xPathNodeSearch(response, "//srm:SearchResultsMetadata"));
+		
 		return response;
 		
 	}
