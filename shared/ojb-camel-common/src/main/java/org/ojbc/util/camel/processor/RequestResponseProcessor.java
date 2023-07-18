@@ -16,6 +16,7 @@
  */
 package org.ojbc.util.camel.processor;
 
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.Body;
@@ -71,7 +72,7 @@ public abstract class RequestResponseProcessor {
 			log.debug("Here is the response: " + response);
 		}
 		
-		requestResponseMap.put(federatedQueryID, response);
+		requestResponseMap.replace(federatedQueryID, response);
 	}
 	
 	/**
@@ -93,7 +94,7 @@ public abstract class RequestResponseProcessor {
 			log.debug("Here is the response: " + response);
 		}
 		
-		requestResponseMap.put(federatedQueryID, exchange);
+		requestResponseMap.replace(federatedQueryID, exchange);
 	}
 	
 	public final void putRequestInMap(String federatedQueryID) 
@@ -101,6 +102,20 @@ public abstract class RequestResponseProcessor {
 		//concurrent map does not allow null entries
 		//http://stackoverflow.com/questions/698638/why-does-concurrenthashmap-prevent-null-keys-and-values
 		requestResponseMap.put(federatedQueryID, NO_RESPONSE);
+	}
+	
+	public final void removeRequestFromMap(String federatedQueryID) 
+	{
+		//concurrent map does not allow null entries
+		//http://stackoverflow.com/questions/698638/why-does-concurrenthashmap-prevent-null-keys-and-values
+		requestResponseMap.remove(federatedQueryID);
+	}
+	
+	public final Set<String> getRequestResponseMapKeys() 
+	{
+		//concurrent map does not allow null entries
+		//http://stackoverflow.com/questions/698638/why-does-concurrenthashmap-prevent-null-keys-and-values
+		return requestResponseMap.keySet();
 	}
 	
 	public final String pollMap(String federatedQueryID) throws Exception
@@ -132,11 +147,11 @@ public abstract class RequestResponseProcessor {
 			else
 			{
 				//We have a response, remove from the key from the map and break
-				requestResponseMap.remove(federatedQueryID);	
 				break;
 			}	
-		}	
+		}
 		
+		requestResponseMap.remove(federatedQueryID);	
 		return response;
 	}
 	
@@ -171,6 +186,8 @@ public abstract class RequestResponseProcessor {
 				return (Exchange)response;
 			}	
 		}
+		
+		requestResponseMap.remove(federatedQueryID);
 		return null;	
 		
 	}
