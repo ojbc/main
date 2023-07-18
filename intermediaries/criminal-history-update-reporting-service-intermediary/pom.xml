@@ -45,7 +45,7 @@
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-osgi-common-version>[2.0.0,)</ojb-osgi-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
+		<ojb-resources-common-version>[2.0.4,)</ojb-resources-common-version>
 		<spring-version>5.3.24</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<xmlunit-version>1.6</xmlunit-version>

@@ -239,6 +239,14 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="ReportProsecutionDecisionRecording">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportProsecutionDecisionRecording"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 	</wsdl:binding>
 	<wsdl:service name="Criminal-History-Update-Reporting-ServiceService">
 		<wsdl:port name="Criminal-History-Update-Reporting-Service"

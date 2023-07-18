@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
-	<version>4.0.3</version>
+	<version>4.0.4</version>
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
 	<url>http://www.ojbc.org</url>
 

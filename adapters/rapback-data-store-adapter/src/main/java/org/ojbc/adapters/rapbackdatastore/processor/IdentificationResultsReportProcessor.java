@@ -100,7 +100,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			@Header("transactionCategoryText") String transactionCategoryText, 
 			@Header("identificationID") String transactionNumber) throws Exception
 	{
-		log.info("Processing Identification Results Report.");
+		log.info("Processing Identification Results Report with transaction number: " + transactionNumber);
 		
 		if (transactionCategoryToIgnore.contains(transactionCategoryText)){
 			log.info("transactionCategoryText is ignored in the rapback adapter: " + transactionCategoryText);

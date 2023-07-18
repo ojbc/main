@@ -46,10 +46,16 @@ public class FederatedQueryResponseHandlerAggregator {
 	{
 		List<Exchange> grouped = groupedExchange.getIn().getBody(List.class);
 		
+		Map<String, Boolean> endpointsCalled = null;
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<OJBAggregateResponseWrapper>");
         
         List<String> endpointsThatDidNotRespond = new ArrayList<String>();
+        
+		String aggregatedCompletedBy = (String)groupedExchange.getProperty(Exchange.AGGREGATED_COMPLETED_BY);
+		
+		log.info("Federated Query Completed by: " + aggregatedCompletedBy);
 
         log.info("grouped size: " + grouped.size());
 		for (Exchange exchange : grouped)
@@ -75,10 +81,12 @@ public class FederatedQueryResponseHandlerAggregator {
 				 
 				 log.debug("Processing aggregator start message: " + startMessage);
 				 
+				 endpointsCalled = returnEndpointsCalled(exchange); 
+				 
 				 continue; 
 			}
 			
-			if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
+			else if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
 			{
 				
 				//Uncomment the line below to see the individual aggregated message
@@ -99,70 +107,26 @@ public class FederatedQueryResponseHandlerAggregator {
 		        		attachmentInGroupExchange.setAttachments(exchange.getIn(AttachmentMessage.class).getAttachments());
 		        	}
 		        }
+		        
+				processSearchProfileResponse(endpointsCalled, exchange);
+		        
 		        continue; 
-			}	
-			
+			} else  {
 				//Uncomment the line below to see the individual aggregated message
 				//log.debug("This is the body of the exchange in the exchange group: " + exchange.getIn().getBody());
+					
+				String response = exchange.getIn().getBody(String.class);
 				
-			String response = exchange.getIn().getBody(String.class);
-			
-			if (StringUtils.isNotBlank(response));
-				sb.append(response);
+				processSearchProfileResponse(endpointsCalled, exchange);
+				
+				if (StringUtils.isNotBlank(response));
+					sb.append(response);				
+			}	
 			
 		}	
 		
-		String aggregatedCompletedBy = (String)groupedExchange.getProperty(Exchange.AGGREGATED_COMPLETED_BY);
-		
-		//When there is a timeout, find out which endpoint timed out
-		if (aggregatedCompletedBy != null && aggregatedCompletedBy.equals("timeout"))
+		if (aggregatedCompletedBy.equals("timeout"))
 		{
-			log.info("Federated Query Completed by timeout.");
-			
-			Map<String, Boolean> endpointsCalled = null;
-			
-			Exchange timerExchange = grouped.get(0);
-			
-			//Look in the timer exchange for the original endpoints called
-			if (timerExchange.getIn().getBody().getClass().getName().equals("java.lang.String") && timerExchange.getIn().getBody().equals("START_QUERY_TIMER"))
-			{
-				endpointsCalled = returnEndpointsCalled(timerExchange);   
-			}	
-			
-			//Iterate through the exchanges and mark in the map which queries returned a response
-			if (endpointsCalled != null)
-			{
-				for (Exchange exchange : grouped)
-				{
-					if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
-					{
-						String searchProfileInResponseExchange = (String) exchange.getIn().getHeader("searchProfile");
-						
-						if (StringUtils.isEmpty(searchProfileInResponseExchange))
-						{
-							log.info("No search profile in message, try retrieving search profile from WS-Addressing 'From' Address");
-
-							HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
-							String wsAddressingFrom = wsAddressingHeadersMap.get("From");
-							
-							log.info("WS-Addressing 'From' Address" + wsAddressingFrom);	
-
-							if (addressToAdapterURIMap != null)
-							{
-								searchProfileInResponseExchange = addressToAdapterURIMap.get(wsAddressingFrom);
-							}	
-							
-						}	
-						
-						log.info("Response Recieved from: " + searchProfileInResponseExchange);
-						
-						//We put the key/value in the hashmap and it will indicate that we received a response
-						//It will overwrite the existing entry in the map
-						endpointsCalled.put(searchProfileInResponseExchange, true);
-					}	
-				}	
-			}
-			
 			//We add the endpoints that did not respond to a list
 			//The list is then available as a Camel header
 			for(Entry entry: endpointsCalled.entrySet()) 
@@ -176,15 +140,15 @@ public class FederatedQueryResponseHandlerAggregator {
 				  {
 					  log.info(searchProfileInResponseExchange + " did not return a response.");
 					  endpointsThatDidNotRespond.add(searchProfileInResponseExchange);
-				  }	  
+				  }
 			}
-			
-			if (!endpointsThatDidNotRespond.isEmpty())
-			{
-				groupedExchange.getIn().setHeader("endpointsThatDidNotRespond", endpointsThatDidNotRespond);
-			}	
-			
 		}
+		
+		if (!endpointsThatDidNotRespond.isEmpty())
+		{
+			groupedExchange.getIn().setHeader("endpointsThatDidNotRespond", endpointsThatDidNotRespond);
+		}	
+		
 			
 		if (sb != null)
 		{
@@ -197,6 +161,34 @@ public class FederatedQueryResponseHandlerAggregator {
 			groupedExchange.getIn().setHeader("operationName", lastExchange.getIn().getHeader("operationName"));
 
 		}	
+	}
+
+	private void processSearchProfileResponse(Map<String, Boolean> endpointsCalled, Exchange exchange) {
+		String searchProfileInResponseExchange = (String) exchange.getIn().getHeader("searchProfile");
+		
+		log.info("Search profile in response: " + searchProfileInResponseExchange);
+		
+		if (StringUtils.isEmpty(searchProfileInResponseExchange))
+		{
+			log.info("No search profile in message, try retrieving search profile from WS-Addressing 'From' Address");
+
+			HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
+			String wsAddressingFrom = wsAddressingHeadersMap.get("From");
+			
+			log.info("WS-Addressing 'From' Address" + wsAddressingFrom);	
+
+			if (addressToAdapterURIMap != null)
+			{
+				searchProfileInResponseExchange = addressToAdapterURIMap.get(wsAddressingFrom);
+			}	
+			
+		}	
+		
+		log.info("Response Recieved from: " + searchProfileInResponseExchange);
+		
+		//We put the key/value in the hashmap and it will indicate that we received a response
+		//It will overwrite the existing entry in the map
+		endpointsCalled.put(searchProfileInResponseExchange, true);
 	}
 
 	/**
