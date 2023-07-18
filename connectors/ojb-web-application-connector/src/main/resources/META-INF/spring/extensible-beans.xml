@@ -88,7 +88,7 @@
 			value="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"/>
 		
 		<!-- Prosecution Case search --> 
-		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Honolulu" 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Prosecution" 
 			value="{http://ojbc.org/Services/WSDL/ProsecutionCaseSearchRequestService/1.0}SubmitProsecutionCaseSearchRequest"/>
 		
 		<!-- Prosecution Case detail --> 
