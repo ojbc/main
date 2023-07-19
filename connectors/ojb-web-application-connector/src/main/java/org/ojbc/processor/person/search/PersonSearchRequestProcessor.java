@@ -21,6 +21,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.processor.MessageProcessor;
@@ -53,8 +54,10 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 	public String invokePersonSearchRequest(PersonSearchRequest personSearchRequest, String federatedQueryID, Element samlToken) throws Exception
 	{
 		String response = "";
+		
+		String tokenID = "";
 		try
-		{
+		{	
 			if (allowQueriesWithoutSAMLToken)
 			{	
 				if (samlToken == null)
@@ -85,7 +88,7 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 			senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
 			
 			//Set the token header so that CXF can retrieve this on the outbound call
-			String tokenID = senderExchange.getExchangeId();
+			tokenID = senderExchange.getExchangeId();
 			senderExchange.getIn().setHeader("tokenID", tokenID);
 	
 			OJBSamlMap.putToken(tokenID, samlToken);
@@ -117,8 +120,17 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 			ex.printStackTrace();
 			throw(ex);
 		}
+		finally {
+			if (StringUtils.isNotBlank(tokenID)) {
+				OJBSamlMap.removeToken(tokenID); 
+			}
+			removeRequestFromMap(federatedQueryID);
+		}
 		
 		//return response here
+		log.debug("person search OJBSamlMap size: " + OJBSamlMap.getMapSize()); 
+		log.debug("person search OJBSamlMap keys: " + OJBSamlMap.getMapkeys()); 
+		log.debug("person search requestResponseMap keys: " + getRequestResponseMapKeys()); 
 		return response;
 		
 	}
