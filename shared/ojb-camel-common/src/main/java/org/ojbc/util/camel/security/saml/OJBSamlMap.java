@@ -18,6 +18,7 @@ package org.ojbc.util.camel.security.saml;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.camel.Header;
 import org.apache.commons.logging.Log;
@@ -46,6 +47,14 @@ public class OJBSamlMap {
 	{
 		tokens.remove(tokenID);
 	}
+
+
+	public int getMapSize() {
+		return tokens.size(); 
+	}
 	
+	public Set<String> getMapkeys() {
+		return tokens.keySet(); 
+	}
 	
 }
