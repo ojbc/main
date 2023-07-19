@@ -135,8 +135,11 @@
 	<bean id="emailEnhancementStrategy" class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
 		<property name="compositeStrategy">
 			<util:list id="emailEnhancementStrategyList">
-				 <bean class="org.ojbc.intermediaries.sn.notification.SendingStatePOEmailEnhancementStrategy">
+				 <bean class="org.ojbc.intermediaries.sn.notification.ReceivingStatePOEmailEnhancementStrategy">
 				</bean> 
+				<bean class="org.ojbc.intermediaries.sn.notification.WhitelistRegExFilteringEmailEnhancementStrategy">
+                    <property name="allowedEmailAddressPatterns" value="${publishSubscribe.warrantFile.allowedEmailAddressPatterns}"/>
+                </bean> 
 				<bean class="org.ojbc.intermediaries.sn.notification.StaticBCCEmailEnhancementStrategy">
 					<property name="bccAddress" value="${publishSubscribe.bcc}" />
 				</bean>
@@ -148,7 +151,7 @@
 	</bean>
 	
   <!-- This Spring config file is responsible for setting up two objects.  One is a Map (with id="cc-map") that
-       establishes an email address to be cc'd for each "to" address.  The other is a Set (with id="whitelist-set") that
+       establishes an email addres  s to be cc'd for each "to" address.  The other is a Set (with id="whitelist-set") that
        establishes a whitelist for email notifications, such that if a "to" address is not in this list, it will not get
        notified. Note that the "whitelist-set" can be any Set...we just happen to make the Map do double-duty as both
        the cc lookup and the whitelist.  -->
