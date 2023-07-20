@@ -973,6 +973,13 @@ public class SubscriptionSearchQueryDAO {
     	this.jdbcTemplate.update(UPDATE_LAST_MATCH_DATE, id);
     }
     
+    public void updateLastMatchDateByAgencyCaseNum(@Header("lastMatchDate") String lastMatchDate, @Header("agencyCaseNum") String agencyCaseNum) {
+    	final String UPDATE_LAST_MATCH_DATE = "UPDATE rapback_datastore.subscription SET LAST_MATCH_DATE=?"
+    			+ "WHERE AGENCY_CASE_NUMBER=?";
+    	
+    	this.jdbcTemplate.update(UPDATE_LAST_MATCH_DATE, lastMatchDate, agencyCaseNum);
+    }
+    
     public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
     {
     	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
