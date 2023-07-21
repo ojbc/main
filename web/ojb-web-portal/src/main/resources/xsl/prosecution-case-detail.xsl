@@ -57,7 +57,7 @@
 		    <a class="nav-link" id="detailsTab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">DETAILS</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="judgmentTab" data-toggle="tab" href="#judgment" role="tab" aria-controls="judgment" aria-selected="false">JUDGEMENT</a>
+		    <a class="nav-link" id="judgmentTab" data-toggle="tab" href="#judgment" role="tab" aria-controls="judgment" aria-selected="false">JUDGMENT</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" id="sentencingTab" data-toggle="tab" href="#sentencing" role="tab" aria-controls="sentencing" aria-selected="false">SENTENCING</a>
@@ -131,7 +131,7 @@
     <xsl:template match="j:CaseCharge">
         <tr>
             <td><xsl:value-of select="normalize-space(j:ChargeDescriptionText)"/></td>
-            <td><xsl:value-of select="j:ChargeSeverityLevel/j:SeverityLevelDescriptionText"/></td>
+            <td><xsl:value-of select="j:ChargeSeverityText"/></td>
             <td><xsl:value-of select="j:ChargeCountQuantity"/></td>
             <td><xsl:value-of select="j:ChargeDisposition/j:ChargeDispositionOtherText"/></td>
             <td><xsl:value-of select="j:ChargeDisposition/nc:DispositionDate/nc:DateTime"/></td>
@@ -169,8 +169,12 @@
             <td><xsl:value-of select="j:SupervisionFineAmount/nc:Amount"/></td>
             <td><xsl:value-of select="ancestor::pcq-res-ext:ProsecutionCase/j:ActivityLocationAssociation[nc:Activity/@structures:ref=$chargeSentenceId]/nc:Location/nc:LocationDescriptionText"/></td>
             <td><xsl:value-of select="nc:ActivityDateRange/nc:StartDate/nc:DateTime"/></td>
+            <td>
+                <xsl:call-template name="getDurationDescription">
+                    <xsl:with-param name="duration" select="j:SentenceTerm/j:TermDuration" />
+                </xsl:call-template>
+            </td>
             <td><xsl:value-of select="nc:ActivityDateRange/nc:EndDate/nc:DateTime"/></td>
-            <td><xsl:value-of select="j:SentenceTerm/j:TermDuration"/></td>
             <td><xsl:value-of select="pcq-res-ext:SentenceParentEventText"/></td>
         </tr>   
     </xsl:template>

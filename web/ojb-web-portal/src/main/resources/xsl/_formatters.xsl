@@ -323,4 +323,92 @@
 		</xsl:choose>
 	</xsl:template>
 	
+    <xsl:template name="parseDurationDays">
+        <xsl:param name="duration" />
+        <xsl:if test="normalize-space($duration) !='' and contains($duration, 'D')">
+            <xsl:choose>
+                <xsl:when test="contains($duration, 'M')">
+                    <xsl:value-of select="substring-before(substring-after($duration, 'M'), 'D')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="contains($duration, 'Y')">
+                            <xsl:value-of select="substring-before(substring-after($duration, 'Y'), 'D')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="substring-before(substring-after($duration, 'P'), 'D')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+        
+    <xsl:template name="parseDurationMonths">
+        <xsl:param name="duration" />
+    
+        <xsl:if test="normalize-space($duration) !='' and contains($duration, 'M')">
+            <xsl:choose>
+                <xsl:when test="contains($duration, 'Y')">
+                    <xsl:value-of select="substring-before(substring-after($duration, 'Y'), 'M')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="substring-before(substring-after($duration, 'P'), 'M')"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+        
+    <xsl:template name="getDurationDescription">
+        <xsl:param name="duration" />
+    
+        <xsl:variable name="years" select="substring-before(substring-after($duration, 'P'), 'Y')" />
+        <xsl:variable name="months">
+              <xsl:call-template name="parseDurationMonths">
+                <xsl:with-param name="duration" select="$duration" />
+              </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="days">
+              <xsl:call-template name="parseDurationDays">
+                <xsl:with-param name="duration" select="$duration" />
+              </xsl:call-template>
+        </xsl:variable>
+        <xsl:if test="normalize-space($years) != ''">
+            <xsl:value-of select="concat($years, ' ')"></xsl:value-of>
+            <xsl:choose>
+                <xsl:when test="xs:integer($years) &gt; 1">
+                    <xsl:text>years</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>year</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    	<xsl:if test="normalize-space($months) != ''">
+    		<xsl:if test="normalize-space($years) != ''"><xsl:text> </xsl:text></xsl:if>
+            <xsl:value-of select="concat($months, ' ')"></xsl:value-of>
+            <xsl:choose>
+                <xsl:when test="xs:integer($months) &gt; 1">
+                    <xsl:text>months</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>month</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    	<xsl:if test="normalize-space($days) != ''">
+        	<xsl:if test="normalize-space($years) != '' or normalize-space($months) != ''"><xsl:text> </xsl:text></xsl:if>
+            <xsl:value-of select="concat($days, ' ')"></xsl:value-of>
+            <xsl:choose>
+                <xsl:when test="xs:integer($days) &gt; 1">
+                    <xsl:text>days</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>day</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+        
+	
 </xsl:stylesheet>    
