@@ -441,11 +441,20 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	}
 	
 	private static void buildPersonOtherIdentification(Element subjectNode, Subscription subscription) {
+		
+		String socialSecurityNum = subscription.getSocialSecurityNum();
 		String personId = subscription.getOtherIdentificationId();
+		
 		if(StringUtils.isNotEmpty(personId)) {
 			Element personIdNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonOtherIdentification");
 			Element identificationNode =  XmlUtils.appendElement(personIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 			identificationNode.setTextContent(personId);
+		}
+		
+		if(StringUtils.isNotEmpty(socialSecurityNum)) {
+			Element socialSecurityNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonSSNIdentification");
+			Element identificationNode =  XmlUtils.appendElement(socialSecurityNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			identificationNode.setTextContent(socialSecurityNum);
 		}
 		
 	}
