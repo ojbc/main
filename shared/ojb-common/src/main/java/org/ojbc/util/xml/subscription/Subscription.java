@@ -59,6 +59,8 @@ public class Subscription implements Serializable {
 	
 	private String otherIdentificationId;
 	
+	private String socialSecurityNum;
+	
 	private Boolean active; 
 	
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
@@ -157,6 +159,14 @@ public class Subscription implements Serializable {
 	
 	private String transactionNumber; 
 	private String ownerProgramOca; 
+	
+	public String getSocialSecurityNum() {
+		return socialSecurityNum;
+	}
+
+	public void setSocialSecurityNum(String socialSecurityNum) {
+		this.socialSecurityNum = socialSecurityNum;
+	}
 	
 	public String getSendingStatePO() {
 		return sendingStatePO;
