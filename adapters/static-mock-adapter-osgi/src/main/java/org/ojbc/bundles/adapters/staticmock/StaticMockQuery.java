@@ -17,6 +17,7 @@
 package org.ojbc.bundles.adapters.staticmock;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CH_DOC;
+
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_COURT_CASE_SEARCH_REQUEST_DOC;
@@ -87,6 +88,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS_E
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WARRANT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PROSECUTION_DECISION_RECORDING_REPORT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,6 +212,8 @@ public class StaticMockQuery {
 	public static final String FIREARM_PROHIBITION_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition";
 
 	public static final String FIREARM_PROHIBITION_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0}SubmitFirearmPurchaseProhibitionQueryRequest";
+	
+	public static final String PROSECUTION_DECISION_REPORT_SYSTEM_ID = "{http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0}";
 	
 	private ClasspathXmlDataSource criminalHistoryDataSource;	
 	
@@ -636,6 +640,9 @@ public class StaticMockQuery {
 			return incidentVehicleSearchDocuments(searchRequestMessage, baseDate);
 			
 		} else if (NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName)) {
+			return vehicleSearchDocuments(searchRequestMessage, baseDate);
+		}
+		else if (NS_PROSECUTION_DECISION_RECORDING_REPORT.equals(rootNamespaceURI) && "ProsecutionDecisionRecordingReport".equals(rootLocalName)) {
 			return vehicleSearchDocuments(searchRequestMessage, baseDate);
 		}
 		throw new IllegalArgumentException("Invalid message: {" + rootNamespaceURI + "}" + rootLocalName);
