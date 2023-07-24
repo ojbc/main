@@ -70,7 +70,7 @@ public class CustodySearchResultBuilderTest {
 		XmlUtils.validateInstance("ssp/Custody_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
 			    "Subset/niem", "exchange_schema.xsd", custodySearchResultsDoc);		
 		
-		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/Custody/CustodySearchResults.xml", 
+		XmlTestUtils.compareDocuments("src/test/resources/DocBuilderTestFiles/Custody/CustodySearchResults.xml", 
 				custodySearchResultsDoc);		
 	}
 	

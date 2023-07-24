@@ -64,7 +64,7 @@ public class CourtCaseSearchResultBuilderTest {
         XmlUtils.validateInstance("ssp/Court_Case_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
         		"Subset/niem", "exchange_schema.xsd", courtCaseSearchResultsDoc);
 				
-		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseSearchResults.xml", courtCaseSearchResultsDoc);	
+		XmlTestUtils.compareDocuments("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseSearchResults.xml", courtCaseSearchResultsDoc);	
 	}
 	
 	@Test

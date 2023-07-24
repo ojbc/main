@@ -1,7 +1,0 @@
-The Information Provider (Target Source) will Disclose PERSON CRIMINAL HISTORY information for a Read (Action) by the Requestor for Investigative Purposes if the following Conditions are satisfied:
-
-1. The Requestor is a FEDERATED QUERY USER
-
-2. and the Requestor's EMPLOYER IS LAW ENFORCEMENT
-
-3. and the Requestor's EMPLOYER SUB UNIT is "HCJDC" or "Maui PD"

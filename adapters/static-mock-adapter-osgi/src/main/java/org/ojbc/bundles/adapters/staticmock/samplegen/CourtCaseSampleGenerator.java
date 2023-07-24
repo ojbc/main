@@ -41,7 +41,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -187,7 +187,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		int caseChargeCount = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 		
-		Logger.getLogger(this.getClass()).info("\n\n CaseCharge Count: " + caseChargeCount + "\n\n");
+//		Logger.getLogger(this.getClass()).info("\n\n CaseCharge Count: " + caseChargeCount + "\n\n");
 
 		for(int i=0; i < caseChargeCount; i++){
 			
