@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0" 
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1" 
+	xmlns:jh-placement-search-codes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/domains/cyfs/2.1/1" schemaLocation="../../Subset/niem/domains/cyfs/2.1/1/cyfs.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:simpleType name="PlacementCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Juvenile Detention Facility">
+				<xsd:annotation>
+					<xsd:documentation>The placement of a juvenile in a licensed juvenile detention facility..</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Foster Home">
+				<xsd:annotation>
+					<xsd:documentation>The placement of juvenile in a twenty four hour a day substitute care away from their parents, guardians, or legal custodians, and for whom (in NA cases) the court has given the Department of Human Services placement and care responsibility, including, but not limited to care provided to a child in a foster family home, foster family group home, or child caring institution licensed or approved under MCL 722.111 et seq., or care provided to a child in a relative's home pursuant to an order of the court.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Group Home">
+				<xsd:annotation>
+					<xsd:documentation>A licensed home for the temporary board and care of abused, neglected, or delinquent children.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Residential">
+				<xsd:annotation>
+					<xsd:documentation>Out of home, staffed facility in which a juvenile will live for a period of time (typically 6 to 18 months).  Courts generally will employ this option only when all community-based choices have been exhausted or when the safety of the community/juvenile is in jeopardy.  Common services available in placement facilities include treatment for sexual offending, drug/alcohol addiction, fire setting behavior, aggression/violent behavior, and complex mental health disorders.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Mother">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Father">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Stepfather">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Stepmother">
+				<xsd:annotation>
+					<xsd:documentation>Custodial or non-custodial parent.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Relative/Fictive Kin">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Jail">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PlacementCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="jh-placement-search-codes:PlacementCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PlacementCategoryCode" type="jh-placement-search-codes:PlacementCategoryCodeType" substitutionGroup="cyfs:PlacementCategory">
+		<xsd:annotation>
+			<xsd:documentation>A type of juvenile placement.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+</xsd:schema>
