@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.Header;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,7 +46,9 @@ public class OJBSamlMap {
 	
 	public void removeToken(String tokenID)
 	{
-		tokens.remove(tokenID);
+		if (StringUtils.isNotBlank(tokenID)) {
+			tokens.remove(tokenID);
+		}
 	}
 
 

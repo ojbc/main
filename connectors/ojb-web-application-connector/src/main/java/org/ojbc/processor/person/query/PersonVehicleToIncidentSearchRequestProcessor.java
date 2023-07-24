@@ -151,6 +151,8 @@ public class PersonVehicleToIncidentSearchRequestProcessor extends RequestRespon
 			}
 		}
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
 		//return response here
 		return response;
 	}

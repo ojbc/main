@@ -129,6 +129,9 @@ public class IncidentSearchRequestProcessor extends RequestResponseProcessor imp
 			response = MergeNotificationErrorProcessor.returnMergeNotificationErrorMessage();
 		}
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
+
 		//return response here
 		return response;
 	}

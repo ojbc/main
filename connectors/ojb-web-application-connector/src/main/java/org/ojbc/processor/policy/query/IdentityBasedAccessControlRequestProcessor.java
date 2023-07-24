@@ -21,6 +21,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -53,6 +54,7 @@ public class IdentityBasedAccessControlRequestProcessor extends RequestResponseP
     
     public String invokeAccessControlRequest(String federatedQueryID, Element samlToken, String... requestedResourceURIs){
         String response = null;
+        String tokenID = StringUtils.EMPTY;
         try {
             if (allowQueriesWithoutSAMLToken) {
                 if (samlToken == null) {
@@ -88,7 +90,7 @@ public class IdentityBasedAccessControlRequestProcessor extends RequestResponseP
 
             // Set the token header so that CXF can retrieve this on the
             // out bound call
-            String tokenID = senderExchange.getExchangeId();
+            tokenID = senderExchange.getExchangeId();
             senderExchange.getIn().setHeader("tokenID", tokenID);
 
             OJBSamlMap.putToken(tokenID, samlToken);
@@ -116,6 +118,10 @@ public class IdentityBasedAccessControlRequestProcessor extends RequestResponseP
                     federatedQueryID + " , and samlTokan " + 
                     OJBUtils.getStringFromDocument(samlToken.getOwnerDocument()) );
         }
+		finally {
+			OJBSamlMap.removeToken(tokenID); 
+			removeRequestFromMap(federatedQueryID);
+		}
 
         return response;
 

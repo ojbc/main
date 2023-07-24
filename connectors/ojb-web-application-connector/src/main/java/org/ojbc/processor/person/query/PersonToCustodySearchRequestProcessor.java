@@ -100,6 +100,8 @@ public class PersonToCustodySearchRequestProcessor extends RequestResponseProces
 		
 		logResponse(response);
 				
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
 		//return response here
 		return response;
 	}

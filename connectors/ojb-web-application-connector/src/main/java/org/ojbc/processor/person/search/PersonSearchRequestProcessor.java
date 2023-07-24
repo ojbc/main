@@ -121,9 +121,7 @@ public class PersonSearchRequestProcessor extends RequestResponseProcessor imple
 			throw(ex);
 		}
 		finally {
-			if (StringUtils.isNotBlank(tokenID)) {
-				OJBSamlMap.removeToken(tokenID); 
-			}
+			OJBSamlMap.removeToken(tokenID); 
 			removeRequestFromMap(federatedQueryID);
 		}
 		

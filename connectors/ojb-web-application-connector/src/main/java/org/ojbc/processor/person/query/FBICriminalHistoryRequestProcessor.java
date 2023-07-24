@@ -103,6 +103,8 @@ public class FBICriminalHistoryRequestProcessor extends RequestResponseProcessor
 			log.debug("Here is the response: " + response);
 		}
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
 		//return response here
 		return response;
 	}

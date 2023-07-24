@@ -21,6 +21,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.processor.MessageProcessor;
@@ -54,6 +55,8 @@ public class FirearmSearchRequestProcessor extends RequestResponseProcessor
 	@Override
 	public String invokeFirearmSearchRequest(FirearmSearchRequest firearmSearchRequest, String federatedQueryID, Element samlToken) throws Exception {
 		String response = "";
+		
+		String tokenID = "";
 		try
 		{
 			if (allowQueriesWithoutSAMLToken)
@@ -86,7 +89,7 @@ public class FirearmSearchRequestProcessor extends RequestResponseProcessor
 			senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
 			
 			//Set the token header so that CXF can retrieve this on the outbound call
-			String tokenID = senderExchange.getExchangeId();
+			tokenID = senderExchange.getExchangeId();
 			senderExchange.getIn().setHeader("tokenID", tokenID);
 	
 			OJBSamlMap.putToken(tokenID, samlToken);
@@ -117,6 +120,10 @@ public class FirearmSearchRequestProcessor extends RequestResponseProcessor
 		{
 			ex.printStackTrace();
 			throw(ex);
+		}
+		finally {
+			OJBSamlMap.removeToken(tokenID); 
+			removeRequestFromMap(federatedQueryID);
 		}
 		
 		//return response here

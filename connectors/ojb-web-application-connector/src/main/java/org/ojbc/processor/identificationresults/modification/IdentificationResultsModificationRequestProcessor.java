@@ -105,6 +105,9 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 		
 		Exchange responseExchange = pollMapForResponseExchange(federatedQueryID);
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
+		
 		return retrieveResponse(responseExchange);
 	}
 

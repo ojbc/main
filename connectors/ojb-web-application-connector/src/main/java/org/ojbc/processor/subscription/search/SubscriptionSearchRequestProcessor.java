@@ -23,6 +23,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.processor.MessageProcessor;
@@ -56,8 +57,10 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 	public String invokeSubscriptionSearchRequest(SubscriptionSearchRequest request,
 			Element samlToken) throws Exception {
 		
-		String response = "";
-		
+		String response = StringUtils.EMPTY;
+		String tokenID = StringUtils.EMPTY;
+		String federatedQueryID = getFederatedQueryId();
+
 		try
 		{
 			if (allowQueriesWithoutSAMLToken)
@@ -82,13 +85,12 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 			
 			//Set exchange body to XML Request message
 			senderExchange.getIn().setBody(requestMessage);
-			String federatedQueryID = getFederatedQueryId();
 			//Set reply to and WS-Addressing message ID
 			senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
 			senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
 			
 			//Set the token header so that CXF can retrieve this on the outbound call
-			String tokenID = senderExchange.getExchangeId();
+			tokenID = senderExchange.getExchangeId();
 			senderExchange.getIn().setHeader("tokenID", tokenID);
 	
 			OJBSamlMap.putToken(tokenID, samlToken);
@@ -120,7 +122,10 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 			ex.printStackTrace();
 			throw(ex);
 		}
-		
+		finally {
+			OJBSamlMap.removeToken(tokenID); 
+			removeRequestFromMap(federatedQueryID);
+		}
 		//return response here
 		return response;
 		

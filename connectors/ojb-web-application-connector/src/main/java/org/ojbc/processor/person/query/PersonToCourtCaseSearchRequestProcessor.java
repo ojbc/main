@@ -113,6 +113,8 @@ public class PersonToCourtCaseSearchRequestProcessor extends RequestResponseProc
 			response="<exchange:IncidentPersonSearchResults xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0\"/>"; 
 		}
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
 		//return response here
 		return response;
 	}

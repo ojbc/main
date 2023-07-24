@@ -21,6 +21,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.processor.MessageProcessor;
@@ -53,6 +54,7 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 	public void unsubscribe(Unsubscription unsubscription, String federatedQueryID,
 			Element samlToken) throws Exception {
 		
+		String tokenID = StringUtils.EMPTY;
 		try
 		{
 			if (allowQueriesWithoutSAMLToken)
@@ -85,7 +87,7 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 			senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
 			
 			//Set the token header so that CXF can retrieve this on the outbound call
-			String tokenID = senderExchange.getExchangeId();
+			tokenID = senderExchange.getExchangeId();
 			senderExchange.getIn().setHeader("tokenID", tokenID);
 	
 			OJBSamlMap.putToken(tokenID, samlToken);
@@ -98,6 +100,9 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 		{
 			ex.printStackTrace();
 			throw(ex);
+		}
+		finally {
+			OJBSamlMap.removeToken(tokenID); 
 		}
 		
 		

@@ -108,6 +108,9 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		
 		identificationResultsQueryResponse.setMessageId(federatedQueryID);
 		
+		OJBSamlMap.removeToken(tokenID); 
+		removeRequestFromMap(federatedQueryID);
+
 		return identificationResultsQueryResponse;
 	}
 

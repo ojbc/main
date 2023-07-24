@@ -21,6 +21,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.processor.MessageProcessor;
@@ -53,6 +54,7 @@ public class PolicyAcknowledgmentRecordingRequestProcessor extends RequestRespon
     public String invokePolicyAcknowledgementRecordingRequest(String federatedQueryID,
             Element samlToken) throws Exception {
         String response = "";
+        String tokenID = "";
         try {
             if (allowQueriesWithoutSAMLToken) {
                 if (samlToken == null) {
@@ -86,7 +88,7 @@ public class PolicyAcknowledgmentRecordingRequestProcessor extends RequestRespon
 
             // Set the token header so that CXF can retrieve this on the out
             // bound call
-            String tokenID = senderExchange.getExchangeId();
+            tokenID = senderExchange.getExchangeId();
             senderExchange.getIn().setHeader("tokenID", tokenID);
 
             OJBSamlMap.putToken(tokenID, samlToken);
@@ -113,6 +115,10 @@ public class PolicyAcknowledgmentRecordingRequestProcessor extends RequestRespon
             ex.printStackTrace();
             throw (ex);
         }
+		finally {
+			OJBSamlMap.removeToken(tokenID); 
+			removeRequestFromMap(federatedQueryID);
+		}
 
         // return response here
         return response;
