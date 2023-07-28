@@ -182,7 +182,7 @@ public class MessageProcessor {
 			wsAddressingMessageProperties.put("From",from);
 		}
 		
-		exchange.getMessage().removeHeaders("*", Exchange.DESTINATION_OVERRIDE_URL, "recipientListReplyToEndpoint");
+		exchange.getMessage().removeHeaders("*", Exchange.DESTINATION_OVERRIDE_URL, "recipientListReplyToEndpoint", "tokenID");
 
 		//Call method to create proper request context map
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
