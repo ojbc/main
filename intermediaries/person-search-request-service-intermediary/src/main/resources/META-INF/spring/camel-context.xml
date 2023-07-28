@@ -64,7 +64,7 @@
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
 			
-      <camel:convertBodyTo type="java.lang.String" />
+            <camel:convertBodyTo type="java.lang.String" />
 			<log message="Full message is: ${body}" loggingLevel="INFO" />
       
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
@@ -110,8 +110,9 @@
 				</camel:otherwise>
 			</camel:choice>
 
-      <!-- Get the SAML Token from the request message and put into OJB SAML Map -->
-      <camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+			<camel:log message="tokenID in processRequest route header.tokenID: ${header.tokenID}"></camel:log>
 
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
@@ -165,10 +166,10 @@
 
 		<camel:route>
 			<from uri="direct:aggregateFederatedQuery" />
-			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+			<log message="In aggregator with correlation id: ${in.header.tokenID}"/>
 			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true" >
 				<correlationExpression>
-					<camel:header>federatedQueryRequestGUID</camel:header>
+					<camel:header>tokenID</camel:header>
 				</correlationExpression>
 				<completionTimeoutExpression>
 					<camel:simple>${properties:federatedQuery.personSearch.personSearchIntermediaryFederatedQueryTimeout}</camel:simple>
@@ -182,6 +183,12 @@
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
 				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
+				<log message="This is the CamelAggregatedCorrelationKey: ${exchangeProperty.CamelAggregatedCorrelationKey}" loggingLevel="DEBUG"/>
+				
+				<camel:setHeader name="tokenID">
+				    <camel:simple>${exchangeProperty.CamelAggregatedCorrelationKey}</camel:simple>
+				</camel:setHeader>
+				<camel:to uri="bean:ojbSamlMap?method=removeToken"/>
 				
 				<to uri="bean:defaultFederatedSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
 				
@@ -242,6 +249,7 @@
 		<!-- Process aggregated federated responses here, call entity resolution after transforming payload if necessary-->
 		<camel:route id="processFederatedResponseRoute">
 			<camel:from uri="direct:processFederatedResponse"/>
+			<camel:log message="tokenID when processFederatedResponse header.tokenID: ${header.tokenID}"></camel:log>
 			
 			<camel:setHeader name="searchResponseNodeCount">
 				<xpath resultType="java.lang.String">count(//extResults:PersonSearchResult)</xpath>
