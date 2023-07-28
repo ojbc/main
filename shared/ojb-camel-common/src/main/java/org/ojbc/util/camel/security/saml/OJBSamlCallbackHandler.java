@@ -17,9 +17,7 @@
 package org.ojbc.util.camel.security.saml;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -59,7 +57,8 @@ public class OJBSamlCallbackHandler implements CallbackHandler{
 				Message message = PhaseInterceptorChain.getCurrentMessage(); 
 				
 				//Get Token ID from CXF message
-				String tokenID = returnCamelPropertyFromCXFMessage(message, "tokenID");
+				String tokenID = SAMLTokenUtils.returnCamelPropertyFromCXFMessage(message, "tokenID");
+				log.error("tokenID in the OJBSamlCallBackHandler: " + Objects.toString(tokenID));
 				
 				if (StringUtils.isNotBlank(tokenID))
 				{
@@ -85,36 +84,6 @@ public class OJBSamlCallbackHandler implements CallbackHandler{
 
 	}
 	
-	@SuppressWarnings("unchecked")
-	private String returnCamelPropertyFromCXFMessage(Message message, String propertyName) throws IOException
-	{
-		//See http://servicemix.396122.n5.nabble.com/Change-user-password-for-cxfbc-provider-td415283.html
-	    Map<String, Object> reqCtx =
-	    	org.apache.cxf.helpers.CastUtils.cast((Map<?,
-	    	?>)message.get(Message.INVOCATION_CONTEXT)); 
-		
-	    reqCtx = org.apache.cxf.helpers.CastUtils.cast((Map<?,
-	    		?>)reqCtx.get("RequestContext")); 
-
-	    reqCtx = org.apache.cxf.helpers.CastUtils.cast((Map<?,
-	    		?>)reqCtx.get(Message.PROTOCOL_HEADERS)); 
-	    
-		List<String> propertyList = (ArrayList<String>)reqCtx.get(propertyName);
-		
-		String returnValue = "";
-		
-		if (propertyList != null)
-		{	
-			returnValue = propertyList.get(0);
-			
-			if (returnValue==null)
-			{
-				throw new IOException("Unable to retrieve message property from CXF Message: " + propertyName);
-			}	
-		}
-		
-		return returnValue;
-	}
 	
 	public OJBSamlMap getOJBSamlMap() {
 		return OJBSamlMap;

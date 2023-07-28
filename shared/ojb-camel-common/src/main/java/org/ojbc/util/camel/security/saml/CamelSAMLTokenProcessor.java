@@ -48,7 +48,7 @@ public class CamelSAMLTokenProcessor {
 			{
 				//Set the token header so that CXF can retrieve this on the outbound call
 				String tokenID = exchange.getExchangeId();
-				exchange.getIn().setHeader("tokenID", tokenID);
+				exchange.getMessage().setHeader("tokenID", tokenID);
 	
 				log.info("Retrieved SAML token from inbound message and adding to token map with ID: " + tokenID);
 				
