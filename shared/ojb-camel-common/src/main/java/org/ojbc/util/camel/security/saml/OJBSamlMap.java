@@ -40,7 +40,7 @@ public class OJBSamlMap {
 	{
 		log.debug("Token class name: " + token.getClass().getName());
 		log.debug("Token ID: " + tokenID);
-		log.debug("OJBSamlMap size: " + tokens.size());
+		log.debug("OJBSamlMap size before adding new entry: " + tokens.size());
 		
 		tokens.put(tokenID, token);
 	}
@@ -48,6 +48,7 @@ public class OJBSamlMap {
 	public void removeToken(@Header(value = "tokenID")String tokenID)
 	{
 		if (StringUtils.isNotBlank(tokenID)) {
+			log.debug("removing tokenID from the OJBSamlMap: " + tokenID);
 			tokens.remove(tokenID);
 		}
 	}
