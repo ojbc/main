@@ -26,7 +26,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
@@ -198,8 +198,8 @@
 			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
 			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
 			
+            <!-- TODO what does the below 2 lines do? there is no putReplyToAddress called -->			
 			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
-
 			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
 			
 			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
