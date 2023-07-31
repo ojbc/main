@@ -38,14 +38,13 @@
 
 	<properties>
 		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
+		<camel-version>3.11.7</camel-version>
 		<cxf-version>3.4.4</cxf-version>
 		<slf4j-version>1.7.10</slf4j-version>
 		<spring-version>5.3.24</spring-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
-		<osgi-core-version>1.4.0</osgi-core-version>
+		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
@@ -78,13 +77,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>${osgi-core-version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
 		<!-- Spring Boot -->
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
