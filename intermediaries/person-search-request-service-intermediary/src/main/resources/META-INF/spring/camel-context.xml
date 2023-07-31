@@ -153,7 +153,15 @@
 				</camel:recipientList>
 				
 			</camel:split>
-
+			
+			<camel:choice>
+                <camel:when>
+                    <camel:simple>${properties:federatedQuery.personSearch.removeTokenId} == 'true'</camel:simple>
+		            <camel:log message="tokenID in after split: ${header.tokenID}"></camel:log>
+		            <camel:to uri="bean:ojbSamlMap?method=removeToken"/>
+                </camel:when>
+            </camel:choice>
+			
 		</camel:route>
 
 		<camel:route>
@@ -166,10 +174,10 @@
 
 		<camel:route>
 			<from uri="direct:aggregateFederatedQuery" />
-			<log message="In aggregator with correlation id: ${in.header.tokenID}"/>
+			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
 			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true" >
 				<correlationExpression>
-					<camel:header>tokenID</camel:header>
+					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				<completionTimeoutExpression>
 					<camel:simple>${properties:federatedQuery.personSearch.personSearchIntermediaryFederatedQueryTimeout}</camel:simple>
@@ -183,12 +191,6 @@
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
 				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
-				<log message="This is the CamelAggregatedCorrelationKey: ${exchangeProperty.CamelAggregatedCorrelationKey}" loggingLevel="DEBUG"/>
-				
-				<camel:setHeader name="tokenID">
-				    <camel:simple>${exchangeProperty.CamelAggregatedCorrelationKey}</camel:simple>
-				</camel:setHeader>
-				<camel:to uri="bean:ojbSamlMap?method=removeToken"/>
 				
 				<to uri="bean:defaultFederatedSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
 				
