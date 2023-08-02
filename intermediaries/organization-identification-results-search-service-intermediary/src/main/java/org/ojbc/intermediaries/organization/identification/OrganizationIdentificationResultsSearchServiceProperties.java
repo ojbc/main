@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "rapbackSearchIntermediary")
+@ConfigurationProperties(prefix = "rapback-search-intermediary")
 public class OrganizationIdentificationResultsSearchServiceProperties {
 	private String dbAuditLog = "false";
 
