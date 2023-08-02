@@ -205,7 +205,6 @@
 			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
 			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
 			
-            <!-- TODO what does the below 2 lines do? there is no putReplyToAddress called -->			
 			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
 			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
 			
