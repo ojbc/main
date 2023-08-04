@@ -185,6 +185,8 @@
 
 				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
 				
+				<to uri="bean:defaultFederatedSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
+				
 				<camel:to uri="direct:processFederatedResponse"/>
 
 			</aggregate>
