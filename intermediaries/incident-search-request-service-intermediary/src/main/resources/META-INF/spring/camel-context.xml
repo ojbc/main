@@ -221,7 +221,7 @@
 				
 				<log message="This is the list of endpoints that did not respond: ${in.headers.endpointsThatDidNotRespond}"/>
 				
-				<to uri="bean:incidentSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
+				<to uri="bean:defaultFederatedSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
 				
 				<camel:to uri="direct:processFederatedResponse"/>
 
