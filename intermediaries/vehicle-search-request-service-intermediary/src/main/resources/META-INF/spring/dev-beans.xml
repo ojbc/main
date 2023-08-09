@@ -60,4 +60,7 @@
 	<util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap" >
 		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="vehicleSearchRequestServiceAdapterEndpoint" />			
 	</util:map>
+  <util:map id="addressToAdapterURIMap" map-class="java.util.HashMap" >
+	<entry value="${federatedQuery.vehicleSearch.vehicleSearchRequestServiceRMS}" key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-DPS" />
+   </util:map>  	
 </beans>
