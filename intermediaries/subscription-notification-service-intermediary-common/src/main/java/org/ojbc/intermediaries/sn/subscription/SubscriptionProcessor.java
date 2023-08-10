@@ -74,7 +74,7 @@ public abstract class SubscriptionProcessor {
         
         Number subscriptionId = subscriptionSearchQueryDAO.subscribe(request, new LocalDate());
         
-        exchange.getIn().setHeader("subscriptionId", subscriptionId);
+        exchange.getIn().setHeader("subscriptionId", subscriptionId.intValue());
         
         exchange.getMessage().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
     }
