@@ -72,7 +72,9 @@ public abstract class SubscriptionProcessor {
         Message incomingMsg = exchange.getIn();
         SubscriptionRequest request = makeSubscriptionRequestFromIncomingMessage(incomingMsg);
         
-        subscriptionSearchQueryDAO.subscribe(request, new LocalDate());
+        Number subscriptionId = subscriptionSearchQueryDAO.subscribe(request, new LocalDate());
+        
+        exchange.getIn().setHeader("subscriptionId", subscriptionId);
         
         exchange.getMessage().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
     }

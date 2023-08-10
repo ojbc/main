@@ -84,7 +84,7 @@
 			
 			<!-- perform auditing response here -->
 			<camel:doTry>
-			
+			    <camel:log message="This is the subscription id to audit: ${in.headers.subscriptionId}"/>
 				<camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionResponse"/>
 				
 				<camel:doCatch>
