@@ -25,6 +25,7 @@ import org.apache.camel.Body;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 	
 	private static final Log log = LogFactory.getLog( CivilEmailNotificationFilterProcessor.class );
 	
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	@Override
