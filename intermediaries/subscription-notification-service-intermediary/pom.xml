@@ -300,7 +300,7 @@
 	<build>
 
 		<defaultGoal>install</defaultGoal>
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
       <!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
       <!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
