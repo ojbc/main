@@ -115,8 +115,8 @@ public class SubscriptionAuditProcessor {
 		
 		if (subscriptionSubscribeAction.equals(SubscriptionAction.SUBSCRIBE_ACTION))
 		{
-			Integer subscriptionId = (Integer) exchange.getIn().getHeader("subscriptionId");
-			subscriptionAction.setStateSubscriptionId(String.valueOf(subscriptionId));
+			String subscriptionId = (String) exchange.getIn().getHeader("subscriptionId");
+			subscriptionAction.setStateSubscriptionId(subscriptionId);
 		}	
 		
 		//Call processor here to make update
