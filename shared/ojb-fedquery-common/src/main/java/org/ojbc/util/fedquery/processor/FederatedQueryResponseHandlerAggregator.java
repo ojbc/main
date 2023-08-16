@@ -168,14 +168,15 @@ public class FederatedQueryResponseHandlerAggregator {
 		
 		log.info("Search profile in response: " + searchProfileInResponseExchange);
 		
-		if (StringUtils.isEmpty(searchProfileInResponseExchange))
+		if (StringUtils.isEmpty(searchProfileInResponseExchange) || !endpointsCalled.containsKey(searchProfileInResponseExchange))
 		{
-			log.info("No search profile in message, try retrieving search profile from WS-Addressing 'From' Address");
+			log.info("No search profile in message or search profile is not matched in the endpointsCalled, "
+					+ "try retrieving search profile from WS-Addressing 'From' Address");
 
 			HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
 			String wsAddressingFrom = wsAddressingHeadersMap.get("From");
 			
-			log.info("WS-Addressing 'From' Address" + wsAddressingFrom);	
+			log.info("WS-Addressing 'From' Address: " + wsAddressingFrom);	
 
 			if (addressToAdapterURIMap != null)
 			{
