@@ -26,10 +26,9 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<!-- SENT TO LE and CRIME LAB -->
 	<nc:Case structures:id="CASE001">
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>13-0707-SM</nc:IdentificationID>
+			<nc:IdentificationID>ID3456</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
@@ -48,10 +47,10 @@
 			<j:CaseCourt>
 				<j:OrganizationAugmentation>
 					<j:OrganizationORIIdentification>
-						<nc:IdentificationID>MI560025J</nc:IdentificationID>
+						<nc:IdentificationID>ORI34565</nc:IdentificationID>
 					</j:OrganizationORIIdentification>
 				</j:OrganizationAugmentation>
-				<j:CourtName>75th District Court</j:CourtName>
+				<j:CourtName>Court</j:CourtName>
 			</j:CaseCourt>
 		</j:CaseAugmentation>
 	</nc:Case>
@@ -63,58 +62,58 @@
 					<nc:LocationStreet>
 						<nc:StreetFullText>123 Main Street</nc:StreetFullText>
 					</nc:LocationStreet>
-					<nc:LocationCityName>Midland</nc:LocationCityName>
+					<nc:LocationCityName>Smithtown</nc:LocationCityName>
 					<nc:LocationStateName>MI</nc:LocationStateName>
-					<nc:LocationPostalCode>44640</nc:LocationPostalCode>
+					<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 				</nc:Address>
 			</nc:OrganizationLocation>
-			<nc:OrganizationName>Midland County Prosecutor</nc:OrganizationName>
+			<nc:OrganizationName>ACME Prosecutor</nc:OrganizationName>
 			<nc:OrganizationPrimaryContactInformation>
 				<nc:ContactTelephoneNumber>
 					<nc:FullTelephoneNumber>
-						<nc:TelephoneNumberFullID>989-832-6777</nc:TelephoneNumberFullID>
+						<nc:TelephoneNumberFullID>222-222-2222</nc:TelephoneNumberFullID>
 					</nc:FullTelephoneNumber>
 				</nc:ContactTelephoneNumber>
 			</nc:OrganizationPrimaryContactInformation>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>MI560013A</nc:IdentificationID>
+					<nc:IdentificationID>ORI7878</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</pdr-report-ext:ProsecutionAttorneyOrganization>
 	</j:CaseProsecutionAttorney>
 	<j:Arrest structures:id="ARR001">
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>13-003661</nc:IdentificationID>
+			<nc:IdentificationID>123456</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityDate>
 			<nc:Date>2013-04-18</nc:Date>
 		</nc:ActivityDate>
 		<j:ArrestAgency>
 			<nc:OrganizationIdentification>
-				<nc:IdentificationID>56MPD</nc:IdentificationID>
+				<nc:IdentificationID>123PD</nc:IdentificationID>
 			</nc:OrganizationIdentification>
 			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>MI5658300</nc:IdentificationID>
+					<nc:IdentificationID>ORI99999</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
 	</j:Arrest>
 	<j:Charge structures:id="CRG001">
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-		<j:ChargeDescriptionText>Aggravated Assault</j:ChargeDescriptionText>
+		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
 		<j:ChargeSeverityLevel>
 			<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
 		</j:ChargeSeverityLevel>
 		<j:ChargeStatute>
 			<j:StatuteCodeIdentification>
-				<nc:IdentificationID>750/81A</nc:IdentificationID>
+				<nc:IdentificationID>12345</nc:IdentificationID>
 			</j:StatuteCodeIdentification>
 			<j:StatuteCodeSectionIdentification>
-				<nc:IdentificationID>750.81a(1)</nc:IdentificationID>
+				<nc:IdentificationID>12345(1)</nc:IdentificationID>
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
 		<j:ChargeSubject>
@@ -126,10 +125,10 @@
 			</j:SubjectSupervision>
 		</j:ChargeSubject>
 		<j:ChargeTrackingIdentification>
-			<nc:IdentificationID>561300086001</nc:IdentificationID>
+			<nc:IdentificationID>CTID1234</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
 		<pdr-report-ext:CriminalTrackingIdentification>
-			<nc:IdentificationID>CTN23456</nc:IdentificationID>
+			<nc:IdentificationID>CRIM12345</nc:IdentificationID>
 		</pdr-report-ext:CriminalTrackingIdentification>
 	</j:Charge>
 	<j:Subject>
@@ -140,19 +139,19 @@
 			<nc:Date>1991-01-01</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonSurName>NOTREAL</nc:PersonSurName>
-			<nc:PersonFullName>WILLIE NELSON-NOTREAL</nc:PersonFullName>
+			<nc:PersonSurName>Last</nc:PersonSurName>
+			<nc:PersonFullName>First Last</nc:PersonFullName>
 		</nc:PersonName>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>12345678</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>1234567K</nc:IdentificationID>
+				<nc:IdentificationID>1234567FP</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 		<pdr-report-ext:PersonTrackingIdentification>
-			<nc:IdentificationID>TCN1234</nc:IdentificationID>
+			<nc:IdentificationID>PTI1234</nc:IdentificationID>
 		</pdr-report-ext:PersonTrackingIdentification>
 	</nc:Person>
 	<nc:Identity structures:id="ALIAS001">
