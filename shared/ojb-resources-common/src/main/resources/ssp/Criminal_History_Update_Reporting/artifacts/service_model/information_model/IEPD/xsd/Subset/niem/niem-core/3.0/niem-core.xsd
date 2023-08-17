@@ -48,9 +48,11 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ActivityDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
@@ -109,7 +111,12 @@
       <xs:documentation>A data type for an aggregation of information about a set of related activities and events.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType"/>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:CaseFiling" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ConditionType">
@@ -120,6 +127,18 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="nc:ConditionDisciplinaryAction" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ContactInformationType">
+    <xs:annotation>
+      <xs:documentation>A data type for how to contact a person or an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -159,6 +178,7 @@
           <xs:element ref="nc:DispositionCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionEntity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DispositionDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -173,6 +193,7 @@
         <xs:sequence>
           <xs:element ref="nc:DocumentCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -189,6 +210,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="FullTelephoneNumberType">
+    <xs:annotation>
+      <xs:documentation>A data type for a full telephone number.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:TelephoneNumberFullID" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="IdentificationType">
     <xs:annotation>
       <xs:documentation>A data type for a representation of an identity.</xs:documentation>
@@ -198,6 +231,18 @@
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
           <xs:element ref="nc:IdentificationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IdentityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of known aspects or characteristics by which a person is defined or recognized.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:IdentityPersonRepresentation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -247,8 +292,23 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:OrganizationPrimaryContactInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and an identity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -284,6 +344,7 @@
           <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -326,6 +387,18 @@
       <xs:extension base="nc:TextType"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>A data type for a state of something or someone.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StatusDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="StreetType">
     <xs:annotation>
       <xs:documentation>A data type for a road, thoroughfare, or highway.</xs:documentation>
@@ -334,6 +407,30 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:StreetFullText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SupervisionType">
+    <xs:annotation>
+      <xs:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:SupervisionCustodyStatus" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TelephoneNumberType">
+    <xs:annotation>
+      <xs:documentation>A data type for a telephone number for a telecommunication device.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:TelephoneNumberRepresentation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -374,6 +471,16 @@
   <xs:element name="ActivityDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityDisposition" type="nc:DispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or outcome of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that references an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Address" type="nc:AddressType" substitutionGroup="nc:LocationAddressAbstract" nillable="true">
@@ -421,9 +528,24 @@
       <xs:documentation>An augmentation point for CaseType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseFiling" type="nc:DocumentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A document or other piece of information filed by someone or something involved in a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ConditionDisciplinaryAction" type="nc:DisciplinaryActionType" nillable="true">
     <xs:annotation>
       <xs:documentation>A corrective action that is specified as part of a condition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ContactMeans" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a means of contacting someone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ContactTelephoneNumber" type="nc:TelephoneNumberType" substitutionGroup="nc:ContactMeans">
+    <xs:annotation>
+      <xs:documentation>A telephone number for a telecommunication device by which a person or organization may be contacted.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
@@ -476,6 +598,11 @@
       <xs:documentation>A date a disposition occurred.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DispositionDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a disposition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DispositionEntity" type="nc:EntityType" nillable="true">
     <xs:annotation>
       <xs:documentation>An agency responsible for making a disposition decision.</xs:documentation>
@@ -491,6 +618,11 @@
       <xs:documentation>A data concept for a kind of document.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DocumentFiledDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date a document was officially filed with an organization or agency.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
     <xs:annotation>
       <xs:documentation>An organization capable of bearing legal rights and responsibilities.</xs:documentation>
@@ -501,6 +633,11 @@
       <xs:documentation>A data concept for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="FullTelephoneNumber" type="nc:FullTelephoneNumberType" substitutionGroup="nc:TelephoneNumberRepresentation">
+    <xs:annotation>
+      <xs:documentation>A full telephone number.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
@@ -509,6 +646,16 @@
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Identity" type="nc:IdentityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of known aspects, identifiers, and/or characteristics by which a person is defined or recognized.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentityPersonRepresentation" type="nc:PersonType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of person characteristics used as an identification.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Location" type="nc:LocationType" nillable="true">
@@ -539,6 +686,11 @@
   <xs:element name="LocationState" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationStateName" type="nc:ProperNameTextType" substitutionGroup="nc:LocationState">
+    <xs:annotation>
+      <xs:documentation>A name of a state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationStreet" type="nc:StreetType" substitutionGroup="nc:AddressDeliveryPoint" nillable="true">
@@ -591,14 +743,29 @@
       <xs:documentation>An identification that references an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationLocation" type="nc:LocationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A location of an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationPrimaryContactInformation" type="nc:ContactInformationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A preferred means of contacting an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Person" type="nc:PersonType">
     <xs:annotation>
       <xs:documentation>A human being.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonAliasIdentityAssociation" type="nc:PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an alias identity used by that person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonAugmentationPoint" abstract="true">
@@ -616,6 +783,11 @@
       <xs:documentation>A data concept for a color of the eyes of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete name of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A first name of a person.</xs:documentation>
@@ -629,6 +801,11 @@
   <xs:element name="PersonHeightMeasure" type="nc:MeasureType" nillable="true">
     <xs:annotation>
       <xs:documentation>A measurement of the height of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonIdentityAssociation" type="nc:PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an identity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonMiddleName" type="nc:PersonNameTextType" nillable="true">
@@ -686,9 +863,29 @@
       <xs:documentation>A person of whom the role object is a function.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="StatusDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a status or condition of something or someone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="StreetFullText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A complete reference for a street.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionCustodyStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of the custody of a person under supervision.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TelephoneNumberFullID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete telephone number.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TelephoneNumberRepresentation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a telephone number.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
