@@ -69,7 +69,7 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 			return response;
 		}	
 		
-		Element searchResultsMetadata = null;
+		Element searchResultsMetadata = (Element)XmlUtils.xPathNodeSearch(response, "//srm:SearchResultsMetadata");
 		
 		for (String endpointThatDidNotRespond : endpointsThatDidNotRespond)
 		{
@@ -83,10 +83,6 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 					Element wrapperElement = (Element)XmlUtils.xPathNodeSearch(response, "/OJBAggregateResponseWrapper");
 					Element errorContainerElement = XmlUtils.appendElement(wrapperElement, parentElementNamespace, parentElementName);
 					searchResultsMetadata = XmlUtils.appendElement(errorContainerElement, OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
-				}
-				else
-				{
-					searchResultsMetadata = (Element)XmlUtils.xPathNodeSearch(response, "//srm:SearchResultsMetadata");
 				}
 				
 				Element searchRequestError = XmlUtils.appendElement(searchResultsMetadata, OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchRequestError");
