@@ -34,13 +34,13 @@ private static final Log LOG= LogFactory.getLog(CustomHttpSessionListener.class)
 
  @Override
  public void sessionCreated(HttpSessionEvent se) {
-     LOG.error("New session is created.");
+     LOG.info("New session is created.");
      User principal = SecurityContextHolder.getContext().getAuthentication() != null? (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal():null;
      LOG.info("principal: " + Objects.toString(principal));
  }
 
  @Override
  public void sessionDestroyed(HttpSessionEvent se) {
-     LOG.error("Session destroyed.");
+     LOG.warn("Session destroyed.");
 
  }}
