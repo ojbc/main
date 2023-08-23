@@ -18,10 +18,12 @@ package org.ojbc.bundles.intermediaries;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.Test;
 import org.ojbc.bundles.intermediaires.personquery.PersonQueryServiceCriminalHistoryIntermediaryApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -33,10 +35,13 @@ import org.springframework.test.context.ActiveProfiles;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @UseAdviceWith
 public class TestPersonQueryServiceCriminalHistory {
+    @Autowired
+    private ModelCamelContext context;
 
     @Test
     public void testApplicationStartup()
     {
+    	context.start();
     	assertTrue(true);
     }	
 }
