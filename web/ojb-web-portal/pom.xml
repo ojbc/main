@@ -35,8 +35,8 @@
 	</parent>
 
 	<properties>
-        <spring-boot-version>2.5.14</spring-boot-version>
-        <camel-version>3.11.0</camel-version>
+        <spring-boot-version>2.5.15</spring-boot-version>
+        <camel-version>3.11.7</camel-version>
 		<!-- Dependency versions -->
 		<joda-time.version>2.2</joda-time.version>
 		<saxonHe.version>9.5.1-5</saxonHe.version>
