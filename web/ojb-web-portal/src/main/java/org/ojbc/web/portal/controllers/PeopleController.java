@@ -15,6 +15,8 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.controllers;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -288,6 +290,41 @@ public class PeopleController {
 		return "people/searchDetails";
 	}
 
+	@GetMapping(value = "detailsPage")
+	public String getDetailsPage(HttpServletRequest request, @RequestParam String systemName, 
+			@RequestParam("searchResultCategory") String searchResultCategory,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
+		
+		try {
+			
+			processDetailRequest(request, systemName, detailsRequest, model, authentication, searchResultCategory);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.put("searchContent", "error");
+		}
+		
+		systemName = URLDecoder.decode(StringUtils.trimToEmpty(systemName), "UTF-8");
+		model.put("systemName", systemName);
+		return "people/detailsPage";
+	}
+	
+	@GetMapping(value = "cchCriminalHistoryDetails/")
+	public String getCchCriminalHistoryDetails(HttpServletRequest request, @RequestParam String systemName, 
+			@RequestParam("searchResultCategory") String searchResultCategory,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			Map<String, Object> model, Authentication authentication) {
+		
+		try {
+			
+			processDetailRequest(request, systemName, detailsRequest, model, authentication, searchResultCategory);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.put("searchContent", "error");
+		}
+		return "people/searchDetails";
+	}
+	
 	@GetMapping(value = "instanceDetails")
 	public @ResponseBody String instanceDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
@@ -361,15 +398,15 @@ public class PeopleController {
 		
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory) throws Exception{
+	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, 
+			Map<String, Object> model, Authentication authentication, String searchResultCategory) throws Exception{
 		
-		if (searchResultCategory.equals("Incident") && (authentication == null || !SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)))
-		{
+		if (searchResultCategory.equals("Incident") && 
+				(authentication == null || !SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL))){
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident list.</span>"); 	
 			Thread.sleep(500);
 		}
-		else
-		{	
+		else{	
 		    String convertedContent;
 			try {
 				convertedContent = getConvertedSearchResult(request, systemName,
