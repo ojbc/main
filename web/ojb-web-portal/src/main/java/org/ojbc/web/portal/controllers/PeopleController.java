@@ -309,20 +309,18 @@ public class PeopleController {
 		return "people/detailsPage";
 	}
 	
-	@GetMapping(value = "cchCriminalHistoryDetails/")
-	public String getCchCriminalHistoryDetails(HttpServletRequest request, @RequestParam String systemName, 
-			@RequestParam("searchResultCategory") String searchResultCategory,
+	@GetMapping(value = "cch/detailsPage")
+	public String getCchCriminalHistoryDetailsPage(HttpServletRequest request,  
 			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
-			Map<String, Object> model, Authentication authentication) {
+			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
 		
-		try {
-			
-			processDetailRequest(request, systemName, detailsRequest, model, authentication, searchResultCategory);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			model.put("searchContent", "error");
-		}
-		return "people/searchDetails";
+		detailsRequest.setIdentificationSourceText(appProperties.getCchDrillDownIdentificationSourceText());
+		detailsRequest.setQueryType(appProperties.getCchDrillDownQueryType());
+		
+		return getDetailsPage(request, 
+				appProperties.getCchDrillDownSystemName(), 
+				appProperties.getCchDrillDownSearchResultCategory(),
+				detailsRequest, model, authentication);
 	}
 	
 	@GetMapping(value = "instanceDetails")
