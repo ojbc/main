@@ -84,6 +84,11 @@ public class AppProperties {
 	private String totpUserServerBaseUrl = "https://localhost:8443/OJB/totpUser/";
 	private String otpAuthTotpURL = "ojbc-portal";
 	
+	private String cchDrillDownSystemName="Criminal History";
+	private String cchDrillDownIdentificationSourceText="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
+	private String cchDrillDownQueryType="Person";
+	private String cchDrillDownSearchResultCategory="Criminal History";
+	
 	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
 	
 	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
@@ -305,6 +310,38 @@ public class AppProperties {
 
 	public void setOtpAuthTotpURL(String otpAuthTotpURL) {
 		this.otpAuthTotpURL = otpAuthTotpURL;
+	}
+
+	public String getCchDrillDownSystemName() {
+		return cchDrillDownSystemName;
+	}
+
+	public void setCchDrillDownSystemName(String cchDrillDownSystemName) {
+		this.cchDrillDownSystemName = cchDrillDownSystemName;
+	}
+
+	public String getCchDrillDownIdentificationSourceText() {
+		return cchDrillDownIdentificationSourceText;
+	}
+
+	public void setCchDrillDownIdentificationSourceText(String cchDrillDownIdentificationSourceText) {
+		this.cchDrillDownIdentificationSourceText = cchDrillDownIdentificationSourceText;
+	}
+
+	public String getCchDrillDownQueryType() {
+		return cchDrillDownQueryType;
+	}
+
+	public void setCchDrillDownQueryType(String cchDrillDownQueryType) {
+		this.cchDrillDownQueryType = cchDrillDownQueryType;
+	}
+
+	public String getCchDrillDownSearchResultCategory() {
+		return cchDrillDownSearchResultCategory;
+	}
+
+	public void setCchDrillDownSearchResultCategory(String cchDrillDownSearchResultCategory) {
+		this.cchDrillDownSearchResultCategory = cchDrillDownSearchResultCategory;
 	}
 
 }
