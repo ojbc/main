@@ -79,6 +79,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	private CriminalHistoryRequestProcessor criminalHistoryRequestProcessor;
 	
 	@Autowired(required=false)
+	private CriminalHistoryRequestProcessor cchCriminalHistoryRequestProcessor;
+	
+	@Autowired(required=false)
 	private FBICriminalHistoryRequestProcessor fbiCriminalHistoryRequestProcessor;
 	
 	@Autowired(required=false)
@@ -187,6 +190,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 //						+ "		<cht-doc:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cht-doc:Base64BinaryObject> "
 //						+ "	</cht-doc:StateCriminalHistoryRecordDocument>"
 //						+ "</cht-doc:CriminalHistoryTextDocument>";
+		else if (OJBCWebServiceURIs.CCH_CRIMINAL_HISTORY.equals(requestIdSrcTxt)){
+			return cchCriminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+		}		
 		else if (OJBCWebServiceURIs.CRIMINAL_HISTORY_FBI.equals(requestIdSrcTxt)){
 				return fbiCriminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 //				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "

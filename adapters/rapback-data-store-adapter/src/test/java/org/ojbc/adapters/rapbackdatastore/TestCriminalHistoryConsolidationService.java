@@ -102,7 +102,7 @@ public class TestCriminalHistoryConsolidationService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceEndpointMock;
     
 	@BeforeEach

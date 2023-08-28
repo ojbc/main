@@ -61,6 +61,10 @@
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CRIMINAL_HISTORY" />
 		</entry>
 		
+    	<entry key ="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---CCH-Criminal-History">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CCH_CRIMINAL_HISTORY" />
+		</entry>
+		
 		<!-- Person Firearms -->
     	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />

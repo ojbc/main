@@ -47,6 +47,7 @@
 	
 	<import resource="warrants-query.xml"/>
 	<import resource="criminal-history-query.xml"/> 
+	<import resource="cch-criminal-history-query.xml"/> 
 	<import resource="firearms-query.xml"/>
 	<import resource="incident-report-query.xml"/> 
 	<import resource="juvenile-query.xml"/>  
