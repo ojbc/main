@@ -309,6 +309,10 @@ public class PeopleController {
 		return "people/detailsPage";
 	}
 	
+	/**
+	 * Example of url after logging in 
+	 * http://localhost:8080/ojb-web-portal/people/cch/detailsPage?identificationID=sample-5234100668017296985.xml
+	 */
 	@GetMapping(value = "cch/detailsPage")
 	public String getCchCriminalHistoryDetailsPage(HttpServletRequest request,  
 			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
