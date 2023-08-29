@@ -43,22 +43,22 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person-query-service-criminal-history-intermediary" streamCache="true">
 	
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint"
-			uri="cxf:bean:personQueryRequestCriminalHistorySystemsToSystemIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+			uri="cxf:bean:personQueryRequestCriminalHistorySystemsToSystemIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
-			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryRequestCriminalHistoryServiceAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
+	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 
 	    <endpoint id="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" 
-	    	uri="cxf:bean:personQueryRequestCriminalHistorySystemToSystemAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
+	    	uri="cxf:bean:personQueryRequestCriminalHistorySystemToSystemAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 	
 		<endpoint id="presentPersonQueryResultsCriminalHistoryServiceEndpoint" 
-			uri="cxf:bean:presentPersonQueryResultsCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
+			uri="cxf:bean:presentPersonQueryResultsCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
 
 		<camel:route>
 			<camel:from uri="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint" />
@@ -84,7 +84,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:personQuery.criminalHistory.dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.criminalHistory.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -99,7 +99,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:personQuery.criminalHistory.dbEnancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.criminalHistory.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
@@ -208,7 +208,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:personQuery.criminalHistory.dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.criminalHistory.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -223,7 +223,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:personQuery.criminalHistory.dbEnancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:federatedQuery.criminalHistory.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:personQueryCriminalHistoryResponseSQLProcessor?method=auditPersonQueryCriminalHistoryResponseResponse"/>
@@ -248,13 +248,13 @@
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				<completionTimeoutExpression>
-					<camel:simple>${properties:personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
+					<camel:simple>${properties:federatedQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
 				</completionTimeoutExpression>
 				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				<log
-					message="completed by ${exchangeProperty.CamelAggregatedCompletedBy}, completion size ${exchangeProperty.CamelAggregatedSize}, aggregation key ${exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by ${exchangeProperty.CamelAggregatedCompletedBy}, completion size ${exchangeProperty.CamelAggregatedSize}, aggregation key ${exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{federatedQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 

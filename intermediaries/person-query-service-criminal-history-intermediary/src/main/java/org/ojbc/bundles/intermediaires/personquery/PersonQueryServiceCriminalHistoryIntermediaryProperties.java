@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "person-query-service")
+@ConfigurationProperties(prefix = "federated.query.criminal.history")
 public class PersonQueryServiceCriminalHistoryIntermediaryProperties {
 	private String dbAuditLog = "false";
 

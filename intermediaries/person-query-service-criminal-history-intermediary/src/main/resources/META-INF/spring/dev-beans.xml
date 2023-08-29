@@ -34,10 +34,10 @@
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        "
-       profile="dev,cchdev">
+       profile="dev">
        
             <camel:endpoint id="presentPersonQueryResultsCchCriminalHistoryServiceEndpoint" 
-            uri="cxf:bean:presentPersonQueryResultsCchCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
+            uri="cxf:bean:presentPersonQueryResultsCchCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
        
 		    <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically-->
 		    <cxf:cxfEndpoint id="presentPersonQueryResultsCchCriminalHistoryService"
