@@ -437,7 +437,6 @@
     </xsl:template>
     <xsl:template match="rap:SubjectCautionInformationText">
     	<xsl:value-of select="."/><br/>
-    	<xsl:variable name="position" select="position()"/>
     </xsl:template>
     
 	<xsl:template match="nc:PersonPhysicalFeature">
