@@ -51,7 +51,7 @@
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">System Name: <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /><br/> Access Denied: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
+		<span class="error">System Name: <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /><br/> Restricted Access: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
 	</xsl:template>
 
 	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
