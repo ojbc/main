@@ -144,7 +144,7 @@
 
 			<camel:log message="Timer started"/>
 
-			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="true">
 				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"/>	
 				
