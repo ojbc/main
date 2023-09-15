@@ -125,6 +125,13 @@
 				</camel:recipientList>
 				
 			</camel:split>
+            <camel:choice>
+                <camel:when>
+                    <camel:simple>${properties:identificationResultsQueryIntermediary.removeTokenId} == true</camel:simple>
+                    <camel:log message="tokenID in after split: ${header.tokenID}"></camel:log>
+                    <camel:to uri="bean:ojbSamlMap?method=removeToken"/>
+                </camel:when>
+            </camel:choice>
 		</route>
 
 		<camel:route>

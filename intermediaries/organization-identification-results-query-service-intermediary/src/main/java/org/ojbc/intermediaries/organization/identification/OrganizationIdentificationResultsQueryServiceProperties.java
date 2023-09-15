@@ -21,9 +21,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "criminal.history.update")
+@ConfigurationProperties(prefix = "identification.results.query.intermediary")
 public class OrganizationIdentificationResultsQueryServiceProperties {
 	private String dbAuditLog = "false";
+	private boolean removeTokenId=true;
 
 	public String getDbAuditLog() {
 		return dbAuditLog;
@@ -31,6 +32,14 @@ public class OrganizationIdentificationResultsQueryServiceProperties {
 
 	public void setDbAuditLog(String dbAuditLog) {
 		this.dbAuditLog = dbAuditLog;
+	}
+
+	public boolean isRemoveTokenId() {
+		return removeTokenId;
+	}
+
+	public void setRemoveTokenId(boolean removeTokenId) {
+		this.removeTokenId = removeTokenId;
 	} 
 
 }
