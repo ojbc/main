@@ -89,9 +89,41 @@ public class SAMLTokenUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Element createStaticAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes) throws Exception
+	public static Element createStaticAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, 
+			String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, 
+			Map<SamlAttribute, String> customAttributes) throws Exception
 	{
-		Assertion assertion = SAMLTokenUtils.createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, createAttributeStatements, customAttributes);
+		Assertion assertion = SAMLTokenUtils.createStaticAssertionWithCustomAttributes(issuerString, 
+				defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, 
+				createAttributeStatements, customAttributes, false);
+		return assertion.getDOM();
+	}
+	
+	/**
+	 * This method is used to create a static SAML assertion as an element.  It will contain hard coded data and is typically used for testing
+	 * or for creating a token in a mock connector or adapter where an IDP or token is unavailable.
+	 * 
+	 * This is a thin wrapper around createStaticAssertionWithCustomAttributes so users don't need to be aware of OpenSAML
+	 * 
+	 * 
+	 * @param issuerString
+	 * @param defaultCanonicalizationAlgorithm
+	 * @param defaultRSASignatureAlgorithm
+	 * @param createAuthnStatements
+	 * @param createAttributeStatements
+	 * @param customAttributes
+	 * @param useUserGroupsAttribute
+	 * @return
+	 * @throws Exception
+	 */
+	public static Element createStaticAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, 
+			String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, 
+			Map<SamlAttribute, String> customAttributes, 
+			boolean useUserGroupsAttribute) throws Exception
+	{
+		Assertion assertion = SAMLTokenUtils.createStaticAssertionWithCustomAttributes(issuerString, 
+				defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, 
+				createAttributeStatements, customAttributes, useUserGroupsAttribute);
 		return assertion.getDOM();
 	}
 	
@@ -110,7 +142,10 @@ public class SAMLTokenUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes) throws Exception
+	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, 
+			String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, 
+			boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes, 
+			boolean useUserGroupsAttribute) throws Exception
 	{
 		
 		SAMLAssertionBuilder samlAssertionBuilder = new SAMLAssertionBuilder();
@@ -138,8 +173,12 @@ public class SAMLTokenUtils {
 			authenticationMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT;
 		}	
 		
-		Assertion assertion = samlAssertionBuilder.createSamlAssertion(issuerString, "_408184603d310905303442e592991adc", "https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", "http://ojbc.org/ADS/WebServiceConsumer", 
-				authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, customAttributes);
+		Assertion assertion = samlAssertionBuilder.createSamlAssertion(issuerString, 
+				"_408184603d310905303442e592991adc", 
+				"https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", 
+				"http://ojbc.org/ADS/WebServiceConsumer", 
+				authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, 
+				customAttributes, useUserGroupsAttribute);
 		
 		return assertion;
 	}
@@ -182,6 +221,11 @@ public class SAMLTokenUtils {
     		customAttributes.put(SamlAttribute.CriminalJusticeEmployerIndicator, "true");
     	}
 
+    	if (!customAttributes.containsKey(SamlAttribute.IncidentAccessIndicator))
+    	{
+    		customAttributes.put(SamlAttribute.IncidentAccessIndicator, "true");
+    	}
+    	
     	if (!customAttributes.containsKey(SamlAttribute.LawEnforcementEmployerIndicator))
     	{
     		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "true");

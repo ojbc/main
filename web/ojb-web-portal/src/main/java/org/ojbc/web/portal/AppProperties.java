@@ -88,6 +88,7 @@ public class AppProperties {
 	private String cchDrillDownIdentificationSourceText="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---CCH-Criminal-History";
 	private String cchDrillDownQueryType="Person";
 	private String cchDrillDownSearchResultCategory="Criminal History";
+	private boolean useSamlUserGroupsAttribute = false; 
 	
 	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
 	
@@ -342,6 +343,14 @@ public class AppProperties {
 
 	public void setCchDrillDownSearchResultCategory(String cchDrillDownSearchResultCategory) {
 		this.cchDrillDownSearchResultCategory = cchDrillDownSearchResultCategory;
+	}
+
+	public boolean isUseSamlUserGroupsAttribute() {
+		return useSamlUserGroupsAttribute;
+	}
+
+	public void setUseSamlUserGroupsAttribute(boolean useSamlUserGroupsAttribute) {
+		this.useSamlUserGroupsAttribute = useSamlUserGroupsAttribute;
 	}
 
 }

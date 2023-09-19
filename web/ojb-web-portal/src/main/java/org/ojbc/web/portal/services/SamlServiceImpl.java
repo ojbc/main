@@ -35,9 +35,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.util.XMLUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.web.portal.AppProperties;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -49,8 +52,11 @@ import org.w3c.dom.Element;
 @Profile("!standalone")
 public class SamlServiceImpl implements SamlService{
 	
-	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);
+	private static final Log log = LogFactory.getLog(SamlServiceImpl.class);
 
+    @Autowired 
+    AppProperties appProperties;
+    
     @Value("${webapplication.allowQueriesWithoutSAMLToken:false}")
     private Boolean allowQueriesWithoutSAMLToken;
 
@@ -68,7 +74,7 @@ public class SamlServiceImpl implements SamlService{
 		}
 		
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
-			LOG.info("Creating demo user saml assertion.");
+			log.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
 	}
 		
@@ -116,10 +122,10 @@ public class SamlServiceImpl implements SamlService{
 		 */
 		 //Hard coded to pick up a single assertion...could loop through assertion headers if there will  be more than one
 		String assertionHttpHeaderName = request.getHeader("Shib-Assertion-01");
-		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
+		log.info("Loading assertion from: " + assertionHttpHeaderName);
 		
 		if(assertionHttpHeaderName == null){
-			LOG.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
+			log.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
 			return null;
 		}
 		
@@ -154,11 +160,13 @@ public class SamlServiceImpl implements SamlService{
             if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
-            customAttributes.put(SamlAttribute.IncidentAccessIndicator, "true");
-            samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
-                    SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
-                    SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+            //customAttributes.put(SamlAttribute.IncidentAccessIndicator, "false");
             
+        	samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+        			SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+        			SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes, 
+        			appProperties.isUseSamlUserGroupsAttribute());
+            log.info(XMLUtils.prettyDocumentToString(samlAssertion.getOwnerDocument())); 
         } catch (Exception e) {
             e.printStackTrace();
         }
