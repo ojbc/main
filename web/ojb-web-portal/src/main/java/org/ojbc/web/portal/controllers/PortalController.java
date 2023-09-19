@@ -52,7 +52,6 @@ import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
-import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
@@ -274,13 +273,13 @@ public class PortalController implements ApplicationContextAware {
 		if (enableEnhancedAudit)
 		{
         	try {
-				String employerName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
-				String federationId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
-				String employerSubunitName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
-				String firstName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
-				String lastName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.SurName);
-				String emailAddress = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
-				String identityProviderId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+				String employerName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+				String federationId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+				String employerSubunitName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+				String firstName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+				String lastName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.SurName);
+				String emailAddress = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+				String identityProviderId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
 				
 				restEnhancedAuditClient.auditUserLogout(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
 			} catch (Exception e) {

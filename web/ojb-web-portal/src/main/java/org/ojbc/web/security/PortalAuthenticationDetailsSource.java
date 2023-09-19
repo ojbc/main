@@ -27,12 +27,12 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.WebPortalConstants;
-import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
@@ -129,7 +129,7 @@ public class PortalAuthenticationDetailsSource implements
         	log.info("samlAssertion is null ");
         }	
         else {
-        	ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
+        	ori = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
         	federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
         }
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
@@ -203,8 +203,8 @@ public class PortalAuthenticationDetailsSource implements
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_ADMIN.name()));
         	}
         	
-        	String criminalJusticeEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
-        	String lawEnforcementEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
+        	String criminalJusticeEmployerIndicator = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
+        	String lawEnforcementEmployerIndicator = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
 
         	log.info("orisWithoutIncidentDetailAccess:" + orisWithoutIncidentDetailAccess);
         	log.info("Employer ORI:" + ori);
@@ -249,7 +249,7 @@ public class PortalAuthenticationDetailsSource implements
             
             SimpleGrantedAuthority roleAuthIncidentAccess = new SimpleGrantedAuthority(Authorities.AUTHZ_INCIDENT_SEARCH_SOURCES.name());
             if (appProperties.getRequireIncidentAccessControl() && grantedAuthorities.contains(roleAuthQuery)) {
-            	String incidentAccessIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IncidentAccessIndicator); 
+            	String incidentAccessIndicator = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.IncidentAccessIndicator); 
             	if (BooleanUtils.toBoolean(incidentAccessIndicator)) {
             		grantedAuthorities.add(roleAuthIncidentAccess); 
             	}
@@ -262,13 +262,13 @@ public class PortalAuthenticationDetailsSource implements
         if (enableEnhancedAudit)
         {
         	try {
-				String employerName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
-				String federationId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
-				String employerSubunitName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
-				String firstName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
-				String lastName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.SurName);
-				String emailAddress = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
-				String identityProviderId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+				String employerName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+				String federationId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+				String employerSubunitName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+				String firstName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+				String lastName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.SurName);
+				String emailAddress = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+				String identityProviderId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
 				
 				restEnhancedAuditClient.auditUserLogin(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
 			} catch (Exception e) {
