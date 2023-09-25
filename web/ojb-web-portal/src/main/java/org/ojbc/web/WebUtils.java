@@ -31,7 +31,8 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -63,15 +64,8 @@ public class WebUtils {
 	}
 	
 	public static Boolean getFederatedQueryUserIndicator(Element samlAssertion) {
-		String federatedQueryUserIndicatorString = null;
-        try {
-			federatedQueryUserIndicatorString  = XmlUtils.xPathStringSearch(samlAssertion,
-			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-			        + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue");
-		} catch (Exception e) {
-			log.warn("Failed to retrieve FederatedQueryUserIndicator");
-			e.printStackTrace();
-		}
+		String federatedQueryUserIndicatorString = 
+				SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederatedQueryUserIndicator); 
         
         log.info("Federated query user indicator: " + federatedQueryUserIndicatorString);
         

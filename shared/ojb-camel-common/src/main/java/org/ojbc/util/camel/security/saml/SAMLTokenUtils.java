@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
@@ -35,6 +37,7 @@ import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class SAMLTokenUtils {
     private final static Log log = LogFactory.getLog(SAMLTokenUtils.class);
@@ -311,11 +314,36 @@ public class SAMLTokenUtils {
 	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
 		String attributeValue = null;
 		try {
-			attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
-			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-			        + "saml2:Attribute[@Name='" 
-	        		+ samlAttribute.getAttibuteName() 
-	        		+ "']/saml2:AttributeValue");
+			
+			Node userGroupsNode = XmlUtils.xPathNodeSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/"
+					+ "saml2:Attribute[@Name='" 
+					+ SamlAttribute.Groups.getAttibuteName() 
+					+ "']");
+			
+			if (!SamlAttribute.isGroupAttribute(samlAttribute)
+					|| userGroupsNode == null) {
+				attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
+						"/saml2:Assertion/saml2:AttributeStatement[1]/"
+								+ "saml2:Attribute[@Name='" 
+								+ samlAttribute.getAttibuteName() 
+								+ "']/saml2:AttributeValue");
+			}
+			else {
+
+				if (samlAttribute == SamlAttribute.EmployerORI) {
+					String oriAttibuteValue = XmlUtils.xPathStringSearch(userGroupsNode, 
+							"saml2:AttributeValue[starts-with(normalize-space(), '" + samlAttribute.getGroupsAttributeValue() + "')]"); 
+					if (StringUtils.isNotBlank(oriAttibuteValue)) {
+						attributeValue = StringUtils.substringAfter(oriAttibuteValue, samlAttribute.getGroupsAttributeValue()); 
+					}
+				}
+				else {
+					boolean nodeExists = XmlUtils.nodeExists(userGroupsNode, 
+							"saml2:AttributeValue[normalize-space()='" + samlAttribute.getGroupsAttributeValue()+"']"); 
+					attributeValue = BooleanUtils.toStringTrueFalse( nodeExists );
+				}
+			}
+			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
