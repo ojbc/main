@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -356,26 +359,10 @@ public class SAMLTokenUtils {
         if (token != null) {
             Assertion assertion = token.getToken().getSaml2();
 
-            if (assertion != null) {
-                List<AttributeStatement> attributeStatements = assertion.getAttributeStatements();
-
-                AttributeStatement attributeStatement = attributeStatements.get(0);
-                List<Attribute> attributes = attributeStatement.getAttributes();
-
-                for (Attribute attribute : attributes) {
-                    String attributeName = attribute.getName();
-
-                    if (attributeName.equals(samlAttribute.getAttibuteName())) {
-                        XMLObject attributeValue = attribute.getAttributeValues().get(0);
-                        String attributeValueAsString = attributeValue.getDOM().getTextContent();
-
-                        log.debug(samlAttribute + " in SAML assertion: "
-                                + attributeValueAsString);
-                        return attributeValueAsString;
-                    }
-                }
-            }
+            return getAttributeValue(assertion.getDOM(), samlAttribute);
         }
+        
+        log.error("Not able to get attribue value from null token.");
         return null;
     }
 
