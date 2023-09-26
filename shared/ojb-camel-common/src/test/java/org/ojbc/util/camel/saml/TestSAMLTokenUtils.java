@@ -39,7 +39,7 @@ public class TestSAMLTokenUtils {
 		
 		assertNotNull(samlToken);
 		
-		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		assertEquals(17, samlToken.getAttributeStatements().get(0).getAttributes().size());
 		
 		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
 		{
@@ -158,7 +158,7 @@ public class TestSAMLTokenUtils {
 		
 		assertNotNull(samlToken);
 		
-		assertEquals(16, samlToken.getAttributeStatements().get(0).getAttributes().size());
+		assertEquals(17, samlToken.getAttributeStatements().get(0).getAttributes().size());
 		
 		for (Attribute attributes : samlToken.getAttributeStatements().get(0).getAttributes())
 		{

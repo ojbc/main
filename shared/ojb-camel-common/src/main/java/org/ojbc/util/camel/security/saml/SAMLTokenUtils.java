@@ -150,6 +150,29 @@ public class SAMLTokenUtils {
 	 */
 	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, 
 			String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, 
+			boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes) throws Exception
+	{
+		return createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, 
+				createAuthnStatements, createAttributeStatements, customAttributes, false);
+	}		
+	/**
+	 * This function will create/sign an assertion.
+	 * You can pass in a customAttributes map to set the GFIPM attributes as you wish, NULL is accepted for the map as well.
+	 * If you don't set any custom attributes, you can set createAttributeStatements to true and default attribute will
+	 * be created.
+	 * 
+	 * @param issuerString
+	 * @param defaultCanonicalizationAlgorithm
+	 * @param defaultRSASignatureAlgorithm
+	 * @param createAuthnStatements
+	 * @param createAttributeStatements
+	 * @param customAttributes
+	 * @param useUserGroupsAttribute
+	 * @return
+	 * @throws Exception
+	 */
+	public static Assertion createStaticAssertionWithCustomAttributes(String issuerString, 
+			String defaultCanonicalizationAlgorithm, String defaultRSASignatureAlgorithm, boolean createAuthnStatements, 
 			boolean createAttributeStatements, Map<SamlAttribute, String> customAttributes, 
 			boolean useUserGroupsAttribute) throws Exception
 	{
