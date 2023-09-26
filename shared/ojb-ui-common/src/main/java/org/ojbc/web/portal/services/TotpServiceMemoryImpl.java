@@ -27,7 +27,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 //@Service("totpServiceMemoryImpl")
 //This is commented out on Hawaii's request to build a NTOTP war.  --hw
