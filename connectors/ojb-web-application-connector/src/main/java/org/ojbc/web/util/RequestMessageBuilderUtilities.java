@@ -749,6 +749,9 @@ public class RequestMessageBuilderUtilities {
 
     public static Document createPolicyBasedAccessControlRequest(Element samlToken, String... requestedResources) throws Exception {
     	
+    	if (samlToken == null) {
+    		throw new IllegalArgumentException("The samlToken can not be null for the access control request"); 
+    	}
         Document document = OJBCXMLUtils.createDocument();       
         Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST, 
                 OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST 
