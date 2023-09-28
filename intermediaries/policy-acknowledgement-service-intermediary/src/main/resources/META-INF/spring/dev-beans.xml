@@ -29,8 +29,8 @@
        profile="dev">
 	
 			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:mem:policy-acknowledgement;INIT=CREATE SCHEMA IF NOT EXISTS policy_acknowledgement" />
+				<property name="driverClassName" value="org.h2.Driver" />
+				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:policy-acknowledgement;INIT=CREATE SCHEMA IF NOT EXISTS policy_acknowledgement" />
 				<property name="username" value="sa" />
 			</bean>
 </beans>

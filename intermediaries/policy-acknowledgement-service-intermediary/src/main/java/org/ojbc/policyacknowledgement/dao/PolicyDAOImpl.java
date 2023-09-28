@@ -93,7 +93,7 @@ public class PolicyDAOImpl implements PolicyDAO {
 
     private void validateOri(String ori) {
         if (!isValidOri(ori)) {
-            log.error(INVALID_ORI_ERROR_MESSAGE + ":" + ori);
+            log.error(INVALID_ORI_ERROR_MESSAGE + ":" + (StringUtils.isNotBlank(ori)?ori:""));
             throw new IllegalArgumentException(ATTRIBUTES_MISSING_OR_INVALID); 
 		}
     }

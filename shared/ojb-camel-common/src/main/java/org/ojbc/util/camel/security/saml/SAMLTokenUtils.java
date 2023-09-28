@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,10 +32,7 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.core.xml.XMLObject;
 import org.opensaml.saml.saml2.core.Assertion;
-import org.opensaml.saml.saml2.core.Attribute;
-import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -339,17 +333,16 @@ public class SAMLTokenUtils {
 	
 	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
 		String attributeValue = null;
+		
 		try {
-			
-			Node userGroupsNode = XmlUtils.xPathNodeSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			Node userGroupsNode = XmlUtils.xPathNodeSearch(samlAssertion, "//saml2:Assertion/saml2:AttributeStatement[1]/"
 					+ "saml2:Attribute[@Name='" 
 					+ SamlAttribute.Groups.getAttibuteName() 
 					+ "']");
-			
 			if (!SamlAttribute.isGroupAttribute(samlAttribute)
 					|| userGroupsNode == null) {
 				attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
-						"/saml2:Assertion/saml2:AttributeStatement[1]/"
+						"//saml2:Assertion/saml2:AttributeStatement[1]/"
 								+ "saml2:Attribute[@Name='" 
 								+ samlAttribute.getAttibuteName() 
 								+ "']/saml2:AttributeValue");
@@ -380,9 +373,7 @@ public class SAMLTokenUtils {
             SamlAttribute samlAttribute) {
 
         if (token != null) {
-            Assertion assertion = token.getToken().getSaml2();
-
-            return getAttributeValue(assertion.getDOM(), samlAttribute);
+			return getAttributeValue(token.getToken().getSaml2().getDOM(), samlAttribute);
         }
         
         log.error("Not able to get attribue value from null token.");
