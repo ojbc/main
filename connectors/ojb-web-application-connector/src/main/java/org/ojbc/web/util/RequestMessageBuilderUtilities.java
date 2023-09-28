@@ -103,10 +103,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ArrayUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
@@ -774,32 +776,25 @@ public class RequestMessageBuilderUtilities {
                 OjbcNamespaceContext.NS_NC_30, "PersonName"); 
         Element personGivenName = XmlUtils.appendElement(personName, 
                 OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-        String userFirstName = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:GivenName']/saml2:AttributeValue"); 
+        String userFirstName = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.GivenName);
         personGivenName.setTextContent(userFirstName);
         
         Element personSurName = XmlUtils.appendElement(personName, 
                 OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-        String userLastName = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue"); 
+        String userLastName = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.SurName);; 
         personSurName.setTextContent(userLastName);
         
         Element identityIdentification = XmlUtils.appendElement(personIdentity, 
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "IdentityIdentification");
         Element identificationID = XmlUtils.appendElement(identityIdentification, 
                 OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-        String federationId = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue"); 
+        String federationId = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.FederationId);; 
         identificationID.setTextContent(federationId);
         
         Element federatedQueryUserIndicator = XmlUtils.appendElement(personIdentity, 
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "FederatedQueryUserIndicator");
-        String federatedQueryUserIndicatorValue = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue"); 
+        String federatedQueryUserIndicatorValue = SAMLTokenUtils.getAttributeValue(samlToken, 
+        		SamlAttribute.FederatedQueryUserIndicator);; 
         federatedQueryUserIndicator.setTextContent(federatedQueryUserIndicatorValue);
         
         Element contactInformationAssociation = XmlUtils.appendElement(personIdentity, 
@@ -814,9 +809,7 @@ public class RequestMessageBuilderUtilities {
                 OjbcNamespaceContext.NS_NC_30, "ContactInformation");
         Element contactEmailID = XmlUtils.appendElement(contactInformation, 
                 OjbcNamespaceContext.NS_NC_30, "ContactEmailID");
-        String email = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue");
+        String email = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.EmailAddressText);;
         contactEmailID.setTextContent(email);
         
         Element contactTelephoneNumber = XmlUtils.appendElement(contactInformation, 
@@ -825,9 +818,7 @@ public class RequestMessageBuilderUtilities {
                 OjbcNamespaceContext.NS_NC_30, "FullTelephoneNumber");
         Element telephoneNumberFullID = XmlUtils.appendElement(fullTelephoneNumber, 
                 OjbcNamespaceContext.NS_NC_30, "TelephoneNumberFullID");
-        String telephoneNumber = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:TelephoneNumber']/saml2:AttributeValue"); 
+        String telephoneNumber = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.TelephoneNumber);; 
         telephoneNumberFullID.setTextContent(telephoneNumber);
         
         Element personEmploymentAssociation = XmlUtils.appendElement(personIdentity, 
@@ -842,16 +833,12 @@ public class RequestMessageBuilderUtilities {
                 OjbcNamespaceContext.NS_NC_30, "EntityOrganization"); 
         Element organizationName = XmlUtils.appendElement(entityOrganization, 
                 OjbcNamespaceContext.NS_NC_30, "OrganizationName"); 
-        String userAgency = XmlUtils.xPathStringSearch(samlToken,
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue"); 
+        String userAgency = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.EmployerName);; 
         organizationName.setTextContent(userAgency);
         
         Element organizationUnitName = XmlUtils.appendElement(entityOrganization, 
                 OjbcNamespaceContext.NS_NC_30, "OrganizationUnitName"); 
-        String employerSubUnitName = XmlUtils.xPathStringSearch(samlToken, 
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:EmployerSubUnitName']/saml2:AttributeValue");  
+        String employerSubUnitName = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.EmployerSubUnitName);;  
         organizationUnitName.setTextContent(employerSubUnitName);
         
         Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, 
@@ -860,30 +847,25 @@ public class RequestMessageBuilderUtilities {
                 OjbcNamespaceContext.NS_JXDM_50, "OrganizationORIIdentification"); 
         Element oriIdentificationID = XmlUtils.appendElement(organizationORIIdentification, 
                 OjbcNamespaceContext.NS_NC_30, "IdentificationID"); 
-        String ori = XmlUtils.xPathStringSearch(samlToken, 
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:EmployerORI']/saml2:AttributeValue");  
+        String ori = SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.EmployerORI);;  
         oriIdentificationID.setTextContent(ori);
 
         Element criminalJusticeOrganizationIndicator = XmlUtils.appendElement(entityOrganization, 
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "CriminalJusticeOrganizationIndicator"); 
-        String criminalJusticeOrganizationIndicatorValue = XmlUtils.xPathStringSearch(samlToken, 
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:ext:user:CriminalJusticeEmployerIndicator']/saml2:AttributeValue"); 
+        String criminalJusticeOrganizationIndicatorValue = 
+        		SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.CriminalJusticeEmployerIndicator);; 
         criminalJusticeOrganizationIndicator.setTextContent(criminalJusticeOrganizationIndicatorValue);
 
         Element lawEnforcementOrganizationIndicator = XmlUtils.appendElement(entityOrganization, 
                 OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "LawEnforcementOrganizationIndicator"); 
-        String lawEnforcementOrganizationIndicatorValue = XmlUtils.xPathStringSearch(samlToken, 
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                        + "saml2:Attribute[@Name='gfipm:ext:user:LawEnforcementEmployerIndicator']/saml2:AttributeValue");
+        String lawEnforcementOrganizationIndicatorValue = 
+        		SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.LawEnforcementEmployerIndicator);;
         lawEnforcementOrganizationIndicator.setTextContent(lawEnforcementOrganizationIndicatorValue);
         
         Element employeePositionName  = XmlUtils.appendElement(personEmploymentAssociation, 
                 OjbcNamespaceContext.NS_NC_30, "EmployeePositionName"); 
-        String employeePositionNameValue = XmlUtils.xPathStringSearch(samlToken, 
-                "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                + "saml2:Attribute[@Name='gfipm:2.0:user:EmployeePositionName']/saml2:AttributeValue");
+        String employeePositionNameValue = SAMLTokenUtils.getAttributeValue(samlToken, 
+        		SamlAttribute.EmployeePositionName);
         employeePositionName.setTextContent(employeePositionNameValue);
         
         for (String requestedResource : requestedResources){
