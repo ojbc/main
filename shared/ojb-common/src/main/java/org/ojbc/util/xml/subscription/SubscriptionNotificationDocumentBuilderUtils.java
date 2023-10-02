@@ -227,7 +227,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		if (StringUtils.isNotBlank(subscription.getTransactionNumber())){
 			Element fingerprintIdentificationTransactionIdentification = XmlUtils.appendElement(subMsgNode, NS_SUB_MSG_EXT, 
 					"FingerprintIdentificationTransactionIdentification");
-			XmlUtils.appendTextElement(fingerprintIdentificationTransactionIdentification, NS_NC, "IdentificationID", subscription.getTransactionNumber());
+			XmlUtils.appendTextElement(fingerprintIdentificationTransactionIdentification, NS_NC, "IdentificationID", 
+					subscription.getTransactionNumber());
 		}
 		
 		buildSubQualIdNode(subMsgNode, subscription);

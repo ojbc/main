@@ -16,20 +16,16 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import java.util.List;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.opensaml.core.xml.XMLObject;
-import org.opensaml.saml.saml2.core.Assertion;
-import org.opensaml.saml.saml2.core.Attribute;
-import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.ojbc.util.model.saml.SamlAttribute;
 
 public class SubscriptionSAMLTokenProcessor {
 
@@ -47,77 +43,24 @@ public class SubscriptionSAMLTokenProcessor {
 		try
 		{
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(cxfMessage);
+			SAMLTokenPrincipal assertion = SAMLTokenUtils.getSamlTokenFromCxfMessage(cxfMessage);
 			
 			if (assertion != null)
 			{
-				List<AttributeStatement> attributeStatements =assertion.getAttributeStatements();
-				
-				AttributeStatement attributeStatement = attributeStatements.get(0);
-				
-				List<Attribute> attributes  = attributeStatement.getAttributes();
-				
-				for (Attribute attribute : attributes)
-				{
-					String attributeName = attribute.getName();
-					
-					if (attributeName.equals("gfipm:2.0:user:FederationId"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("Federation ID in SAML Token: " + attributeValueAsString);
-						
-						samlFederationID = attributeValueAsString;
-					}
+				samlFederationID = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.FederationId);
+				log.debug("Federation ID in SAML Token: " + samlFederationID);
 
-					if (attributeName.equals("gfipm:2.0:user:EmailAddressText"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("Email Address in SAML Token: " + attributeValueAsString);
-						
-						samlEmailAddress = attributeValueAsString;
-					}
+				samlEmailAddress = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.EmailAddressText);
+				samlFirstName = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.GivenName);
+				samlLastName = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.SurName);
+				samlEmployerOri = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.EmployerORI);
+				samlEmployerAgencyName = SAMLTokenUtils.getAttributeValueFromSamlToken(assertion, SamlAttribute.EmployerName);
+				log.debug("Email Address in SAML Token: " + samlEmailAddress);
+				log.debug("First Name in SAML Token: " + samlFirstName);
+				log.debug("Last Name in SAML Token: " + samlLastName);
+				log.debug("ORI in SAML Token: " + samlEmployerOri);
+				log.debug("Agency Name in SAML Token: " + samlEmployerAgencyName);
 
-					if (attributeName.equals("gfipm:2.0:user:GivenName"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("First Name in SAML Token: " + attributeValueAsString);
-						
-						samlFirstName = attributeValueAsString;
-					}
-					
-					if (attributeName.equals("gfipm:2.0:user:SurName"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("Last Name in SAML Token: " + attributeValueAsString);
-						
-						samlLastName = attributeValueAsString;
-					}
-
-					if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("ORI in SAML Token: " + attributeValueAsString);
-						
-						samlEmployerOri = attributeValueAsString;
-					}
-
-					if (attributeName.equals("gfipm:2.0:user:EmployerName"))
-					{
-						XMLObject attributeValue = attribute.getAttributeValues().get(0);
-						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug("ORI in SAML Token: " + attributeValueAsString);
-						
-						samlEmployerAgencyName = attributeValueAsString;
-					}
-
-					
-				}	
-				
 			}	
 			
 			if (StringUtils.isNotEmpty(samlFederationID))
