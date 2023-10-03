@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.Exchange;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -379,6 +380,23 @@ public class SAMLTokenUtils {
         log.error("Not able to get attribue value from null token.");
         return null;
     }
+
+    /**
+     * Retrieve the attribute value from cxfMessage and set the exchange header with the headerName and the attribute 
+     * value. 
+     * @param exchange
+     * @param cxfMessage
+     * @param attribute
+     * @param headerName
+     */
+	public static void processSamlAttribue(Exchange exchange, Message cxfMessage, SamlAttribute attribute, String headerName) {
+		String attributeValue = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, attribute); 
+		log.debug(headerName + ": " + StringUtils.trimToEmpty(attributeValue));
+		if (StringUtils.isNotBlank(attributeValue)) {
+			exchange.getIn().setHeader(headerName, attributeValue);
+		}
+	}			
+	
 
 	public static String returnCamelPropertyFromCXFMessage(Message message, String propertyName) throws IOException
 	{
