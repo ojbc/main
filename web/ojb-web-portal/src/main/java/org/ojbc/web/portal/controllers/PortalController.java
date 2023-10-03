@@ -296,7 +296,7 @@ public class PortalController implements ApplicationContextAware {
     			
     			if (samlAssertion != null)
     			{	
-	    			String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+	    			String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);;
 	
 	    			log.info("User email address to remove OTP authentication: " + userEmail);
 	    			
@@ -425,12 +425,9 @@ public class PortalController implements ApplicationContextAware {
 			minutesOnline = minutesOnline % 60;
 			userLogonInfo.setTimeOnlineString(String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline));
 
-			String userLastName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
-			String userFirstName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:GivenName']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
-			String userAgency = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
+			String userLastName = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.SurName);
+			String userFirstName =  SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.GivenName);
+			String userAgency = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerName);
 			
 	    	String criminalJusticeEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.CriminalJusticeEmployerIndicator);
 	    	userLogonInfo.setCriminalJusticeEmployerIndicator(BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString));
@@ -438,8 +435,7 @@ public class PortalController implements ApplicationContextAware {
 	    	userLogonInfo.setLawEnforcementEmployerIndicator(BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString)); 
 	    	userLogonInfo.setEmployerOri(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI));  
 
-			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
+			String sEmail = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmailAddressText);
 
 			userLogonInfo.setUserName((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName));
 			userLogonInfo.setEmployer(userAgency);
@@ -448,14 +444,11 @@ public class PortalController implements ApplicationContextAware {
 			userLogonInfo.setUserFirstName(userFirstName);
 			userLogonInfo.setUserLastName(userLastName);
 			
-			String employerSubunitName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerSubUnitName']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
+			String employerSubunitName = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerSubUnitName);
 			userLogonInfo.setEmployerSubunitName(employerSubunitName);
-			String federationId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
+			String federationId = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.FederationId);
 			userLogonInfo.setFederationId(federationId);
-			String identityProviderId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:IdentityProviderId']/saml2:AttributeValue/text()", assertionElement,
-					XPathConstants.STRING);
+			String identityProviderId = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.IdentityProviderId);
 			userLogonInfo.setIdentityProviderId(identityProviderId);
 			
 		} catch (Exception e) {

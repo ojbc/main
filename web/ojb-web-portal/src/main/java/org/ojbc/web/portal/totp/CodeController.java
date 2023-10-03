@@ -25,7 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.model.otp.OTPFormCommand;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.OTPService;
@@ -119,8 +120,7 @@ public class CodeController {
 		String oneTimePassword = otpFormCommand.getOtpRequest().getOneTimePassword();
 
     	Element samlAssertion = samlService.getSamlAssertion(request);;
-		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, 
-				"/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+		String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText); 
 		if (gAuth.authorizeUser(userEmail, Integer.valueOf(oneTimePassword)))
 		{
 			otpService.confirmOTP(userEmail, oneTimePassword);

@@ -115,10 +115,8 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 	private String getUserEmail(Element samlAssertion) {
         String userEmail = StringUtils.EMPTY;
 		try {
-			userEmail = XmlUtils.xPathStringSearch(samlAssertion, 
-					"/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+			userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return userEmail;

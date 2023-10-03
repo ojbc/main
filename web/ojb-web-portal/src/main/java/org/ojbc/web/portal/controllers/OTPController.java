@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.otp.OTPFormCommand;
 import org.ojbc.web.portal.services.OTPService;
@@ -59,9 +61,7 @@ public class OTPController {
 		model.put("otpFormCommand", otpFormCommand);
 		
 		//Send OTP as soon as the input form is shown
-		Element samlAssertion = samlService.getSamlAssertion(request);
-		
-		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+		String userEmail = getUserEmail(request);
 		
 		try {
 			otpService.generateOTP(userEmail);
@@ -77,16 +77,20 @@ public class OTPController {
 		
 		return "otp/inputForm";
 	}
+
+	private String getUserEmail(HttpServletRequest request) {
+		Element samlAssertion = samlService.getSamlAssertion(request);
+		
+		String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+		return userEmail;
+	}
 	
 	@PostMapping(value = "/requestOtp")
 	public String requestOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, Map<String, Object> model) throws Exception {
 
 		log.info("Entering function to request OTP.");
 		
-		Element samlAssertion = samlService.getSamlAssertion(request);
-		
-		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
-		
+		String userEmail = getUserEmail(request);		
 		try {
 			otpService.generateOTP(userEmail);
 		} catch (Exception e) {
@@ -110,12 +114,9 @@ public class OTPController {
 			Map<String, Object> model) throws Exception {
 	
 		log.info("Entering function to confirm OTP.");
-		
-		Element samlAssertion = samlService.getSamlAssertion(request);
-		
 		String oneTimePassword = otpFormCommand.getOtpRequest().getOneTimePassword();
 		
-		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+		String userEmail = getUserEmail(request);
 		
 		if (otpService.confirmOTP(userEmail, oneTimePassword))
 		{

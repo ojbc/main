@@ -335,37 +335,41 @@ public class SAMLTokenUtils {
 	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
 		String attributeValue = null;
 		
-		try {
-			Node userGroupsNode = XmlUtils.xPathNodeSearch(samlAssertion, "//saml2:Assertion/saml2:AttributeStatement[1]/"
-					+ "saml2:Attribute[@Name='" 
-					+ SamlAttribute.Groups.getAttibuteName() 
-					+ "']");
-			if (!SamlAttribute.isGroupAttribute(samlAttribute)
-					|| userGroupsNode == null) {
-				attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
-						"//saml2:Assertion/saml2:AttributeStatement[1]/"
-								+ "saml2:Attribute[@Name='" 
-								+ samlAttribute.getAttibuteName() 
-								+ "']/saml2:AttributeValue");
-			}
-			else {
-
-				if (samlAttribute == SamlAttribute.EmployerORI) {
-					String oriAttibuteValue = XmlUtils.xPathStringSearch(userGroupsNode, 
-							"saml2:AttributeValue[starts-with(normalize-space(), '" + samlAttribute.getGroupsAttributeValue() + "')]"); 
-					if (StringUtils.isNotBlank(oriAttibuteValue)) {
-						attributeValue = StringUtils.substringAfter(oriAttibuteValue, samlAttribute.getGroupsAttributeValue()); 
-					}
+		if (samlAttribute != null) {
+			try {
+				Node userGroupsNode = XmlUtils.xPathNodeSearch(samlAssertion, "//saml2:Assertion/saml2:AttributeStatement[1]/"
+						+ "saml2:Attribute[@Name='" 
+						+ SamlAttribute.Groups.getAttibuteName() 
+						+ "']");
+				if (!SamlAttribute.isGroupAttribute(samlAttribute)
+						|| userGroupsNode == null) {
+					attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
+							"//saml2:Assertion/saml2:AttributeStatement[1]/"
+									+ "saml2:Attribute[@Name='" 
+									+ samlAttribute.getAttibuteName() 
+									+ "']/saml2:AttributeValue");
 				}
 				else {
-					boolean nodeExists = XmlUtils.nodeExists(userGroupsNode, 
-							"saml2:AttributeValue[normalize-space()='" + samlAttribute.getGroupsAttributeValue()+"']"); 
-					attributeValue = BooleanUtils.toStringTrueFalse( nodeExists );
+	
+					if (samlAttribute == SamlAttribute.EmployerORI) {
+						String oriAttibuteValue = XmlUtils.xPathStringSearch(userGroupsNode, 
+								"saml2:AttributeValue[starts-with(normalize-space(), '" + samlAttribute.getGroupsAttributeValue() + "')]"); 
+						if (StringUtils.isNotBlank(oriAttibuteValue)) {
+							attributeValue = StringUtils.substringAfter(oriAttibuteValue, samlAttribute.getGroupsAttributeValue()); 
+						}
+					}
+					else {
+						boolean nodeExists = XmlUtils.nodeExists(userGroupsNode, 
+								"saml2:AttributeValue[normalize-space()='" + samlAttribute.getGroupsAttributeValue()+"']"); 
+						attributeValue = BooleanUtils.toStringTrueFalse( nodeExists );
+					}
 				}
+				
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
 			}
 			
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			log.debug(samlAttribute.getAttibuteName() + ": " + StringUtils.trimToEmpty(attributeValue));
 		}
 		return attributeValue;
 	}

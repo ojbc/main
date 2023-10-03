@@ -91,7 +91,7 @@ public abstract class AbstractLoggingProcessor {
         if (message != null) {
             Assertion assertion = SAMLTokenUtils.getSamlAssertionFromCxfMessage(message);;
 
-            if (assertion != null) {
+            if (message != null) {
 
                 Pattern redactionPattern = Pattern.compile(redactedAttributeRegex);
 

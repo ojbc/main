@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
@@ -41,9 +42,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
         String federationId = null;
         if ( samlAssertion != null) {
            try {
-            federationId = XmlUtils.xPathStringSearch(samlAssertion,
-                        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-                        + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue");
+            federationId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
             
             } catch (Exception e) {
                 e.printStackTrace();

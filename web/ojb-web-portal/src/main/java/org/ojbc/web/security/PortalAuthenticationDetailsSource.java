@@ -289,7 +289,7 @@ public class PortalAuthenticationDetailsSource implements
 			
 			String userEmail = "";
 			try {
-				userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+				userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
 			} catch (Exception e) {
 				log.error("Unable to retrieve SAML assertion");
 				return false;

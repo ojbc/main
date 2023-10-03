@@ -16,119 +16,33 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
-import java.util.List;
-
 import org.apache.camel.Exchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.opensaml.core.xml.XMLObject;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml.saml2.core.Assertion;
-import org.opensaml.saml.saml2.core.Attribute;
-import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.w3c.dom.Element;
 
 public abstract class AbstractUserInfoProcessor {
 
-	private static final Log log = LogFactory.getLog(AbstractUserInfoProcessor.class);
-	
 	public abstract Integer auditUserInfo(Exchange exchange);
 	
 	UserInfo processUserInfoRequest(Assertion assertion) throws Exception
 	{
 		UserInfo userInfoRequest = new UserInfo();
 
-		
 		if (assertion != null)
 		{
-			List<AttributeStatement> attributeStatements =assertion.getAttributeStatements();
-			
-			AttributeStatement attributeStatement = attributeStatements.get(0);
-			
-			List<Attribute> attributes  = attributeStatement.getAttributes();
-			
-			for (Attribute attribute : attributes)
-			{
-				String attributeName = attribute.getName();
-				
-				if (attributeName.equals("gfipm:2.0:user:GivenName"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-					
-					userInfoRequest.setUserFirstName(attributeValueAsString);
-				}
-				
-				if (attributeName.equals("gfipm:2.0:user:SurName"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-					
-					userInfoRequest.setUserLastName(attributeValueAsString);
-				}
-				
-				if (attributeName.equals("gfipm:2.0:user:EmployerName"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-					
-					userInfoRequest.setEmployerName(attributeValueAsString);
-				}
-				
-				if (attributeName.equals("gfipm:2.0:user:EmployerSubUnitName"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
+			Element assertionElement = assertion.getDOM(); 
 
-					userInfoRequest.setEmployerSubunitName(attributeValueAsString);
-				}
-				
-				if (attributeName.equals("gfipm:2.0:user:EmailAddressText"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-
-					userInfoRequest.setUserEmailAddress(attributeValueAsString);
-									     					
-				}	
-				
-				if (attributeName.equals("gfipm:2.0:user:IdentityProviderId"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-
-					userInfoRequest.setIdentityProviderId(attributeValueAsString);
-									     					
-				}	
-
-				if (attributeName.equals("gfipm:2.0:user:FederationId"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-
-					userInfoRequest.setFederationId(attributeValueAsString);
-									     					
-				}	
-
-				if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
-				{
-					XMLObject attributeValue = attribute.getAttributeValues().get(0);
-					String attributeValueAsString = attributeValue.getDOM().getTextContent();
-					log.debug(attributeValueAsString);
-
-					userInfoRequest.setEmployerOri(attributeValueAsString);
-									     					
-				}	
-
-				
-			}
-				
+			userInfoRequest.setUserFirstName(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.GivenName));
+			userInfoRequest.setUserLastName(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.SurName));
+			userInfoRequest.setEmployerName(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerName));
+			userInfoRequest.setEmployerSubunitName(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerSubUnitName));
+			userInfoRequest.setUserEmailAddress(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmailAddressText));
+			userInfoRequest.setIdentityProviderId(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.IdentityProviderId));
+			userInfoRequest.setFederationId(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.FederationId));
+			userInfoRequest.setEmployerOri(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI));
 		}	
 		
         return userInfoRequest;
