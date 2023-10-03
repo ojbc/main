@@ -262,15 +262,7 @@ public class PortalAuthenticationDetailsSource implements
         if (enableEnhancedAudit)
         {
         	try {
-				String employerName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
-				String federationId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
-				String employerSubunitName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
-				String firstName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
-				String lastName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.SurName);
-				String emailAddress = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
-				String identityProviderId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
-				
-				restEnhancedAuditClient.auditUserLogin(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
+				restEnhancedAuditClient.auditUserLogin(samlAssertion);
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.error("Unable to audit user login");

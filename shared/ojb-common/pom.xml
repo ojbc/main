@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.13</version> 
+	<version>5.0.14</version> 
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -50,7 +50,6 @@
 		<httpcomponents.version>4.3.3</httpcomponents.version>
 		<saxon-version>9.9.1-7</saxon-version>
 		<java-version>1.8</java-version>
-		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.6</xmlunit.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
 		
@@ -103,11 +102,6 @@
 			<groupId>org.apache.wss4j</groupId>
 			<artifactId>wss4j-ws-security-dom</artifactId>
 			<version>${wss4j-version}</version>
-		</dependency>		
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${joda-time.version}</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.apache.commons</groupId>

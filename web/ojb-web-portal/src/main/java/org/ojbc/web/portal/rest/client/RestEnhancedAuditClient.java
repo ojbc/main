@@ -45,6 +45,8 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -55,6 +57,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Element;
 
 @Service
 public class RestEnhancedAuditClient {
@@ -81,24 +84,26 @@ public class RestEnhancedAuditClient {
 //				.retrieve();
 	}
 	
-	public void auditUserLogin(String federationId, String employerName, String employerSubunitName, String firstName, String lastName, String emailAddress, String identityProviderId) {
+	public void auditUserLogin(Element samlAssertion) {
 		
-		UserInfo userInfo = new UserInfo();
 		
-		userInfo.setUserEmailAddress(emailAddress);
-		userInfo.setEmployerName(employerName);
-		userInfo.setEmployerSubunitName(employerSubunitName);
-		userInfo.setFederationId(federationId);
-		userInfo.setUserFirstName(firstName);
-		userInfo.setIdentityProviderId(identityProviderId);
-		userInfo.setUserLastName(lastName);
+		UserInfo userInfo = getUserInfoFromSamlAssertion(samlAssertion);
 		
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userLogin", userInfo, UserInfo.class);
 		
 	}
-	
-	public void auditUserLogout(String federationId, String employerName, String employerSubunitName, String firstName, String lastName, String emailAddress, String identityProviderId) {
+
+	private UserInfo getUserInfoFromSamlAssertion(Element samlAssertion) {
+		String employerName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+		String federationId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+		String employerSubunitName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+		String firstName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+		String lastName = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.SurName);
+		String emailAddress = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+		String identityProviderId = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+		String employerOri = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);
 		
+
 		UserInfo userInfo = new UserInfo();
 		
 		userInfo.setUserEmailAddress(emailAddress);
@@ -108,7 +113,13 @@ public class RestEnhancedAuditClient {
 		userInfo.setUserFirstName(firstName);
 		userInfo.setIdentityProviderId(identityProviderId);
 		userInfo.setUserLastName(lastName);
+		userInfo.setEmployerOri(employerOri);
+		return userInfo;
+	}
+	
+	public void auditUserLogout(Element samlAssertion) {
 		
+		UserInfo userInfo = getUserInfoFromSamlAssertion(samlAssertion);
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userLogout", userInfo, UserInfo.class);
 		
 	}
