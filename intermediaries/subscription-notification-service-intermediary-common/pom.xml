@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
-	<version>3.0.2</version> 
+	<version>3.0.3</version> 
 	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
@@ -33,9 +33,8 @@
 	</parent>
 
 	<properties>
-		<camel-version>3.11.0</camel-version>
+		<camel-version>3.11.7</camel-version>
 		<xmlunit.version>1.6</xmlunit.version>
-		<jodatime-version>2.2</jodatime-version>
 		<commons-lang3-version>3.12.0</commons-lang3-version>
 	    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 	    <ojb-common-version>[5.0.0,)</ojb-common-version>
@@ -43,7 +42,7 @@
 		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.7.31</slf4j-version>
-		<log4j-version>2.17.1</log4j-version>
+		<log4j-version>2.20.0</log4j-version>
 	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
 	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 		<velocity-version>1.7</velocity-version>
@@ -56,6 +55,8 @@
 		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
 		<java-version>1.8</java-version>
 		<surefire.version>2.22.2</surefire.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
 	</properties>
 
 	<dependencyManagement>
@@ -114,12 +115,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime-version}</version>
-		</dependency>
-
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
