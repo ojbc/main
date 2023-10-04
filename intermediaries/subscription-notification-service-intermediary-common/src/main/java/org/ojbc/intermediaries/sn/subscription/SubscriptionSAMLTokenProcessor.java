@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -33,18 +34,15 @@ public class SubscriptionSAMLTokenProcessor {
 	
 	public void retrieveSAMLTokenFromMessageAndAddCamelHeader(Exchange exchange) throws Exception
 	{
+		String samlFederationID = null;
 		try
 		{
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			
-			if (cxfMessage != null)
+			SAMLTokenPrincipal assertion = SAMLTokenUtils.getSamlTokenFromCxfMessage(cxfMessage);
+
+			if (assertion != null)
 			{
-				String samlFederationID = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
-				if (StringUtils.isBlank(samlFederationID))
-				{
-					throw new InvalidSAMLTokenException("Unable to invoke service with provided security context.  "
-							+ "No federation ID provided in SAML token.");
-				}
+				samlFederationID = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
 
 				SAMLTokenUtils.processSamlAttribue(exchange, cxfMessage, SamlAttribute.FederationId, "saml_FederationID");
 				SAMLTokenUtils.processSamlAttribue(exchange, cxfMessage, SamlAttribute.EmailAddressText, "saml_EmailAddress");
@@ -57,6 +55,11 @@ public class SubscriptionSAMLTokenProcessor {
 		catch(Exception ex)
 		{
 			throw new InvalidSAMLTokenException("Unable to invoke service with provided security context");
+		}
+		if (StringUtils.isBlank(samlFederationID))
+		{
+			throw new InvalidSAMLTokenException("Unable to invoke service with provided security context.  "
+					+ "No federation ID provided in SAML token.");
 		}
 		
 	}
