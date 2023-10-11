@@ -34,7 +34,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -56,29 +55,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Resource
 	OJBCAccessDeniedHandler ojbcAccessDeniedHandler;
 	
-	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
-        		"/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar",
-        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http
-		    .authorizeRequests()
-		    .anyRequest().hasAuthority("AUTHZ_PORTAL")
-		    .and()
-	    	.logout().logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
-		    .and().securityContext()
-		    .and()
-		    .headers()
-		    .frameOptions()
-			.sameOrigin()
-			.and()
-		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
-		      LogoutFilter.class)
-		    .exceptionHandling().accessDeniedHandler(ojbcAccessDeniedHandler);
+        http
+            .authorizeRequests(requests -> requests
+                    .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
+                            "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar",
+                            "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error")
+                    .permitAll()
+                    .anyRequest().hasAuthority("AUTHZ_PORTAL"))
+            .logout(logout -> logout.logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll())
+            .headers(headers -> headers
+                    .frameOptions()
+                    .sameOrigin())
+            .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
+                    LogoutFilter.class)
+            .exceptionHandling(handling -> handling.accessDeniedHandler(ojbcAccessDeniedHandler));
     }
     
     @Autowired
@@ -119,7 +112,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter() {
+    CommonsRequestLoggingFilter requestLoggingFilter() {
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
         loggingFilter.setIncludeClientInfo(true);
         loggingFilter.setIncludeQueryString(true);
