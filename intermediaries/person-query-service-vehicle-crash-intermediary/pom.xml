@@ -36,9 +36,9 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<log4j-version>2.17.1</log4j-version>
+		<spring-boot-version>2.5.15</spring-boot-version>
+		<camel-version>3.11.7</camel-version>
+		<log4j-version>2.20.0</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -53,30 +53,30 @@
 	</properties>
 	
 	<dependencyManagement>
-    <dependencies>
-    	<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-bom</artifactId>
-			<version>${log4j-version}</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot-version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.springboot</groupId>
-        <artifactId>camel-spring-boot-dependencies</artifactId>
-        <version>${camel-version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>   
-    </dependencies>
-  </dependencyManagement>
+        <dependencies>
+        	<dependency>
+    			<groupId>org.apache.logging.log4j</groupId>
+    			<artifactId>log4j-bom</artifactId>
+    			<version>${log4j-version}</version>
+    			<type>pom</type>
+    			<scope>import</scope>
+    		</dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.springboot</groupId>
+                <artifactId>camel-spring-boot-dependencies</artifactId>
+                <version>${camel-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>   
+       </dependencies>
+    </dependencyManagement>
 
 	<dependencies>
     <!-- Spring Boot -->
@@ -211,6 +211,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-test-spring-junit5</artifactId>
 			<scope>test</scope>
@@ -239,12 +244,13 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 
 		<plugins>
-		<plugin>
+		    <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -254,18 +260,6 @@
 				</executions>
 
 			</plugin>
-  	  <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot-version}</version>
-        <executions>
-					<execution>
-						<goals>
-						<goal>repackage</goal>
-						</goals>
-			    </execution>
-				</executions>
-      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
