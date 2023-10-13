@@ -35,9 +35,8 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.14</spring-boot-version>
+		<spring-boot-version>2.5.15</spring-boot-version>
 		<camel-version>3.11.7</camel-version>
-		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>2.20.0</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
@@ -245,25 +244,6 @@
 		<defaultGoal>install</defaultGoal>
 		<finalName>${project.artifactId}</finalName>
 		
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/config/dev</directory>
-				<includes>
-					<include>*</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/java</directory>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
