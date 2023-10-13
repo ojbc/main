@@ -36,9 +36,9 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<log4j-version>2.17.1</log4j-version>
+		<spring-boot-version>2.5.15</spring-boot-version>
+		<camel-version>3.11.7</camel-version>
+		<log4j-version>2.20.0</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -208,6 +208,11 @@
 	        <artifactId>junit-vintage-engine</artifactId>
 	        <scope>test</scope>
 	    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -218,11 +223,11 @@
 			<artifactId>camel-test-spring-junit5</artifactId>
 			<scope>test</scope>
 		</dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <scope>test</scope>
-    </dependency>
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -255,12 +260,12 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot-version}</version>
         <executions>
-					<execution>
-						<goals>
-						<goal>repackage</goal>
-						</goals>
-			    </execution>
-				</executions>
+			<execution>
+				<goals>
+				<goal>repackage</goal>
+				</goals>
+    	    </execution>
+		</executions>
       </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
