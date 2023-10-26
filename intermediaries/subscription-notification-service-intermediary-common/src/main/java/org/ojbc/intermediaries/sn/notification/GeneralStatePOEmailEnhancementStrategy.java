@@ -33,8 +33,8 @@ public class GeneralStatePOEmailEnhancementStrategy implements EmailEnhancementS
 	@Override
     public EmailNotification enhanceEmail(EmailNotification emailNotification) {
         EmailNotification ret = (EmailNotification) emailNotification.clone();
-        String sendingState = ret.getSubscription().getSubscriptionProperties().get("sendingState");
-        String receivingState = ret.getSubscription().getSubscriptionProperties().get("receivingState");
+        String sendingState = ret.getSubscription().getSendingState();
+        String receivingState = ret.getSubscription().getReceivingState();
         String receivingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("receivingStatePO");
         String sendingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("receivingStatePO");
         log.info("Full receiving state Email and Name Info from Subscription:" +  receivingStatePOEmail);
@@ -87,4 +87,12 @@ public class GeneralStatePOEmailEnhancementStrategy implements EmailEnhancementS
        
     }
 
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+	
 }
