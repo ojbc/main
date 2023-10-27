@@ -36,7 +36,7 @@ public class GeneralStatePOEmailEnhancementStrategy implements EmailEnhancementS
         String sendingState = ret.getSubscription().getSendingState();
         String receivingState = ret.getSubscription().getReceivingState();
         String receivingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("receivingStatePO");
-        String sendingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("receivingStatePO");
+        String sendingStatePOEmail = ret.getSubscription().getSubscriptionSubjectIdentifiers().get("sendingStatePO");
         log.info("Full receiving state Email and Name Info from Subscription:" +  receivingStatePOEmail);
         if(sendingState.equals(stateName)) {
         	 if(StringUtils.isNotBlank(sendingStatePOEmail)) {
