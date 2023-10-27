@@ -166,7 +166,7 @@ public class SamlServiceImpl implements SamlService{
         			SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
         			SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes, 
         			appProperties.isUseSamlUserGroupsAttribute());
-            log.info(XMLUtils.prettyDocumentToString(samlAssertion.getOwnerDocument())); 
+//            log.info(XMLUtils.prettyDocumentToString(samlAssertion.getOwnerDocument())); 
         } catch (Exception e) {
             e.printStackTrace();
         }
