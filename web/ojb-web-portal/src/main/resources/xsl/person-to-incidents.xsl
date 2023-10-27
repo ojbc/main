@@ -116,7 +116,7 @@
         <tr systemName="{intel:SystemIdentifier/intel:SystemName}"
             identificationSourceText="{$systemSource}"   
             >
-            <xsl:if test="contains($incidentTypesToDrillDown, ext:Incident/ext:IncidentCategoryCode)">
+            <xsl:if test="$incidentTypesToDrillDown = 'all' or contains($incidentTypesToDrillDown, ext:Incident/ext:IncidentCategoryCode)">
             	<xsl:attribute name="class">clickableIncident</xsl:attribute>
             </xsl:if>		    			    
             <xsl:attribute name="identificationID"><xsl:text>{</xsl:text><xsl:value-of select="ext:Incident/ext:IncidentCategoryCode"/><xsl:text>}</xsl:text><xsl:value-of select="intel:SystemIdentifier/nc:IdentificationID"/></xsl:attribute>

@@ -112,7 +112,7 @@
         <xsl:for-each select="/exc:EntityMergeResultMessage/exc:EntityContainer/ext:Entity[@s:id = $incidentId]/ext1:IncidentSearchResult">
             <xsl:variable name="incident" select="ext1:Incident"/>    
             <tr>
-            	<xsl:if test="contains($incidentTypesToDrillDown, $incident/ext1:IncidentCategoryCode)">
+            	<xsl:if test="$incidentTypesToDrillDown = 'all' or contains($incidentTypesToDrillDown, $incident/ext1:IncidentCategoryCode)">
             		<xsl:attribute name="class">clickableIncident</xsl:attribute>
             	</xsl:if>		    			    
             	
