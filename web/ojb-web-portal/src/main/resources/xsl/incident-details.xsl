@@ -418,14 +418,16 @@
 			<td><!-- Premises entered goes in here --></td>
 			<td><xsl:value-of select="ndexia:OffenseEntryPoint/ndexia:PassagePointAugmentation/ndexia:MethodOfAccessText"/></td>
 			<td>
-				<xsl:choose>
-					<xsl:when test="$structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText[.!='']">
-						<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText,' ',$structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
-					</xsl:when>
-					<xsl:otherwise>
-							<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetNumberText,' ', $structuredOffenseLocation/nc:LocationStreet/nc:StreetName,' ', $structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
-					</xsl:otherwise>
-				</xsl:choose>			
+				<xsl:if test="$structuredOffenseLocation">
+					<xsl:choose>
+						<xsl:when test="$structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText[.!='']">
+							<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetFullText,' ',$structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
+						</xsl:when>
+						<xsl:otherwise>
+								<xsl:value-of select="concat($structuredOffenseLocation/nc:LocationStreet/nc:StreetNumberText,' ', $structuredOffenseLocation/nc:LocationStreet/nc:StreetName,' ', $structuredOffenseLocation/nc:LocationCityName,',', $structuredOffenseLocation/nc:LocationStateName,' ',$structuredOffenseLocation/nc:LocationPostalCode)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
 			</td>
 			<td><!-- Bias entered goes in here --></td>
 			<td><xsl:value-of select="//lexsdigest:EntityTangibleItem/nc:TangibleItem[@s:id=//lexsdigest:Associations/lexsdigest:OffenseWeaponAssociation/nc:ItemReference/@s:ref]/nc:ItemDescriptionText"/></td>
