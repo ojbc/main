@@ -17,14 +17,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<notifications xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+<notifications xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+               xmlns:add="http://www.w3.org/2005/08/addressing"
+               xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
                xmlns:s="http://niem.gov/niem/structures/2.0"
                xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
                xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-               xmlns:b="http://docs.oasis-open.org/wsn/b-2"
-               xmlns:add="http://www.w3.org/2005/08/addressing"
-               xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+               xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+               xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+               xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
    <wrapper>
       <b:Notify>
          <b:NotificationMessage>
@@ -33,7 +36,8 @@
                <add:ReferenceParameters/>
                <add:Metadata/>
             </b:SubscriptionReference>
-            <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
+            <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+                     Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
             <b:ProducerReference>
                <add:Address>http://www.ojbc.org/incidentNotificationProducer</add:Address>
                <add:ReferenceParameters/>
@@ -42,7 +46,7 @@
             <b:Message>
                <notification:NotificationMessage>
                   <notificationExt:NotifyingIncident s:id="I001">
-                  	<notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
+                     <notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
                      <j:Incident>
                         <nc:ActivityIdentification>
                            <nc:IdentificationID>14BU000056</nc:IdentificationID>
@@ -51,6 +55,9 @@
                         <nc:ActivityDate>
                            <nc:DateTime>2014-01-01T04:43:56Z</nc:DateTime>
                         </nc:ActivityDate>
+                        <nc:IncidentJurisdictionalOrganization>
+                           <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                        </nc:IncidentJurisdictionalOrganization>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
                               <nc:RoleOfPersonReference s:ref="d1e376"/>
@@ -83,8 +90,7 @@
                         </j:IncidentAugmentation>
                      </j:Incident>
                      <j:Offense s:id="Offense214518">
-                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23
-                                    VSA 1201 90D</nc:ActivityDescriptionText>
+                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
                         <notificationExt:OffenseFBINDEXCode>Driving Under Influence</notificationExt:OffenseFBINDEXCode>
                         <j:OffenseCategoryText>Driving Under Influence</j:OffenseCategoryText>
                      </j:Offense>
@@ -126,7 +132,8 @@
                <add:ReferenceParameters/>
                <add:Metadata/>
             </b:SubscriptionReference>
-            <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
+            <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+                     Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
             <b:ProducerReference>
                <add:Address>http://www.ojbc.org/incidentNotificationProducer</add:Address>
                <add:ReferenceParameters/>
@@ -135,7 +142,7 @@
             <b:Message>
                <notification:NotificationMessage>
                   <notificationExt:NotifyingIncident s:id="I001">
-                  	 <notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
+                     <notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
                      <j:Incident>
                         <nc:ActivityIdentification>
                            <nc:IdentificationID>14BU000056</nc:IdentificationID>
@@ -144,6 +151,9 @@
                         <nc:ActivityDate>
                            <nc:DateTime>2014-01-01T04:43:56Z</nc:DateTime>
                         </nc:ActivityDate>
+                        <nc:IncidentJurisdictionalOrganization>
+                           <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                        </nc:IncidentJurisdictionalOrganization>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
                               <nc:RoleOfPersonReference s:ref="d1e376"/>
@@ -176,8 +186,7 @@
                         </j:IncidentAugmentation>
                      </j:Incident>
                      <j:Offense s:id="Offense214518">
-                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23
-                                    VSA 1201 90D</nc:ActivityDescriptionText>
+                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
                         <notificationExt:OffenseFBINDEXCode>Driving Under Influence</notificationExt:OffenseFBINDEXCode>
                         <j:OffenseCategoryText>Driving Under Influence</j:OffenseCategoryText>
                      </j:Offense>
@@ -219,7 +228,8 @@
                <add:ReferenceParameters/>
                <add:Metadata/>
             </b:SubscriptionReference>
-            <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
+            <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+                     Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/incident</b:Topic>
             <b:ProducerReference>
                <add:Address>http://www.ojbc.org/incidentNotificationProducer</add:Address>
                <add:ReferenceParameters/>
@@ -228,7 +238,7 @@
             <b:Message>
                <notification:NotificationMessage>
                   <notificationExt:NotifyingIncident s:id="I001">
-                  	 <notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
+                     <notificationExt:NotifyingActivityReportingSystemNameText>BU</notificationExt:NotifyingActivityReportingSystemNameText>
                      <j:Incident>
                         <nc:ActivityIdentification>
                            <nc:IdentificationID>14BU000056</nc:IdentificationID>
@@ -237,6 +247,9 @@
                         <nc:ActivityDate>
                            <nc:DateTime>2014-01-01T04:43:56Z</nc:DateTime>
                         </nc:ActivityDate>
+                        <nc:IncidentJurisdictionalOrganization>
+                           <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                        </nc:IncidentJurisdictionalOrganization>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
                               <nc:RoleOfPersonReference s:ref="d1e376"/>
@@ -269,8 +282,7 @@
                         </j:IncidentAugmentation>
                      </j:Incident>
                      <j:Offense s:id="Offense214518">
-                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23
-                                    VSA 1201 90D</nc:ActivityDescriptionText>
+                        <nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
                         <notificationExt:OffenseFBINDEXCode>Driving Under Influence</notificationExt:OffenseFBINDEXCode>
                         <j:OffenseCategoryText>Driving Under Influence</j:OffenseCategoryText>
                      </j:Offense>

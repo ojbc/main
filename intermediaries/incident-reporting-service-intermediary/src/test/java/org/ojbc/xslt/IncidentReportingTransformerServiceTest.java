@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,6 +34,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
@@ -46,6 +48,7 @@ import org.xml.sax.InputSource;
 
 public class IncidentReportingTransformerServiceTest {
 
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 		
 	private Document incidentComplainantDoc;
@@ -87,7 +90,7 @@ public class IncidentReportingTransformerServiceTest {
 	public void testChargeReferralTransform() throws Exception{
 				
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 		SAXSource inputSaxSource = createSource(inputXml);
 				
 		File xsltFile = new File("src/main/resources/xslt/wrapChargeReferral.xslt");
@@ -104,7 +107,7 @@ public class IncidentReportingTransformerServiceTest {
 	public void testChargeReferralReportingTransform() throws Exception{
 				
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 		SAXSource inputSaxSource = createSource(inputXml);
 								
 		File xsltFile = new File("src/main/resources/xslt/wrapChargeReferralReport.xslt");
@@ -121,7 +124,7 @@ public class IncidentReportingTransformerServiceTest {
 	public void incidentReportToArrestReportTransform() throws Exception{
 		
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-Multiple_Arrest_Subjects.xml");		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 		SAXSource inputSaxSource = createSource(inputXml);
 					
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToArrestReport.xsl");
@@ -137,7 +140,7 @@ public class IncidentReportingTransformerServiceTest {
 	public void incidentReportToArrestReportNoPrefixesTransform() throws Exception{
 		
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-no-prefixes.xml");		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 		SAXSource inputSaxSource = createSource(inputXml);
 						
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToArrestReport.xsl");
@@ -161,7 +164,7 @@ public class IncidentReportingTransformerServiceTest {
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-				        
+		logger.info("actualTransformedResultXml: " + actualTransformedResultXml);
         XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/notifications/wrappedNotifications.xml", actualTransformedResultXml);
 	}
 
@@ -177,7 +180,7 @@ public class IncidentReportingTransformerServiceTest {
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);				
-                
+        logger.info("actualTransformedResultXml: " + actualTransformedResultXml);         
         XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/notifications/wrappedNotificationsUpdate.xml", 
         		actualTransformedResultXml);
 	}
@@ -186,7 +189,7 @@ public class IncidentReportingTransformerServiceTest {
 	public void removeStructuredPayloadTransform() throws Exception{
 	
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
-		String inputXml = FileUtils.readFileToString(inputFile);
+		String inputXml = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 		SAXSource inputSaxSource = createSource(inputXml);
 						
 		File xsltFile = new File("src/main/resources/xslt/removeStructuredPayload.xslt");
@@ -359,7 +362,7 @@ public class IncidentReportingTransformerServiceTest {
 
 	private SAXSource createSource(String xml) {
 		InputSource inputSource = new InputSource(new ByteArrayInputStream(xml.getBytes()));
-		inputSource.setEncoding(org.apache.commons.lang3.CharEncoding.UTF_8);
+		inputSource.setEncoding(CharEncoding.UTF_8);
 		return new SAXSource(inputSource);
 	}
 		

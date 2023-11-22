@@ -240,7 +240,7 @@
     
     <xsl:template match="nc:Organization">
         <nc:IncidentJurisdictionalOrganization>
-            <nc:OrganizationName><xsl:value-of select="nc:OrganizationName"></xsl:value-of></nc:OrganizationName>
+            <nc:OrganizationName><xsl:value-of select="normalize-space(nc:OrganizationName)"></xsl:value-of></nc:OrganizationName>
         </nc:IncidentJurisdictionalOrganization>
     </xsl:template>
     
