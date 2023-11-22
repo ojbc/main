@@ -72,6 +72,7 @@
     
     <xsl:template match="lexsdigest:EntityPerson">  
     	<xsl:variable name="personID" select="lexsdigest:Person/@s:id"/>  
+        <xsl:variable name="enforcementUnitID" select="$lexsDataItemPackage/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:EnforcementUnit/ndexia:EnforcementUnitAugmentation/lexslib:SameAsDigestReference/@lexslib:ref"/>
         <wrapper>
             <b:Notify>
                 <b:NotificationMessage>
@@ -121,6 +122,7 @@
                                     		</xsl:when>
                                     	</xsl:choose> 
                                     </nc:ActivityDate>
+                                    <xsl:apply-templates select="$lexsDigest/lexsdigest:EntityOrganization/nc:Organization[@s:id=$enforcementUnitID]"></xsl:apply-templates>
                                     <xsl:if test="$lexsDigest/lexsdigest:EntityPerson/j40:EnforcementOfficial">
                                         <j:IncidentAugmentation>
                                             <xsl:apply-templates select="$lexsDigest/lexsdigest:EntityPerson/j40:EnforcementOfficial" mode="enforcementOfficialUnit"/>
@@ -235,5 +237,12 @@
             </nc:PersonName>
         </j:Person>
     </xsl:template>
+    
+    <xsl:template match="nc:Organization">
+        <nc:IncidentJurisdictionalOrganization>
+            <nc:OrganizationName><xsl:value-of select="nc:OrganizationName"></xsl:value-of></nc:OrganizationName>
+        </nc:IncidentJurisdictionalOrganization>
+    </xsl:template>
+    
     
 </xsl:stylesheet>
