@@ -61,13 +61,11 @@ public class TestOjbcNamespaceContext {
         XmlUtils.addAttribute(child, OjbcNamespaceContext.NS_STRUCTURES, "id", "I1");
         //XmlUtils.printNode(d);
         XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
-        //XmlUtils.printNode(d);
-        assertNotNull(XmlUtils.xPathNodeSearch(root, "namespace::xmlns:" + OjbcNamespaceContext.NS_PREFIX_PERSON_SEARCH_RESULTS_EXT));
-        assertEquals(root.getAttributeNS("http://www.w3.org/2000/xmlns/", OjbcNamespaceContext.NS_PREFIX_PERSON_SEARCH_RESULTS_EXT), OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT);
-        assertNotNull(XmlUtils.xPathNodeSearch(root, "namespace::xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES));
-        assertEquals(root.getAttributeNS("http://www.w3.org/2000/xmlns/", OjbcNamespaceContext.NS_PREFIX_STRUCTURES), OjbcNamespaceContext.NS_STRUCTURES);
-        assertNull(XmlUtils.xPathNodeSearch(root, "namespace::xmlns:" + OjbcNamespaceContext.NS_PREFIX_ANSI_NIST));
-        assertNotNull(XmlUtils.xPathNodeSearch(child, "namespace::xmlns:" + OjbcNamespaceContext.NS_PREFIX_JXDM_41));
+        XmlUtils.printNode(d);
+        assertEquals(OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, XmlUtils.xPathStringSearch(root, "namespace-uri-for-prefix('" + OjbcNamespaceContext.NS_PREFIX_PERSON_SEARCH_RESULTS_EXT + "', .)"));
+        assertEquals(OjbcNamespaceContext.NS_STRUCTURES, XmlUtils.xPathStringSearch(root, "namespace-uri-for-prefix('" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES + "', .)"));
+        assertNull(XmlUtils.xPathStringSearch(root, "namespace-uri-for-prefix('" + OjbcNamespaceContext.NS_PREFIX_ANSI_NIST + "', .)"));
+        assertEquals(OjbcNamespaceContext.NS_JXDM_41, XmlUtils.xPathStringSearch(root, "namespace-uri-for-prefix('" + OjbcNamespaceContext.NS_PREFIX_JXDM_41 + "', .)"));
         assertNull(child.getAttributeNodeNS("http://www.w3.org/2000/xmlns/", OjbcNamespaceContext.NS_PREFIX_JXDM_41));
         assertNull(child.getAttributeNodeNS("http://www.w3.org/2000/xmlns/", OjbcNamespaceContext.NS_PREFIX_STRUCTURES));
         

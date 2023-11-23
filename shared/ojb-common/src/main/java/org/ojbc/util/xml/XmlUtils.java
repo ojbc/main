@@ -238,8 +238,7 @@ public class XmlUtils {
         {
             return null;
         }
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
+        XPath xpath = getNewXpath();
         XPathExpression expression = xpath.compile(xPath);
         return (Node) expression.evaluate(context, XPathConstants.NODE);
     }
@@ -259,11 +258,17 @@ public class XmlUtils {
         {
             return null;
         }
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
+        XPath xpath = getNewXpath();
         XPathExpression expression = xpath.compile(xPath);
         return StringUtils.trimToNull((String) expression.evaluate(context, XPathConstants.STRING));
     }
+
+	private static XPath getNewXpath() {
+		XPathFactory xpathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
+        XPath xpath = xpathFactory.newXPath();
+        xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
+		return xpath;
+	}
     
     /**
      * Search the context node for a node set that matches the specified xpath
@@ -277,8 +282,7 @@ public class XmlUtils {
         {
             return null;
         }
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
+        XPath xpath = getNewXpath();
         XPathExpression expression = xpath.compile(xPath);
         return (NodeList) expression.evaluate(context, XPathConstants.NODESET);
         
