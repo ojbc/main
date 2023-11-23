@@ -95,7 +95,7 @@ public class IncidentNotificationRequest extends NotificationRequest {
     @Override
     protected String getNotifyingAgencyXpath() {
 
-        return "if (/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/jxdm41:IncidentAugmentation/jxdm41:IncidentReportingOfficial/jxdm41:EnforcementOfficialUnit/nc:OrganizationName) then /b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/jxdm41:IncidentAugmentation/jxdm41:IncidentReportingOfficial/jxdm41:EnforcementOfficialUnit/nc:OrganizationName else /b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:IncidentJurisdictionalOrganization/nc:OrganizationName";
+        return "if (normalize-space(/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/jxdm41:IncidentAugmentation/jxdm41:IncidentReportingOfficial/jxdm41:EnforcementOfficialUnit/nc:OrganizationName)) then normalize-space(/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/jxdm41:IncidentAugmentation/jxdm41:IncidentReportingOfficial/jxdm41:EnforcementOfficialUnit/nc:OrganizationName) else normalize-space(/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:IncidentJurisdictionalOrganization/nc:OrganizationName)";
     }
 
     @Override
