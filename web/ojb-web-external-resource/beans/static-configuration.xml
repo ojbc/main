@@ -182,8 +182,8 @@
         <entry key="Hawaii County" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-HawaiiCounty" />
         <entry key="Kauai County" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-KauaiCounty" />
         <entry key="Maui County" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-MauiCounty" />
-<!-- 		<entry key="Law Enforcement RMS"
-			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" /> -->
+		<entry key="Law Enforcement RMS"
+			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" />
 	</util:map>
 
 	<util:map id="systemsToQuery_incidents_disabled" map-class="java.util.LinkedHashMap">
