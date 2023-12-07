@@ -25,7 +25,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.otp.OTPFormCommand;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
