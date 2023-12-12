@@ -497,13 +497,14 @@
 		
 		<p class="sectionTitle" style="font-size:150%">Arrest</p>
 		<xsl:variable name="arrId" select="$arrest/@s:id"/>
+		<xsl:variable name="agencyId" select="//rap:ArrestAgencyAssociation[nc:ActivityReference/@s:ref=$arrId]/nc:OrganizationReference/@s:ref"/>
 		<p><span class="smallLabel">Arrest Date: </span> 
 			<xsl:call-template name="formatDate">
 				<xsl:with-param name="date" select="$arrest/nc:ActivityDate/nc:Date" />
 			</xsl:call-template>
 		</p>
 		<p><span class="smallLabel">Offense Tracking Number (OTN): </span> <xsl:value-of select="$arrest/j:ArrestAgencyRecordIdentification/nc:IdentificationID" /></p>
-		<p><span class="smallLabel">Arresting Agency: </span> <xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=//rap:ArrestAgencyAssociation[nc:ActivityReference/@s:ref=$arrId]/nc:OrganizationReference/@s:ref]/nc:OrganizationName" /></p>
+		<p><span class="smallLabel">Arresting Agency: </span> <xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=$agencyId]/nc:OrganizationName" /></p>
 		<p><span class="smallLabel">Offense Date: </span> 
 			<xsl:call-template name="formatDate">
 				<xsl:with-param name="date" select="$arrest/nc:ActivityDate/nc:Date" />
