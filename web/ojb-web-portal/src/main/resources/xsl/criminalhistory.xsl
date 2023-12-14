@@ -473,7 +473,15 @@
 				<xsl:with-param name="date" select="rap:Arrest[1]/nc:ActivityDate/nc:Date" />
 			</xsl:call-template>
 		</xsl:variable>
-		<h3><xsl:value-of select="concat('CYCLE ',position(),', OTN: ',rap:Arrest[1]/j:ArrestAgencyRecordIdentification/nc:IdentificationID,', Arrest Date: ',$arrestDate)" /></h3>
+		<h3><xsl:value-of select="concat('CYCLE ',position())"/>
+		    <xsl:if test="rap:Arrest[1]/j:ArrestAgencyRecordIdentification/nc:IdentificationID">
+		      <xsl:value-of select="concat(', OTN: ',rap:Arrest[1]/j:ArrestAgencyRecordIdentification/nc:IdentificationID)"/>
+		    </xsl:if>
+		    <xsl:if test="rap:CycleTrackingIdentificationID">
+		      <xsl:value-of select="concat(', Cycle ID: ',rap:CycleTrackingIdentificationID)"/>
+		    </xsl:if>
+		    <xsl:value-of select="concat(', Arrest Date: ',$arrestDate)"/>
+		</h3>
 		<div>
 			<table>
 				<tr>
@@ -503,7 +511,12 @@
 				<xsl:with-param name="date" select="$arrest/nc:ActivityDate/nc:Date" />
 			</xsl:call-template>
 		</p>
-		<p><span class="smallLabel">Offense Tracking Number (OTN): </span> <xsl:value-of select="$arrest/j:ArrestAgencyRecordIdentification/nc:IdentificationID" /></p>
+		<xsl:if test="$arrest/j:ArrestAgencyRecordIdentification/nc:IdentificationID">
+			<p><span class="smallLabel">Offense Tracking Number (OTN): </span> <xsl:value-of select="$arrest/j:ArrestAgencyRecordIdentification/nc:IdentificationID" /></p>
+		</xsl:if>
+		<xsl:if test="$arrest/ancestor::ch-ext:RapSheetCycle/rap:CycleTrackingIdentificationID">
+		    <p><span class="smallLabel">Cycle ID: </span> <xsl:value-of select="$arrest/ancestor::ch-ext:RapSheetCycle/rap:CycleTrackingIdentificationID" /></p>
+		</xsl:if>
 		<p><span class="smallLabel">Arresting Agency: </span> <xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=$agencyId]/nc:OrganizationName" /></p>
 		<p><span class="smallLabel">Offense Date: </span> 
 			<xsl:call-template name="formatDate">
