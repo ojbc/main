@@ -518,6 +518,7 @@
 		    <p><span class="smallLabel">Cycle ID: </span> <xsl:value-of select="$arrest/ancestor::ch-ext:RapSheetCycle/rap:CycleTrackingIdentificationID" /></p>
 		</xsl:if>
 		<p><span class="smallLabel">Arresting Agency: </span> <xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=$agencyId]/nc:OrganizationName" /></p>
+		<p><span class="smallLabel">Arresting Agency ORI: </span> <xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=$agencyId]/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID" /></p>
 		<p><span class="smallLabel">Offense Date: </span> 
 			<xsl:call-template name="formatDate">
 				<xsl:with-param name="date" select="$arrest/nc:ActivityDate/nc:Date" />
