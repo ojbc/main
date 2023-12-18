@@ -497,7 +497,9 @@
 		<xsl:call-template name="formatArrest">
 			<xsl:with-param name="arrest" select="."/>
 		</xsl:call-template>
-		<xsl:apply-templates select="rap:ArrestCharge"/>
+		<xsl:apply-templates select="rap:ArrestCharge">
+		  <xsl:sort select="j:ChargeSequenceID"></xsl:sort>
+		</xsl:apply-templates>
 		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=//rap:ArrestCharge/j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm"/> 
 	</xsl:template>
 	
@@ -656,20 +658,18 @@
      <xsl:template match="rap:CourtAction" mode="cdm">
         <br />
         <p><span class="sectionTitle" style="font-size:125%">Court Action</span></p>
-     	<xsl:variable name="chargeCount" select="rap:CourtCharge/j:ChargeCountQuantity"/>
+     	<xsl:variable name="chargeCount" select="count(rap:CourtCharge)"/>
         <p><span class="smallLabel">Court Case Number: </span> <xsl:value-of select="rap:CourtRecordIdentification/nc:IdentificationID" /></p>
         <xsl:apply-templates select="rap:CourtCharge">
             <xsl:with-param name="chargeCount"><xsl:value-of select="$chargeCount"/></xsl:with-param>
+            <xsl:sort select="j:ChargeSequenceID"></xsl:sort>
         </xsl:apply-templates>
     </xsl:template>
  	
 	<xsl:template match="rap:CourtCharge">
-		<xsl:param name="chargeCount"/>
-		<!-- inserting this conditional so an empty "Court Charge" won't appear -->
 		<xsl:if test="j:ChargeDescriptionText[. !=''] or j:ChargeDisposition/nc:DispositionDescriptionText[. !=''] or rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID[. != '']">
-			<xsl:if test="chargeCount &gt;= 1">
-				<p><span class="detailsLabel">Court Charge</span></p>
-			</xsl:if>
+		    <br/>
+			<p><span class="sectionTitle"><xsl:value-of select="concat('Court Charge ',position())"/></span></p>
 			<xsl:apply-templates select="." mode="chargeDetails"></xsl:apply-templates>
 		</xsl:if>
 	</xsl:template>
