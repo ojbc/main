@@ -583,19 +583,21 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		
-		<xsl:variable name="courtActionCount" select="count(../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
-		<p class="sectionTitle">COURT ACTION</p>
-		<xsl:choose>
-			<xsl:when test="$courtActionCount &gt; 0">
-				<xsl:apply-templates select="../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]">
-					<xsl:with-param name="trackingID"><xsl:value-of select="$chgid"/></xsl:with-param>
-				</xsl:apply-templates>
-			</xsl:when>
-			<xsl:otherwise>
-				No court action information available.
-			</xsl:otherwise>
-		</xsl:choose>
-		
+		<xsl:if test="not(ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)])">
+			<xsl:variable name="courtActionCount" select="count(../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
+			<p class="sectionTitle">COURT ACTION</p>
+			<xsl:choose>
+				<xsl:when test="$courtActionCount &gt; 0">
+					<xsl:apply-templates select="../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]">
+						<xsl:with-param name="trackingID"><xsl:value-of select="$chgid"/></xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:when>
+				<xsl:otherwise>
+					No court action information available.
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+				
 		<xsl:variable name="sentencingCount" select="count(../../ch-ext:Sentencing/ch-ext:Sentence[rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
 		<p class="sectionTitle">SENTENCE</p>
 		<xsl:choose>
