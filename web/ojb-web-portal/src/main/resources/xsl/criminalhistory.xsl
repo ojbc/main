@@ -498,6 +498,7 @@
 			<xsl:with-param name="arrest" select="."/>
 		</xsl:call-template>
 		<xsl:apply-templates select="rap:ArrestCharge"/>
+		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=//rap:ArrestCharge/j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm"/> 
 	</xsl:template>
 	
 	<xsl:template name="formatArrest">
@@ -526,61 +527,49 @@
 		</p>
 	</xsl:template>
 	
+	<xsl:template match="rap:ArrestCharge|rap:CourtCharge" mode="chargeDetails">
+        <p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
+        <xsl:if test="j:ChargeDescriptionText">
+            <p><span class="smallLabel">Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
+        </xsl:if>   
+        <xsl:if test="j:ChargeIdentification/nc:IdentificationCategory">
+            <p><span class="smallLabel">Charge Category: </span> <xsl:value-of select="j:ChargeIdentification/nc:IdentificationCategoryText" /></p>
+        </xsl:if>   
+        <xsl:if test="j:ChargeNCICCode">
+            <p><span class="smallLabel">Charge NCIC Code: </span> <xsl:value-of select="j:ChargeNCICCode" /></p>
+        </xsl:if>   
+        <xsl:if test="j:ChargeSequenceID">
+            <p><span class="smallLabel">Charge Sequence Number: </span> <xsl:value-of select="j:ChargeSequenceID" /></p>
+        </xsl:if>   
+        <xsl:if test="j:ChargeText">
+            <p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
+        </xsl:if>
+        <xsl:if test="j:ChargeSeverityText">
+            <p><span class="smallLabel">Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
+        </xsl:if>   
+        <xsl:if test="rap:ChargeSeverityDescriptionText">
+            <p><span class="smallLabel">Charge Severity Description: </span><xsl:value-of select="rap:ChargeSeverityDescriptionText" /></p>
+        </xsl:if>
+        <xsl:if test="j:ChargeDisposition/nc:DispositionDescriptionText">       
+          <p><span class="smallLabel">Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
+        </xsl:if>
+        <xsl:if test="j:ChargeDisposition/nc:DispositionDate/nc:Date">       
+          <p><span class="smallLabel">Charge Disposition Date: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDate/nc:Date" /></p>
+        </xsl:if>
+        <xsl:if test="rap:ChargeStatute">
+          <p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
+          <p><span class="smallLabel">Statute Description: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteText" /></p>
+        </xsl:if>
+        <xsl:if test="rap:ChargeStatute/rap:StatuteOffenseStateCodeText">
+          <p><span class="smallLabel">Statute Offense State Code: </span> <xsl:value-of select="rap:ChargeStatute/rap:StatuteOffenseStateCodeText" /></p>
+        </xsl:if>
+	</xsl:template>
+	
 	<xsl:template match="rap:ArrestCharge">
 		<xsl:variable name="chgid" select="j:ChargeTrackingIdentification/nc:IdentificationID"/> 
- <!--            <rap:ArrestCharge>
-              <jxdm41:ChargeIdentification>
-                <nc:IdentificationCategory>SOCIETY</nc:IdentificationCategory>
-              </jxdm41:ChargeIdentification>
-              <jxdm41:ChargeNCICCode>2399</jxdm41:ChargeNCICCode>
-              <jxdm41:ChargeSequenceID>
-                <nc:IdentificationID>9976701</nc:IdentificationID>
-                <jxdm41:ChargeSeverityText>M</jxdm41:ChargeSeverityText>
-                <rap:ChargeSeverityDescriptionText>MISDEMEANOR</rap:ChargeSeverityDescriptionText>
-              </jxdm41:ChargeSequenceID>
-              <jxdm41:ChargeTrackingIdentification>
-                <nc:IdentificationID>43626366</nc:IdentificationID>
-              </jxdm41:ChargeTrackingIdentification>
-              <rap:ChargeStatute>
-                <jxdm41:StatuteCodeIdentification>
-                  <nc:IdentificationID>46.20.342(1)(C)</nc:IdentificationID>
-                </jxdm41:StatuteCodeIdentification>
-                <jxdm41:StatuteText>DRIVE W/LICENSE SUSP OR REVOKED-3</jxdm41:StatuteText>
-                <rap:StatuteOffenseStateCodeText>0763300</rap:StatuteOffenseStateCodeText>
-              </rap:ChargeStatute>
-            </rap:ArrestCharge>		 -->
 		<br />
 		<p><span class="sectionTitle" style="font-size:125%">ARREST CHARGE #<xsl:value-of select="position()" /></span></p>
-		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
-		<xsl:if test="j:ChargeDescriptionText">
-			<p><span class="smallLabel">Arrest Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
-		</xsl:if>	
-		<xsl:if test="j:ChargeIdentification/nc:IdentificationCategory">
-			<p><span class="smallLabel">Arrest Charge Category: </span> <xsl:value-of select="j:ChargeIdentification/nc:IdentificationCategory" /></p>
-		</xsl:if>	
-		<xsl:if test="j:ChargeNCICCode">
-			<p><span class="smallLabel">Arrest Charge NCIC Code: </span> <xsl:value-of select="j:ChargeNCICCode" /></p>
-		</xsl:if>	
-		<xsl:if test="j:ChargeSequenceID">
-			<p><span class="smallLabel">Arrest Charge Sequence Number: </span> <xsl:value-of select="j:ChargeSequenceID" /></p>
-		</xsl:if>	
-		<xsl:if test="j:ChargeText">
-			<p><span class="smallLabel">Arrest Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
-		</xsl:if>
-		<xsl:if test="j:ChargeSeverityText">
-			<p><span class="smallLabel">Arrest Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
-		</xsl:if>	
-		<xsl:if test="rap:ChargeSeverityDescriptionText">
-			<p><span class="smallLabel">Arrest Charge Severity Description: </span><xsl:value-of select="rap:ChargeSeverityDescriptionText" /></p>
-		</xsl:if>
-		<xsl:if test="j:ChargeDisposition/nc:DispositionDescriptionText">		
-		  <p><span class="smallLabel">Arrest Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
-		</xsl:if>
-		<xsl:if test="rap:ChargeStatute">
-		  <p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
-		  <p><span class="smallLabel">Statute Description: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteText" /></p>
-		  <p><span class="smallLabel">Statute Offense State Code: </span> <xsl:value-of select="rap:ChargeStatute/rap:StatuteOffenseStateCodeText" /></p>
-        </xsl:if>
+		<xsl:apply-templates select="." mode="chargeDetails"></xsl:apply-templates>
 		<xsl:variable name="prosecutionCount" select="count(../../rap:Prosecution[rap:ProsecutionCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
 		<p class="sectionTitle">PROSECUTION</p>
 		<xsl:choose>
@@ -662,29 +651,24 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+     <xsl:template match="rap:CourtAction" mode="cdm">
+        <br />
+        <p><span class="sectionTitle" style="font-size:125%">Court Action</span></p>
+     	<xsl:variable name="chargeCount" select="rap:CourtCharge/j:ChargeCountQuantity"/>
+        <p><span class="smallLabel">Court Case Number: </span> <xsl:value-of select="rap:CourtRecordIdentification/nc:IdentificationID" /></p>
+        <xsl:apply-templates select="rap:CourtCharge">
+            <xsl:with-param name="chargeCount"><xsl:value-of select="$chargeCount"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+ 	
 	<xsl:template match="rap:CourtCharge">
 		<xsl:param name="chargeCount"/>
 		<!-- inserting this conditional so an empty "Court Charge" won't appear -->
 		<xsl:if test="j:ChargeDescriptionText[. !=''] or j:ChargeDisposition/nc:DispositionDescriptionText[. !=''] or rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID[. != '']">
-			<xsl:if test="chargeCount &gt; 1">
+			<xsl:if test="chargeCount &gt;= 1">
 				<p><span class="detailsLabel">Court Charge</span></p>
 			</xsl:if>
-			<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
-			<xsl:if test="normalize-space(j:ChargeDescriptionText) != ''">
-				<p><span class="smallLabel">Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
-			</xsl:if>	
-			<xsl:if test="normalize-space(j:ChargeText) != ''">
-				<p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
-			</xsl:if>							
-			<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
-				<p><span class="smallLabel">Charge Severity Text: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
-			</xsl:if>	
-			
-			<xsl:if test="normalize-space(j:ChargeDescriptionText) = '' and normalize-space(j:ChargeText) =''">
-				<p><span class="smallLabel">Charge Description: </span></p>
-			</xsl:if>
-			<p><span class="smallLabel">Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
-			<p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
+			<xsl:apply-templates select="." mode="chargeDetails"></xsl:apply-templates>
 		</xsl:if>
 	</xsl:template>
 
