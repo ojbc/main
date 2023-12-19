@@ -657,7 +657,7 @@
 	
      <xsl:template match="rap:CourtAction" mode="cdm">
         <br />
-        <p><span class="sectionTitle" style="font-size:125%">Court Action</span></p>
+        <p><span class="sectionTitle" style="font-size:125%">COURT ACTION</span></p>
      	<xsl:variable name="chargeCount" select="count(rap:CourtCharge)"/>
         <p><span class="smallLabel">Court Case Number: </span> <xsl:value-of select="rap:CourtRecordIdentification/nc:IdentificationID" /></p>
         <xsl:apply-templates select="rap:CourtCharge">
@@ -669,7 +669,7 @@
 	<xsl:template match="rap:CourtCharge">
 		<xsl:if test="j:ChargeDescriptionText[. !=''] or j:ChargeDisposition/nc:DispositionDescriptionText[. !=''] or rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID[. != '']">
 		    <br/>
-			<p><span class="sectionTitle"><xsl:value-of select="concat('Court Charge ',position())"/></span></p>
+			<p><span class="sectionTitle"><xsl:value-of select="concat('COURT CHARGE ',position())"/></span></p>
 			<xsl:apply-templates select="." mode="chargeDetails"></xsl:apply-templates>
 		</xsl:if>
 	</xsl:template>
