@@ -28,6 +28,7 @@ import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -351,13 +352,22 @@ public class XmlUtils {
      */
     public static final void appendTextElement(Element parent, String namespace,
 			String elementName, String textValue) {
-		if (StringUtils.isNotBlank(textValue)){
+		if (StringUtils.isNotBlank(textValue) && !Objects.equals(textValue, "null")){
 			Element element = 
 					XmlUtils.appendElement(parent, namespace, elementName);
 			element.setTextContent(removeNonValidChars(textValue));
 		}
 	}
 
+    public static final void appendTextElement(Element parent, String namespace,
+    		String elementName, Object object) {
+    	if (object != null){
+    		Element element = 
+    				XmlUtils.appendElement(parent, namespace, elementName);
+    		element.setTextContent(removeNonValidChars(Objects.toString(object)));
+    	}
+    }
+    
     public static String removeNonValidChars(String str) {
 
 		if(StringUtils.isBlank(str)) return "";
