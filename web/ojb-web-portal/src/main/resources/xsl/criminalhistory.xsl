@@ -501,6 +501,9 @@
 		  <xsl:sort select="j:ChargeSequenceID"></xsl:sort>
 		</xsl:apply-templates>
 		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=//rap:ArrestCharge/j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm"/> 
+		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/ch-ext:Sentencing/ch-ext:Sentence[not(rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm">
+		  <xsl:sort select="nc:ActivityIdentification/nc:IdentificationID"></xsl:sort>
+		</xsl:apply-templates> 
 	</xsl:template>
 	
 	<xsl:template name="formatArrest">
@@ -599,18 +602,20 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
-				
-		<xsl:variable name="sentencingCount" select="count(../../ch-ext:Sentencing/ch-ext:Sentence[rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
-		<p class="sectionTitle">SENTENCE</p>
-		<xsl:choose>
-			<xsl:when test="$sentencingCount &gt; 0">
-				<xsl:apply-templates select="../../ch-ext:Sentencing/ch-ext:Sentence/rap:SentenceCharge[j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]"/>
-			</xsl:when>
-			<xsl:otherwise>
-				No sentencing information available.
-				<p/>
-			</xsl:otherwise>
-		</xsl:choose>		
+
+        <xsl:if test="not(ancestor::ch-ext:RapSheetCycle/ch-ext:Sentencing/ch-ext:Sentence[not(rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)])">				
+			<xsl:variable name="sentencingCount" select="count(../../ch-ext:Sentencing/ch-ext:Sentence[rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
+			<p class="sectionTitle">SENTENCE</p>
+			<xsl:choose>
+				<xsl:when test="$sentencingCount &gt; 0">
+					<xsl:apply-templates select="../../ch-ext:Sentencing/ch-ext:Sentence/rap:SentenceCharge[j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]"/>
+				</xsl:when>
+				<xsl:otherwise>
+					No sentencing information available.
+					<p/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>		
 		
 		<p class="sectionTitle">CHARGE ALERT</p>
 			
@@ -669,7 +674,7 @@
 	<xsl:template match="rap:CourtCharge">
 		<xsl:if test="j:ChargeDescriptionText[. !=''] or j:ChargeDisposition/nc:DispositionDescriptionText[. !=''] or rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID[. != '']">
 		    <br/>
-			<p><span class="sectionTitle"><xsl:value-of select="concat('COURT CHARGE ',position())"/></span></p>
+			<p><span class="sectionTitle"><xsl:value-of select="concat('COURT CHARGE #',position())"/></span></p>
 			<xsl:apply-templates select="." mode="chargeDetails"></xsl:apply-templates>
 		</xsl:if>
 	</xsl:template>
@@ -685,6 +690,39 @@
 		<br/>
 	</xsl:template>
 	
+	<xsl:template match="ch-ext:Sentencing/ch-ext:Sentence" mode="cdm">
+        <br />
+        <p><span class="sectionTitle" style="font-size:125%">SENTENCE #<xsl:value-of select="position()" /></span></p>
+        <xsl:if test="nc:ActivityCategoryText">       
+          <p><span class="smallLabel">Sentence Category: </span> <xsl:value-of select="nc:ActivityCategoryText" /></p>
+        </xsl:if>
+        <p><span class="smallLabel">Sentence Date: </span> <xsl:value-of select="nc:ActivityDate/nc:Date" /></p>
+        <xsl:if test="j:SentenceDescriptionText">       
+            <p><span classz="smallLabel">Sentence Description: </span> <xsl:value-of select="j:SentenceDescriptionText" /></p>
+        </xsl:if>
+        <xsl:apply-templates select="j:SupervisionAssignedTerm"></xsl:apply-templates>
+        <xsl:if test="j:SupervisionDisciplinaryAction/nc:DisciplinaryActionRestitution/nc:ObligationTotalAmount">       
+            <p><span class="smallLabel">Restitution: </span>
+               <xsl:value-of select="j:SupervisionDisciplinaryAction/nc:DisciplinaryActionRestitution/nc:ObligationTotalAmount" />
+            </p>
+        </xsl:if>
+        <xsl:if test="rap:SupervisionFineAmount">
+            <p><span class="smallLabel">Fine:  </span>
+               <xsl:value-of select="rap:SupervisionFineAmount" />
+            </p>
+        </xsl:if>       
+	</xsl:template>
+	
+    <xsl:template match="j:SupervisionAssignedTerm">
+        <p>
+            <span class="smallLabel"><xsl:value-of select="concat(nc:ActivityCategoryText, ' Max Days:')"/> </span>
+            <xsl:call-template name="parseDurationDays">
+                <xsl:with-param name="duration">
+                   <xsl:value-of select="j:TermMaximumDuration" />
+                </xsl:with-param>
+            </xsl:call-template> 
+        </p>
+    </xsl:template>
 	<xsl:template match="ch-ext:ChargeAlertDescriptionText" mode="alert">
 				<p>
 					<xsl:value-of select="." />
