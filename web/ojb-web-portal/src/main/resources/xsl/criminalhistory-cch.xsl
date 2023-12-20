@@ -361,7 +361,7 @@
 			$(function () {
 				$("#criminalHistoryCycles").accordion({
 					heightStyle: "content",			
-					active: false,
+					active: 0,
   					collapsible: true,
   					activate: function( event, ui ) { 
   						var modalIframe = $("#modalIframe", parent.document);
@@ -488,51 +488,10 @@
 				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>
-				No prosecution information available.
+    			<p class="pb-1">No prosecution information available.</p>
 			</xsl:otherwise>
 		</xsl:choose>
-		
-		<xsl:if test="not(ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)])">
-			<xsl:variable name="courtActionCount" select="count(../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
-			<p class="sectionTitle">COURT ACTION</p>
-			<xsl:choose>
-				<xsl:when test="$courtActionCount &gt; 0">
-					<xsl:apply-templates select="../../rap:CourtAction[rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]">
-						<xsl:with-param name="trackingID"><xsl:value-of select="$chgid"/></xsl:with-param>
-					</xsl:apply-templates>
-				</xsl:when>
-				<xsl:otherwise>
-					No court action information available.
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-
-        <xsl:if test="not(ancestor::ch-ext:RapSheetCycle/ch-ext:Sentencing/ch-ext:Sentence[not(rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)])">				
-			<xsl:variable name="sentencingCount" select="count(../../ch-ext:Sentencing/ch-ext:Sentence[rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]])" />
-			<p class="sectionTitle">SENTENCE</p>
-			<xsl:choose>
-				<xsl:when test="$sentencingCount &gt; 0">
-					<xsl:apply-templates select="../../ch-ext:Sentencing/ch-ext:Sentence/rap:SentenceCharge[j:ChargeTrackingIdentification/nc:IdentificationID[text()=$chgid]]"/>
-				</xsl:when>
-				<xsl:otherwise>
-					No sentencing information available.
-					<p/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>		
-		
-		<p class="sectionTitle">CHARGE ALERT</p>
-			
-		<xsl:choose>
-			<xsl:when test="../../ch-ext:ChargeAlertDescriptionText">
-				<xsl:apply-templates select="../../ch-ext:ChargeAlertDescriptionText" mode="alert"/>
-			</xsl:when>
-			<xsl:otherwise>
-				No charge alert.
-				<p/>
-			</xsl:otherwise>
-		</xsl:choose>		
-			
+					
 	</xsl:template>
 	
 	<xsl:template match="rap:Prosecution">
@@ -565,8 +524,7 @@
 	</xsl:template>
 	
      <xsl:template match="rap:CourtAction" mode="cdm">
-        <br />
-        <p><span class="sectionTitle" style="font-size:125%">COURT ACTION</span></p>
+        <p class="pt-3"><span class="sectionTitle" style="font-size:125%">COURT ACTION</span></p>
      	<xsl:variable name="chargeCount" select="count(rap:CourtCharge)"/>
         <p><span class="smallLabel">Court Case Number: </span> <xsl:value-of select="rap:CourtRecordIdentification/nc:IdentificationID" /></p>
         <xsl:apply-templates select="rap:CourtCharge">
