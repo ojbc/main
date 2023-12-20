@@ -581,6 +581,7 @@
 		<entry key="Statewide Warrant System" value="warrants.xsl" />
 		<entry key="Warrants" value="warrants.xsl" />
 		<entry key="Criminal History" value="criminalhistory.xsl" />
+		<entry key="CCH Criminal History" value="criminalhistory-cch.xsl" />
 		<entry key="Demo RMS" value="person-to-incidents.xsl" />
 		<entry key="Law Enforcement RMS" value="person-to-incidents.xsl" />
 		<entry key="Valcour RMS" value="person-to-incidents.xsl" />

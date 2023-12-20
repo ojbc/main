@@ -84,7 +84,7 @@ public class AppProperties {
 	private String totpUserServerBaseUrl = "https://localhost:8443/OJB/totpUser/";
 	private String otpAuthTotpURL = "ojbc-portal";
 	
-	private String cchDrillDownSystemName="Criminal History";
+	private String cchDrillDownSystemName="CCH Criminal History";
 	private String cchDrillDownIdentificationSourceText="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---CCH-Criminal-History";
 	private String cchDrillDownQueryType="Person";
 	private String cchDrillDownSearchResultCategory="Criminal History";
