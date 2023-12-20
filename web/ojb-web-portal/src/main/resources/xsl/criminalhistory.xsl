@@ -371,11 +371,15 @@
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">ALIASES</td>
-                <td colspan="6">
+                <td colspan="2">
                 	<xsl:variable name="aliasCount" select="count(rap:RapSheetPerson/nc:PersonAlternateName)"/>
                 	<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonAlternateName">
                 		<xsl:with-param name="aliasCount" select="$aliasCount"/>
                 	</xsl:apply-templates>
+                </td>
+                <td colspan="2" class="detailsLabel">SEX OFFENDER</td>
+                <td colspan="2">
+                	<xsl:apply-templates select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonRegisteredOffenderIndicator" mode="formatBooleanAsYesNo"/>
                 </td>
             </tr>
             <tr>
@@ -703,19 +707,19 @@
         <xsl:apply-templates select="j:SupervisionAssignedTerm"></xsl:apply-templates>
         <xsl:if test="j:SupervisionDisciplinaryAction/nc:DisciplinaryActionRestitution/nc:ObligationTotalAmount">       
             <p><span class="smallLabel">Restitution: </span>
-               <xsl:value-of select="j:SupervisionDisciplinaryAction/nc:DisciplinaryActionRestitution/nc:ObligationTotalAmount" />
+               <xsl:value-of select="concat('$', j:SupervisionDisciplinaryAction/nc:DisciplinaryActionRestitution/nc:ObligationTotalAmount)" />
             </p>
         </xsl:if>
         <xsl:if test="rap:SupervisionFineAmount">
             <p><span class="smallLabel">Fine:  </span>
-               <xsl:value-of select="rap:SupervisionFineAmount" />
+               <xsl:value-of select="concat('$', rap:SupervisionFineAmount)" />
             </p>
         </xsl:if>       
 	</xsl:template>
 	
     <xsl:template match="j:SupervisionAssignedTerm">
         <p>
-            <span class="smallLabel"><xsl:value-of select="concat(nc:ActivityCategoryText, ' Max Days:')"/> </span>
+            <span class="smallLabel"><xsl:value-of select="concat(nc:ActivityCategoryText, ' Days:')"/> </span>
             <xsl:call-template name="parseDurationDays">
                 <xsl:with-param name="duration">
                    <xsl:value-of select="j:TermMaximumDuration" />
