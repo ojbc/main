@@ -30,8 +30,8 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 
@@ -41,7 +41,7 @@ public class ProsecutionDecisionTransformTest {
 	
 	private static final Log log = LogFactory.getLog(ProsecutionDecisionTransformTest.class);
 	
-	@Before
+	@BeforeEach
 	public void setup() throws ParserConfigurationException{
 
 		XMLUnit.setIgnoreWhitespace(true);
