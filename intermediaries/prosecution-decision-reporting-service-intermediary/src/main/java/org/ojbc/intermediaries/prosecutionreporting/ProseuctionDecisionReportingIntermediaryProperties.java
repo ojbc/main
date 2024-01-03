@@ -1,4 +1,5 @@
-package org.ojbc.intermediaries.prosecutionreporting;/*
+package org.ojbc.intermediaries.prosecutionreporting;
+/*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
