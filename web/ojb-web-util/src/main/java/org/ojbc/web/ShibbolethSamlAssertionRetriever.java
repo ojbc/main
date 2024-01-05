@@ -61,8 +61,6 @@ public class ShibbolethSamlAssertionRetriever {
      */
     public static final String retrieveAssertion(HttpServletRequest request) throws Exception {
         
-        fixCertificatePathError();
-        
         String mode = request.getParameter(MODE_KEY);
         
         if (mode == null)
@@ -112,39 +110,6 @@ public class ShibbolethSamlAssertionRetriever {
         
         return formattedAssertion;
         
-    }
-
-    private static void fixCertificatePathError() throws GeneralSecurityException {
-        /*
-         * fix for Exception in thread "main" javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed:
-         * sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
-         */
-        TrustManager[] trustAllCerts = new TrustManager[] {
-            new X509TrustManager() {
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
-
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
-            }
-        };
-        SSLContext sc = SSLContext.getInstance("SSL");
-        sc.init(null, trustAllCerts, new java.security.SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-        // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            @Override
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-        };
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 
 }
