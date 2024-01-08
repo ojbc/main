@@ -180,7 +180,7 @@ public class SearchResultConverter implements ApplicationContextAware {
 	
 	private String convertXml(String searchContent, org.springframework.core.io.Resource resource, Map<String, Object> params) {
 		
-			searchContent = CharMatcher.ASCII.retainFrom(searchContent);
+			searchContent = CharMatcher.ascii().retainFrom(searchContent);
 		
 			return xsltTransformerService.transform(createSource(new ByteArrayInputStream(searchContent.getBytes())), createSourceAndSetSystemId(resource),params);
 	}
