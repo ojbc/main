@@ -77,6 +77,8 @@
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
 		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ false;
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
 		    $(function() {
 		
@@ -129,7 +131,7 @@
 		            var sid = ($(this).attr('sid'));
 		            
 		            var subscription = "firstName=" +  firstName + "&lastName=" + lastName +  "&dob=" + dob + "&sid=" + sid + "&sourcePage=personSearch";
-		            
+		            subscription += '&'+_csrf_param_name+'='+_csrf_token;
 		            var sourcePage="personSearch";      
 		
 		            $.post(context + 'subscriptions/addSubscription', subscription,
