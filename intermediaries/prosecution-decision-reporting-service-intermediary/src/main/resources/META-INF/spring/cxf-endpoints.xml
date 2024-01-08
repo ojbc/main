@@ -101,7 +101,7 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${prosecutionDecisionReporting.keystorePassword}</prop>				
 		<prop key="org.apache.ws.security.crypto.merlin.file">${prosecutionDecisionReporting.keystoreLocation}</prop>		
 	</util:properties>		
-		      	
+	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
@@ -109,7 +109,7 @@
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${prosecutionDecisionReporting.truststorePassword}"
-					file="${prosecutionDecisionReporting.truststoreLocation}" />
+					url="${prosecutionDecisionReporting.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>

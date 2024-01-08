@@ -79,6 +79,8 @@
 		<camel:route id="IncidentReportingServiceHandlerRoute">
 			<camel:from uri="incidentReportingServiceEndpoint" />
 			
+			<camel:log message="Body outside of filter: ${body}" />
+			
 			<!-- This wiretap will save the input message -->
 			<camel:filter>
 				<camel:simple>${properties:incidentReportingService.saveInputFile} == true</camel:simple>
