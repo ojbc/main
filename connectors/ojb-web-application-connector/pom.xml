@@ -35,7 +35,7 @@
 
 	<properties>
 		<camel-version>3.11.7</camel-version>
-		<cxf-version>3.4.4</cxf-version>
+		<cxf-version>3.4.7</cxf-version>
 		<servlet-api-version>4.0.1</servlet-api-version>
 		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
 		<ojb-camel-common>[4.0.0,)</ojb-camel-common>
