@@ -28,11 +28,13 @@ import javax.xml.transform.stream.StreamResult;
 
 import net.sf.saxon.TransformerFactoryImpl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class XsltTransformerService {
-
+	private static Log log = LogFactory.getLog(XsltTransformerService.class);
 	
 	public String transform(Source sourceXml, Source sourceXsl,Map<String,Object> params) {
 
@@ -66,8 +68,13 @@ public class XsltTransformerService {
 		if(params == null){
 			return;
 		}
+		log.info(params);
 		for(Entry<String, Object> entry: params.entrySet()){
-			transformer.setParameter(entry.getKey(), entry.getValue());
+			log.info(entry);
+			
+			if (entry.getKey() != null && entry.getValue() != null) {
+				transformer.setParameter(entry.getKey(), entry.getValue());
+			}
 		}
     }
 	

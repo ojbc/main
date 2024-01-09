@@ -57,6 +57,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.OJBCWebServiceURIs;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonName;
@@ -1250,7 +1251,10 @@ public class SubscriptionsController {
 			String iTopic = subscription.getTopic();
 			String reasonCode = subscription.getSubscriptionPurpose();
 			
-			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
+			if (!RAPBACK_TOPIC_SUB_TYPE.equals(iTopic)) {
+				reasonCode = OjbcWebConstants.CRIMINAL_JUSTICE_INVESTIGATIVE; 
+			}
+			else if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
 				
 				LocalDate validationDueDate = subscription.getValidationDueDate(); 
 				
