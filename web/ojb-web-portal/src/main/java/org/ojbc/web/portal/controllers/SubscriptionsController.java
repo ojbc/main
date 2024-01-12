@@ -57,7 +57,6 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.OJBCWebServiceURIs;
-import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonName;
@@ -103,8 +102,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -275,7 +274,7 @@ public class SubscriptionsController {
 		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	@GetMapping("searchForm")
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the search Form");
@@ -288,7 +287,7 @@ public class SubscriptionsController {
 	}
     
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@PostMapping("search")
 	public String advancedSearch(HttpServletRequest request,	
 			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
@@ -440,12 +439,11 @@ public class SubscriptionsController {
 			}						
 		}
 		
-		if (StringUtils.isNotBlank(defaultPersonSearchSubscriptionTopic))
+		String sourcePage = allRequestParams.get("sourcePage");
+		if ("personSearch".equals(sourcePage) && StringUtils.isNotBlank(defaultPersonSearchSubscriptionTopic))
 		{	
 			subscription.setTopic(defaultPersonSearchSubscriptionTopic);
 		}
-		
-		String sourcePage = allRequestParams.get("sourcePage");
 		
 		if (StringUtils.isNotBlank(sourcePage))
 		{	
@@ -468,7 +466,7 @@ public class SubscriptionsController {
 	 *  Two-step process uses search service with sid to get system id
 	 *  which is passed into the detail service
 	 */
-	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
+	@GetMapping(value="sidLookup")
 	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
 			@RequestParam("identificationID") String sid,
 			@ModelAttribute("subscription") Subscription subscription,
@@ -531,10 +529,7 @@ public class SubscriptionsController {
 			subscription.getEmailList().add(sEmail);
 		}
 		
-		String purposeSelection = subscriptionDefaultsMap.get("purpose");
-		if(StringUtils.isNotEmpty(purposeSelection)){
-			subscription.setSubscriptionPurpose(purposeSelection);	
-		}		
+		setSubcriptionDefaultPurpose(subscription);		
 							
 		model.put("subscription", subscription);
 		
@@ -557,10 +552,7 @@ public class SubscriptionsController {
 		}
 		
 		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
-			String purposeSelection = subscriptionDefaultsMap.get("purpose");
-			if(StringUtils.isNotEmpty(purposeSelection)){
-				subscription.setSubscriptionPurpose(purposeSelection);	
-			}		
+			setSubcriptionDefaultPurpose(subscription);		
 		}
 		else{
 			subscription.setSubscriptionPurpose("CS");	
@@ -573,6 +565,13 @@ public class SubscriptionsController {
 		model.put("showCaseIdInput", showCaseIdInput);
 		
 		return "subscriptions/addSubscriptionDialog/rapbackForm::rapbackFormContent";
+	}
+
+	private void setSubcriptionDefaultPurpose(Subscription subscription) {
+		String purposeSelection = subscriptionDefaultsMap.get("purpose");
+		if(StringUtils.isNotEmpty(purposeSelection)){
+			subscription.setSubscriptionPurpose(purposeSelection);	
+		}
 	}
 	
 	
@@ -652,6 +651,7 @@ public class SubscriptionsController {
 			subscription = new Subscription();
 		}	
 		
+		setSubcriptionDefaultPurpose(subscription);		
 		log.debug("Subscription: " + subscription.toString());
 		
 		initDatesForAddForm(subscription, model, INCIDENT_TOPIC_SUB_TYPE);
@@ -680,6 +680,7 @@ public class SubscriptionsController {
 		{
 			subscription = new Subscription();
 		}	
+		setSubcriptionDefaultPurpose(subscription);		
 		
 		log.info("Subscription: " + subscription.toString());
 				
@@ -708,7 +709,9 @@ public class SubscriptionsController {
 		if (subscription == null)
 		{
 			subscription = new Subscription();
-		}	
+		}
+		
+		setSubcriptionDefaultPurpose(subscription);		
 		
 		log.info("Subscription: " + subscription.toString());
 				
@@ -730,7 +733,7 @@ public class SubscriptionsController {
 	 * @return
 	 * 		json array string of errors if any.  These can be used by the UI to display to the user
 	 */
-	@RequestMapping(value="saveSubscription", method=RequestMethod.POST)
+	@PostMapping(value="saveSubscription")
 	public  @ResponseBody SaveSubscriptionResponse  saveSubscription(HttpServletRequest request, @RequestParam Map<String,String> allRequestParams,
 			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors, 
@@ -1213,7 +1216,7 @@ public class SubscriptionsController {
 	 * @throws JsonProcessingException 
 	 * @throws com.fasterxml.jackson.databind.JsonMappingException 
 	 */
-	@RequestMapping(value="validate", method = RequestMethod.POST)
+	@PostMapping(value="validate")
 	public String  validate(HttpServletRequest request, 
 			@RequestParam String subscriptionsJsonString, 
 			Map<String, Object> model) throws com.fasterxml.jackson.databind.JsonMappingException, JsonProcessingException {
@@ -1251,10 +1254,7 @@ public class SubscriptionsController {
 			String iTopic = subscription.getTopic();
 			String reasonCode = subscription.getSubscriptionPurpose();
 			
-			if (!RAPBACK_TOPIC_SUB_TYPE.equals(iTopic)) {
-				reasonCode = OjbcWebConstants.CRIMINAL_JUSTICE_INVESTIGATIVE; 
-			}
-			else if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
+			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
 				
 				LocalDate validationDueDate = subscription.getValidationDueDate(); 
 				
@@ -1378,7 +1378,7 @@ public class SubscriptionsController {
 	}
 
 
-	@RequestMapping(value = "unsubscribe", method = RequestMethod.POST)
+	@PostMapping(value = "unsubscribe")
 	public String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionsJsonString, 
 			Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
 		List<Subscription> subscriptions = parseSubscriptions(subscriptionsJsonString);
@@ -1522,7 +1522,7 @@ public class SubscriptionsController {
 
 	// note system id is used by the broker intermediary to recognize that this is 
 	// an edit.  The system id is not set for the add operation
-	@RequestMapping(value="updateSubscription", method=RequestMethod.POST)
+	@PostMapping(value="updateSubscription")
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody String updateSubscription(HttpServletRequest request,
 			@ModelAttribute("subscription") @Valid Subscription subscription,
