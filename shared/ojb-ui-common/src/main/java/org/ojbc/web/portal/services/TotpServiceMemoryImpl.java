@@ -39,8 +39,8 @@ public class TotpServiceMemoryImpl implements OTPService{
 	/**
 	 * If string ends with 'M', minutes.  If string ends with 'S', seconds.
 	 */
-	@Value("${otpValidityPeriodInMinutes:5M}")
-	String otpValidityPeriod;
+	@Value("${portal.otpValidityPeriodInMinutes:5M}")
+	private String otpValidityPeriod;
 	
 	@Override
 	public boolean confirmOTP(String userIdentifier, String enteredOtp) {
@@ -52,13 +52,13 @@ public class TotpServiceMemoryImpl implements OTPService{
 		
 		LocalDateTime expirationTimestamp = null;
 		
-		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
+		if (StringUtils.endsWith(String.valueOf(getOtpValidityPeriod()), "M"))
 		{	
-			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "M")));
+			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(getOtpValidityPeriod().toUpperCase(), "M")));
 		} 
-		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
+		else if (StringUtils.endsWith(String.valueOf(getOtpValidityPeriod()), "S"))
 		{
-			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "S")));
+			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(getOtpValidityPeriod().toUpperCase(), "S")));
 		}	
 		else
 		{
@@ -156,6 +156,14 @@ public class TotpServiceMemoryImpl implements OTPService{
 	public String generateOTP(String userIdentifier) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getOtpValidityPeriod() {
+		return otpValidityPeriod;
+	}
+
+	public void setOtpValidityPeriod(String otpValidityPeriod) {
+		this.otpValidityPeriod = otpValidityPeriod;
 	}
 
 
