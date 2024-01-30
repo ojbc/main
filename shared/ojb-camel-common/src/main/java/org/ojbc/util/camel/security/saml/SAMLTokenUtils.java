@@ -100,6 +100,25 @@ public class SAMLTokenUtils {
 		return assertion.getDOM();
 	}
 	
+	public static Element createAssertionAsElement(String issuerString, String defaultCanonicalizationAlgorithm, 
+			String defaultRSASignatureAlgorithm, boolean createAuthnStatements, boolean createAttributeStatements, 
+			Map<SamlAttribute, String> customAttributes, 
+			String keystoreLocation, 
+			String keystorePassword, 
+			String keyPassword, 
+			String keyAlias) throws Exception
+	{
+		Assertion assertion = SAMLTokenUtils.createAssertionWithCustomAttributes(issuerString, 
+				defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, createAuthnStatements, 
+				createAttributeStatements, customAttributes, 
+				keystoreLocation, 
+				keystorePassword, 
+				keyPassword, 
+				keyAlias,
+				false);
+		return assertion.getDOM();
+	}
+	
 	/**
 	 * This method is used to create a static SAML assertion as an element.  It will contain hard coded data and is typically used for testing
 	 * or for creating a token in a mock connector or adapter where an IDP or token is unavailable.
@@ -149,6 +168,24 @@ public class SAMLTokenUtils {
 	{
 		return createStaticAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, 
 				createAuthnStatements, createAttributeStatements, customAttributes, false);
+	}
+	
+	public static Assertion createAssertionWithCustomAttributes(String issuerString, 
+			String defaultCanonicalizationAlgorithm, 
+			String defaultRSASignatureAlgorithm, 
+			boolean createAuthnStatements, 
+			boolean createAttributeStatements, 
+			Map<SamlAttribute, String> customAttributes,
+			String keystoreLocation, 
+			String keystorePassword, 
+			String keyPassword, 
+			String keyAlias
+	) throws Exception
+	{
+		return createAssertionWithCustomAttributes(issuerString, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, 
+				createAuthnStatements, createAttributeStatements, customAttributes,
+				keystoreLocation, keystorePassword, keyPassword, keyAlias,
+				false);
 	}		
 	/**
 	 * This function will create/sign an assertion.
@@ -178,6 +215,54 @@ public class SAMLTokenUtils {
 		samlAssertionBuilder.setKeyAlias(MERLIN_KEYSTORE_ALIAS_VALUE);
 		samlAssertionBuilder.setKeystoreLocation(MERLIN_KEYSTORE_FILE_VALUE);
 		samlAssertionBuilder.setKeystorePassword(MERLIN_KEYSTORE_PASSWORD_VALUE);
+		
+		String authenticationMethod="";
+		
+		if (createAuthnStatements)
+		{	
+			//if Custom attributes is null, declare map
+			if (customAttributes == null)
+			{
+				customAttributes = new HashMap<SamlAttribute, String>();
+			}	
+			
+			populateEmptyCustomAttributesWithDefaultValues(customAttributes);
+		}	
+		
+		if (createAttributeStatements)
+		{
+			authenticationMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT;
+		}	
+		
+		Assertion assertion = samlAssertionBuilder.createSamlAssertion(issuerString, 
+				"_408184603d310905303442e592991adc", 
+				"https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", 
+				"http://ojbc.org/ADS/WebServiceConsumer", 
+				authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, 
+				customAttributes, useUserGroupsAttribute);
+		
+		return assertion;
+	}
+	
+	public static Assertion createAssertionWithCustomAttributes(String issuerString, 
+			String defaultCanonicalizationAlgorithm, 
+			String defaultRSASignatureAlgorithm, 
+			boolean createAuthnStatements, 
+			boolean createAttributeStatements, 
+			Map<SamlAttribute, String> customAttributes,
+			String keystoreLocation, 
+			String keystorePassword, 
+			String keyPassword, 
+			String keyAlias,
+			boolean useUserGroupsAttribute) throws Exception
+	{
+		
+		SAMLAssertionBuilder samlAssertionBuilder = new SAMLAssertionBuilder();
+		
+		samlAssertionBuilder.setKeyPassword(keyPassword);
+		samlAssertionBuilder.setKeyAlias(keyAlias);
+		samlAssertionBuilder.setKeystoreLocation(keystoreLocation);
+		samlAssertionBuilder.setKeystorePassword(keystorePassword);
 		
 		String authenticationMethod="";
 		
