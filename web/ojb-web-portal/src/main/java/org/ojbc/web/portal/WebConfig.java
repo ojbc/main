@@ -18,6 +18,7 @@ package org.ojbc.web.portal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.portal.services.TotpServiceMemoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
@@ -170,5 +171,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry
 	        .addResourceHandler("/xsl/**")
 	        .addResourceLocations("/resources/xsl/","file:" + System.getProperty("web.external.resource.home") + "/xsl/");
+    }
+    
+    @Bean
+    @ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
+    TotpServiceMemoryImpl totpServiceMemoryImpl() {
+    	TotpServiceMemoryImpl totpServiceMemoryImpl = new TotpServiceMemoryImpl();
+    	totpServiceMemoryImpl.setOtpValidityPeriod(appProperties.getOtpValidityPeriodInMinutes());;
+    	return totpServiceMemoryImpl;
     }
 }

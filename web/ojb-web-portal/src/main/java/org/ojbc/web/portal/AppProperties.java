@@ -60,6 +60,7 @@ public class AppProperties {
 	private Boolean inactivityTimeout=true;
 	private Integer inactivityTimeoutInSeconds = 1800; 
 	private Integer arrestSearchDateRange = 30;
+	private String otpValidityPeriodInMinutes="5M";
 	
 	private String mailSenderHost; 
 	private Integer mailSenderPort; 
@@ -351,6 +352,14 @@ public class AppProperties {
 
 	public void setUseSamlUserGroupsAttribute(boolean useSamlUserGroupsAttribute) {
 		this.useSamlUserGroupsAttribute = useSamlUserGroupsAttribute;
+	}
+
+	public String getOtpValidityPeriodInMinutes() {
+		return otpValidityPeriodInMinutes;
+	}
+
+	public void setOtpValidityPeriodInMinutes(String otpValidityPeriodInMinutes) {
+		this.otpValidityPeriodInMinutes = otpValidityPeriodInMinutes;
 	}
 
 }
