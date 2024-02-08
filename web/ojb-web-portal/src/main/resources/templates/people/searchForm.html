@@ -244,18 +244,8 @@
                 $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
                 $('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
                 
-                if( sourceSystems ){
-                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
-                    
-                    sourceSystems.forEach(function(selectedSourceSystem){
-                    	/* console.log("selectedSourceSystem:" + selectedSourceSystem); */
-                    	$("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
-                    });
-                }
-                else{
-                	$('#sourceSystemsCheckBoxes input').prop("checked", true);
-                }
-                            
+                ojbc.initSourceSystemCheckBoxes(sourceSystems); 
+                
                 $('#juvenileSearchClearButton').click (function(event){
                   ojbc.clearSearchPurposeFields();
                   ojbc.clearSearchResultsFilterFields();

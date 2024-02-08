@@ -103,7 +103,7 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var sourceSystems = [[${firearmSearchCommand.advanceSearch.sourceSystems}]];
+		        var sourceSystems = /*[[${firearmSearchCommand.advanceSearch.sourceSystems}]]*/ '';
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
@@ -133,16 +133,7 @@
 		        $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
 		        $('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
 		        
-                if( !!sourceSystems ){
-                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
-                    sourceSystems.forEach(function(selectedSourceSystem){
-                        /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
-                        $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
-                    });
-                }
-                else{
-                    $('#sourceSystemsCheckBoxes input').prop("checked", true);
-                }
+		        ojbc.initSourceSystemCheckBoxes(sourceSystems);
 		        
 		        $('#advanceSearchClearButton').click (function(event){
 		              

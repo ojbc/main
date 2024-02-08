@@ -48,13 +48,31 @@
         <div class="horizontalDivide"> </div>
         <p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
         <p class="instructionalText"> Select all that apply.</p>
-        <div id="sourceSystemsCheckBoxes">
+        
+        <div id="divCheckAll" class="mb-2">
+	        <input type="checkbox" name="checkall" id="checkall" class="mr-1" checked
+	            onClick="check_uncheck_checkbox(this.checked);" />
+	       <span class="fieldText font-weight-bold">Check All</span>
+        </div>
+        <div id="sourceSystemsCheckBoxes" class="border-top pt-2">
             <!-- This is a placeholder that will be filled in via the search forms -->
         </div>
         <div id="sourceSystemsCheckBoxesDisabled">
             <!-- This is a placeholder that will be filled in via the search forms -->
         </div>
-
+        <script th:inline="javascript">
+			function check_uncheck_checkbox(isChecked) {
+			    if(isChecked) {
+			    	$('#sourceSystemsCheckBoxes input').each(function() { 
+			            this.checked = true; 
+			        });
+			    } else {
+			    	$('#sourceSystemsCheckBoxes input').each(function() {
+			            this.checked = false;
+			        });
+			    }
+			}
+		</script>
     </div>
   </body>
 </html>

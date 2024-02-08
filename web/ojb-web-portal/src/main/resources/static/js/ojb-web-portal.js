@@ -215,6 +215,27 @@ ojbc = {
 	    return allVals.substring(1);
 	 },
 	 
+	initSourceSystemCheckBoxes : function (sourceSystems) {         
+        if( !!sourceSystems ){
+            $('#sourceSystemsCheckBoxes input').prop("checked", false); 
+            
+            sourceSystems.forEach(function(selectedSourceSystem){
+                /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
+                $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
+            });
+            
+            if (sourceSystems.length < $('#sourceSystemsCheckBoxes input').length){
+                $("#divCheckAll input").prop('checked',false);
+            }
+            else{
+                $("#divCheckAll input").prop('checked',true);
+            }
+        }
+        else{
+            $('#sourceSystemsCheckBoxes input').prop("checked", true);
+        }
+	 },
+	 
 	displayFailMessage : function(jqXHR, textStatus, errorThrown) {
     	if (jqXHR.status == 500) {
     		bootpopup.alert(jqXHR.responseText, 'UNABLE TO PROCESS REQUEST');

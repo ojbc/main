@@ -131,16 +131,7 @@
 	                this.checked = true
                 });
 	            
-                if( !!sourceSystems ){
-                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
-                    sourceSystems.forEach(function(selectedSourceSystem){
-                        /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
-                        $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
-                    });
-                }
-                else{
-                    $('#sourceSystemsCheckBoxes input').prop("checked", true);
-                }
+	            ojbc.initSourceSystemCheckBoxes(sourceSystems);
 	            
 	            $('#advanceSearchClearButton').click (function(event){
 	                  ojbc.clearSearchPurposeFields();
