@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0" xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- 	<pd-ext:ProsecutionDecisionDescriptionText>File Charges</pd-ext:ProsecutionDecisionDescriptionText> -->
+	<nc:Case structures:id="Case_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>ID3456</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<nc:Date>2013-05-15</nc:Date>
+			</nc:DispositionDate>
+			<nc:DispositionDescriptionText>CHG</nc:DispositionDescriptionText>
+		</nc:ActivityDisposition>
+		<nc:CaseFiling>
+			<nc:DocumentFiledDate>
+				<nc:Date>2013-05-15</nc:Date>
+			</nc:DocumentFiledDate>
+		</nc:CaseFiling>		
+		<j:CaseAugmentation>
+			<j:CaseCharge structures:ref="CRG001">
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>ORI34565</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
+				<j:CourtName>Court</j:CourtName>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:CaseProsecutionAttorney>
+		<pdr-report-ext:ProsecutionAttorneyOrganization
+			structures:id="ORG001">
+			<nc:OrganizationLocation>
+				<nc:Address>
+					<nc:LocationStreet>
+						<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Smithtown</nc:LocationCityName>
+					<nc:LocationStateName>MI</nc:LocationStateName>
+					<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+				</nc:Address>
+			</nc:OrganizationLocation>
+			<nc:OrganizationName>ACME Prosecutor</nc:OrganizationName>
+			<nc:OrganizationPrimaryContactInformation>
+				<nc:ContactTelephoneNumber>
+					<nc:FullTelephoneNumber>
+						<nc:TelephoneNumberFullID>222-222-2222</nc:TelephoneNumberFullID>
+					</nc:FullTelephoneNumber>
+				</nc:ContactTelephoneNumber>
+			</nc:OrganizationPrimaryContactInformation>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI7878</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</pdr-report-ext:ProsecutionAttorneyOrganization>
+	</j:CaseProsecutionAttorney>
+	<j:Arrest structures:id="ARR001">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>123456</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:Date>2013-04-18</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<nc:OrganizationIdentification>
+				<nc:IdentificationID>123PD</nc:IdentificationID>
+			</nc:OrganizationIdentification>
+			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI99999</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+	</j:Arrest>
+	<j:Charge structures:id="CRG001">
+		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+		<j:ChargeSequenceID>1</j:ChargeSequenceID>
+		<j:ChargeSeverityLevel>
+			<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+		</j:ChargeSeverityLevel>
+		<j:ChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>12345(1)</nc:IdentificationID>
+			</j:StatuteCodeSectionIdentification>
+		</j:ChargeStatute>
+		<j:ChargeSubject>
+			<nc:RoleOfPerson structures:ref="PER001" />
+			<j:SubjectSupervision>
+				<nc:SupervisionCustodyStatus>
+					<nc:StatusDescriptionText>Not in Custody</nc:StatusDescriptionText>
+				</nc:SupervisionCustodyStatus>
+			</j:SubjectSupervision>
+		</j:ChargeSubject>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>CTID1234</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+		<pdr-report-ext:CriminalTrackingIdentification>
+			<nc:IdentificationID>CRIM12345</nc:IdentificationID>
+		</pdr-report-ext:CriminalTrackingIdentification>
+	</j:Charge>
+	<j:Subject>
+		<nc:RoleOfPerson structures:ref="PER001" />
+	</j:Subject>
+	<nc:Person structures:id="PER001">
+		<nc:PersonBirthDate>
+			<nc:Date>1991-01-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonSurName>Last</nc:PersonSurName>
+			<nc:PersonFullName>First Last</nc:PersonFullName>
+		</nc:PersonName>
+		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>12345678</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>1234567FP</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<pdr-report-ext:PersonTrackingIdentification>
+			<nc:IdentificationID>PTI1234</nc:IdentificationID>
+		</pdr-report-ext:PersonTrackingIdentification>
+	</nc:Person>
+	<nc:Identity structures:id="ALIAS001">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonName>
+				<nc:PersonSurName>Alias Surname</nc:PersonSurName>
+				<nc:PersonFullName>Alias Full Name</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:PersonAliasIdentityAssociation>
+		<nc:Person structures:ref="PER001" />
+		<nc:Identity structures:ref="ALIAS001" />
+	</nc:PersonAliasIdentityAssociation>
+</pd-doc:ProsecutionDecisionReport>
