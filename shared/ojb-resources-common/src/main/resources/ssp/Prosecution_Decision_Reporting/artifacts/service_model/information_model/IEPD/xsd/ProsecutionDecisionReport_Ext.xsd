@@ -45,14 +45,18 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="pd-ext:ServiceOperationDescriptionText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pd-ext:ProsecutionDecisionRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pd-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pd-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cyfs:JuvenileCase" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
@@ -81,6 +85,7 @@
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityInvolvedOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -128,6 +133,12 @@
 		<xsd:annotation>
 			<xsd:documentation>A code indicating whether or not a driver has a CDL/CLP license.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Criminal Transaction Control Number.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PartyIdentification" type="nc:IdentificationType" substitutionGroup="nc:EntityAugmentationPoint">
@@ -221,6 +232,19 @@
 			<xsd:documentation>True if the document is the lead document; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Person Transaction Control Number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType"
+		substitutionGroup="j:CaseOfficialAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An agency that institutes legal proceedings.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ProsecutionDecisionAttachment" type="nc:DocumentType"
 		substitutionGroup="pd-ext:ProsecutionDecisionRepresentation">
 		<xsd:annotation>
@@ -238,6 +262,12 @@
 	<xsd:element name="ProsecutionDecisionRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for a court prosecution decision document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ServiceOperationDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the operation to be used for the message.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

@@ -160,6 +160,7 @@
         <xs:sequence>
           <xs:element ref="j:CaseOfficialRoleText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseOfficialStartDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOfficialAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -414,6 +415,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OrganizationAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:OrganizationIdentification" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
   <xs:complexType name="PersonAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a person.</xs:documentation>
@@ -422,6 +435,7 @@
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
           <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -475,6 +489,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectSupervision" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectOffenderNoticeText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectCautionInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -651,6 +666,11 @@
   <xs:element name="CaseOtherIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A miscellaneous identification for a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficialAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CaseOfficialType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseProsecutionAttorney" type="j:CaseOfficialType" nillable="true">
@@ -933,6 +953,11 @@
       <xs:documentation>A set of details about a statute, rule, or ordinance that was violated as a result of an offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>Additional information about an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationIdentification" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for an identification for an organization.</xs:documentation>
@@ -961,6 +986,11 @@
   <xs:element name="PersonEyeColorCode" type="ncic:EYECodeType" substitutionGroup="nc:PersonEyeColor">
     <xs:annotation>
       <xs:documentation>A color of the eyes of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonHairColorCode" type="ncic:HAICodeType" substitutionGroup="nc:PersonHairColor">
@@ -1051,6 +1081,11 @@
   <xs:element name="SubjectOffenderNoticeText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An additional piece of information associated with a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectSupervision" type="nc:SupervisionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An incarceration, detention, or other form of supervision a subject is currently undergoing.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="TelephoneNumberHomeIndicator" type="niem-xs:boolean" nillable="true">
