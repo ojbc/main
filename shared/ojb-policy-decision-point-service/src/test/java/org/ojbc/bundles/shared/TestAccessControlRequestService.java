@@ -33,6 +33,7 @@ import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -109,11 +110,11 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequest.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 
         String expectedBody = FileUtils
                 .readFileToString(new File(
-                        "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequest.xml"));
+                        "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequest.xml"), CharEncoding.UTF_8);
         int index = expectedBody.indexOf("<acr:IdentityBasedAccessControlRequest"); 
         adapterRequestEndpoint.expectedBodiesReceivedInAnyOrder(expectedBody.substring(index));
 
@@ -156,8 +157,7 @@ public class TestAccessControlRequestService {
      * @throws IOException
      */
     private String readResponseWithoutLicense(File file) throws IOException {
-        @SuppressWarnings("unchecked")
-        List<String> stringList = FileUtils.readLines(file);
+        List<String> stringList = FileUtils.readLines(file, CharEncoding.UTF_8);
         
         if (stringList.size() > 19){
         	return StringUtils.join(stringList.subList(18, stringList.size()), "\n");
@@ -174,7 +174,7 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequestSubscriptions.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 
 		adapterResponseEndpoint.expectedMessageCount(1);
         
@@ -206,7 +206,7 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/accessControl/MessageBasedAccessControlRequest.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, CharEncoding.UTF_8);
 
 		adapterResponseEndpoint.expectedMessageCount(1);
         
