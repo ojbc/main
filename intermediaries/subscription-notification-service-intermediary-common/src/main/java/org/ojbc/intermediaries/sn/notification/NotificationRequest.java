@@ -202,8 +202,18 @@ public abstract class NotificationRequest {
 
         if (StringUtils.isNotBlank(getNotifyingAgencyXpath()))
         {	
-	        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
-	        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
+	        try {
+				notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				log.error("Unable to identify notifying agency Xpath so unable to set Notifying Agency");
+			}
+	        
+	        if (StringUtils.isNotBlank(notifyingAgencyName))
+	        {	
+	        	notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
+	        }
         }    
 	        
         notifyingAgencyOri = StringUtils.trimToNull(XmlUtils.xPathStringSearch(document, getNotifyingAgencyOriXpath()));
