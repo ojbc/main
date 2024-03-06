@@ -36,6 +36,9 @@
 			<nc:ActivityDate>
 				<nc:Date>2001-01-01</nc:Date>
 			</nc:ActivityDate>
+			<nc:IncidentJurisdictionalOrganization>
+				<nc:OrganizationName>Organization Name</nc:OrganizationName>
+			</nc:IncidentJurisdictionalOrganization>
 			<j:IncidentAugmentation>
 				<j:IncidentReportingOfficial>
 					<nc:RoleOfPersonReference s:ref="P002" />
