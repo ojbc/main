@@ -539,7 +539,7 @@
 								<lexslib:SameAsDigestReference lexslib:ref="Victim_P1" />
 							</inc-ext:Victim>
 							<inc-ext:Witness>
-								<inc-ext:WitnessCategoryCode>SO</inc-ext:WitnessCategoryCode>
+								<inc-ext:WitnessCategoryCode>GRDN</inc-ext:WitnessCategoryCode>
 								<lexslib:SameAsDigestReference lexslib:ref="Witness_P1" />
 							</inc-ext:Witness>
 							<inc-ext:Witness>

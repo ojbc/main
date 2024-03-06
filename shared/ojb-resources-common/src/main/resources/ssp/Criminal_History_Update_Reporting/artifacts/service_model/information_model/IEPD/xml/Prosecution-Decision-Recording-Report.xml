@@ -17,15 +17,39 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pdr-report-doc:ProsecutionDecisionRecordingReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0 ../xsd/ProsecutionDecisionRecordingReport-exchange.xsd" xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0" xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pdr-report-doc:ProsecutionDecisionRecordingReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0 ../xsd/ProsecutionDecisionRecordingReport-exchange.xsd"
+	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<pdr-report-ext:CriminalHistoryReportJurisdictionCode>State</pdr-report-ext:CriminalHistoryReportJurisdictionCode>
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
+	<pdr-report-ext:OriginatingAgencyCaseNumber>
+		<nc:IdentificationID>567</nc:IdentificationID>
+	</pdr-report-ext:OriginatingAgencyCaseNumber>
+	<pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>
+		<nc:IdentificationID>899</nc:IdentificationID>
+	</pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>	
+	<pdr-report-ext:ReportIdentification>
+		<nc:IdentificationID>ID349234</nc:IdentificationID>
+	</pdr-report-ext:ReportIdentification>
+	<pdr-report-ext:ChargeFilingDate>
+		<nc:Date>2022-01-10</nc:Date>
+	</pdr-report-ext:ChargeFilingDate>
 	<j:CaseProsecutionAttorney>
-		<pdr-report-ext:ProsecutionAttorneyOrganization structures:ref="ORG001"/>
+		<pdr-report-ext:ProsecutionAttorneyOrganization
+			structures:ref="ORG001" />
 	</j:CaseProsecutionAttorney>
 	<j:Charge>
+		<j:ChargeFilingDate>
+			<nc:Date>2022-01-10</nc:Date>
+		</j:ChargeFilingDate>
 		<j:ChargeStatute>
 			<j:StatuteCodeIdentification>
 				<nc:IdentificationID>004290</nc:IdentificationID>
@@ -34,10 +58,15 @@
 		<j:ChargeTrackingIdentification>
 			<nc:IdentificationID>456</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
-		<pdr-report-ext:ChargeToCourtIndicator>true</pdr-report-ext:ChargeToCourtIndicator>
-		<pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+		<pdr-report-ext:ChargeToCourtIndicator>true
+		</pdr-report-ext:ChargeToCourtIndicator>
+		<pdr-report-ext:EndProsecutorChargeCycleIndicator>true
+		</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	</j:Charge>
 	<j:Charge>
+		<j:ChargeFilingDate>
+			<nc:Date>2022-01-10</nc:Date>
+		</j:ChargeFilingDate>
 		<j:ChargeStatute>
 			<j:StatuteCodeIdentification>
 				<nc:IdentificationID>0046790</nc:IdentificationID>
@@ -46,11 +75,13 @@
 		<j:ChargeTrackingIdentification>
 			<nc:IdentificationID>4563</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
-		<pdr-report-ext:ChargeToCourtIndicator>true</pdr-report-ext:ChargeToCourtIndicator>
-		<pdr-report-ext:EndProsecutorChargeCycleIndicator>false</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+		<pdr-report-ext:ChargeToCourtIndicator>true
+		</pdr-report-ext:ChargeToCourtIndicator>
+		<pdr-report-ext:EndProsecutorChargeCycleIndicator>false
+		</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	</j:Charge>
 	<j:Subject>
-		<nc:RoleOfPerson structures:ref="P001"/>
+		<nc:RoleOfPerson structures:ref="P001" />
 	</j:Subject>
 	<nc:Person structures:id="P001">
 		<nc:PersonBirthDate>
@@ -96,8 +127,10 @@
 				<nc:StreetFullText>210 East Ave</nc:StreetFullText>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Barre</nc:LocationCityName>
-			<nc-3.0.1:LocationStateUSPostalServiceCode>VT</nc-3.0.1:LocationStateUSPostalServiceCode>
-			<nc:LocationPostalExtensionCode>12768</nc:LocationPostalExtensionCode>
+			<nc-3.0.1:LocationStateUSPostalServiceCode>VT
+			</nc-3.0.1:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalExtensionCode>12768
+			</nc:LocationPostalExtensionCode>
 		</nc:Address>
 	</nc:Location>
 	<nc:Organization structures:id="ORG001">
@@ -108,7 +141,7 @@
 		</j:OrganizationAugmentation>
 	</nc:Organization>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="P001"/>
-		<nc:Location structures:ref="LOC001"/>
+		<nc:Person structures:ref="P001" />
+		<nc:Location structures:ref="LOC001" />
 	</nc:PersonResidenceAssociation>
 </pdr-report-doc:ProsecutionDecisionRecordingReport>

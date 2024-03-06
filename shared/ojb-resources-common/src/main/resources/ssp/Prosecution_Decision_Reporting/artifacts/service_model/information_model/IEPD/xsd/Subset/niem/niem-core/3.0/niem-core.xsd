@@ -572,6 +572,7 @@
           <xs:element ref="nc:StatusDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:StatusIssuerText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:StatusAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:StatusDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1267,6 +1268,11 @@
       <xs:documentation>A human being.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonAliasIdentityAssociation" type="nc:PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an alias identity used by that person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for PersonType.</xs:documentation>
@@ -1567,6 +1573,11 @@
       <xs:documentation>A data concept for a date a status is given.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="StatusDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a status or condition of something or someone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="StatusIssuerText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name, identifier, or other reference of a person or organization which assigns a status.</xs:documentation>
@@ -1602,6 +1613,23 @@
       <xs:documentation>A direction that appears before a street name.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="SupervisionCustodyStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of the custody of a person under supervision.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="SupervisionType">
+    <xs:annotation>
+      <xs:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:SupervisionCustodyStatus" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="TelephoneNumber" type="nc:TelephoneNumberType" nillable="true">
     <xs:annotation>
       <xs:documentation>A telephone number for a telecommunication device.</xs:documentation>
