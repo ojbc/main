@@ -89,6 +89,15 @@ $(function() {
 });
 
 ojbc = {
+    presentNewTab:function(tabHref){
+        console.log(tabHref); 
+        if ($('.invalid-feedback').length > 0){
+            currentTab = tabHref.substring(1); 
+            $.get(context + 'people/searchForm?resetForm=true&activeSearchTab=' + currentTab, function(data) {
+                $('#portalContent').html(data);
+            }).fail(ojbc.displayFailMessage)
+        }
+    },
     reloadPage: function() {
         clearTimeout(idleTime);
         idleTime = setTimeout(function () {

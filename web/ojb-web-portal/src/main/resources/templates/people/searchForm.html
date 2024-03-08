@@ -199,21 +199,19 @@
                     }).fail(ojbc.displayFailMessage);
                 });
     
-                $('#juvenileSearchSubmitButton').click (
-                    function(){
-                        ojbc.clearPlaceholders();
+                $('#juvenileSearchSubmitButton').click (function(){
+                    ojbc.clearPlaceholders();
 
-                        var formData = $('#juvenileSearchForm').serialize()+ "&searchType=JUVENILE" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-                        formData += '&'+_csrf_param_name+'='+_csrf_token;
-	                    /* console.log("formData: " + formData); */ 
-                        xhr = $.post(context + "people/advanceSearch",formData,function(data) {
-                            if (data.indexOf('id="advancedSearchTab"') === -1){
-                                $('#filterColumn').addClass('d-none');
-                            }
-                            $('#portalContent').html(data);
-                        }).fail(ojbc.displayFailMessage);
-                    }
-                );
+                    var formData = $('#juvenileSearchForm').serialize()+ "&searchType=JUVENILE" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
+                    formData += '&'+_csrf_param_name+'='+_csrf_token;
+                 /* console.log("formData: " + formData); */ 
+                    xhr = $.post(context + "people/advanceSearch",formData,function(data) {
+                        if (data.indexOf('id="advancedSearchTab"') === -1){
+                            $('#filterColumn').addClass('d-none');
+                        }
+                        $('#portalContent').html(data);
+                    }).fail(ojbc.displayFailMessage);
+                });
                     
                 $('#simpleSearchSubmitButton').click (function(){
                     ojbc.clearPlaceholders();
@@ -230,14 +228,17 @@
                 });
               
                $("a[href='\\#advancedSearchTab']").click (function(){
+            	   ojbc.presentNewTab($(this).attr('href')); 
                    $("#search-tab-title").html("ADVANCED SEARCH: PERSON");
                });
                
                $("a[href='\\#simpleSearchTab']").click (function(){
+            	   ojbc.presentNewTab($(this).attr('href')); 
                    $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
                }); 
                 
                $("a[href='\\#juvenileSearchTab']").click (function(){
+            	   ojbc.presentNewTab($(this).attr('href')); 
                    $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
                });
                 
@@ -261,8 +262,6 @@
                   ojbc.clearSearchResultsFilterFields();
                   $.get(context + 'people/searchForm?resetForm=true&activeSearchTab=advancedSearchTab', function(data) {
                     $('#portalContent').html(data);
-                    
-                    
                   }).fail(ojbc.displayFailMessage)
                 });
     
@@ -272,8 +271,6 @@
                       ojbc.clearSearchResultsFilterFields();
                       $.get(context + 'people/searchForm?resetForm=true', function(data) {
                         $('#portalContent').html(data);
-                        
-                        
                       }).fail(ojbc.displayFailMessage)
                   });
                   
@@ -313,8 +310,8 @@
                 $('#demogFilterInfo').hide();                   
                 $('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
                 $('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");         
-                $('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");                     
-                                    
+                $('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");
+                
           });
       </script>
         
