@@ -215,17 +215,39 @@
                     
                 $('#simpleSearchSubmitButton').click (function(){
                     ojbc.clearPlaceholders();
-                    var formData = $('#simpleSearchForm').serialize()+ "&searchType=SIMPLE"  +"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val(); 
+                    form = document.getElementById("simpleSearchForm");
                     
-                    formData += '&'+_csrf_param_name+'='+_csrf_token;
-
-                    xhr = $.post(context + "people/simpleSearch",formData, function(data) {
+                    formData = new FormData(form); 
+                    formData.append('searchType', 'SIMPLE');
+                    formData.append('advanceSearch.sourceSystems', ojbc.collectAllCheckBoxValues());
+                    formData.append('advanceSearch.purpose', $('#purposeSelect').val());
+                    formData.append('advanceSearch.onBehalfOf', $('#onBehalfOf').val());
+                    formData.append(_csrf_param_name, _csrf_token);
+               for (var pair of formData.entries()) {
+                    console.log(pair[0]+ ', ' + pair[1]); 
+                }
+                    
+					 xhr = $.ajax({
+					     url: context + "people/simpleSearch",
+					     type: "POST",
+					     data: formData,
+					     cache: false,
+					     contentType: false,
+					     processData: false,
+					     success: function(data) {
+							if (data.indexOf('id="advancedSearchTab"') === -1){
+							    $('#filterColumn').addClass('d-none');
+							}
+					        $('#portalContent').html(data); 
+					     }
+					 }).fail(ojbc.displayFailMessage);
+/*                  xhr = $.post(context + "people/simpleSearch",formData, function(data) {
                         if (data.indexOf('id="advancedSearchTab"') === -1){
                             $('#filterColumn').addClass('d-none');
                         }
                         $('#portalContent').html(data);
                     }).fail(ojbc.displayFailMessage);
-                });
+ */                });
               
                $("a[href='\\#advancedSearchTab']").click (function(){
             	   ojbc.presentNewTab($(this).attr('href')); 

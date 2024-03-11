@@ -21,7 +21,6 @@ import java.io.Serializable;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
 
@@ -57,7 +56,7 @@ public class PersonSearchCommand implements Serializable{
 	}
 
 	public void setSimpleSearch(String simpleSearch) {
-		this.simpleSearch = StringEscapeUtils.escapeHtml(simpleSearch);
+		this.simpleSearch = simpleSearch;
 	}
 
 	public void setWeightTolerance(Integer weightTolerance) {
