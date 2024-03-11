@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class GivenAndSurNameExtractor extends SearchTermExtractorBase {
 
 	//matches any words that doesn't contain any numerics
-	private static final String NAME_REGEX = "[a-zA-Z]+[*]?";
+	private static final String NAME_REGEX = "[a-zA-Z]+[ a-zA-Z]*[*]?";
 
 	@Override
 	public List<String> extractTerm(List<String> searchTokens, PersonSearchRequest personSearchRequest) {
