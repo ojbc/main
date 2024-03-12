@@ -23,6 +23,12 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<pd-ext:ServiceOperationDescriptionText>LELAB</pd-ext:ServiceOperationDescriptionText>
+	<pd-ext:ReportIdentification>
+		<nc:IdentificationID>123</nc:IdentificationID>
+	</pd-ext:ReportIdentification>
+	<pd-ext:ChargeFilingDate>
+		<nc:Date>2013-05-15</nc:Date>
+	</pd-ext:ChargeFilingDate>
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>ID3456</nc:IdentificationID>
