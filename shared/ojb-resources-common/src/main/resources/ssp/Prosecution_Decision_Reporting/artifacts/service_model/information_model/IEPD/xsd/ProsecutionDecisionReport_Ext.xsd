@@ -50,6 +50,8 @@
 					<xsd:element ref="pd-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pd-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="pd-ext:ReportIdentification" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="pd-ext:ChargeFilingDate" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cyfs:JuvenileCase" minOccurs="0" maxOccurs="1" />
@@ -90,6 +92,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="ChargeFilingDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date the charges were filed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReportIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Identification information for a report..
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
