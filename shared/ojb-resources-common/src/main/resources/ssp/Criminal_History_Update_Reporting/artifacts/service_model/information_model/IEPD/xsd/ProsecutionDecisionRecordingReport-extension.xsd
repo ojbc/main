@@ -17,13 +17,6 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal 
-	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either 
-	source code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the 
-	RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS 
-	ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, 
-	OR NON-INFRINGEMENT. See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5 
-	Copyright 2012-2017 Open Justice Broker Consortium -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
@@ -54,11 +47,13 @@
 					<xsd:element ref="pdr-report-ext:CycleTrackingIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:FingerprintTransactionControlNumber" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:OriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdr-report-ext:UpdatedOriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionEnhancedCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ProsecutionDispositionCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pdr-report-ext:ReportIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="pdr-report-ext:ChargeFilingDate" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Case" minOccurs="0" />
 					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Court" minOccurs="0" />
 					<xsd:element ref="j:Arrest" minOccurs="0" />
@@ -66,9 +61,11 @@
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" />
 					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Identity" minOccurs="0" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -97,6 +94,11 @@
 		<xsd:annotation>
 			<xsd:documentation>Case or incident number assigned by law enforcement agency.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="UpdatedOriginatingAgencyCaseNumber" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Updated Case or incident number assigned by law enforcement agency.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ProsecutionCitationCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
@@ -157,6 +159,18 @@
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that may be used to further define the offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Person Transaction Control Number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="CriminalTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Criminal Transaction Control Number.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation" abstract="true">
