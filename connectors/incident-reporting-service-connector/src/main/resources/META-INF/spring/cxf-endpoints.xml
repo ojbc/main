@@ -38,7 +38,7 @@
 
 	<!-- endpoints -->
 	<camel:endpoint id="IncidentReportingServiceEndpoint"
-		uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentChargeReporting.incidentReportingServiceIntermediaryCxflogging}" />
+		uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentChargeReporting.incidentReportingServiceIntermediaryCxflogging}&amp;synchronous=true" />
 
 	<!-- OJB Incident Reporting Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="IncidentReportingService"
