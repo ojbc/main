@@ -243,6 +243,13 @@ ojbc = {
         else{
             $('#sourceSystemsCheckBoxes input').prop("checked", true);
         }
+        
+        if ($('#sourceSystemsCheckBoxes input').length <= 1){
+            $('#divCheckAll').hide();
+        }
+        else{
+            $('#divCheckAll').show();
+        }
 	 },
 	 
 	displayFailMessage : function(jqXHR, textStatus, errorThrown) {
