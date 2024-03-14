@@ -118,7 +118,7 @@ public class AppProperties {
 		searchProfileTitles.put("incident", "Incident Search");
 		searchProfileTitles.put("vehicle", "Vehicle Search");
 		searchProfileTitles.put("firearm", "Firearm Search");
-		searchProfileTitles.put("concealedCarrySearch", "Concealed Carry Search");
+		searchProfileTitles.put("concealedCarry", "Concealed Carry Search");
 	}
 
 	public String getRestServiceBaseUrl() {

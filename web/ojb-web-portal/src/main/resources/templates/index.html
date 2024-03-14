@@ -102,6 +102,19 @@
                     return false;
                 });
              
+                $('body').off('click','.concealedCarrySearchLink').on('click', '.concealedCarrySearchLink',function() {
+                    $(this).parent().toggleClass('show');
+                    $.post(context + 'portal/leftBar', function(data) {
+                                                    
+                        $('#filterColumn').html(data);   
+                        $("#demogFilterInfo").hide();
+                        $('#filterColumn').removeClass('d-none');                                    
+                        ojbc.populatePortalContentFromUrl(context + 'concealedCarry/searchForm');
+                    }).fail(ojbc.displayFailMessage);               
+                                           
+                    return false;
+                });
+             
                 $('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
                     $(this).parent().toggleClass('show');
                     $.post(context + 'portal/leftBar', function(data) {

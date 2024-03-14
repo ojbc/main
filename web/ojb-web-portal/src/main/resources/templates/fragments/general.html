@@ -18,30 +18,30 @@
 -->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head th:fragment="headerfiles">
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
-	<link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
-<!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.15.4/css/all.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
-<!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
-	<link rel="stylesheet" th:href="@{/css/print.css}"/>
-	<link rel="stylesheet" th:href="@{/css/jquery.lwMultiSelect.css}"/>
-	<link rel="stylesheet" th:href="@{/css/jquerysctipttop.css}"/>
-	<link rel="stylesheet" th:unless="${#strings.isEmpty(themePath)}" th:href="@{/css/style.css}"/>
-	<link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{${customStyleCssPath}}" />
-    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
-	<link rel="shortcut icon"/>
-</head>
-<body>
+	<head th:fragment="headerfiles">
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
+	<!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.15.4/css/all.css}" />
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
+	<!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+		<link rel="stylesheet" th:href="@{/css/print.css}"/>
+		<link rel="stylesheet" th:href="@{/css/jquery.lwMultiSelect.css}"/>
+		<link rel="stylesheet" th:href="@{/css/jquerysctipttop.css}"/>
+		<link rel="stylesheet" th:unless="${#strings.isEmpty(themePath)}" th:href="@{/css/style.css}"/>
+		<link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{${customStyleCssPath}}" />
+	    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
+		<link rel="shortcut icon"/>
+	</head>
+	<body>
 	    <header th:fragment="header">
         <div class="banner mt-5 pt-1" th:fragment="banner" id="banner">
           <div class="text-white pl-3 align-bottom" th:fragment="bannerContent">

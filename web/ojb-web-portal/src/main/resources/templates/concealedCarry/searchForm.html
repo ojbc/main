@@ -1,0 +1,150 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Concealed Carry Search Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="searchFormContent" id="searchFormContent">
+        <div id="sourceSystems" style="display: none;" 
+          th:replace="common/systemsToQuery::sourceSystemsContent">
+        </div>
+		<div class="card" id="searchTabs">
+		    <div class="card-header">
+		        <div class="pl-0" id="search-results-title">
+		            ADVANCED SEARCH: CONCEALED CARRY
+		        </div>
+		    </div>
+		    <div class="card-body" id="advancedSearchTab">
+		        <form id='searchForm' th:object="${concealedCarrySearchCommand}">
+                    <th:block th:if="${errors?.hasGlobalErrors()}">
+                        <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" 
+                            th:text="${globalError.defaultMessage}">Global error message</div>
+                    </th:block>
+		     
+					<div class="form-row">
+					   <div class="col-8 col-lg-3">
+					     <input type="text" th:field="*{licenseNumber}" width="250" placeholder="License Number"/>
+					     <div th:if="${#fields.hasErrors('licenseNumber')}" th:errors="*{licenseNumber}" class="invalid-feedback d-block error pl-2">License Number error message</div>
+					   </div>
+                       <div class="form-check-inline">
+                         <label class="form-check-label form-control-sm">
+                           <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'StartsWith'}">
+                               <input type="radio" th:field="*{licenseNumberMetadata}" th:value="${metadata}" class="form-check-input">
+                               <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('licenseNumberMetadata')}" th:text="${metadata.metadata}">metadata</span>
+                           </th:block>
+                         </label>
+                       </div>
+					 </div>
+					<div class="form-row">
+                       <div class="col-8 col-lg-3">
+                         <input type="text" th:field="*{registrationNumber}" width="250" placeholder="Registration Number"/>
+                         <div th:if="${#fields.hasErrors('registrationNumber')}" th:errors="*{registrationNumber}" class="invalid-feedback d-block error pl-2">Registration Number error message</div>
+                       </div>
+					 </div>
+		        </form>
+		    </div>
+		    <div class="card-footer text-muted">
+		        <button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</button>
+		        <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+		    </div>
+		</div>        
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+		        var sourceSystems = /*[[${concealedCarrySearchCommand.sourceSystems}]]*/ '';
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+    		$(function() {
+		        //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+		        $.ajaxSetup({ cache: false });
+		        ojbc.handlePlaceholders(); 
+		      
+		        if (oTable !== undefined && oTable.fixedHeader !== undefined){
+		            oTable.fixedHeader.disable();
+		            oTable.destroy();
+		        }               
+		        $( ".datePicker" ).datepicker({
+		           showOn: "both",
+		           buttonImage: context + 'images/Search Form/icon-calendar.png',
+		           buttonImageOnly: true,
+		           shortYearCutoff: "+10",
+		           dateFormat: 'mm/dd/yy'
+		        });
+		        
+		        $('#advanceSearchSubmitButton').click (
+		            function(){
+		                ojbc.clearPlaceholders();
+		                var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+		                formData += '&'+_csrf_param_name+'='+_csrf_token;
+		                
+		                xhr = $.post(context + 'concealedCarry/advanceSearch',formData,function(data) {
+		                    if (data.indexOf('id="advancedSearchTab"') === -1){
+		                        $('#filterColumn').addClass('d-none');
+		                    }
+		                    $('#portalContent').html(data);
+		                }).fail(ojbc.displayFailMessage)
+		         });
+		        
+		        $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+		        
+		        ojbc.initSourceSystemCheckBoxes(sourceSystems);
+		        
+		        $('#advanceSearchClearButton').click (function(event){
+		              
+		              ojbc.clearSearchPurposeFields();
+		              $.get(context + 'incidents/searchForm?resetForm=true&activeSearchTab=advancedSearchTab', function(data) {
+		                $('#portalContent').html(data);                                        
+		              }).fail(ojbc.displayFailMessage)
+		          });
+		          
+		                                     
+		        
+		        //This allows the input fields on the search form to submit form with enter key
+		        $('#advancedSearchTab input').keyup(function(e) {
+		            if (e.keyCode == 13) {
+		                $('#advanceSearchSubmitButton').click();
+		            }
+		        });
+		        
+		        //This allows the select fields on the search form to submit form with enter key            
+		        $('#advancedSearchTab select').keyup(function(e) {
+		            if (e.keyCode == 13) {
+		                $('#advanceSearchSubmitButton').click();
+		            }
+		        });               
+		          
+		          
+		        $('#demogFilterInfo').hide();
+		        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+		        $('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");         
+		        $('#sourceSystemsCheckBoxes > p > span').addClass("fieldText"); 
+		                                
+		    });
+		</script>
+        
+    </th:block>
+  </body>
+</html>

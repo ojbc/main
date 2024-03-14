@@ -115,7 +115,7 @@
 		<entry key="incident" value="enabled" />
 		<entry key="vehicle" value="enabled" />
 		<entry key="firearm" value="enabled" />
-		<entry key="concealedCarrySearch" value="enabled" />
+		<entry key="concealedCarry" value="enabled" />
 	</util:map>
 
 	<util:map id="searchPurposes">
