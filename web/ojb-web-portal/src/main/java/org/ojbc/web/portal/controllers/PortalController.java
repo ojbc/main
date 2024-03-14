@@ -219,8 +219,6 @@ public class PortalController implements ApplicationContextAware {
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		
-		Map<String, String> incidentSystemsToQuery = getIncidentSystemsToQuery(authentication); 
-		model.put("incidentSystemsToQuery", incidentSystemsToQuery); 
 		model.put("searchLinksHtml", getSearchLinksHtml(model, authentication));
 		
 		if (model.get("sensitiveInfoAlert") == null) {
@@ -355,30 +353,39 @@ public class PortalController implements ApplicationContextAware {
 	private List<SearchProfile> getActiveSearchProfiles(Map<String, Object> model, Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
 		
-		addProfileToReturnListIfVisible(visibleProfiles, "people", "Person Search");
-		
-		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+		for (Map.Entry<String, String> entry : searchProfilesEnabled.entrySet()) {
+			Boolean enabled = visibleProfileStateMap.get(entry.getValue()); 
 			
-			@SuppressWarnings("unchecked")
-			Map<String, String> incidentSystemsToQuery = (Map<String, String>) model.get("incidentSystemsToQuery");
-
-			if (incidentSystemsToQuery.size() > 0) {
-				addProfileToReturnListIfVisible(visibleProfiles, "incident", "Incident Search");
+			if ( enabled != null ) {
+				String displayName = appProperties.getSearchProfileTitles().get(entry.getKey());
+				
+				boolean hasAccess = false; 
+				switch (entry.getKey()) {
+				case "incident":
+					Map<String, String> incidentSystemsToQuery = getIncidentSystemsToQuery(authentication); 
+					model.put("incidentSystemsToQuery", incidentSystemsToQuery);
+					if (incidentSystemsToQuery.size() > 0 && SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+						hasAccess = true; 
+					}
+					break; 
+				case "vehicle":
+					if (SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+						hasAccess = true;
+					}
+					break; 
+				default:
+					hasAccess = true;
+				}
+				
+				if (hasAccess) {
+					visibleProfiles.add(new SearchProfile(entry.getKey(), displayName, enabled));
+				}
 			}
-			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "Vehicle Search");
 		}
-		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "Firearm Search");
 		
 		return visibleProfiles;
 	}
 
-	private void addProfileToReturnListIfVisible(List<SearchProfile> enabledProfiles, String profileId, String displayName) {
-		Boolean enabled = visibleProfileStateMap.get(searchProfilesEnabled.get(profileId));
-		if (enabled != null) {
-			enabledProfiles.add(new SearchProfile(profileId, displayName, enabled));
-		}
-	}
-	
 	String getSearchLinksHtml(Map<String, Object> model, Authentication authentication) {
 		StringBuilder links = new StringBuilder();
 

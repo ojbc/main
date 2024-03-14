@@ -91,7 +91,8 @@ public class AppProperties {
 	private String cchDrillDownSearchResultCategory="Criminal History";
 	private boolean useSamlUserGroupsAttribute = false; 
 	
-	private final Map<String, String> leftMenuLinkTitles = new HashMap<>();
+	private Map<String, String> leftMenuLinkTitles = new HashMap<>();
+	private Map<String, String> searchProfileTitles = new HashMap<>();
 	
 	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
 	/*
@@ -112,6 +113,12 @@ public class AppProperties {
 		leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);
 		leftMenuLinkTitles.put(FAQ_LINK_ID, FAQ_LINK_TITLE);
 		leftMenuLinkTitles.put(SUGGESTIONFORM_LINK_ID, SUGGESTIONFORM_LINK_TITLE);
+		
+		searchProfileTitles.put("people", "Person Search");
+		searchProfileTitles.put("incident", "Incident Search");
+		searchProfileTitles.put("vehicle", "Vehicle Search");
+		searchProfileTitles.put("firearm", "Firearm Search");
+		searchProfileTitles.put("concealedCarrySearch", "Concealed Carry Search");
 	}
 
 	public String getRestServiceBaseUrl() {
@@ -360,6 +367,14 @@ public class AppProperties {
 
 	public void setOtpValidityPeriodInMinutes(String otpValidityPeriodInMinutes) {
 		this.otpValidityPeriodInMinutes = otpValidityPeriodInMinutes;
+	}
+
+	public Map<String, String> getSearchProfileTitles() {
+		return searchProfileTitles;
+	}
+
+	public void setSearchProfileTitles(Map<String, String> searchProfileTitles) {
+		this.searchProfileTitles = searchProfileTitles;
 	}
 
 }
