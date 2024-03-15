@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.consealedCarry.search.ConcealedCarrySearchRequest;
-import org.ojbc.web.model.incident.search.IncidentSearchRequest;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.config.IncidentsControllerConfigInterface;
@@ -34,13 +33,13 @@ import org.ojbc.web.portal.controllers.helpers.SimpleSearchParser;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.security.Authorities;
-import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -48,7 +47,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @Profile({"consealed-carry-search", "standalone"})
-@SessionAttributes({"mostRecentConcealedCarrySearch", })
+@SessionAttributes({"mostRecentConcealedCarrySearch", "mostRecentConcealedCarrySearchResult", "savedMostRecentConcealedCarrySearchResult"})
 @RequestMapping("/concealedCarry")
 public class ConsealedCarryController {
 
@@ -91,33 +90,29 @@ public class ConsealedCarryController {
 		return "concealedCarry/searchForm::searchFormContent";
 	}
 	
-//	@PostMapping(value = "advanceSearch")
-//	public String advanceSearch(HttpServletRequest request, @ModelAttribute("incidentSearchCommand") IncidentSearchCommand incidentSearchCommand,
-//	        BindingResult errors, Map<String, Object> model) throws Exception {
-//		userSession.setMostRecentIncidentSearch(incidentSearchCommand);
-//
-//		incidentSearchCommandValidator.validate(incidentSearchCommand, errors);
-//
-//		if (errors.hasErrors()) {
-//			model.put("errors", errors);
-//			userSession.setMostRecentIncidentSearchResult(null);
-//			return "incidents/searchForm::searchFormContent";
-//		}
-//
-//		IncidentSearchRequest incidentSearchRequest = incidentSearchCommandUtils.getIncidentSearchRequest(incidentSearchCommand);
-//		
-//		return performSearchAndReturnResults(request, model, incidentSearchRequest);
-//	}
+	@PostMapping(value = "advanceSearch")
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute("concealedCarrySearchCommand") ConcealedCarrySearchRequest concealedCarrySearchCommand,
+	        BindingResult errors, Map<String, Object> model) throws Exception {
 
-	@GetMapping(value = "incidentDetails")
-	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			model.put("mostRecentConcealedCarrySearch", null); 
+			return "concealedCarry/searchForm::searchFormContent";
+		}
+		model.put("mostRecentConcealedCarrySearch", concealedCarrySearchCommand); 
+
+		return performSearchAndReturnResults(request, model, concealedCarrySearchCommand);
+	}
+
+	@GetMapping(value = "concealedCarryDetails")
+	public String concealedCarryDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
 	        Authentication authentication) throws InterruptedException {
 		try {
 			
 			processDetailRequest(request, systemName, detailsRequest, model, authentication);
 			
-			return "incidents/incidentDetails";
+			return "concealedCarry/concealedCarryDetails";
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
@@ -145,19 +140,13 @@ public class ConsealedCarryController {
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication)
 			throws Exception {
 
-		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL))
-		{
-			Element samlAssertion = samlService.getSamlAssertion(request);		
-			
-			String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
-			String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName,null);
-			model.put("searchContent", convertedContent);
-		}
-		else
-		{
-			model.put("searchContent", "<span class='error'>User is not authorized to see incident detail.</span>");
-			Thread.sleep(500);
-		}
+		Element samlAssertion = samlService.getSamlAssertion(request);		
+		
+//		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
+		String searchContent = "<ConcealedCarryDetails>ConcealedCarryDetails</ConcealedCarryDetails>";
+		String convertedContent = searchResultConverter.convertConcealedCarryDetailSearchResult(searchContent, systemName);
+		Thread.sleep(500);
+		model.put("searchContent", convertedContent);
 
 	}
 
@@ -170,23 +159,26 @@ public class ConsealedCarryController {
 		return params;
 	}
 
-	private String performSearchAndReturnResults(HttpServletRequest request, Map<String, Object> model, IncidentSearchRequest incidentSearchRequest)
+	private String performSearchAndReturnResults(HttpServletRequest request, Map<String, Object> model, ConcealedCarrySearchRequest concealedCarrySearchRequest)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);
 		
-		if("On behalf of".equals(incidentSearchRequest.getOnBehalfOf())) {
-			incidentSearchRequest.setOnBehalfOf(StringUtils.EMPTY);
+		if("On behalf of".equals(concealedCarrySearchRequest.getOnBehalfOf())) {
+			concealedCarrySearchRequest.setOnBehalfOf(StringUtils.EMPTY);
 		}
 		
-		String searchContent = config.getIncidentSearchBean().invokeIncidentSearchRequest(incidentSearchRequest,
-				getFederatedQueryId(), samlAssertion);
+//		String searchContent = config.getIncidentSearchBean().invokeIncidentSearchRequest(concealedCarrySearchRequest,
+//				getFederatedQueryId(), samlAssertion);
+		String searchContent = "<ConcealedCarrySearchResults></ConcealedCarrySearchResults>";
 		
-		userSession.setMostRecentIncidentSearchResult(searchContent);
-		userSession.setSavedMostRecentIncidentSearchResult(null);
-		String convertIncidentSearchResult = searchResultConverter.convertIncidentSearchResult(searchContent,getParams(0, getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
+		model.put("mostRecentConcealedCarrySearchResult", searchContent);
+		model.put("savedMostRecentConcealedCarrySearchResult", null);
+		
+		String convertIncidentSearchResult = searchResultConverter.convertConcealedCarrySearchResult(searchContent,
+				getParams(0, concealedCarrySearchRequest.getPurpose(), concealedCarrySearchRequest.getOnBehalfOf()));
 		model.put("searchContent", convertIncidentSearchResult);
 		
-		return "incidents/searchResult::searchResultContent";
+		return "concealedCarry/searchResult::searchResultContent";
 	}
 	
 	String getFederatedQueryId() {

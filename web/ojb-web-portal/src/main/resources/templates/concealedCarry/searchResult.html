@@ -31,8 +31,8 @@
 		  <nav aria-label="breadcrumb">
 		      <ol class="breadcrumb">
 		          <li class="breadcrumb-item"><a th:href='@{/}'>Home</a></li>
-		          <li class="breadcrumb-item"><a href="#" class="incidentSearchLink">Incident Search Form</a></li>
-		          <li class="breadcrumb-item active" aria-current="page">Incident Search Results</li>
+		          <li class="breadcrumb-item"><a href="#" class="concealedCarrySearchLink">Concealed Carry Search Form</a></li>
+		          <li class="breadcrumb-item active" aria-current="page">Concealed Carry Search Results</li>
 		      </ol>
 		  </nav>
 	      <div class="alert alert-danger" role="alert" id="informationMessages" 
@@ -75,24 +75,24 @@
 	             responsive: true, 
 	             colReorder: true,
 	             "columnDefs": [{
-	                    targets: [ 8 ],
+	                    targets: [ 7 ],
 	                    searchable: false, 
 	                    sortable: false
 	                } ]
 	        });
 	        
 	        if(singleClickForDetail){
-	            $("#searchResultsTable").on('click', 'tbody tr.clickableIncident', function(){
+	            $("#searchResultsTable").on('click', 'tbody tr.clickable', function(){
 	                $(this).find("a.viewDetails").click();
 	            });}
 	        else{
-	            $("#searchResultsTable").on('dblclick', 'tbody tr.clickableIncident', function(){
+	            $("#searchResultsTable").on('dblclick', 'tbody tr.clickable', function(){
 	                $(this).find("a.viewDetails").click();
 	            });
             }
 	         
 	        
-	        $("#searchResultsTable tr.clickableIncident").on('mouseenter', function(){
+	        $("#searchResultsTable tr.clickable").on('mouseenter', function(){
 	             $(this).addClass("incidentHover");
 	        }).on('mouseleave', function () {
 	             $(this).removeClass("incidentHover");

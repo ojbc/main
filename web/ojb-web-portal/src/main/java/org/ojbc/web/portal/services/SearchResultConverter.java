@@ -78,6 +78,12 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("classpath:xsl/rapbackSearchResult.xsl")
 	org.springframework.core.io.Resource rapbackSearchResultXsl;
 	
+	@Value("classpath:xsl/concealedCarrySearchResult.xsl")
+	org.springframework.core.io.Resource concealedCarrySearchResultXsl;
+	
+	@Value("classpath:xsl/concealedCarryDetails.xsl")
+	org.springframework.core.io.Resource concealedCarryDetailsXsl;
+	
 	@Value("classpath:xsl/criminalIdentificationSearchResult.xsl")
 	org.springframework.core.io.Resource criminalIdentificationSearchResultXsl;
 	
@@ -238,6 +244,14 @@ public class SearchResultConverter implements ApplicationContextAware {
 			Object object) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String convertConcealedCarrySearchResult(String searchContent, Map<String, Object> params) {
+		return convertXml(searchContent, concealedCarrySearchResultXsl, params);
+	}
+
+	public String convertConcealedCarryDetailSearchResult(String searchContent, String systemName) {
+		return convertXml(searchContent, concealedCarryDetailsXsl, null);
 	}
 
 }

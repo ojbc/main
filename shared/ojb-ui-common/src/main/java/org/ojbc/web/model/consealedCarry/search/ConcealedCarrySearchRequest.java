@@ -18,6 +18,9 @@ package org.ojbc.web.model.consealedCarry.search;
 
 import java.util.List;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotEmpty;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -32,6 +35,7 @@ public class ConcealedCarrySearchRequest {
 	private String purpose;
 	private String onBehalfOf;
 
+	@NotEmpty(message = "No Source Systems to search are selected.")
 	private List<String> sourceSystems;
 
     public ConcealedCarrySearchRequest() {
@@ -43,6 +47,7 @@ public class ConcealedCarrySearchRequest {
 		return	StringUtils.isAllBlank(this.getLicenseNumber(), this.getRegistrationNumber());
 	}
 
+	@AssertTrue(message = "License number or registration number is required")
 	public boolean isNotEmpty() {
 		return !isEmpty();
 	}
