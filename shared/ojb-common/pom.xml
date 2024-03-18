@@ -51,7 +51,7 @@
 		<saxon-version>9.9.1-7</saxon-version>
 		<java-version>1.8</java-version>
 		<xmlunit.version>1.6</xmlunit.version>
-		<javax.mail.version>1.6.2</javax.mail.version>
+		<javax.mail.version>1.6.7</javax.mail.version>
 		
 	    <!-- Plugin versions -->
 	    <surefire.version>2.22.2</surefire.version>
@@ -97,6 +97,12 @@
 			<groupId>org.apache.wss4j</groupId>
 			<artifactId>wss4j-ws-security-common</artifactId>
 			<version>${wss4j-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.javamail</groupId>
+                    <artifactId>geronimo-javamail_1.4_mail</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wss4j</groupId>
@@ -146,7 +152,7 @@
 		</dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
+            <artifactId>jakarta.mail</artifactId>
 			<version>${javax.mail.version}</version>
 		</dependency>	
 		<dependency>
