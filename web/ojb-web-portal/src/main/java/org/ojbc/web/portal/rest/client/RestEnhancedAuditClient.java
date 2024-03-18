@@ -71,17 +71,12 @@ public class RestEnhancedAuditClient {
 	private String restServiceBaseUrl;
 
 	public void auditPrintResults(PrintResults printResults) {
-//		this.webClient.post().uri("/auditServer/audit/printResults")
-//			.body(BodyInserters.fromValue(printResults));
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/printResults", printResults, PrintResults.class);
 	}
 
 	public void auditUserAcknowledgement(UserAcknowledgement userAcknowledgement) {
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userAcknowledgement", 
 				userAcknowledgement, UserAcknowledgement.class);
-//		this.webClient.post().uri("auditServer/audit/userAcknowledgement")
-//				.body(BodyInserters.fromValue(userAcknowledgement))
-//				.retrieve();
 	}
 	
 	public void auditUserLogin(Element samlAssertion) {

@@ -140,6 +140,7 @@ public class ConsealedCarryController {
 	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication)
 			throws Exception {
 
+		@SuppressWarnings("unused")
 		Element samlAssertion = samlService.getSamlAssertion(request);		
 		
 //		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
@@ -161,6 +162,7 @@ public class ConsealedCarryController {
 
 	private String performSearchAndReturnResults(HttpServletRequest request, Map<String, Object> model, ConcealedCarrySearchRequest concealedCarrySearchRequest)
 			throws Exception {
+		@SuppressWarnings("unused")
 		Element samlAssertion = samlService.getSamlAssertion(request);
 		
 		if("On behalf of".equals(concealedCarrySearchRequest.getOnBehalfOf())) {
