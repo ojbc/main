@@ -69,6 +69,10 @@ public class AppProperties {
 	private String mailSenderSmtpAuth; 
 	private String mailSenderSmtpStarttlesEnable; 
 	private String mailSenderDebug="true"; 
+	private String mailUserName; 
+	private String mailPassword; 
+	private String mailFromAddress; 
+	
 	
 	private Boolean requireIncidentAccessControl = false; 
 	
@@ -95,6 +99,7 @@ public class AppProperties {
 	private Map<String, String> searchProfileTitles = new HashMap<>();
 	
 	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
+	private final List<String> usersUsingTotp = new ArrayList<>();
 	/*
 	 * demo user Saml attributes
 	 */
@@ -119,6 +124,8 @@ public class AppProperties {
 		searchProfileTitles.put("vehicle", "Vehicle Search");
 		searchProfileTitles.put("firearm", "Firearm Search");
 		searchProfileTitles.put("concealedCarry", "Concealed Carry Search");
+		
+		usersUsingTotp.add("demoTotp@search.org");
 	}
 
 	public String getRestServiceBaseUrl() {
@@ -375,6 +382,34 @@ public class AppProperties {
 
 	public void setSearchProfileTitles(Map<String, String> searchProfileTitles) {
 		this.searchProfileTitles = searchProfileTitles;
+	}
+
+	public List<String> getUsersUsingTotp() {
+		return usersUsingTotp;
+	}
+
+	public String getMailUserName() {
+		return mailUserName;
+	}
+
+	public void setMailUserName(String mailUserName) {
+		this.mailUserName = mailUserName;
+	}
+
+	public String getMailPassword() {
+		return mailPassword;
+	}
+
+	public void setMailPassword(String mailPassword) {
+		this.mailPassword = mailPassword;
+	}
+
+	public String getMailFromAddress() {
+		return mailFromAddress;
+	}
+
+	public void setMailFromAddress(String mailFromAddress) {
+		this.mailFromAddress = mailFromAddress;
 	}
 
 }

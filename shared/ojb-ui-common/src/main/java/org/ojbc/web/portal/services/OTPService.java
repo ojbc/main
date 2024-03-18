@@ -18,9 +18,6 @@ package org.ojbc.web.portal.services;
 
 public interface OTPService {
 
-	public String generateOTP(String userIdentifier);
-	
-	public boolean confirmOTP(String userIdentifier, String otp);
 	
 	public boolean isUserAuthenticated(String userIdentifier);
 	

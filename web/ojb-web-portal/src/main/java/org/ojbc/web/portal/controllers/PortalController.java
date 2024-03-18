@@ -77,7 +77,7 @@ import org.w3c.dom.Element;
 @SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion", "incidentSystemsToQuery"})
 public class PortalController implements ApplicationContextAware {
 
-	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	@Resource
 	OTPService otpService;
 	
 	@Resource

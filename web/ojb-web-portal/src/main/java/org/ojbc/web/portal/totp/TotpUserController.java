@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.TotpUser;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/totpUser")
-@ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
 public class TotpUserController {
 	private final Log log = LogFactory.getLog(this.getClass());
 

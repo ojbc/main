@@ -19,6 +19,7 @@ package org.ojbc.web.security;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.totp.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,10 +50,12 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 
     @Value("${requireFederatedQueryUserIndicator:true}")
     boolean requireFederatedQueryUserIndicator;
-    
-    @Autowired(required = false)
-    private CredentialRepository credentialRepository;
 
+    @Resource
+    AppProperties appProperties;
+    
+    @Autowired
+    private CredentialRepository credentialRepository;
 	
 	@Override
 	public void handle(HttpServletRequest request,
@@ -86,7 +90,9 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			String userEmail = getUserEmail(samlAssertion);
 			log.info("User doesn't have OTP role.");
 			log.info("User Email: " + userEmail);
-			if (credentialRepository != null) {
+			
+			//TODO change to check whether user is using emailed OTP or google Auth TOTP
+			if (appProperties.getUsersUsingTotp().contains(userEmail)) {
 				if (credentialRepository.getUser(userEmail) != null) {
 					request.getRequestDispatcher("/code/inputForm").forward(request, response);
 				}

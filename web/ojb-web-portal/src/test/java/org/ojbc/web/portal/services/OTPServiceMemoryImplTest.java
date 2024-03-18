@@ -31,14 +31,15 @@ public class OTPServiceMemoryImplTest {
 	@Test
 	public void testDefaultOtpGenerationAndValidation() throws Exception
 	{
-		OTPServiceMemoryImpl otpService = new OTPServiceMemoryImpl();
+		OTPServiceMemoryImpl emailedOtpService = new OTPServiceMemoryImpl();
+		OTPService otpService = new OtpServiceImpl();
 		
-		otpService.otpValidityPeriod = "2S";
+		emailedOtpService.otpValidityPeriod = "2S";
 		
 		DefaultOtpGenerator defaultOtpGenerator = new DefaultOtpGenerator();
 		defaultOtpGenerator.length = 6;
 		 
-		otpService.otpGenerator = defaultOtpGenerator;
+		emailedOtpService.otpGenerator = defaultOtpGenerator;
 		
 		EmailOutOfBandSendStrategy emailOutOfBandSendStrategy = new EmailOutOfBandSendStrategy();
 		
@@ -49,26 +50,26 @@ public class OTPServiceMemoryImplTest {
 		
 		emailOutOfBandSendStrategy.ojbcMailSender = new MockMailSender();
 		
-		otpService.otpOutOfBandSendStrategy = emailOutOfBandSendStrategy;
+		emailedOtpService.otpOutOfBandSendStrategy = emailOutOfBandSendStrategy;
 		
 		String emailAddress = "me@email.com";
 		
-		String oneTimePassword = otpService.generateOTP(emailAddress);
+		String oneTimePassword = emailedOtpService.generateOTP(emailAddress);
 		assertEquals(6, oneTimePassword.length());
 		
-		assertTrue(otpService.confirmOTP(emailAddress, oneTimePassword));
+		assertTrue(emailedOtpService.confirmOTP(emailAddress, oneTimePassword));
 		assertTrue(otpService.isUserAuthenticated(emailAddress));
 
-		oneTimePassword = otpService.generateOTP(emailAddress);
+		oneTimePassword = emailedOtpService.generateOTP(emailAddress);
 		
 		//Sleep for two seconds so OTP expires
 		Thread.sleep(2000);
 
-		assertFalse(otpService.confirmOTP(emailAddress, oneTimePassword));
+		assertFalse(emailedOtpService.confirmOTP(emailAddress, oneTimePassword));
 		assertFalse(otpService.isUserAuthenticated(emailAddress));
 		
-		oneTimePassword = otpService.generateOTP(emailAddress);
-		assertTrue(otpService.confirmOTP(emailAddress, oneTimePassword));
+		oneTimePassword = emailedOtpService.generateOTP(emailAddress);
+		assertTrue(emailedOtpService.confirmOTP(emailAddress, oneTimePassword));
 		
 		//Sleep for two seconds so OTP expires
 		Thread.sleep(2000);

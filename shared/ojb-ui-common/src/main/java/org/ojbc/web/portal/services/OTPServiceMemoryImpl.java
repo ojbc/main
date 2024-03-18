@@ -17,9 +17,6 @@
 package org.ojbc.web.portal.services;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
@@ -31,26 +28,28 @@ import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service("OTPServiceMemoryImpl")
-public class OTPServiceMemoryImpl implements OTPService{
+@Service("emailedOtpService")
+public class OTPServiceMemoryImpl{
 
+	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
 	
-	private ConcurrentHashMap<String, UserOTPDetails> otpMap = new ConcurrentHashMap<String, UserOTPDetails>();
-	
+	@Resource
+	ConcurrentHashMap<String, UserOTPDetails> otpMap;
+
 	@Resource (name="${otpGeneratorBean:DefaultOtpGenerator}")
 	OtpGenerator otpGenerator;
+		
+	@Resource (name="${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
+	OtpOutOfBandSendStrategy otpOutOfBandSendStrategy;
 	
 	/**
 	 * If string ends with 'M', minutes.  If string ends with 'S', seconds.
 	 */
-	@Value("${otpValidityPeriodInMinutes:5M}")
+	@Value("${portal.otpValidityPeriodInMinutes:5M}")
 	String otpValidityPeriod;
-	
-	@Resource (name="${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
-	OtpOutOfBandSendStrategy otpOutOfBandSendStrategy;
-	
-	@Override
+		
+
 	public String generateOTP(String userIdentifier) {
 
 		String oneTimePassword = otpGenerator.generateToken();
@@ -84,7 +83,6 @@ public class OTPServiceMemoryImpl implements OTPService{
 		return oneTimePassword;
 	}
 
-	@Override
 	public boolean confirmOTP(String userIdentifier, String enteredOtp) {
 
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
@@ -105,94 +103,5 @@ public class OTPServiceMemoryImpl implements OTPService{
 		
 		return false;
 	}
-	
-	@Override
-	public boolean isUserAuthenticated(String userIdentifier) {
-		
-		log.info("Checking isUserAuthenticated: " + userIdentifier);
-		
-		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
-			log.info("User OTP details: " + userOTPDetails);
 			
-			if (userOTPDetails.isUserAuthenticated())
-			{
-				log.info("User Is authenticated, check timestamp before proceeding.");
-				
-				//Double check to make sure user is still within timeframe
-				LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-				LocalDateTime now = LocalDateTime.now();
-				
-				if (now.isBefore(expirationTimestamp))
-				{
-					log.info("Timestamp is valid returning true.");
-					
-					return true;
-				}
-
-			}	
-			else
-			{
-				return false;
-			}	
-		}
-		
-		log.info("Authentication and timestamp could not be validated.  Return false.");
-
-		removeOldEntries();
-		
-		return false;
-	}
-	
-	@Override
-	public boolean unauthenticateUser(String userIdentifier) {
-		log.info("Entering unauthenticate user: " + userIdentifier);
-		
-		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
-			otpMap.remove(userIdentifier);
-			return true;
-		}
-		
-		log.info("User is not authenticated.  Return false.");
-
-		removeOldEntries();
-		
-		return false;
-	}	
-	
-	private void removeOldEntries() {
-		Iterator<Entry<String, UserOTPDetails>> it = otpMap.entrySet().iterator();
-		while (it.hasNext()) {
-		    Map.Entry<String, UserOTPDetails> pair = (Entry<String, UserOTPDetails>)it.next();
-
-		    UserOTPDetails userOTPDetails = (UserOTPDetails) pair.getValue();
-		    
-			//Remove expired tokens
-			LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-			LocalDateTime now = LocalDateTime.now();
-			
-			if (now.isAfter(expirationTimestamp))
-			{
-				log.info("Removing old token for: " + userOTPDetails.getEmailAddress());
-				it.remove(); // avoids a ConcurrentModificationException
-			}
-		}
-		
-	}
-
-	public ConcurrentHashMap<String, UserOTPDetails> getOtpMap() {
-		return otpMap;
-	}
-
-	public void setOtpMap(ConcurrentHashMap<String, UserOTPDetails> otpMap) {
-		this.otpMap = otpMap;
-	}
-
-
-
 }

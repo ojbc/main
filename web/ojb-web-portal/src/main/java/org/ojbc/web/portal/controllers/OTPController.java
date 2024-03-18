@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.model.otp.OTPFormCommand;
-import org.ojbc.web.portal.services.OTPService;
+import org.ojbc.web.portal.services.OTPServiceMemoryImpl;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,8 +43,8 @@ public class OTPController {
 	@Resource
 	SamlService samlService;
 	
-	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
-	OTPService otpService;
+	@Resource
+	OTPServiceMemoryImpl otpService;
 
 	private final Log log = LogFactory.getLog(this.getClass());
 	

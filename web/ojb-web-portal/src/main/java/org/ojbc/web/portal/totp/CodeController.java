@@ -29,10 +29,9 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.model.otp.OTPFormCommand;
 import org.ojbc.web.portal.AppProperties;
-import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
+import org.ojbc.web.portal.services.TotpServiceMemoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,7 +55,6 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 
 @Controller
 @RequestMapping("/code")
-@ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
 public class CodeController {
 	private final Log log = LogFactory.getLog(this.getClass());
 
@@ -69,8 +67,8 @@ public class CodeController {
 	@Resource
     AppProperties appProperties;
 	
-	@Resource (name="${otpServiceBean:totpServiceMemoryImpl}")
-	OTPService otpService;
+	@Resource
+	TotpServiceMemoryImpl otpService;
 
     @GetMapping(value="/generate/{username}/{millisecond}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] generate(@PathVariable String username) 
@@ -118,7 +116,7 @@ public class CodeController {
     		@ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
     		Map<String, Object> model) throws Exception{
 		String oneTimePassword = otpFormCommand.getOtpRequest().getOneTimePassword();
-
+		log.info("otpFormCommand:" + oneTimePassword); 
     	Element samlAssertion = samlService.getSamlAssertion(request);;
 		String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText); 
 		if (gAuth.authorizeUser(userEmail, Integer.valueOf(oneTimePassword)))

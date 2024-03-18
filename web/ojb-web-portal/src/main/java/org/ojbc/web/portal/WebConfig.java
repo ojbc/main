@@ -16,9 +16,12 @@
  */
 package org.ojbc.web.portal;
 
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.web.portal.services.TotpServiceMemoryImpl;
+import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
@@ -134,7 +137,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
     
     @Bean
-    public LocalValidatorFactoryBean getValidator() {
+	public LocalValidatorFactoryBean getValidator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
@@ -146,13 +149,24 @@ public class WebConfig implements WebMvcConfigurer {
     	JavaMailSenderImpl ojbcMailSender = new JavaMailSenderImpl(); 
     	ojbcMailSender.setHost(appProperties.getMailSenderHost());
     	ojbcMailSender.setPort(appProperties.getMailSenderPort());
+    	ojbcMailSender.setProtocol(appProperties.getMailSenderTransportProtocol());
     	
     	ojbcMailSender.getJavaMailProperties().put("mail.transport.protocol", appProperties.getMailSenderTransportProtocol()); 
     	ojbcMailSender.getJavaMailProperties().put("mail.smtp.auth", appProperties.getMailSenderSmtpAuth()); 
-    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", appProperties.getMailSenderSmtpStarttlesEnable()); 
-    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.required", appProperties.getMailSenderSmtpStarttlesEnable()); 
-    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.ssl.protocols", appProperties.getMailSenderSmtpSSlProtocol()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", appProperties.getMailSenderSmtpStarttlesEnable());
+    	
+    	if (StringUtils.isNotBlank(appProperties.getMailUserName()) && !appProperties.getMailUserName().contains("@")) {
+    		ojbcMailSender.getJavaMailProperties().put("mail.smtp.user", appProperties.getMailUserName()); 
+    	}
     	ojbcMailSender.getJavaMailProperties().put("mail.debug", appProperties.getMailSenderDebug());
+    	
+    	if (StringUtils.isNotBlank(appProperties.getMailUserName()) && appProperties.getMailUserName().contains("@")) {
+    		ojbcMailSender.setUsername(appProperties.getMailUserName());
+    	}
+    	
+    	if (StringUtils.isNotBlank(appProperties.getMailPassword())) {
+    		ojbcMailSender.setPassword(appProperties.getMailPassword());
+    	}
 
     	log.info("Created ojbcMailSender bean with the properties: " + ojbcMailSender.getJavaMailProperties());
     	log.info("ojbcMailSender host: " + ojbcMailSender.getHost());
@@ -174,10 +188,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
     
     @Bean
-    @ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
-    TotpServiceMemoryImpl totpServiceMemoryImpl() {
-    	TotpServiceMemoryImpl totpServiceMemoryImpl = new TotpServiceMemoryImpl();
-    	totpServiceMemoryImpl.setOtpValidityPeriod(appProperties.getOtpValidityPeriodInMinutes());;
-    	return totpServiceMemoryImpl;
+    ConcurrentHashMap<String, UserOTPDetails> otpMap(){
+    	return new ConcurrentHashMap<String, UserOTPDetails>();
     }
 }

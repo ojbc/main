@@ -17,7 +17,6 @@
 package org.ojbc.web.portal.totp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,7 +29,6 @@ public class CustomGoogleAuthenticatorConfig {
     private CredentialRepository credentialRepository;
 
     @Bean
-    @ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
     GoogleAuthenticator gAuth() {
         GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator();
         googleAuthenticator.setCredentialRepository(credentialRepository);

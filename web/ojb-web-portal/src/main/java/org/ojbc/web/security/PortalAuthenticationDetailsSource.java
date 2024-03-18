@@ -54,7 +54,7 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${requireOtpAuthentication:false}")
     boolean requireOtpAuthentication;
     
-	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	@Resource
 	OTPService otpService;
     
     @Value("${requireIdentityBasedAccessControl:false}")

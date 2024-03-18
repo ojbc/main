@@ -29,7 +29,6 @@ import com.warrenstrange.googleauth.ICredentialRepository;
 
 @Service
 @ApplicationScope
-@ConditionalOnProperty(name = "otpServiceBean", havingValue = "totpServiceMemoryImpl")
 public class CredentialRepository implements ICredentialRepository {
 
 	@Resource

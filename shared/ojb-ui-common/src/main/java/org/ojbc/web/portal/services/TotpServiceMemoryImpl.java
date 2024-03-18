@@ -17,32 +17,31 @@
 package org.ojbc.web.portal.services;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-//@Service("totpServiceMemoryImpl")
-//This is commented out on Hawaii's request to build a NTOTP war.  --hw
-public class TotpServiceMemoryImpl implements OTPService{
+@Service("totpServiceMemoryImpl")
+public class TotpServiceMemoryImpl{
 
+	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
 	
-	private ConcurrentHashMap<String, UserOTPDetails> totpMap = new ConcurrentHashMap<String, UserOTPDetails>();
-	
+	@Resource
+	ConcurrentHashMap<String, UserOTPDetails> otpMap;
 	/**
 	 * If string ends with 'M', minutes.  If string ends with 'S', seconds.
 	 */
 	@Value("${portal.otpValidityPeriodInMinutes:5M}")
 	private String otpValidityPeriod;
 	
-	@Override
 	public boolean confirmOTP(String userIdentifier, String enteredOtp) {
 
 		UserOTPDetails userOTPDetails = new UserOTPDetails();
@@ -52,13 +51,13 @@ public class TotpServiceMemoryImpl implements OTPService{
 		
 		LocalDateTime expirationTimestamp = null;
 		
-		if (StringUtils.endsWith(String.valueOf(getOtpValidityPeriod()), "M"))
+		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
 		{	
-			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(getOtpValidityPeriod().toUpperCase(), "M")));
+			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "M")));
 		} 
-		else if (StringUtils.endsWith(String.valueOf(getOtpValidityPeriod()), "S"))
+		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
 		{
-			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(getOtpValidityPeriod().toUpperCase(), "S")));
+			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "S")));
 		}	
 		else
 		{
@@ -68,104 +67,10 @@ public class TotpServiceMemoryImpl implements OTPService{
 		userOTPDetails.setExpirationTimestamp(expirationTimestamp);
 		userOTPDetails.setUserAuthenticated(true);
 		
-		totpMap.put(userIdentifier, userOTPDetails);
+		otpMap.put(userIdentifier, userOTPDetails);
 		
 		return true;
 	}
-	
-	@Override
-	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Checking isUserAuthenticated: " + userIdentifier);
-		
-		UserOTPDetails userOTPDetails = totpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
-			log.info("User OTP details: " + userOTPDetails);
-			
-			if (userOTPDetails.isUserAuthenticated())
-			{
-				log.info("User Is authenticated, check timestamp before proceeding.");
-				
-				//Double check to make sure user is still within timeframe
-				LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-				LocalDateTime now = LocalDateTime.now();
-				
-				if (now.isBefore(expirationTimestamp))
-				{
-					log.info("Timestamp is valid returning true.");
-					
-					return true;
-				}
-
-			}	
-			else
-			{
-				return false;
-			}	
-		}
-		
-		log.info("Authentication and timestamp could not be validated.  Return false.");
-
-		removeOldEntries();
-		
-		return false;
-	}
-	
-	@Override
-	public boolean unauthenticateUser(String userIdentifier) {
-		log.info("Entering unauthenticate user: " + userIdentifier);
-		
-		UserOTPDetails userOTPDetails = totpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
-			totpMap.remove(userIdentifier);
-			return true;
-		}
-		
-		log.info("User is not authenticated.  Return false.");
-
-		removeOldEntries();
-		
-		return false;
-	}	
-	
-	private void removeOldEntries() {
-		Iterator<Entry<String, UserOTPDetails>> it = totpMap.entrySet().iterator();
-		while (it.hasNext()) {
-		    Map.Entry<String, UserOTPDetails> pair = (Entry<String, UserOTPDetails>)it.next();
-
-		    UserOTPDetails userOTPDetails = (UserOTPDetails) pair.getValue();
-		    
-			//Remove expired tokens
-			LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-			LocalDateTime now = LocalDateTime.now();
-			
-			if (now.isAfter(expirationTimestamp))
-			{
-				log.info("Removing old token for: " + userOTPDetails.getEmailAddress());
-				it.remove(); // avoids a ConcurrentModificationException
-			}
-		}
-		
-	}
-
-	@Override
-	public String generateOTP(String userIdentifier) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getOtpValidityPeriod() {
-		return otpValidityPeriod;
-	}
-
-	public void setOtpValidityPeriod(String otpValidityPeriod) {
-		this.otpValidityPeriod = otpValidityPeriod;
-	}
-
-
 
 }
