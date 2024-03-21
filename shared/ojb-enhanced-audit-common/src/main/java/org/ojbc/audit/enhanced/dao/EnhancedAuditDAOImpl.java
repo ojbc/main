@@ -2898,4 +2898,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return stateSubscriptionId;
 	}
 
+	@Override
+	public Boolean existsUserInfo(String email) {
+		final String existsSql="SELECT count(*)>0 FROM USER_INFO WHERE user_email_address = ?";
+		Boolean userExists = jdbcTemplate.queryForObject(existsSql, Boolean.class, email);
+		return userExists;	
+	}
+
 }

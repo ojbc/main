@@ -145,6 +145,8 @@ public interface EnhancedAuditDAO {
 
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
+	public Boolean existsUserInfo(String email);
+	
 	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId);
 	
 	public List<UserInfo> retrieveAllUsers();
