@@ -50,5 +50,10 @@ public class TotpUserServiceStandAlone implements TotpUserService{
 		return (List<TotpUser>) usersKeys.values();
 	}
 
+	@Override
+	public Boolean isGoogleAuthUser(String email) {
+		return true;
+	}
+
 	
 }

@@ -32,6 +32,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.totp.CredentialRepository;
+import org.ojbc.web.portal.totp.TotpUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
@@ -56,6 +57,9 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
     
     @Autowired
     private CredentialRepository credentialRepository;
+    
+	@Resource
+	TotpUserService totpUserService;
 	
 	@Override
 	public void handle(HttpServletRequest request,
@@ -91,8 +95,9 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			log.info("User doesn't have OTP role.");
 			log.info("User Email: " + userEmail);
 			
-			//TODO change to check whether user is using emailed OTP or google Auth TOTP
-			if (appProperties.getUsersUsingTotp().contains(userEmail)) {
+			Boolean isGoogleAuthUser = isGoogleAuthUser(userEmail);
+			
+			if (BooleanUtils.isTrue(isGoogleAuthUser)) {
 				if (credentialRepository.getUser(userEmail) != null) {
 					request.getRequestDispatcher("/code/inputForm").forward(request, response);
 				}
@@ -115,6 +120,22 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			return;
 		}	
 
+	}
+
+	private Boolean isGoogleAuthUser(String userEmail) {
+		Boolean isGoogleAuthUser = false; 
+		switch (appProperties.getTwoFactorAuthType()) {
+		case EMAIL: 
+			isGoogleAuthUser = false; 
+			break; 
+		case GOOGLE_AUTH: 
+			isGoogleAuthUser = true; 
+			break; 
+		case USER_CONFIG: 
+			isGoogleAuthUser = totpUserService.isGoogleAuthUser(userEmail); 
+			break; 
+		}
+		return isGoogleAuthUser;
 	}
 	
 	private String getUserEmail(Element samlAssertion) {

@@ -52,6 +52,7 @@ public class AppProperties {
 	public static final String FAQ_LINK_TITLE = "FAQ";
 	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/Report a Problem";
 	
+	public enum TwoFactorAuthType{EMAIL, GOOGLE_AUTH, USER_CONFIG}; 
 
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private String externalTemplatesFolder ;
@@ -100,6 +101,8 @@ public class AppProperties {
 	
 	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
 	private final List<String> usersUsingTotp = new ArrayList<>();
+	
+	private TwoFactorAuthType twoFactorAuthType; 
 	/*
 	 * demo user Saml attributes
 	 */
@@ -410,6 +413,14 @@ public class AppProperties {
 
 	public void setMailFromAddress(String mailFromAddress) {
 		this.mailFromAddress = mailFromAddress;
+	}
+
+	public TwoFactorAuthType getTwoFactorAuthType() {
+		return twoFactorAuthType;
+	}
+
+	public void setTwoFactorAuthType(TwoFactorAuthType twoFactorAuthType) {
+		this.twoFactorAuthType = twoFactorAuthType;
 	}
 
 }

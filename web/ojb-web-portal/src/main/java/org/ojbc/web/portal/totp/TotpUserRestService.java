@@ -90,6 +90,16 @@ public class TotpUserRestService implements TotpUserService{
 				.block();
 	}
 	
+	@Override
+	public Boolean isGoogleAuthUser(String email) {
+		return this.webClient.post()
+				.uri("user/isGoogleAuthUser")
+				.body(BodyInserters.fromValue(email))
+				.retrieve()
+				.bodyToMono(Boolean.class)
+				.block();
+	}
+	
 	private void addDefaultHeaders(final HttpHeaders headers) {
 	    headers.add(HttpHeaders.EXPIRES, "0");
 	    headers.add(HttpHeaders.PRAGMA, "no-cache");

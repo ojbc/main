@@ -25,4 +25,5 @@ public interface TotpUserService {
 	   public TotpUser getTotpUserByUserName(String userName);
 	   public Integer deleteTotpUserByUserName(String userName);
 	   public List<TotpUser> getAllTotpUsers();
+	   public Boolean isGoogleAuthUser(String email);
 }
