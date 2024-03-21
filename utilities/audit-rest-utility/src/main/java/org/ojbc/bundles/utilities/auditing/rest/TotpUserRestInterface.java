@@ -50,4 +50,10 @@ public interface TotpUserRestInterface {
    @Path("/totpUsers")
    @Produces(MediaType.APPLICATION_JSON)
    public Response returnTotpUsers(); 
+   
+   @POST
+   @Path("/user/isGoogleAuthUser")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Boolean isGoogleAuthUser(String userName); 
 }

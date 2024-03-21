@@ -233,6 +233,10 @@
                     <simple>${header.operationName} == 'returnTotpUsers'</simple>
                     <to uri="direct:returnTotpUsers" />
                 </when>
+                <when>
+                    <simple>${header.operationName} == 'isGoogleAuthUser'</simple>
+                    <to uri="direct:isGoogleAuthUser" />
+                </when>
             </choice>
 		</route>
 		<route id="directRetrievePersonSearchRequestByPerson">
@@ -520,6 +524,10 @@
         <route id="directReturnTotpUsers">
             <from uri="direct:returnTotpUsers" />
             <bean ref="totpUserRestImpl" method="returnTotpUsers" />
+        </route>        
+        <route id="directIsGoogleAuthUser">
+            <from uri="direct:isGoogleAuthUser" />
+            <bean ref="totpUserRestImpl" method="isGoogleAuthUser" />
         </route>        
 	</camel:camelContext>
 	

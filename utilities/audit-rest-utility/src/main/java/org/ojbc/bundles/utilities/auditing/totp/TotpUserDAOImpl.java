@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.model.TotpUser;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -105,6 +106,47 @@ public class TotpUserDAOImpl implements TotpUserDAO {
 				jdbcTemplate.query(sql, new TotpUserRowMapper());
 		
 		return totpUsers;	
+	}
+
+	final String queryGoogleAuthUserSql = "SELECT USE_GOOGLE_AUTH FROM TWO_FACTOR_USER WHERE USER_NAME = ?"; 
+	@Override
+	public Boolean isGoogleAuthUser(String email) {
+		
+		Boolean useGoogleAuth = null; 
+		try {
+			useGoogleAuth = jdbcTemplate.queryForObject(queryGoogleAuthUserSql, Boolean.class, email);
+		}
+		catch (EmptyResultDataAccessException e) {
+	        log.info("email not found in the two_factor_user table. ");
+	    }
+		
+		return useGoogleAuth;
+	}
+
+	final String twoFactorUserInsertStatement="INSERT INTO TWO_FACTOR_USER "
+			+ "(USER_NAME, USE_GOOGLE_AUTH) values (?,?)";
+	@Override
+	public Integer saveTwoFactorUser(String email, Boolean isGoogleAuthUser) {
+		log.debug("Inserting row into two_factor_user table");
+		log.debug("With email: " + email);
+		log.debug("With isGoogleAuthUser: " + isGoogleAuthUser);
+		
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(twoFactorUserInsertStatement, new String[] {"TWO_FACTOR_USER_ID"});
+        	            DaoUtils.setPreparedStatementVariable(email, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(isGoogleAuthUser, ps, 2);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+		
+        return keyHolder.getKey().intValue();
+		
 	}
 	
 }

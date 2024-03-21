@@ -30,4 +30,8 @@ public interface TotpUserDAO {
 	
 	public List<TotpUser> retrieveAllTotpUsers();
 	
+	public Boolean isGoogleAuthUser(String email); 
+	
+	public Integer saveTwoFactorUser(String email, Boolean isGoogleAuthUser); 
+	
 }

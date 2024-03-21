@@ -25,6 +25,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.bundles.utilities.auditing.totp.TotpUserDAO;
 import org.ojbc.util.model.TotpUser;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,8 @@ public class TotpUserRestImpl implements TotpUserRestInterface {
 	
 	@Resource
 	private TotpUserDAO totpUserDAO;
+	@Resource
+	private EnhancedAuditDAO enhancedAuditDao;
 	
 	@Override
 	public Integer saveTotpUser(TotpUser totpUser) {
@@ -61,6 +64,22 @@ public class TotpUserRestImpl implements TotpUserRestInterface {
 		List<TotpUser> totpUsers = totpUserDAO.retrieveAllTotpUsers();
 		
 		return Response.status(Status.OK).entity(totpUsers).build();
+	}
+
+	@Override
+	public Boolean isGoogleAuthUser(String userName) {
+		Boolean useGoogleAuth = totpUserDAO.isGoogleAuthUser(userName); 
+		
+		if (useGoogleAuth == null) {
+			if (enhancedAuditDao.existsUserInfo(userName)) {
+				useGoogleAuth = Boolean.FALSE; 
+			}
+			else {
+				useGoogleAuth = Boolean.TRUE; 
+			}
+			totpUserDAO.saveTwoFactorUser(userName, useGoogleAuth); 
+		}
+ 		return useGoogleAuth;
 	}
 
 }
