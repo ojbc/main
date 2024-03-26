@@ -38,11 +38,8 @@
 		<endpoint id="inputDir"
 			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 
-		<endpoint id="deadLetterDir"
-			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/deadLetter" />
-			
 		<!-- Incident Reporting Service Handler -->
-		<camel:route id="IncidentReportingServiceHandlerRoute">
+		<camel:route id="IncidentReportingServiceHandlerRoute" errorHandlerRef="incidentReportingErrorHandler">
 		
 			<camel:from uri="inputDir" />
 			<camel:log
