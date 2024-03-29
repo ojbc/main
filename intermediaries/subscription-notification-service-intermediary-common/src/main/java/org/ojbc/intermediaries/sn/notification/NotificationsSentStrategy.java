@@ -27,4 +27,6 @@ public interface NotificationsSentStrategy {
 	public void updateNotificationSentTimestamp();
 	
 	public boolean hasNotificationBeenSent();
+	
+	public boolean hasNotifcationAmountBeenSent();
 }

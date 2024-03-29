@@ -18,6 +18,11 @@ package org.ojbc.intermediaries.sn.notification;
 
 import java.time.LocalDateTime;
 
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 public class DefaultNotificationsSentStrategy implements NotificationsSentStrategy{
 
 	private LocalDateTime lastNotificationSentTimestamp;
@@ -25,12 +30,17 @@ public class DefaultNotificationsSentStrategy implements NotificationsSentStrate
 	//Set default value to 24 hours
 	private Integer maxHoursBetweenNotifications = 24;
 	
+	//Set default value of 10
+	private Integer minAmountOfNotificationsSent = 10;
+	
+	private JdbcTemplate jdbcTemplateAudit;
+	
 	@Override
 	public void updateNotificationSentTimestamp() {
 		
 		setLastNotificationSentTimestamp(LocalDateTime.now());
 	}
-
+	
 	@Override
 	public boolean hasNotificationBeenSent() {
 		boolean hasNotificationBeenSent = false;
@@ -49,6 +59,23 @@ public class DefaultNotificationsSentStrategy implements NotificationsSentStrate
 		
 		return hasNotificationBeenSent;
 	}
+	
+	@Override
+	public boolean hasNotifcationAmountBeenSent() { 
+		boolean hasNotificationAmountBeenSent = false;
+		
+	    String sql = "select count(*) from rapback_enhanced_auditlog.notifications_sent"
+				+ " where DATEDIFF(s.last_match_date, NOW()) < -1;";
+	    
+	    Integer notificationCount = this.jdbcTemplateAudit.queryForObject(sql, Integer.class);
+	    
+	    if(notificationCount > minAmountOfNotificationsSent) {
+	    	hasNotificationAmountBeenSent = true;
+	    }
+		
+		return hasNotificationAmountBeenSent;
+		
+	}
 
 	public LocalDateTime getLastNotificationSentTimestamp() {
 		return lastNotificationSentTimestamp;
@@ -66,6 +93,16 @@ public class DefaultNotificationsSentStrategy implements NotificationsSentStrate
 	public void setMaxHoursBetweenNotifications(Integer maxHoursBetweenNotifications) {
 		this.maxHoursBetweenNotifications = maxHoursBetweenNotifications;
 	}
-
 	
+	public Integer getMinAmountOfNotificationsSent() {
+		return minAmountOfNotificationsSent;
+	}
+
+	public void setMinAmountOfNotificationsSent(Integer minAmountOfNotificationsSent) {
+		this.minAmountOfNotificationsSent = minAmountOfNotificationsSent;
+	}
+
+	 public void setDataSourceAudit(DataSource dataSourceAudit) {
+	        this.jdbcTemplateAudit = new JdbcTemplate(dataSourceAudit);
+	    }
 }
