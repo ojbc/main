@@ -364,12 +364,13 @@ public class PortalController implements ApplicationContextAware {
 				case "incident":
 					Map<String, String> incidentSystemsToQuery = getIncidentSystemsToQuery(authentication); 
 					model.put("incidentSystemsToQuery", incidentSystemsToQuery);
-					if (incidentSystemsToQuery.size() > 0 && SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+					if (incidentSystemsToQuery.size() > 0 && 
+							(authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL))){
 						hasAccess = true; 
 					}
 					break; 
 				case "vehicle":
-					if (SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+					if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
 						hasAccess = true;
 					}
 					break; 
