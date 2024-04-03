@@ -350,8 +350,32 @@
 			<to uri="smtpEndpoint" />
 			
 		</camel:route>
-
-
+		
+		<camel:route id="checkLowNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotificationCount}}">
+            <camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForLowNotificationsSentCronTimer}}"/>           
+            
+            <camel:log message="Entering route to check when last notifications were sent" />
+            
+            <filter>
+                <method ref="notificationsSentStrategy" method="hasNotifcationAmountBeenSent" />
+                <camel:log message="Enough notifications have been sent, stop route" />
+                <camel:stop />
+            </filter>
+        
+            <!-- If we get here the route was not stopped by the filter -->
+        
+            <camel:setHeader name="to">
+                <constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
+            </camel:setHeader>
+        
+            <camel:setHeader name="subject">
+                <constant>Check subscription notification intermediary.  Notification count is low.</constant>
+            </camel:setHeader>
+        
+            <to uri="smtpEndpoint" />
+            
+        </camel:route>
+		
 	</routeContext>
 		
 </beans>

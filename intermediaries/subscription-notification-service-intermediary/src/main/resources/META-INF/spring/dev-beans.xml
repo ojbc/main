@@ -211,6 +211,8 @@
 		
 	<bean id="notificationsSentStrategy" class="org.ojbc.intermediaries.sn.notification.DefaultNotificationsSentStrategy">
 		<property name="maxHoursBetweenNotifications" value="24"/>
+		<property name="minAmountOfNotificationsSent" value="10" />
+		<property name="dataSourceAudit" ref="dataSourceAudit" />
 	</bean>	
 	
 	<util:list id="courtDispositionUpdateSubscriptionSubjectIdentifiers">

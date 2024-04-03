@@ -27,7 +27,8 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class, 
 		HibernateJpaAutoConfiguration.class})
 @ComponentScan({"org.ojbc.connectors.incidentreporting.application"})
-@ImportResource(value = {"classpath:META-INF/spring/camel-context.xml", 
+@ImportResource(value = {"classpath:META-INF/spring/camel-context.xml",
+		"classpath:META-INF/spring/error-handlers.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"})
 public class IncidentReportingServiceConnectorApplication {
 
