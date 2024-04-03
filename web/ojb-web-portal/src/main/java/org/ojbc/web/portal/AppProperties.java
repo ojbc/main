@@ -100,7 +100,6 @@ public class AppProperties {
 	private Map<String, String> searchProfileTitles = new HashMap<>();
 	
 	private final List<String> peopleSearchSourcesRequireIncidentAccess = new ArrayList<>();
-	private final List<String> usersUsingTotp = new ArrayList<>();
 	
 	private TwoFactorAuthType twoFactorAuthType; 
 	/*
@@ -128,7 +127,6 @@ public class AppProperties {
 		searchProfileTitles.put("firearm", "Firearm Search");
 		searchProfileTitles.put("concealedCarry", "Concealed Carry Search");
 		
-		usersUsingTotp.add("demoTotp@search.org");
 	}
 
 	public String getRestServiceBaseUrl() {
@@ -385,10 +383,6 @@ public class AppProperties {
 
 	public void setSearchProfileTitles(Map<String, String> searchProfileTitles) {
 		this.searchProfileTitles = searchProfileTitles;
-	}
-
-	public List<String> getUsersUsingTotp() {
-		return usersUsingTotp;
 	}
 
 	public String getMailUserName() {
