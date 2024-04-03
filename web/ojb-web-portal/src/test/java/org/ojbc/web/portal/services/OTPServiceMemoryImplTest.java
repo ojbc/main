@@ -22,9 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Test;
 import org.ojbc.util.mail.MockMailSender;
+import org.ojbc.web.security.UserOTPDetails;
 
 public class OTPServiceMemoryImplTest {
 
@@ -32,8 +34,10 @@ public class OTPServiceMemoryImplTest {
 	public void testDefaultOtpGenerationAndValidation() throws Exception
 	{
 		OTPServiceMemoryImpl emailedOtpService = new OTPServiceMemoryImpl();
-		OTPService otpService = new OtpServiceImpl();
+		OtpServiceImpl otpService = new OtpServiceImpl();
 		
+		emailedOtpService.otpMap = new ConcurrentHashMap<String, UserOTPDetails>();
+		otpService.otpMap = emailedOtpService.otpMap;
 		emailedOtpService.otpValidityPeriod = "2S";
 		
 		DefaultOtpGenerator defaultOtpGenerator = new DefaultOtpGenerator();
