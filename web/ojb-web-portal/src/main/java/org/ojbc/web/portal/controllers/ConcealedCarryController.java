@@ -28,7 +28,6 @@ import org.ojbc.util.helper.UniqueIdUtils;
 import org.ojbc.web.model.consealedCarry.search.ConcealedCarrySearchRequest;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.AppProperties;
-import org.ojbc.web.portal.controllers.config.IncidentsControllerConfigInterface;
 import org.ojbc.web.portal.controllers.helpers.SimpleSearchParser;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
@@ -46,15 +45,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@Profile({"consealed-carry-search", "standalone"})
+@Profile({"concealed-carry-search"})
 @SessionAttributes({"mostRecentConcealedCarrySearch", "mostRecentConcealedCarrySearchResult", "savedMostRecentConcealedCarrySearchResult"})
 @RequestMapping("/concealedCarry")
-public class ConsealedCarryController {
+public class ConcealedCarryController {
 
 	public static final int ROWS_PER_PAGE = 50;
-
-	@Resource
-	IncidentsControllerConfigInterface config;
 
 	@Resource
 	Map<String, String> systemsToQuery_concealedCarry;
