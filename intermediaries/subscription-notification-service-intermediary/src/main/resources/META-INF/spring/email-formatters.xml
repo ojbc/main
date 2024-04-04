@@ -121,7 +121,7 @@ Agency: Maine $emailNotification.notificationRequest.notifyingAgencyName
 Officer: $officerNameString<br/>
 #end
 Citation #:$emailNotification.notificationRequest.notificationEventIdentifier <br/>
-If you require more information, please utilize the Federated Query Tool – https://ojbc.maine.gov/ojb-web-portal/portal/index or call Maine State Police]]></value>
+If you require more information, please utilize the Federated Query Tool]]></value>
 		</property>
 	</bean>	
 
