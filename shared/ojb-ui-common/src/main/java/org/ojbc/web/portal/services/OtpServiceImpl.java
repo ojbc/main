@@ -40,7 +40,7 @@ public class OtpServiceImpl implements OTPService{
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
 		log.info("Checking isUserAuthenticated: " + userIdentifier);
-		
+
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
 		if (userOTPDetails != null)
@@ -79,20 +79,17 @@ public class OtpServiceImpl implements OTPService{
 	@Override
 	public boolean unauthenticateUser(String userIdentifier) {
 		log.info("Entering unauthenticate user: " + userIdentifier);
-		
-		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
-			otpMap.remove(userIdentifier);
-			return true;
-		}
-		
-		log.info("User is not authenticated.  Return false.");
 
+		boolean result = false; 
 		removeOldEntries();
-		
-		return false;
+		if (otpMap.containsKey(userIdentifier)){
+			otpMap.remove(userIdentifier);
+			result = true;
+		}
+		else {
+			log.info("User is not authenticated.  Return false.");
+		}
+		return result;
 	}	
 	
 	private void removeOldEntries() {
