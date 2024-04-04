@@ -63,7 +63,7 @@ public class PortalControllerTest {
 			}
 		};
 		
-		appProperties = mock(AppProperties.class); 
+		appProperties = new AppProperties(); 
 		unit = new PortalController();
 		unitWithSAMLToken = new PortalController();
 		unitWithSAMLToken.samlService = samlService;
