@@ -42,7 +42,7 @@
               <img th:src="@{/code/generate/} + ${userName} + '/' + ${#dates.millisecond(currentDate)}"/>
               
               <div class="alert alert-primary mt-3" role="alert">When you are done scanning, click 
-                <a class="btn btn-primary" role="button" th:href="@{/}" id="home">Continue</a> 
+                <a class="btn btn-primary" role="button" href="#" id="scanningConfirmation">Continue</a> 
                 to login with the one-time password</div>
             </form>
           </div>
@@ -53,5 +53,27 @@
     <footer th:replace="fragments/general.html :: footer"></footer> 
     <!-- /.container -->
     <th:block th:include="fragments/general.html :: javascripts"></th:block>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+        var context = /*[[@{/}]]*/ '';
+      /*]]>*/
+      $(function(){
+        $('#scanningConfirmation').click (function(){
+        	var homeButton = $(this).next();
+            bootpopup({
+                title: "Have you scanned the QR code?",
+                content: [
+                    '<div class="alert alert-warning"><i class="fas fa-exclamation-circle mr-2"></i>Please confirm that you have scanned the QR code successfully. The QR code will not show up again on your confirmation.</div>'
+                ],
+                yes: function(data,e) { 
+                	window.location = context;
+                },
+                no: function(data) {
+                }
+            });
+        });
+            
+      });
+    </script>
   </body>
 </html>
