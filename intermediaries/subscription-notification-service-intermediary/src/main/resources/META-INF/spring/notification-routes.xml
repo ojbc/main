@@ -352,7 +352,7 @@
 		</camel:route>
 		
 		<camel:route id="checkLowNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotificationCount}}">
-            <camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForLowNotificationsSentCronTimer}}"/>           
+            <camel:from uri="quartz://subscriptionNotification/lowNotificationsSentTimer?cron={{publishSubscribe.checkForLowNotificationsSentCronTimer}}"/>           
             
             <camel:log message="Entering route to check when last notifications were sent" />
             

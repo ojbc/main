@@ -64,8 +64,8 @@ public class DefaultNotificationsSentStrategy implements NotificationsSentStrate
 	public boolean hasNotifcationAmountBeenSent() { 
 		boolean hasNotificationAmountBeenSent = false;
 		
-	    String sql = "select count(*) from rapback_enhanced_auditlog.notifications_sent"
-				+ " where DATEDIFF(s.last_match_date, NOW()) < -1;";
+	    String sql = "select count(*) from rapback_enhanced_auditlog.notifications_sent ns"
+				+ " where DATEDIFF(ns.timestamp, NOW()) < -1;";
 	    
 	    Integer notificationCount = this.jdbcTemplateAudit.queryForObject(sql, Integer.class);
 	    
