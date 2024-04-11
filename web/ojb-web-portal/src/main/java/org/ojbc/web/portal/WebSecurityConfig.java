@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.ojbc.web.portal.services.SamlService;
+import org.ojbc.web.security.CustomLogoutSuccessHandler;
 import org.ojbc.web.security.OJBCAccessDeniedHandler;
 import org.ojbc.web.security.PortalAuthenticationDetailsSource;
 import org.ojbc.web.security.SamlAuthenticationFilter;
@@ -41,6 +42,7 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @EnableWebSecurity
@@ -56,6 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Resource
 	OJBCAccessDeniedHandler ojbcAccessDeniedHandler;
 	
+	@Resource
+	CustomLogoutSuccessHandler customLogoutSuccessHandler;
+	
 	@Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
@@ -68,7 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests(requests -> requests
                     .anyRequest().hasAuthority("AUTHZ_PORTAL"))
-            .logout(logout -> logout.logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll())
+            .logout(logout -> logout
+//            		.logoutUrl("/portal/performLogout")
+            		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            		.logoutSuccessHandler(customLogoutSuccessHandler)
+            		.deleteCookies("JSESSIONID")
+            		.clearAuthentication(true)
+            		.permitAll())
             .headers(headers -> headers
                     .frameOptions()
                     .sameOrigin())

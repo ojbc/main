@@ -225,85 +225,15 @@ public class PortalController implements ApplicationContextAware {
 			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
 		}
 		
-    	putUserSignoutUrlAndSamlAssertionIntoModel(request, model);
+    	putSamlAssertionIntoModel(request, model);
     	
     	return "index";
 	}
 
-	private void putUserSignoutUrlAndSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
+	private void putSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
 			throws Exception {
-		StringBuilder sb = new StringBuilder();
-		
-		log.info("userSignOutUrl in putUserSignoutUrlAndSamlAssertionIntoModel: " + userSignOutUrl);
-    	sb.append(userSignOutUrl);
-    	
     	Element samlAssertion = (Element)request.getAttribute("samlAssertion");
-    	
-    	if (entityLogoutReturnUrlMap != null){
-    		
-    		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
-    		
-    		log.info("Test login with the new jquery click");
-    		log.info("Saml Token Issuer: " + samlTokenIssuer);
-    		
-    		String logoutReturnUrl = entityLogoutReturnUrlMap.get(samlTokenIssuer);
-    		
-    		log.info("Logout return URL: " + logoutReturnUrl);
-    		
-    		if (StringUtils.isNotBlank(logoutReturnUrl)){
-    			sb.append("?return=");
-    			sb.append(logoutReturnUrl);
-    		}
-    	}
-    	model.put("userSignOutUrl", sb.toString());
     	model.put("samlAssertion", samlAssertion);
-	}
-
-    @GetMapping("/portal/performLogout")
-    public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
-    	String userSignoutUrl = (String) model.get("userSignOutUrl");
-    	
-    	log.info("User Signout URL: " + userSignoutUrl);
-    	
-		Element samlAssertion =  (Element) model.get("samlAssertion");
-		
-		//Enhanced audit logout here
-		if (enableEnhancedAudit)
-		{
-        	try {
-				restEnhancedAuditClient.auditUserLogout(samlAssertion);
-			} catch (Exception e) {
-				e.printStackTrace();
-				log.error("Unable to audit user logout");
-			}
-		}	
-		
-    	if (request.getSession()!= null){
-    		
-    		if (otpService != null)
-    		{
-    			//Send OTP as soon as the input form is shown
-    			
-    			if (samlAssertion != null)
-    			{	
-	    			String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);;
-	
-	    			log.info("User email address to remove OTP authentication: " + userEmail);
-	    			
-	    			if (StringUtils.isNotBlank(userEmail) && requireOtpAuthentication)
-	    			{	
-	    				log.info("Unauthenticate user.");
-	    				otpService.unauthenticateUser(userEmail);
-	    			}	
-    			}	
-    		}	
-    		
-    		model.remove("userSignOutUrl");
-    		model.remove("sensitiveInfoAlert");
-    		request.getSession().invalidate();
-    	}
-		new SecurityContextLogoutHandler().logout(request, null, null);
-    	return "redirect:" + userSignoutUrl;
 	}
 
     @GetMapping("/portal/defaultLogout")

@@ -101,7 +101,7 @@ ojbc = {
     reloadPage: function() {
         clearTimeout(idleTime);
         idleTime = setTimeout(function () {
-            window.location.assign(context + "portal/performLogout");
+            window.location.assign(context + "logout");
         }, inactivityTimeoutInSeconds * 1000);
     },
      
