@@ -16,6 +16,9 @@
  */
 package org.ojbc.util.fedquery.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class IncidentReportRequest {
 	private String id;
 	private String categoryCode;
@@ -57,8 +60,7 @@ public class IncidentReportRequest {
 	
 	@Override
 	public String toString() {
-		return "IncidentReportRequest [id=" + id + ", categoryCode=" + categoryCode + ", systemNameText="
-				+ systemNameText + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 }
