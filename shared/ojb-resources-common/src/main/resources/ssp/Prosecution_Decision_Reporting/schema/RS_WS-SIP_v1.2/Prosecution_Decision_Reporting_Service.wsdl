@@ -77,10 +77,37 @@
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
+	<!-- Unsecure binding -->
+	<wsdl:binding
+		name="Prosecution-Decision-Reporting-ServiceSOAPBinding"
+		type="tns:Prosecution-Decision-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ReportProsecutionDecision">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/ProsecutionDecisionReportingService/1.0/ReportProsecutionDecision"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportProsecutionDecisionUpdate">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/ProsecutionDecisionReportingService/1.0/ReportProsecutionDecisionUpdate"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>	
 	<wsdl:service name="Prosecution-Decision-Reporting-ServiceService">
 		<wsdl:port name="Prosecution-Decision-Reporting-Service"
-			binding="tns:Prosecution-Decision-Reporting-Service-Secure-ServiceSOAPBinding">
+			binding="tns:Prosecution-Decision-Reporting-ServiceSOAPBinding">
 			<soap:address location="http://localhost" />
 		</wsdl:port>
+		<wsdl:port name="Prosecution-Decision-Reporting-Secure-Service"
+			binding="tns:Prosecution-Decision-Reporting-Service-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>		
 	</wsdl:service>
 </wsdl:definitions>
