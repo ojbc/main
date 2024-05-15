@@ -49,6 +49,8 @@
 		<camel:endpoint id="courtCaseFilingServiceAdapterEndpoint"
 			uri="cxf:bean:courtCaseFilingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionDecisionReporting.cxflogging}&amp;allowStreaming=false"/>
 			
+		<camel:endpoint id="prosecutionDecisionReportingFileEndpoint"
+			uri="file:///${prosecutionDecisionReporting.inputFileEndpoint}/" />
 			
 		<!-- Prosecution Decision Reporting Service Secure Handler -->
 		<camel:route id="ProsecutionDecisionReportingServiceHandlerRoute">
@@ -79,6 +81,19 @@
 		<camel:route id="ProsecutionDecisionReportingServicDirectRoute">
 		
 			<camel:from uri="direct:handleProsecutionDecisionMessage"/>
+			
+			<!-- This wiretap will save the input message -->
+			<camel:filter>
+				<camel:simple>${properties:prosecutionDecisionReporting.saveInputFile} == true</camel:simple>
+				
+				<camel:setHeader name="CamelFileName">
+					<camel:simple>Prosecution_Decision_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+				</camel:setHeader>
+				
+				<camel:log message="saving to file system: ${in.header.CamelFileName}"/>
+				
+				<camel:wireTap uri="prosecutionDecisionReportingFileEndpoint"/>
+			</camel:filter>			
 			
 			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
 			<camel:to uri="direct:enrichContent"/>
