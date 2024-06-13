@@ -51,7 +51,32 @@
 			
 		<camel:endpoint id="prosecutionDecisionReportingFileEndpoint"
 			uri="file:///${prosecutionDecisionReporting.inputFileEndpoint}/" />
-			
+		
+		<endpoint id="webServiceFileDrop"
+            uri="file:///{{prosecutionDecisionReporting.webServiceFileDrop}}/input?idempotent=true&amp;moveFailed={{prosecutionDecisionReporting.webServiceFileDrop}}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+        
+        <camel:route id="webServiceFileDropRoute">
+        
+            <from uri="webServiceFileDrop" />   
+            
+            <log message="Entering Web Service file drop Route..."/>
+            
+            <camel:setProperty name="federatedQueryRequestGUID">
+                <simple>bean:uuidGenerator?method=generateUUID</simple>
+            </camel:setProperty>
+            
+            <camel:setProperty name="adminSearch">
+                <constant>true</constant>
+            </camel:setProperty>
+            
+            <camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+            
+            <camel:to uri="direct:handleProsecutionDecisionMessage"/>
+            
+            <log message="Route Complete"/>
+            
+        </camel:route>  
+        
 		<!-- Prosecution Decision Reporting Service Secure Handler -->
 		<camel:route id="ProsecutionDecisionReportingServiceHandlerRoute">
 		
