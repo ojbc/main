@@ -30,14 +30,16 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">
-	<!-- needed cxf imports -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />	
-					
+
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
 		<!-- Hosted by this intermediary -->
 		<camel:endpoint id="prosecutionDecisionReportingServiceEndpoint"
 			uri="cxf:bean:prosecutionDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionDecisionReporting.cxflogging}&amp;allowStreaming=false" />
+
+		<!-- Hosted by this intermediary -->
+		<camel:endpoint id="prosecutionDecisionReportingServiceNoWSSecurityEndpoint"
+			uri="cxf:bean:prosecutionDecisionReportingServiceNoWSSecurity?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionDecisionReporting.cxflogging}&amp;allowStreaming=false" />
 		
 		<!-- Adapter, called by this intermediary -->
 		<camel:endpoint id="prosecutionDecisionReportingServiceAdapterEndpoint"
@@ -47,8 +49,35 @@
 		<camel:endpoint id="courtCaseFilingServiceAdapterEndpoint"
 			uri="cxf:bean:courtCaseFilingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${prosecutionDecisionReporting.cxflogging}&amp;allowStreaming=false"/>
 			
-			
-		<!-- Case Filing Decision Reporting Service Handler -->
+		<camel:endpoint id="prosecutionDecisionReportingFileEndpoint"
+			uri="file:///${prosecutionDecisionReporting.inputFileEndpoint}/" />
+		
+		<endpoint id="webServiceFileDrop"
+            uri="file:///{{prosecutionDecisionReporting.webServiceFileDrop}}/input?idempotent=true&amp;moveFailed={{prosecutionDecisionReporting.webServiceFileDrop}}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+        
+        <camel:route id="webServiceFileDropRoute">
+        
+            <from uri="webServiceFileDrop" />   
+            
+            <log message="Entering Web Service file drop Route..."/>
+            
+            <camel:setProperty name="federatedQueryRequestGUID">
+                <simple>bean:uuidGenerator?method=generateUUID</simple>
+            </camel:setProperty>
+            
+            <camel:setProperty name="adminSearch">
+                <constant>true</constant>
+            </camel:setProperty>
+            
+            <camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+            
+            <camel:to uri="direct:handleProsecutionDecisionMessage"/>
+            
+            <log message="Route Complete"/>
+            
+        </camel:route>  
+        
+		<!-- Prosecution Decision Reporting Service Secure Handler -->
 		<camel:route id="ProsecutionDecisionReportingServiceHandlerRoute">
 		
 			<camel:from uri="prosecutionDecisionReportingServiceEndpoint" />
@@ -56,7 +85,41 @@
 			<camel:log message="Entering Prosecution Decision Reporting Intermediary"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-
+			
+			<camel:to uri="direct:handleProsecutionDecisionMessage"/>
+			
+		</camel:route>
+		
+		<!-- Prosecution Decision Reporting Service No WS Security Handler -->
+		<camel:route id="ProsecutionDecisionReportingServiceNoWSSecurityHandlerRoute">
+		
+			<camel:from uri="prosecutionDecisionReportingServiceNoWSSecurityEndpoint" />
+			
+			<camel:log message="Entering Prosecution Decision Reporting No WS Security Intermediary"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:handleProsecutionDecisionMessage"/>
+			
+		</camel:route>		
+			
+		<camel:route id="ProsecutionDecisionReportingServicDirectRoute">
+		
+			<camel:from uri="direct:handleProsecutionDecisionMessage"/>
+			
+			<!-- This wiretap will save the input message -->
+			<camel:filter>
+				<camel:simple>${properties:prosecutionDecisionReporting.saveInputFile} == true</camel:simple>
+				
+				<camel:setHeader name="CamelFileName">
+					<camel:simple>Prosecution_Decision_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+				</camel:setHeader>
+				
+				<camel:log message="saving to file system: ${in.header.CamelFileName}"/>
+				
+				<camel:wireTap uri="prosecutionDecisionReportingFileEndpoint"/>
+			</camel:filter>			
+			
 			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
 			<camel:to uri="direct:enrichContent"/>
 

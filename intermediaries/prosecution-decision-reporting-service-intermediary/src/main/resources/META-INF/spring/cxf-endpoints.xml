@@ -46,15 +46,38 @@
 		address="${prosecutionDecisionReporting.caseFilingDecisionReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Prosecution_Decision_Reporting/schema/RS_WS-SIP_v1.2/Prosecution_Decision_Reporting_Service.wsdl"
 		serviceName="ojbc:Prosecution-Decision-Reporting-ServiceService" 
-		endpointName="ojbc:Prosecution-Decision-Reporting-Service"
+		endpointName="ojbc:Prosecution-Decision-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ProsecutionDecisionReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="prosecutionDecisionReportingServiceKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${prosecutionDecisionReporting.keystoreCertificateAlias}" />
-		</cxf:properties>		
+		</cxf:properties>	
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="logBinary" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="verbose" value="${prosecutionDecisionReporting.cxflogging}" />
+			</bean>	 			
+ 		</cxf:features>				
 	</cxf:cxfEndpoint>
-	    
+	
+	<!-- OJB Prosecution Decision Reporting Service No WS Security, hosted by this intermediary -->
+	<cxf:cxfEndpoint id="prosecutionDecisionReportingServiceNoWSSecurity"
+		address="${prosecutionDecisionReporting.caseFilingDecisionReportingServiceNoWSSecurityEndpoint}"
+		wsdlURL="classpath:ssp/Prosecution_Decision_Reporting/schema/RS_WS-SIP_v1.2/Prosecution_Decision_Reporting_Service.wsdl"
+		serviceName="ojbc:Prosecution-Decision-Reporting-ServiceService" 
+		endpointName="ojbc:Prosecution-Decision-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/ProsecutionDecisionReportingService/1.0">
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="logBinary" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="verbose" value="${prosecutionDecisionReporting.cxflogging}" />
+			</bean>	 			
+ 		</cxf:features>			
+	</cxf:cxfEndpoint>	
+	
 	<!-- OJB Prosecution Decision Reporting Service adapter invoked by intermediary -->
 	<cxf:cxfEndpoint id="prosecutionDecisionReportingServiceAdapter"
 		address="${prosecutionDecisionReporting.prosecutionDecisionFilingAdapterEndpoint}"
@@ -67,6 +90,13 @@
 			<entry key="ws-security.signature.properties" value-ref="prosecutionDecisionReportingServiceKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${prosecutionDecisionReporting.keystoreCertificateAlias}" />
 		</cxf:properties>		
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="logBinary" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="verbose" value="${prosecutionDecisionReporting.cxflogging}" />
+			</bean>	 			
+ 		</cxf:features>		
 	</cxf:cxfEndpoint>
 	
 	<!-- invoked by this intermediary -->
@@ -81,6 +111,13 @@
 			<entry key="ws-security.signature.properties" value-ref="prosecutionDecisionReportingServiceKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${prosecutionDecisionReporting.keystoreCertificateAlias}" />        	
         </cxf:properties>
+		<cxf:features>
+			<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+				<property name="prettyLogging" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="logBinary" value="${prosecutionDecisionReporting.cxflogging}" />
+				<property name="verbose" value="${prosecutionDecisionReporting.cxflogging}" />
+			</bean>	 			
+ 		</cxf:features>        
 	</cxf:cxfEndpoint>
 
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
