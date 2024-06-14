@@ -67,16 +67,27 @@ public class XmlTestUtils {
 		compareDocuments(expectedXmlDoc, testXML);		
 	}
 	
+	public static final void compareDocuments(String expectedXMLFilePath, Document testXML, String... elementNamesToIgnore) throws Exception {
+		File xmlFile = new File(expectedXMLFilePath);
+		Document expectedXmlDoc = XmlUtils.toDocument(xmlFile);
+		compareDocuments(expectedXmlDoc, testXML, elementNamesToIgnore);		
+	}
+	
 	/**
 	 * Compare two documents and assert that the number of differences is zero.
 	 * @param expectedDocument the "gold standard" expected XML
 	 * @param testDocument the XML to compare against the expected document
 	 */
-	public static final void compareDocuments(Document expectedDocument, Document testDocument) {
+	public static final void compareDocuments(Document expectedDocument, Document testDocument, String... elementNamesToIgnore) {
 
 		Diff diff = new Diff(expectedDocument, testDocument);						
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
+		if (elementNamesToIgnore != null && elementNamesToIgnore.length > 0) {
+			detailedDiff
+				.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+					elementNamesToIgnore));
+		}
 		@SuppressWarnings("all")
 		List<Difference> diffList = detailedDiff.getAllDifferences();		
 		int diffCount = diffList == null ? 0 : diffList.size();
