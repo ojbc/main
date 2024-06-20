@@ -37,7 +37,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xmlunit-version>1.6</xmlunit-version>
+		<xmlunit-version>2.10.0</xmlunit-version>
 	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
 	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
@@ -87,8 +87,8 @@
     </dependency>
 
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<version>${xmlunit-version}</version>
 		</dependency>
 
