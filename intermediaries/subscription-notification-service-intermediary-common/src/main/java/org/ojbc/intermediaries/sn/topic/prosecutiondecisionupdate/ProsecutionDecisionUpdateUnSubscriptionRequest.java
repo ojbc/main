@@ -29,26 +29,7 @@ public class ProsecutionDecisionUpdateUnSubscriptionRequest extends UnSubscripti
 	public ProsecutionDecisionUpdateUnSubscriptionRequest(Message message) throws Exception {
 		super(message);
 
-		String sid = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-	
-		String firstName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
-		String lastName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
-		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
-		
-		buildSubjectIdMap(sid, firstName, lastName, dateOfBirth);
-	}
-
-	private void buildSubjectIdMap(String sid, String firstName, String lastName, String dateOfBirth) {
 		subjectIdentifiers = new HashMap<String, String>();
-		
-		if (StringUtils.isNotBlank(sid))
-		{	
-			subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
-		}		
-
-		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
 		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
 	}
