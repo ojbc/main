@@ -105,13 +105,20 @@
         xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0"
      >
      <cxf:features>
-      <policy:policies>
-        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-          <wsam:Addressing>
-            <wsp:Policy/>
-          </wsam:Addressing>
-        </wsp:Policy>
-       </policy:policies>
+		<bean class="org.apache.cxf.ext.logging.LoggingFeature">
+			<property name="prettyLogging"
+				value="${firearmQuery.registration.firearmQueryIntermediaryCxflogging}" />
+			<property name="verbose"
+				value="${firearmQuery.registration.firearmQueryIntermediaryCxflogging}" />
+		</bean>
+		<policy:policies>
+			<wsp:Policy
+				xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+				<wsam:Addressing>
+					<wsp:Policy />
+				</wsam:Addressing>
+			</wsp:Policy>
+		</policy:policies>
     </cxf:features>
     </cxf:cxfEndpoint>
    
