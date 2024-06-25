@@ -344,7 +344,7 @@
 			</camel:setHeader>
 		
 			<camel:setHeader name="subject">
-				<constant>Check subscription notification intermediary.  Notifications not sent in defined interval</constant>
+				<constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notifications not sent in defined interval</constant>
 			</camel:setHeader>
 		
 			<to uri="smtpEndpoint" />
@@ -369,7 +369,7 @@
             </camel:setHeader>
         
             <camel:setHeader name="subject">
-                <constant>Check subscription notification intermediary.  Notification count is low.</constant>
+                <constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notification count is low.</constant>
             </camel:setHeader>
         
             <to uri="smtpEndpoint" />
