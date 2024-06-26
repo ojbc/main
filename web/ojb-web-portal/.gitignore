@@ -5,3 +5,4 @@
 /bin/
 /.factorypath
 /.springBeans
+**/.DS_Store
