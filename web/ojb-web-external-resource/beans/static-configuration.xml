@@ -57,6 +57,7 @@
 	        value="https://adfs.ad.co.maui.hi.us/adfs/ls/" />
 	    <entry key="http://HCPAADFS.DYNDNS.ORG/adfs/services/trust"
 	        value="https://hcpaadfs.dyndns.org/adfs/ls/" />
+	    <entry key="http://ojbc.org/ADS/AssertionDelegationService" value="https://login.microsoftonline.com/3847dec6-63b2-43f9-a6d0-58a40aaa1a10/oauth2/v2.0/logout"/>
 	</util:map>
     
    	<util:map id="subscriptionStartDateStrategyMap">
@@ -611,6 +612,7 @@
 		<entry key="Wildlife Licensing" value="wildlifeLicensingResult.xsl" />
 		<entry key="Professional Licensing" value="regulatoryLicenseResult.xsl" />
 		<entry key="Marijuana Licensing" value="marijuanaLicensingResult.xsl" />
+        <entry key="Concealed Carry" value="concealed-carry-details.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
