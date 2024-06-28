@@ -38,18 +38,15 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.joda.time.DateTime;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.xml.sax.SAXException;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
 	classes = OjbcWebPortalApplication.class)
 @ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
@@ -64,7 +61,7 @@ public class XslTemplateTest {
     
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    @Before
+    @BeforeEach
     public void setup() {
     	
     	XMLUnit.setIgnoreWhitespace(true);
