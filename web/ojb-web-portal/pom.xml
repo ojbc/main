@@ -47,13 +47,13 @@
 		<selenium.version>2.30.0</selenium.version>
 		<mockito.version>1.9.0</mockito.version>
 		<commonsCodec.version>1.7</commonsCodec.version>
+		<xmlunit-version>2.10.0</xmlunit-version>
 		<commonsIo.version>2.4</commonsIo.version>
 		<ojb-web-application-connector-version>[4.0.0,)</ojb-web-application-connector-version>
 		<velocity-tools-version>2.0</velocity-tools-version>
 		<ojb-ui-common-version>[4.0.0,)</ojb-ui-common-version>
 		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
 		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
-		<xmlunit.version>1.5</xmlunit.version>
 		<pragmatists.version>1.0.2</pragmatists.version>
 		<beanutils.version>1.8.3</beanutils.version>
 		<hibernate.validator.version>6.2.5.Final</hibernate.validator.version>
@@ -155,11 +155,12 @@
             <artifactId>javax.mail</artifactId>
 			<version>${javax.mail.version}</version>
 		</dependency>	
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-legacy</artifactId>
+            <version>${xmlunit-version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<!-- used for ImportTool for external welcome/landing pages -->
 			<groupId>org.apache.velocity</groupId>
@@ -521,6 +522,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin-version}</version>
                 <configuration>
+                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
                     <argLine>-Xmx1024m</argLine>
                 </configuration>
             </plugin>

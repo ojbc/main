@@ -31,12 +31,13 @@
     <xsl:output method="html" encoding="UTF-8" />
 
     <xsl:template name="FirearmRegistration">
+        <xsl:param name="regNumberLabel" >Firearm Registration Number: </xsl:param>
     	<xsl:variable name="regSid" select="/firearm:FirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation/nc:ItemRegistrationReference/@s:ref"/>
 		<xsl:variable name="reg" select="//firearm-ext:ItemRegistration[@s:id=$regSid]" />
        <table style="width:100%">
        		<tr>
        			<td>
-       				<h3><xsl:value-of select="concat('Firearm Registration Number: ', $reg/nc:RegistrationIdentification/nc:IdentificationID)" /></h3>
+       				<h3><xsl:value-of select="concat($regNumberLabel, $reg/nc:RegistrationIdentification/nc:IdentificationID)" /></h3>
        			</td>
        		</tr>
             <tr>

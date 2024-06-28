@@ -186,10 +186,16 @@
                 <td class="d-none">
                 
                 	<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(fa-ext:SourceSystemNameText)"/></xsl:variable>
-                	                    
+                	<xsl:variable name="systemName"><xsl:value-of select="normalize-space(intel:SystemIdentifier/intel:SystemName)"/></xsl:variable>
+                	<xsl:variable name="searchName">
+                	   <xsl:choose>
+                	       <xsl:when test="contains($systemName,'Concealed Carry')">Concealed Carry Detail</xsl:when>
+                	       <xsl:otherwise>Firearm Registration Detail</xsl:otherwise>
+                	   </xsl:choose>
+                	</xsl:variable>                    
 					<!-- TODO use Identification ID for detail query rather than registration ID -->                    
-                    <a href="{concat('firearms/searchDetails?identificationID=', intel:SystemIdentifier/nc:IdentificationID, '&amp;systemName=Firearm Reg.&amp;identificationSourceText=',$systemSource)}" 
-                        class="btn btn-primary btn-sm viewDetails" searchName='Firearm Registration Detail' 
+                    <a href="{concat('firearms/searchDetails?identificationID=', intel:SystemIdentifier/nc:IdentificationID, '&amp;systemName=', $systemName, '&amp;identificationSourceText=',$systemSource)}" 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{$searchName}'
                         
                             appendPersonData="{concat('firearmInformation-',$firearmId)}"
                         >DETAILS</a>

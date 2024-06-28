@@ -38,10 +38,14 @@
     <xsl:template match="/">
     	<xsl:choose>
     		<xsl:when test="/firearm:FirearmRegistrationQueryResults">
-    			<xsl:call-template name="FirearmRegistration"/>
+    			<xsl:call-template name="FirearmRegistration">
+    			     <xsl:with-param name="regNumberLabel">Concealed Carry Number: </xsl:with-param>
+    			</xsl:call-template>
     		</xsl:when>
     		<xsl:when test="/firearm:PersonFirearmRegistrationQueryResults">
-    			<xsl:call-template name="PersonFirearmRegistration"/>
+    			<xsl:call-template name="PersonFirearmRegistration">
+    			     <xsl:with-param name="detailsTitle">CONCEALED CARRY LICENSE</xsl:with-param>
+    			</xsl:call-template>
     		</xsl:when>
     	</xsl:choose>
    </xsl:template>
@@ -50,7 +54,7 @@
     	<xsl:variable name="pid" select="@s:id"/>
         <table class="detailsTable table">
             <tr>
-                <td colspan="8" class="detailsTitle">LICENSE INFORMATION</td>
+                <td colspan="8" class="detailsTitle">LICENSEE INFORMATION</td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">NAME</td>
