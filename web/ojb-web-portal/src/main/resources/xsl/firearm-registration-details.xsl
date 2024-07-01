@@ -27,7 +27,6 @@
     xmlns:firearm="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
     xmlns:s="http://niem.gov/niem/structures/2.0"
     exclude-result-prefixes="#all">
-    <xsl:import href="_formatters.xsl" />
     <xsl:output method="html" encoding="UTF-8" />
 
     <xsl:template name="FirearmRegistration">

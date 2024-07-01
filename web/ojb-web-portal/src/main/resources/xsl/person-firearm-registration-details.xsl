@@ -27,9 +27,9 @@
     xmlns:firearm="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
     xmlns:s="http://niem.gov/niem/structures/2.0"
     exclude-result-prefixes="#all">
-	<xsl:import href="_formatters.xsl" />
     <xsl:output method="html" encoding="UTF-8" />
     <xsl:template name="PersonFirearmRegistration">
+        <xsl:param name="detailsTitle">FIREARM REGISTRATIONS</xsl:param>
        <div class="row">
           <div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>
           <div class="col-12 col-sm-9 table-responsive">
@@ -38,7 +38,7 @@
         </div>
         <table class="detailsTable"> 
              <tr>
-                <td colspan="8" class="detailsTitle">FIREARM REGISTRATIONS</td>
+                <td colspan="8" class="detailsTitle"><xsl:value-of select="$detailsTitle"/></td>
             </tr>
             <tr>
             	<td id="firearmRegistrationsHolderTD">
