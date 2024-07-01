@@ -219,6 +219,7 @@
 						<xsl:value-of select="$pRegStatusText"/>
 					</xsl:when>
 				</xsl:choose>
+				<xsl:value-of select="concat(' - WEAPON# ', $pFirearmRef)"></xsl:value-of>
 			</h3>
 		</xsl:if>
 		<div class="table-responsive">
@@ -275,7 +276,11 @@
 	            <tr>
 	            </tr>
 	            <tr>
-	   				<td colspan="8" class="detailsTitle">FIREARM INFORMATION</td>         
+	   				<td colspan="8" class="detailsTitle">FIREARM INFORMATION
+	   				    <xsl:if test="/firearm:FirearmRegistrationQueryResults">
+	   				        <xsl:value-of select="concat(' - ', $pFirearmRef)"></xsl:value-of>
+	   				    </xsl:if> 
+	   				</td>         
 	            </tr>
 	            <tr>
 	            	<td colspan="2" class="detailsLabel">FACTORY SERIAL NO.</td>
