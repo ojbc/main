@@ -29,6 +29,9 @@ public class SubscriptionNotificationServiceProperties {
 	private String dbEnhancedAuditLog="false";
 	private List<String> authorizedORIList;
 	private String portNumber; 
+	private String encryptEmailBody="false";
+	private String pgpPublicKeyFileName;
+	private String pgpUserName;
 
 	public String getDbAuditLog() {
 		return dbAuditLog;
@@ -60,6 +63,30 @@ public class SubscriptionNotificationServiceProperties {
 
 	public void setDbEnhancedAuditLog(String dbEnhancedAuditLog) {
 		this.dbEnhancedAuditLog = dbEnhancedAuditLog;
+	}
+	
+	public String getEncryptEmailBody() {
+		return encryptEmailBody;
+	}
+
+	public void setEncryptEmailBody(String encryptEmailBody) {
+		this.encryptEmailBody = encryptEmailBody;
+	}
+
+	public String getPgpPublicKeyFileName() {
+		return pgpPublicKeyFileName;
+	}
+
+	public void setPgpPublicKeyFileName(String pgpPublicKeyFileName) {
+		this.pgpPublicKeyFileName = pgpPublicKeyFileName;
+	}
+
+	public String getPgpUserName() {
+		return pgpUserName;
+	}
+
+	public void setPgpUserName(String pgpUserName) {
+		this.pgpUserName = pgpUserName;
 	}
 
 }

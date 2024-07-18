@@ -192,9 +192,12 @@
 					
 				</camel:choice>
 
-        <camel:log message="emailBody: ${body}"/>
-        <camel:log message="in.header.to: ${in.header.to}"/>
-        <camel:log message="in.header.blocked: ${in.header.blocked}"/>
+                <camel:log message="emailBody: ${body}" />
+
+				<camel:to uri="direct:encryptBody" />
+			
+				<camel:log message="in.header.to: ${in.header.to}" />
+				<camel:log message="in.header.blocked: ${in.header.blocked}" />
 				<camel:setHeader name="emailBody">
 					<camel:simple>${body}</camel:simple>
 				</camel:setHeader>
@@ -203,7 +206,7 @@
 					<camel:when>    			
     				<!-- If this notification object has some blocked (non-whitelisted) email addresses -->
 						<camel:simple>${in.header.blocked.size} > 0</camel:simple>
-            <camel:log message="blocked list is not empty"/> 
+                        <camel:log message="blocked list is not empty"/> 
             
 						<camel:split>
 
