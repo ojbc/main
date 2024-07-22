@@ -168,7 +168,7 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            		}
 	            	}
 	            	catch(Exception ex) {
-	            		log.info("Unable to get last match date.");
+	            		log.debug("Unable to get last match date.");
 	            	}
 	            	
 	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 
