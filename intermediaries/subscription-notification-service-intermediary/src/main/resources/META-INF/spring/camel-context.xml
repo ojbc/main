@@ -45,8 +45,7 @@
 		<camel:routeContextRef ref="notificationRoutes" />
 		<camel:routeContextRef ref="subscriptionMigration" />
   
-		<endpoint id="smtpEndpoint"
-			uri="${publishSubscribe.smtpFullUrl}" />
+		<endpoint id="smtpEndpoint" uri="${publishSubscribe.smtpFullUrl}" />
 		<endpoint id="notificationNonwhitelistFileDrop" uri="file:///${publishSubscribe.notificationNonwhitelistDrop}" />
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint" uri="file:///${publishSubscribe.criminalHistoryConsolidationFileDrop}/failed" />
 		<endpoint id="subscriptionMigrationFileEndpoint" uri="file:///${publishSubscribe.subscriptionMigrationFileDrop}/subscriptionMigration/input" />
