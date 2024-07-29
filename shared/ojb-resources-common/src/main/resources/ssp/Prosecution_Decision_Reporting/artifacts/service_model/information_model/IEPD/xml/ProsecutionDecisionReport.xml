@@ -17,7 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pd-doc:ProsecutionDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../IEPD/xsd/ProsecutionDecisionReport.xsd"
+<pd-doc:ProsecutionDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../xsd/ProsecutionDecisionReport.xsd"
 	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0" xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
@@ -107,6 +107,9 @@
 	<j:Charge structures:id="CRG001">
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+		<j:ChargeDisposition>
+			<nc:DispositionDescriptionText>Disposition Text</<nc:DispositionDescriptionText>
+		</j:ChargeDisposition>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
 		<j:ChargeSeverityLevel>
 			<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
