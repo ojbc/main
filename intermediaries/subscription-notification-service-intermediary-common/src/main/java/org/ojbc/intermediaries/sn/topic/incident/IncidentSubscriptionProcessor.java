@@ -16,11 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.topic.incident;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
-
-import org.apache.camel.Message;
 
 public class IncidentSubscriptionProcessor extends SubscriptionProcessor {
 

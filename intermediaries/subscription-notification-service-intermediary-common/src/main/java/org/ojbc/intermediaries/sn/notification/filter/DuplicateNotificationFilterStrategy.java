@@ -22,11 +22,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.dao.Notification;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.dao.Notification;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 

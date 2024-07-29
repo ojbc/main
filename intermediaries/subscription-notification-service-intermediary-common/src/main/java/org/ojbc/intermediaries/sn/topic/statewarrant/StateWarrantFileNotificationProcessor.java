@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Header;
 import org.apache.camel.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

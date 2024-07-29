@@ -17,12 +17,11 @@
 package org.ojbc.intermediaries.sn.notification.filter;
 
 
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 
 public class EventDateBasedNotificationFilterStrategy implements NotificationFilterStrategy{
 

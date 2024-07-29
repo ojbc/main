@@ -16,8 +16,6 @@
  */
 package org.ojbc.intermediaries.sn.notification;
 
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

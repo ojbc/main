@@ -19,11 +19,10 @@ package org.ojbc.intermediaries.sn.topic.vehicleCrash;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.camel.Message;
 
 public class VehicleCrashUnSubscriptionRequest extends UnSubscriptionRequest {
 

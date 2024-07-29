@@ -16,10 +16,9 @@
  */
 package org.ojbc.intermediaries.sn.topic.vehicleCrash;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-
-import org.apache.camel.Message;
 
 public class VehicleCrashNotificationProcessor extends NotificationProcessor {
 

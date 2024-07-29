@@ -17,10 +17,9 @@
 package org.ojbc.intermediaries.sn.notification.filter;
 
 
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 
 /**
  * This implementation will never filter a message.  It is a default for 

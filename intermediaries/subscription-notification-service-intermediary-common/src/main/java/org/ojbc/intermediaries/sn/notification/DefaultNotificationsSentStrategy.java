@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class DefaultNotificationsSentStrategy implements NotificationsSentStrategy{
 

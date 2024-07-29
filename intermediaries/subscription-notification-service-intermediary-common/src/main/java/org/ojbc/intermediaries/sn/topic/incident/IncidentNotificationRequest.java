@@ -21,13 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.Message;
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.apache.camel.Message;
-import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 

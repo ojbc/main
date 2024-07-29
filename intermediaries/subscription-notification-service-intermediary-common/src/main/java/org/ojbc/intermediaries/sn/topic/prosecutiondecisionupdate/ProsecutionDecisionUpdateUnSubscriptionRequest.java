@@ -19,10 +19,8 @@ package org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate;
 import java.util.HashMap;
 
 import org.apache.camel.Message;
-import org.apache.commons.lang3.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
-import org.ojbc.util.xml.XmlUtils;
 
 public class ProsecutionDecisionUpdateUnSubscriptionRequest extends UnSubscriptionRequest {
 

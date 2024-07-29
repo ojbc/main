@@ -16,11 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.topic.chcycle;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
-
-import org.apache.camel.Message;
 
 public class ChCycleSubscriptionProcessor extends SubscriptionProcessor{
 	

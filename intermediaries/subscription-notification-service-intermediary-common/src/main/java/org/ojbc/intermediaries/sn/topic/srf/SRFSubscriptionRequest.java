@@ -18,7 +18,6 @@ package org.ojbc.intermediaries.sn.topic.srf;
 
 import java.util.HashMap;
 
-
 import org.apache.camel.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;

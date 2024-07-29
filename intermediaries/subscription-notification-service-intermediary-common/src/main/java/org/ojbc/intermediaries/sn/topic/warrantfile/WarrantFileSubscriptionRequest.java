@@ -17,7 +17,6 @@
 package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.camel.Message;
 import org.apache.commons.lang3.StringUtils;
