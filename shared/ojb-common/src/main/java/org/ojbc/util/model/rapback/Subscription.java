@@ -29,6 +29,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.ojbc.util.model.SubscriptionCategoryCode;
 import org.ojbc.util.rest.jackson.JodaDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.JodaDateTimeSerializer;
 
@@ -694,10 +695,22 @@ public class Subscription {
 
 	@JsonIgnore
 	public boolean isExpired(){
-		return endDate != null && gracePeriod != null && gracePeriod.isBeforeNow();
+		return endDate != null && 
+				((gracePeriod != null && gracePeriod.isBeforeNow()) 
+				|| gracePeriod == null && endDate.isBeforeNow() );
+	}
+	@JsonIgnore
+	public boolean isCriminalRapback(){
+		return SubscriptionCategoryCode.isCriminalCategoryCode(subscriptionCategoryCode);
+	}
+	@JsonIgnore
+	public boolean isCivilRapback(){
+		return SubscriptionCategoryCode.isCivilCategoryCode(subscriptionCategoryCode);
 	}
 	@JsonIgnore
 	public boolean isNotExpired(){
 		return !isExpired();
 	}
+	
+	
 }

@@ -141,7 +141,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("123",agencyCaseNumber);
 
         String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionActiveIndicator");
-        assertEquals("true",subscriptionActiveIndicator);
+        assertEquals("false",subscriptionActiveIndicator);
 
         String subscriptionQualifierIdentification = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionQualifierIdentification");
         assertEquals("2109639",subscriptionQualifierIdentification);

@@ -86,18 +86,19 @@ public class TestExpiringSubscriptionsManager {
 	{
 		loadTestData("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet_expired.xml");
 		
-		List<ExpiringSubscriptionEmail> expiringSubscriptions = expiringSubscriptionsManager.returnExpiringNotificationEmails();
+		List<ExpiringSubscriptionEmail> expiringSubscriptions = expiringSubscriptionsManager.returnExpiringNotificationEmails("Junit Test");
 		
 		log.info(expiringSubscriptions);
 		
 		assertEquals(2, expiringSubscriptions.size());
 		
-		assertEquals("You have subscriptions expiring soon", expiringSubscriptions.get(0).getSubject());
+		assertEquals("You have Criminal subscriptions expiring soon on Junit Test", expiringSubscriptions.get(0).getSubject());
+		assertEquals("You have Rap Back subscriptions expiring soon on Junit Test", expiringSubscriptions.get(1).getSubject());
 		assertEquals("admin1@local.gov", expiringSubscriptions.get(0).getTo());
-		assertEquals("admin2@local.gov", expiringSubscriptions.get(1).getTo());
+		assertEquals("admin1@local.gov", expiringSubscriptions.get(1).getTo());
 		
-		assertTrue(expiringSubscriptions.get(0).getMessageBody().startsWith("You have 2 Rap Back subscription"));
-		assertTrue(expiringSubscriptions.get(1).getMessageBody().startsWith("You have 1 Rap Back subscription"));
+		assertTrue(expiringSubscriptions.get(0).getMessageBody().startsWith("You have 1 Criminal subscription(s)"));
+		assertTrue(expiringSubscriptions.get(1).getMessageBody().startsWith("You have 1 Rap Back subscription(s) "));
 		
 	}
 	
@@ -106,11 +107,11 @@ public class TestExpiringSubscriptionsManager {
 	{
 		loadTestData("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet_expired.xml");
 		
-		List<Document> expiringSubscriptionsToUnsubscribe = expiringSubscriptionsManager.returnExpiredSubscriptionsToUnsubscribe();
+		List<Document> expiredSubscriptionsToUnsubscribe = expiringSubscriptionsManager.returnExpiredSubscriptionsToUnsubscribe();
 		
-		log.info(expiringSubscriptionsToUnsubscribe);
+		log.info(expiredSubscriptionsToUnsubscribe);
 		
-		assertEquals(3, expiringSubscriptionsToUnsubscribe.size());
+		assertEquals(3, expiredSubscriptionsToUnsubscribe.size());
 		
 //<b-2:Unsubscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
 //      xmlns:nc="http://niem.gov/niem/niem-core/2.0"
@@ -126,7 +127,7 @@ public class TestExpiringSubscriptionsManager {
 //</b-2:Unsubscribe>
 		boolean assertionsRun = false;
 		
-		for (Document doc: expiringSubscriptionsToUnsubscribe)
+		for (Document doc: expiredSubscriptionsToUnsubscribe)
 		{
 			String subscriptionIdentificationId = XmlUtils.xPathStringSearch(doc, 
 					"//submsg-ext:SubscriptionIdentification/nc:IdentificationID");

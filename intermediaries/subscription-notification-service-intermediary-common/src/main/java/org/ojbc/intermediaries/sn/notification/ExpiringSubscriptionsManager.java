@@ -22,9 +22,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -43,12 +47,22 @@ public class ExpiringSubscriptionsManager {
 	
 	private static final Log log = LogFactory.getLog(ExpiringSubscriptionsManager.class);
 	
-	private static String MESSAGE_BODY="You have <NUMBER_OF_EXPIRING_SUBSCRIPTIONS> Rap Back subscription(s) that will be expiring soon.  You must logon to the Subscriptions Application in the HIJIS Portal to extend the subscription.  Failure to extend the subscription will result in automatic cancellation of the subscription and you will no longer receive Rap Back notifications on the individual.";
-	private static String EMAIL_SUBJECT = "You have subscriptions expiring soon";
+	private static String EXPIRING_CRIMINAL_SUB_MESSAGE_BODY="You have <NUMBER_OF_EXPIRING_SUBSCRIPTIONS> Criminal subscription(s) that will be expiring soon.  "
+			+ "You must logon to the Subscriptions Application in the HIJIS Portal to extend the subscription(s).  Failure to extend the subscription(s) "
+			+ "will result in automatic cancellation of the subscription(s) and you will no longer receive notifications on the individual(s).";
+
+	private static String EXPIRING_APP_RAPBACK_SUB_MESSAGE_BODY="You have <NUMBER_OF_EXPIRING_SUBSCRIPTIONS> Rap "
+			+ "Back subscription(s) that will be expiring soon.  You must logon to the Applicant Rap Back Application "
+			+ "in the HIJIS Portal to extend the subscription(s).  Failure to extend the subscription will result "
+			+ "in automatic cancellation of the subscription(s) and you will no longer receive Rap Back notifications "
+			+ "on the individual(s).";
 	
-	public List<ExpiringSubscriptionEmail> returnExpiringNotificationEmails()
+	private static String EXPIRING_RAPBACK_EMAIL_SUBJECT = "You have Rap Back subscriptions expiring soon";
+	private static String EXPIRING_CRIMINAL_EMAIL_SUBJECT = "You have Criminal subscriptions expiring soon";
+	
+	public List<ExpiringSubscriptionEmail> returnExpiringNotificationEmails(@Header("hostServer") String hostServer)
 	{
-		log.info("Checking for expired notifications");
+		log.info("Checking for expiring notifications");
 		
 		List<String> uniqueSubscriptionOwners = subscriptionSearchQueryDAO.getUniqueSubscriptionOwners();
 		Map<String, List<Subscription>> ownersToNotify = new HashMap<String, List<Subscription>>();
@@ -60,44 +74,65 @@ public class ExpiringSubscriptionsManager {
 			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
 			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
 			
-			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+			List<Subscription> subscriptionsForOwner = 
+					subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+			List<Subscription> expiringSubscriptionsForOwner = subscriptionsForOwner.stream()
+				.filter(this::notifyOfExpiringSubscription)
+				.collect(Collectors.toList()); 
 			
-			for (Subscription subscription : subscriptionsForOwner)
-			{
-				if (notifyOfExpiredSubscription(subscription))
-				{
-					List<Subscription> expiredSubscriptionsForOwner = ownersToNotify.get(subscriptionOwner);
-					
-					if (expiredSubscriptionsForOwner == null)
-					{
-						expiredSubscriptionsForOwner = new ArrayList<Subscription>();
-					}	
-
-					expiredSubscriptionsForOwner.add(subscription);
-					
-					ownersToNotify.put(subscriptionOwner, expiredSubscriptionsForOwner);
-				}	
-			}	
+			if ( !expiringSubscriptionsForOwner.isEmpty() ) {
+				ownersToNotify.put(subscriptionOwner, expiringSubscriptionsForOwner);
+			}
 			
 		}	
 		
 		List<ExpiringSubscriptionEmail> emailsToSend = new ArrayList<ExpiringSubscriptionEmail>();
 
+		String expiringCriminalSubsEmailSubject = StringUtils.join(EXPIRING_CRIMINAL_EMAIL_SUBJECT, " on " , hostServer);
+		String expiringRapbackSubsEmailSubject = StringUtils.join(EXPIRING_RAPBACK_EMAIL_SUBJECT, " on " , hostServer);
 		for (Map.Entry<String, List<Subscription>> entry : ownersToNotify.entrySet()) {
 			
-			List<Subscription> expiredSubscriptionsForOwner = entry.getValue();
-			int numberOfExpiringSubscriptions = expiredSubscriptionsForOwner.size();
+			List<Subscription> expiringSubscriptionsForOwner = entry.getValue();
+			long numberOfExpiringCriminalSubscriptions = expiringSubscriptionsForOwner.stream()
+					.filter(Subscription::isCriminalRapback)
+					.count();
 			
-			ExpiringSubscriptionEmail email = new ExpiringSubscriptionEmail();
-			
-			email.setMessageBody(MESSAGE_BODY.replace("<NUMBER_OF_EXPIRING_SUBSCRIPTIONS>", String.valueOf(numberOfExpiringSubscriptions)));
-			
-			//All subscriptions will have the same owner and email address so we can get the email address from the first subscription because there will be at least 1
-			email.setTo(entry.getValue().get(0).getSubscriptionOwnerEmailAddress());
-			email.setSubject(EMAIL_SUBJECT);
-			
-			emailsToSend.add(email);
+			if (numberOfExpiringCriminalSubscriptions > 0) {
+				ExpiringSubscriptionEmail email = new ExpiringSubscriptionEmail();
+				
+				email.setMessageBody(EXPIRING_CRIMINAL_SUB_MESSAGE_BODY.replace("<NUMBER_OF_EXPIRING_SUBSCRIPTIONS>", 
+						String.valueOf(numberOfExpiringCriminalSubscriptions)));
+				
+				/*
+				 * All subscriptions will have the same owner and email address so we can get the 
+				 * email address from the first subscription because there will be at least 1
+				 */
+				email.setTo(entry.getValue().get(0).getSubscriptionOwnerEmailAddress());
+				email.setSubject(expiringCriminalSubsEmailSubject);
+				
+				emailsToSend.add(email);
+			}
 		    
+			long numberOfExpiringCivilSubscriptions = expiringSubscriptionsForOwner.stream()
+					.filter(Subscription::isCivilRapback)
+					.count();
+			
+			if (numberOfExpiringCivilSubscriptions > 0) {
+				ExpiringSubscriptionEmail email = new ExpiringSubscriptionEmail();
+				
+				email.setMessageBody(EXPIRING_APP_RAPBACK_SUB_MESSAGE_BODY.replace("<NUMBER_OF_EXPIRING_SUBSCRIPTIONS>", 
+						String.valueOf(numberOfExpiringCivilSubscriptions)));
+				
+				/*
+				 * All subscriptions will have the same owner and email address so we can get the 
+				 * email address from the first subscription because there will be at least 1
+				 */
+				email.setTo(entry.getValue().get(0).getSubscriptionOwnerEmailAddress());
+				email.setSubject(expiringRapbackSubsEmailSubject);
+				
+				emailsToSend.add(email);
+			}
+			
 		}
 		
 		return emailsToSend;
@@ -122,27 +157,22 @@ public class ExpiringSubscriptionsManager {
 			subscriptionSearchRequest.setActive(true);
 			
 			//This method will only return active subscriptions
-			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+			List<Subscription> subscriptionsForOwner = 
+					subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
 			
 			for (Subscription subscription : subscriptionsForOwner)
 			{
 				
-				if (subscription.isExpired())
+				if (subscription.isExpired() || DateTime.now().isAfter(subscription.getEndDate()))
 				{
 					expiredSubscriptions.add(subscription);
 				}	
 				
-				if (subscription.getEndDate() != null)
-				{
-					if (subscription.getEndDate().isBefore(DateTime.now()))
-					{
-						expiredSubscriptions.add(subscription);
-					}	
-				}	
 			}	
 			
 		}	
 
+		log.info("Found " + expiredSubscriptions.size() + " expired subscriptions to unsubscribe. ");
 		expiredSubscriptions.forEach((expiredSubscription) -> {
 		    
 			//handle unsubscription here
@@ -169,10 +199,10 @@ public class ExpiringSubscriptionsManager {
 		return expiringSubscriptionEmail.getMessageBody();
 	}
 	
-	boolean notifyOfExpiredSubscription(Subscription subscription) {
-		boolean isSubscriptionExpired = false;
+	boolean notifyOfExpiringSubscription(Subscription subscription) {
+		boolean isSubscriptionExpiring = false;
 		
-		if (subscription.getEndDate() == null)
+		if (subscription.getEndDate() == null || BooleanUtils.isNotTrue(subscription.getActive()))
 		{
 			return false;
 		}	
@@ -185,7 +215,7 @@ public class ExpiringSubscriptionsManager {
 			return true;
 		}	
 		
-		return isSubscriptionExpired;
+		return isSubscriptionExpiring;
 	}
 
 

@@ -1274,6 +1274,11 @@ public class SubscriptionSearchQueryDAO {
         			.filter(subscription -> BooleanUtils.isFalse(subscription.getActive()) || subscription.isExpired())
         			.collect(Collectors.toList());
         }
+        else if (BooleanUtils.isTrue(subscriptionSearchRequest.getActive())) {
+        	ret = ret.stream()
+        			.filter(subscription -> BooleanUtils.isTrue(subscription.getActive()))
+        			.collect(Collectors.toList());
+        }
         
         log.info("Found " + ret.size() + " Subscriptions");
         

@@ -22,9 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
-import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
-import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -34,6 +31,9 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
+import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -115,7 +115,7 @@ public abstract class SubscriptionRequest {
 			DateTime startDate = DATE_FORMATTER.parseDateTime(getStartDateString());
 			DateTime endDate = DATE_FORMATTER.parseDateTime(getEndDateString());
 			
-			if (endDate.toDateMidnight().isBefore(startDate.toDateMidnight()))
+			if (endDate.withTimeAtStartOfDay().isBefore(startDate.withTimeAtStartOfDay()))
 			{
 				throw new Exception("End Date Can Not Be Before Start Date in a Subscription.");
 			}	

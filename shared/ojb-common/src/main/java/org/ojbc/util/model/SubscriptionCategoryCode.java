@@ -55,4 +55,7 @@ public enum SubscriptionCategoryCode {
 	public static boolean isCivilCategoryCode(String code){
 		return getCivilCodes().contains(code);
 	}
+	public static boolean isCriminalCategoryCode(String code){
+		return Arrays.asList(CI.name(), CS.name()).contains(code);
+	}
 }
