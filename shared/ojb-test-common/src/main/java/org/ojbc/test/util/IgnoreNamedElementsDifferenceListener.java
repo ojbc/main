@@ -39,6 +39,12 @@ public class IgnoreNamedElementsDifferenceListener implements DifferenceListener
                 return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
             }
         }
+        
+        if ("attribute value".equals(difference.getDescription())) {
+            if (blackList.contains(difference.getControlNodeDetail().getNode().getNodeName())) {
+                return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
+            }
+        }
 
         return DifferenceListener.RETURN_ACCEPT_DIFFERENCE;
     }
