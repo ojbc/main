@@ -22,6 +22,7 @@ import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
+import org.ojbc.util.helper.IncidentSearchResponseErrorBuilderUtils;
 import org.ojbc.util.helper.PersonSearchResponseErrorBuilderUtils;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.w3c.dom.Document;
@@ -37,6 +38,12 @@ public class ErrorProcessor {
 		
 		return PersonSearchResponseErrorBuilderUtils.createPersonSearchAccessDenial(accessControlResponse, systemName);
 		
+	}
+	
+	public Document returnIncidentSearchAccessDeniedErrorMessage(Exchange ex) throws Exception {
+		AccessControlResponse accessControlResponse = (AccessControlResponse) ex.getIn().getHeader("accessControlResponse");
+		
+		return IncidentSearchResponseErrorBuilderUtils.createIncidentSearchAccessDenial(accessControlResponse, systemName);
 	}
 
 	public Document returnFirearmsSearchAccessDeniedErrorMessage(Exchange ex) throws Exception
@@ -97,6 +104,66 @@ public class ErrorProcessor {
 		
 		return sb.toString();
 	}	
+	
+	public String createVehicleSearchErrorMessage(@ExchangeException Exception ex)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<exchange:VehicleSearchResults ");
+		sb.append("	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0\" ");
+		sb.append("	xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\" ");
+		sb.append("	xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.1\" ");
+		sb.append("	xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\" ");
+		sb.append("	>");
+		sb.append("	<srm:SearchResultsMetadata>");
+		sb.append("		<srer:SearchRequestError>");
+		sb.append("			<srer:ErrorText>" +  ex.getMessage() +  "</srer:ErrorText>");
+		sb.append("			<intel:SystemName>" + systemName + "</intel:SystemName>");
+		sb.append("		</srer:SearchRequestError>");
+		sb.append("	</srm:SearchResultsMetadata>");
+		sb.append("</exchange:VehicleSearchResults>");
+		
+		return sb.toString();
+	}
+	
+	public String createIncidentSearchErrorMessage(@ExchangeException Exception ex) {
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("<exchange:IncidentSearchResults ");
+		sb.append("	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0\" ");
+		sb.append("	xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.1\" ");
+		sb.append("	xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\" ");
+		sb.append("	xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\" ");
+		sb.append("	> ");
+		sb.append("	<srm:SearchResultsMetadata>");
+		sb.append("		<srer:SearchRequestError>");
+		sb.append("			<srer:ErrorText>" +  ex.getMessage() +  "</srer:ErrorText>");
+		sb.append("			<intel:SystemName>" + systemName + "</intel:SystemName>");
+		sb.append("		</srer:SearchRequestError>");
+		sb.append("	</srm:SearchResultsMetadata>");
+		sb.append("</exchange:IncidentSearchResults>");
+
+		return sb.toString();
+	}
+	
+	public String createIncidentReportErrorMessage(@ExchangeException Exception ex)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("	<ir-doc:IncidentReport xmlns:ir-doc=\"http://ojbc.org/IEPD/Exchange/IncidentReport/1.0\" ");
+		sb.append("			xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\"  ");
+		sb.append("			xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\"  "); 
+		sb.append("			xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.0\">   ");
+		sb.append("			<srm:SearchResultsMetadata>  ");
+		sb.append("				<srer:SearchRequestError> "); 
+		sb.append("					<srer:ErrorText>" +  ex.getMessage() +  "</srer:ErrorText> "); 
+		sb.append("					<intel:SystemName>" + systemName + "</intel:SystemName> "); 
+		sb.append("				</srer:SearchRequestError>  "); 
+		sb.append("			</srm:SearchResultsMetadata>  "); 
+		sb.append("		</ir-doc:IncidentReport> ");
+		
+		return sb.toString();
+	}
 	
 	public String createFirearmsQueryErrorMessage(@ExchangeException Exception ex, @Header("operationName") String operationName)
 	{
@@ -163,6 +230,29 @@ public class ErrorProcessor {
 		
 		return sb.toString();
 	}	
+	
+	public String createIncidentSearchTooManyRecordsErrorMessage(@Header("resultSize") int resultSize)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<exchange:IncidentSearchResults ");
+		sb.append("	xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0\" ");
+		sb.append("	xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.1\" ");
+		sb.append("	xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\" ");
+		sb.append("	xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\" ");
+		sb.append("	> ");
+		sb.append("	<srm:SearchResultsMetadata> ");
+		sb.append("		<srer:SearchErrors> ");
+		sb.append("			<intel:SystemName>" + systemName + "</intel:SystemName> ");
+		sb.append("			<srer:SearchResultsExceedThresholdError> ");
+		sb.append("				<srer:SearchResultsRecordCount>"+ resultSize  + "</srer:SearchResultsRecordCount> ");
+		sb.append("			</srer:SearchResultsExceedThresholdError> ");
+		sb.append("		</srer:SearchErrors> ");
+		sb.append("	</srm:SearchResultsMetadata> ");
+		sb.append("</exchange:IncidentSearchResults> ");
+		
+		return sb.toString();
+	}
 
 	public String createFirearmsSearchTooManyRecordsErrorMessage(@Header("resultSize") int resultSize)
 	{
