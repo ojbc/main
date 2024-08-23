@@ -182,6 +182,14 @@ public class MessageProcessor {
 			wsAddressingMessageProperties.put("From",from);
 		}
 		
+		String action = (String)exchange.getIn().getHeader("WSAddressingAction");
+
+		if (StringUtils.isNotEmpty(action))
+		{	
+			log.debug("WS Addressing Action Camel Header: " + action);
+			wsAddressingMessageProperties.put("Action",action);
+		}		
+		
 		exchange.getMessage().removeHeaders("*", Exchange.DESTINATION_OVERRIDE_URL, "recipientListReplyToEndpoint");
 
 		//Call method to create proper request context map

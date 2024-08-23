@@ -228,6 +228,19 @@ public class OJBUtils {
 	        	maps.setFrom(fromRef);
 	        }	        
 
+	        String actionString = wsAddressingMessageProperties.get("Action");
+
+	        if (StringUtils.isNotEmpty(actionString))
+	        {
+	        	AttributedURIType actionAttr = new AttributedURIType(); 
+	        	actionAttr.setValue(actionString); 
+	        	
+	        	EndpointReferenceType actionRef = new EndpointReferenceType();
+	        	actionRef.setAddress(actionAttr);
+
+	        	maps.setFrom(actionRef);
+	        }	
+	        
 	        requestContext = new HashMap<String, Object>();
 	        requestContext.put(CLIENT_ADDRESSING_PROPERTIES, maps);
 	        
