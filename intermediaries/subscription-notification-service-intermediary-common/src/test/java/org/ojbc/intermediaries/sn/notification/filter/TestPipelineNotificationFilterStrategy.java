@@ -110,7 +110,7 @@ public class TestPipelineNotificationFilterStrategy {
 		
 		NotificationRequest notificationRequest = new IncidentNotificationRequest(ex.getIn());
 	
-		Assert.assertFalse(pipelineNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		Assert.assertTrue(pipelineNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	

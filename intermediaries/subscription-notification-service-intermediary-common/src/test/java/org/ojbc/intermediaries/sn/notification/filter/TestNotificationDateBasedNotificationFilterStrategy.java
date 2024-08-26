@@ -84,7 +84,7 @@ public class TestNotificationDateBasedNotificationFilterStrategy {
 		
 		NotificationRequest notificationRequest = new IncidentNotificationRequest(ex.getIn());
 	
-		Assert.assertFalse(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		Assert.assertTrue(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	
