@@ -69,6 +69,10 @@
 		<property name="nonFbiSubscriptionReasonCodes" value="#{'${nonFbiSubscriptionReasonCodes:F}'.split(',')}"/>
 	</bean>
 	
+	<bean id="fbiUnsubscribeProcessor" class="org.ojbc.intermediaries.sn.FbiUnsubscribeProcessor" >
+		<property name="fbiSubscriptionProcessor" ref="fbiSubscriptionProcessor"/>
+	</bean>
+	
 	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
 	
 	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />

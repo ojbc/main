@@ -307,7 +307,7 @@
 		<camel:route id="processUnsubscriptions">
     
 			<camel:from uri="direct:processUnsubscription" />
-      <camel:convertBodyTo type="java.lang.String"></camel:convertBodyTo>
+            <camel:convertBodyTo type="java.lang.String"></camel:convertBodyTo>
 			<camel:choice>
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/arrest' and
@@ -508,8 +508,8 @@
 					<camel:simple>${bean:fbiSubscriptionProcessor?method=hasFbiSubscription}</camel:simple>
 					
 					<camel:log message="Subscription has FBI subscription, sending cancellation message"/>
-					
-					<camel:wireTap uri="direct:processFbiUnsubscription"/>
+					<camel:convertBodyTo type="org.w3c.dom.Document" />
+					<camel:wireTap uri="direct:processFbiUnsubscription" onPrepareRef="fbiUnsubscribeProcessor"/>
 				</camel:when>
 			</camel:choice>
 			
