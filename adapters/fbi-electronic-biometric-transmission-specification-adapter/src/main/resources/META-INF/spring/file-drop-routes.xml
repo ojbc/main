@@ -52,6 +52,12 @@
 	<camel:endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
 
 	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
+	   
+	    <camel:route id="fileDropTimerRoute">
+	       <camel:from uri="file://{{fbiEbtsAdapter.staticSubscriptionReportRequest}}?scheduler=quartz&amp;scheduler.cron={{fbiEbtsAdapter.cronExpression}}" />
+	       
+	       <camel:to uri="inputMessageDirEndpoint" />
+	    </camel:route>
 
 		<camel:route id="fbiEbtsSubscriptionManagementEndpointRoute">
 			<camel:from uri="fbiEbtsSubscriptionManagementDirEndpoint"/>
