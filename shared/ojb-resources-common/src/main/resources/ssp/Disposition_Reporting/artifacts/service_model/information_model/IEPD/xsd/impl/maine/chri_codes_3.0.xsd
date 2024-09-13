@@ -798,6 +798,11 @@
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - TERMINATED" />
 <!-- ADDED 09/29/21  -->
 			<xsd:enumeration value="ORIGINAL SENTENCE" />
+
+<!-- ADDED 09/11/24  -->
+			<xsd:enumeration value="REGISTRATION SUSPENSION" />
+			
+			
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="SentenceTermCategoryCodeType">
