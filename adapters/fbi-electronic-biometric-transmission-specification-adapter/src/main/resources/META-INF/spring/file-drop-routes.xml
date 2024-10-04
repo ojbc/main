@@ -56,9 +56,18 @@
 	    <camel:route id="fileDropTimerRoute">
 	       <camel:from uri="{{fbiEbtsAdapter.staticSubscriptionReportRequest}}?noop=true&amp;idempotent=false&amp;scheduler=quartz&amp;scheduler.cron={{fbiEbtsAdapter.cronExpression}}" />
 	       
+	      <camel:setHeader name="inputMessageFilePath">
+	           <camel:simple>{{fbiEbtsAdapter.ngiResponseMessageDirectory}}</camel:simple>
+	       </camel:setHeader>
+	       
 	       <camel:log message="Static Request: ${body}" />
 	       
-	       <camel:to uri="inputMessageDirEndpoint" />
+	       <camel:convertBodyTo type="java.io.File" />
+	       
+	       <camel:to uri="bean:subscriptionReportFileProcessor?method=copyFileToInputDirectory" />
+	       
+	       <camel:log message="File name: ${file:name}" />
+	       
 	    </camel:route>
 
 		<camel:route id="fbiEbtsSubscriptionManagementEndpointRoute">
