@@ -101,6 +101,10 @@
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">
 		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${identificationReportingService.cxflogging}" />
+                <property name="verbose" value="${identificationReportingService.cxflogging}" />
+            </bean>             
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
 					<wsam:Addressing>
@@ -119,6 +123,10 @@
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">
 		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${identificationReportingService.cxflogging}" />
+                <property name="verbose" value="${identificationReportingService.cxflogging}" />
+            </bean>             
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
 					<wsam:Addressing>
