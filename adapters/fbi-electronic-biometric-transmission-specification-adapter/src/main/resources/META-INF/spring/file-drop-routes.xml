@@ -62,7 +62,7 @@
            </camel:setHeader>
            
 	      <camel:setHeader name="inputMessageFilePath">
-	           <camel:simple>{{fbiEbtsAdapter.ngiResponseMessageDirectory}}</camel:simple>
+	           <camel:simple>{{fbiEbtsAdapter.messageDirectory}}</camel:simple>
 	       </camel:setHeader>
 	       
 	       <camel:to uri="bean:subscriptionReportFileProcessor?method=copyFileToInputDirectory" />
