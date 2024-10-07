@@ -54,15 +54,16 @@
 	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
 	   
 	    <camel:route id="fileDropTimerRoute">
-	       <camel:from uri="{{fbiEbtsAdapter.staticSubscriptionReportRequest}}?noop=true&amp;idempotent=false&amp;scheduler=quartz&amp;scheduler.cron={{fbiEbtsAdapter.cronExpression}}" />
-	       
+	    
+	      <camel:from uri="quartz://generateSubscriptionReport?cron={{fbiEbtsAdapter.cronExpression}}" />
+	      
+	      <camel:setHeader name="subscriptionReportFilePath">
+               <camel:simple>{{fbiEbtsAdapter.staticSubscriptionReportRequest}}</camel:simple>
+           </camel:setHeader>
+           
 	      <camel:setHeader name="inputMessageFilePath">
 	           <camel:simple>{{fbiEbtsAdapter.ngiResponseMessageDirectory}}</camel:simple>
 	       </camel:setHeader>
-	       
-	       <camel:log message="Static Request: ${body}" />
-	       
-	       <camel:convertBodyTo type="java.io.File" />
 	       
 	       <camel:to uri="bean:subscriptionReportFileProcessor?method=copyFileToInputDirectory" />
 	       
