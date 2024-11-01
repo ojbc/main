@@ -180,7 +180,6 @@
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeVictim" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -358,13 +357,13 @@
       <xs:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>      
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-</xs:schema>  
   <xs:complexType name="TermType">
     <xs:annotation>
       <xs:documentation>A data type for a duration length either in specific terms or as a range.</xs:documentation>
@@ -499,7 +498,7 @@
       <xs:documentation>A person accused of committing a specific offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="ChargeVictim" type="j:VictimType" nillable="true">
+  <xs:element name="Victim" type="j:VictimType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person that is a victim of a specific offense.</xs:documentation>
     </xs:annotation>

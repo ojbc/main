@@ -61,7 +61,7 @@
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" />
 					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Person"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Identity" minOccurs="0" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
