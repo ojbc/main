@@ -134,6 +134,9 @@
 	<j:Subject>
 		<nc:RoleOfPerson structures:ref="PER001" />
 	</j:Subject>
+	<j:Victim>
+		<nc:RoleOfPerson structures:ref="PER002" />
+	</j:Victim>
 	<nc:Person structures:id="PER001">
 		<nc:PersonBirthDate>
 			<nc:Date>1991-01-01</nc:Date>
@@ -154,6 +157,15 @@
 			<nc:IdentificationID>PTI1234</nc:IdentificationID>
 		</pdr-report-ext:PersonTrackingIdentification>
 	</nc:Person>
+	<nc:Person structures:id="PER002">
+		<nc:PersonBirthDate>
+			<nc:Date>1991-01-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonSurName>Last Victim</nc:PersonSurName>
+			<nc:PersonFullName>Full Name Victim</nc:PersonFullName>
+		</nc:PersonName>
+	</nc:Person>	
 	<nc:Identity structures:id="ALIAS001">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
