@@ -896,9 +896,4 @@
       <xs:documentation>A data concept for a telephone number.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="DispositionDate" type="nc:DateType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A date a disposition occurred.</xs:documentation>
-    </xs:annotation>
-  </xs:element>  
 </xs:schema>
