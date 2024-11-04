@@ -200,6 +200,7 @@
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:ChargeStatus" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -739,6 +740,11 @@
   <xs:element name="SubjectViolentOffenderIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a subject is considered to have a history of violent behavior; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
+  <xs:element name="ChargeStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A state of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>  
 </xs:schema>
