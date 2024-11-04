@@ -201,6 +201,7 @@
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeStatus" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
