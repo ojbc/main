@@ -17,7 +17,25 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
+<xs:schema
+	targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	version="1"
+	xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd 
+	http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd 
+	http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd
+	http://release.niem.gov/niem/domains/cyfs/3.0/ ../../domains/cyfs/3.0/cyfs.xsd"
+	ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
+	xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
     <xs:appinfo>
@@ -88,6 +106,7 @@
   <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd"/>
   <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../proxy/xsd/3.0/xs.xsd"/>
   <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../domains/cyfs/3.0/cyfs.xsd"/>
   <xs:complexType name="ActivityAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about an activity.</xs:documentation>
@@ -278,6 +297,10 @@
           <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="cyfs:SeriousHabitualOffenderIndicator" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="cyfs:MentalHealthHistoryDescriptionText" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:SubjectViolentOffenderIndicator" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:PersonFirearmSalesDisqualified" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -703,4 +726,19 @@
       <xs:documentation>True if the term is not for a set duration length but for life; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonFirearmSalesDisqualified" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a status of person's eligibility to purchase firearms.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonFirearmSalesDisqualifiedCode" type="ncic:IFSCodeType" substitutionGroup="j:PersonFirearmSalesDisqualified" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of person's eligibility to purchase firearms.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectViolentOffenderIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a subject is considered to have a history of violent behavior; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
 </xs:schema>

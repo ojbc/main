@@ -29,4 +29,9 @@
       <xs:documentation>True if the person has Serious Habitual Offender status; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="MentalHealthHistoryDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of known mental health history, including behavioral health and psychological or psychiatric assessments, diagnoses, or treatments.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
 </xs:schema>
