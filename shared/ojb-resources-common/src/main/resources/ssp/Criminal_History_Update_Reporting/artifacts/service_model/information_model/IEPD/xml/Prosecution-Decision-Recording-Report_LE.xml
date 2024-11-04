@@ -23,6 +23,7 @@
 	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -42,8 +43,7 @@
 			</nc:DocumentFiledDate>
 		</nc:CaseFiling>
 		<j:CaseAugmentation>
-			<j:CaseCharge structures:ref="CRG001">
-			</j:CaseCharge>
+			<j:CaseCharge structures:ref="CRG001"> </j:CaseCharge>
 			<j:CaseCourt>
 				<j:OrganizationAugmentation>
 					<j:OrganizationORIIdentification>
@@ -55,8 +55,7 @@
 		</j:CaseAugmentation>
 	</nc:Case>
 	<j:CaseProsecutionAttorney>
-		<pdr-report-ext:ProsecutionAttorneyOrganization
-			structures:id="ORG001">
+		<pdr-report-ext:ProsecutionAttorneyOrganization structures:id="ORG001">
 			<nc:OrganizationLocation>
 				<nc:Address>
 					<nc:LocationStreet>
@@ -117,7 +116,7 @@
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
 		<j:ChargeSubject>
-			<nc:RoleOfPerson structures:ref="PER001" />
+			<nc:RoleOfPerson structures:ref="PER001"/>
 			<j:SubjectSupervision>
 				<nc:SupervisionCustodyStatus>
 					<nc:StatusDescriptionText>Not in Custody</nc:StatusDescriptionText>
@@ -127,15 +126,18 @@
 		<j:ChargeTrackingIdentification>
 			<nc:IdentificationID>CTID1234</nc:IdentificationID>
 		</j:ChargeTrackingIdentification>
+		<j:ChargeStatus>
+			<nc:StatusDescriptionText>REFERRED</nc:StatusDescriptionText>
+		</j:ChargeStatus>
 		<pdr-report-ext:CriminalTrackingIdentification>
 			<nc:IdentificationID>CRIM12345</nc:IdentificationID>
 		</pdr-report-ext:CriminalTrackingIdentification>
 	</j:Charge>
 	<j:Subject>
-		<nc:RoleOfPerson structures:ref="PER001" />
+		<nc:RoleOfPerson structures:ref="PER001"/>
 	</j:Subject>
 	<j:Victim>
-		<nc:RoleOfPerson structures:ref="PER002" />
+		<nc:RoleOfPerson structures:ref="PER002"/>
 	</j:Victim>
 	<nc:Person structures:id="PER001">
 		<nc:PersonBirthDate>
@@ -152,6 +154,10 @@
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>1234567FP</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
+			<cyfs:SeriousHabitualOffenderIndicator>true</cyfs:SeriousHabitualOffenderIndicator>
+			<cyfs:MentalHealthHistoryDescriptionText>true</cyfs:MentalHealthHistoryDescriptionText>
+			<j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
+			<j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
 		</j:PersonAugmentation>
 		<pdr-report-ext:PersonTrackingIdentification>
 			<nc:IdentificationID>PTI1234</nc:IdentificationID>
@@ -165,7 +171,7 @@
 			<nc:PersonSurName>Last Victim</nc:PersonSurName>
 			<nc:PersonFullName>Full Name Victim</nc:PersonFullName>
 		</nc:PersonName>
-	</nc:Person>	
+	</nc:Person>
 	<nc:Identity structures:id="ALIAS001">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
@@ -175,7 +181,7 @@
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
 	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="PER001" />
-		<nc:Identity structures:ref="ALIAS001" />
+		<nc:Person structures:ref="PER001"/>
+		<nc:Identity structures:ref="ALIAS001"/>
 	</nc:PersonAliasIdentityAssociation>
 </pdr-report-doc:ProsecutionDecisionRecordingReport>
