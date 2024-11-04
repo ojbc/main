@@ -313,4 +313,36 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+ <xs:simpleType name="IFSCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Identification for Firearm Sales.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="D">
+        <xs:annotation>
+          <xs:documentation>disqualified</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="C">
+        <xs:annotation>
+          <xs:documentation>cleared</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="X">
+        <xs:annotation>
+          <xs:documentation>disposition pending</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="IFSCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Identification for Firearm Sales.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:IFSCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>  
 </xs:schema>
