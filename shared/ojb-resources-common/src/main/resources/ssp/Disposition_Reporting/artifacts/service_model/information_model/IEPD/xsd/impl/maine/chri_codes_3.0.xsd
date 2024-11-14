@@ -1158,6 +1158,7 @@
 			<xsd:enumeration value="CONSPIRACY" />
 			<xsd:enumeration value="SOLICITATION" />
 			<xsd:enumeration value="FIREARM OR DANGEROUS WEAPON" />
+			<xsd:enumeration value="PRIORS"/>
 			<xsd:enumeration value="OTHER" />
 		</xsd:restriction>
 	</xsd:simpleType>
