@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
+	
+	xmlns:tns="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DispositionErrorReport.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="DispositionErrorReport">
+		<wsdl:part name="DispositionErrorReport" element="pd-doc:DispositionErrorReport" />
+	</wsdl:message>
+	<wsdl:portType name="Disposition-Error-Reporting-Service">
+		<wsdl:operation name="ReportDispositionError">
+			<wsdl:input name="DispositionErrorReport" message="tns:DispositionErrorReport" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding
+		name="Disposition-Error-Reporting-Service-Secure-ServiceSOAPBinding"
+		type="tns:Disposition-Error-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="ReportDispositionError">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0/ReportDispositionError"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- Unsecure binding -->
+	<wsdl:binding
+		name="Disposition-Error-Reporting-ServiceSOAPBinding"
+		type="tns:Disposition-Error-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ReportDispositionError">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0/ReportDispositionError"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>	
+	<wsdl:service name="Disposition-Error-Reporting-ServiceService">
+		<wsdl:port name="Disposition-Error-Reporting-Service"
+			binding="tns:Disposition-Error-Reporting-ServiceSOAPBinding">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
+		<wsdl:port name="Disposition-Error-Reporting-Secure-Service"
+			binding="tns:Disposition-Error-Reporting-Service-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>		
+	</wsdl:service>
+</wsdl:definitions>

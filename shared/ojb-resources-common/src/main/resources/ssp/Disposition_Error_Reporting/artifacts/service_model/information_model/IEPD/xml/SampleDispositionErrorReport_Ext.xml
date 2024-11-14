@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<der-doc:DispositionErrorReport
+  xmlns:der-ext="http://ojbc.org/IEPD/Extensions/DispositionErrorReportExtension/1.0"
+  xmlns:der-doc="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/"
+  xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0 ../xsd/DispositionErrorReport.xsd ">
+  <structures:ObjectAugmentationPoint/>
+  <nc:DocumentIdentification>
+    <structures:ObjectAugmentationPoint/>
+    <nc:IdentificationID>SourceRecordID_12345</nc:IdentificationID>
+  </nc:DocumentIdentification>
+  <nc:DocumentIssueDate>
+    <nc:DateTime>2024-12-31T12:00:00</nc:DateTime>
+  </nc:DocumentIssueDate>
+  <nc:DocumentRecipient>
+    <structures:ObjectAugmentationPoint/>
+    <nc:EntityOrganization>
+      <structures:ObjectAugmentationPoint/>
+      <nc:OrganizationIdentification>
+        <structures:ObjectAugmentationPoint/>
+        <nc:IdentificationID>CourtIDorLEAORI</nc:IdentificationID>
+      </nc:OrganizationIdentification>
+      <nc:OrganizationName>organization name</nc:OrganizationName>
+    </nc:EntityOrganization>
+    <nc:EntityAugmentationPoint/>
+  </nc:DocumentRecipient>
+  <nc:DocumentSourceText>document source</nc:DocumentSourceText>
+  <der-ext:RecipientAgencyDocumentID>ID or ATN</der-ext:RecipientAgencyDocumentID>
+  <der-ext:ErrorCategoryText>Charge</der-ext:ErrorCategoryText>
+  <der-ext:ErrorCodeText>808</der-ext:ErrorCodeText>
+  <der-ext:ErrorValueText>001-14.99A</der-ext:ErrorValueText>
+  <der-ext:ErrorDescriptionText>Matching Arrest Record Not Found</der-ext:ErrorDescriptionText>
+  <der-ext:ErrorPriority>4</der-ext:ErrorPriority>
+  <nc:CaseDocketID>12345</nc:CaseDocketID>
+  <der-ext:DispositionErrorBatchSubmission>
+    <structures:ObjectAugmentationPoint/>
+    <der-ext:DispositionErrorID>12345</der-ext:DispositionErrorID>
+    <der-ext:BatchID>187</der-ext:BatchID>
+    <nc:DocumentIssueDate>
+      <structures:ObjectAugmentationPoint/>
+      <nc:DateTime>2024-12-31T12:00:00</nc:DateTime>
+    </nc:DocumentIssueDate>
+    <der-ext:BatchRunTimeStamp>2024-12-31T12:00:00</der-ext:BatchRunTimeStamp>
+    <der-ext:BatchPeriod>December</der-ext:BatchPeriod>
+    <der-ext:ErrorReportStartDate>2024-12-01T12:00:00</der-ext:ErrorReportStartDate>
+    <der-ext:ErrorReportEndDate>2001-12-31T12:00:00</der-ext:ErrorReportEndDate>
+  </der-ext:DispositionErrorBatchSubmission>
+</der-doc:DispositionErrorReport>
