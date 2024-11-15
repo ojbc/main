@@ -3,8 +3,6 @@
   xmlns:der-ext="http://ojbc.org/IEPD/Extensions/DispositionErrorReportExtension/1.0"
   xmlns:der-doc="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
   xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
-  xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/"
-  xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0 ../xsd/DispositionErrorReport.xsd ">
   <nc:DocumentIdentification>
