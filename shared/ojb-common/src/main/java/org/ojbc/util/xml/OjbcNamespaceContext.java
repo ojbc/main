@@ -104,6 +104,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_DISPOSITION_REPORTS = "http://ojbc.org/DispositionReports/1.0";
 	public static final String NS_DISPOSITION_REPORTS_PREFIX = "dr";
+	
+	public static final String NS_DISPOSITION_ERROR_REPORTS = "http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0";
+	public static final String NS_DISPOSITION_ERROR_REPORTS_PREFIX = "der-doc";
+	
+	public static final String NS_DISPOSITION_ERROR_REPORTS_EXT = "http://ojbc.org/IEPD/Extensions/DispositionErrorReportExtension/1.0";
+	public static final String NS_DISPOSITION_ERROR_REPORTS_EXT_PREFIX = "der-ext";
 
 	public static final String NS_DISPOSITION_EXCHANGE = "http://ojbc.org/IEPD/Exchange/DispositionReport/1.0";
 	public static final String NS_DISPOSITION_EXCHANGE_PREFIX = "disp_exc";
@@ -273,6 +279,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_NC_30 = "http://release.niem.gov/niem/niem-core/3.0/";
 	public static final String NS_NC_30_1 = "http://release.niem.gov/niem/niem-core/3.0/1/";
 	public static final String NS_NC_40 = "http://release.niem.gov/niem/niem-core/4.0/";
+	public static final String NS_NC_50 = "http://release.niem.gov/niem/niem-core/5.0/";
 	public static final String NS_WARRANT = "http://ojbc.org/IEPD/Exchange/Warrants/1.0";
 	public static final String NS_STRUCTURES = "http://niem.gov/niem/structures/2.0";
 	public static final String NS_STRUCTURES_30 = "http://release.niem.gov/niem/structures/3.0/";
@@ -288,6 +295,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_NC_30 = "nc30";
 	public static final String NS_PREFIX_NC_30_1 = "nc31";
 	public static final String NS_PREFIX_NC_40 = "nc40";
+	public static final String NS_PREFIX_NC_50 = "nc50";
 	public static final String NS_PREFIX_WARRANT = "warrant";
 	public static final String NS_PREFIX_STRUCTURES = "s";
 	public static final String NS_PREFIX_STRUCTURES_30 = "s30";
@@ -1278,6 +1286,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_DISPOSITION_REPORTS_PREFIX, NS_DISPOSITION_REPORTS);
 		uriToPrefixMap.put(NS_DISPOSITION_REPORTS, NS_DISPOSITION_REPORTS_PREFIX);
+		
+		prefixToUriMap.put(NS_DISPOSITION_ERROR_REPORTS_PREFIX, NS_DISPOSITION_ERROR_REPORTS);
+		uriToPrefixMap.put(NS_DISPOSITION_ERROR_REPORTS, NS_DISPOSITION_ERROR_REPORTS_PREFIX);
+		
+		prefixToUriMap.put(NS_DISPOSITION_ERROR_REPORTS_EXT_PREFIX, NS_DISPOSITION_ERROR_REPORTS_EXT);
+		uriToPrefixMap.put(NS_DISPOSITION_ERROR_REPORTS_EXT, NS_DISPOSITION_ERROR_REPORTS_EXT_PREFIX);
 
 		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_DOC, NS_CHARGE_REFERRAL_DOC);
 		uriToPrefixMap.put(NS_CHARGE_REFERRAL_DOC, NS_PREFIX_CHARGE_REFERRAL_DOC);
@@ -1358,6 +1372,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_NC_30, NS_PREFIX_NC_30);
 		prefixToUriMap.put(NS_PREFIX_NC_40, NS_NC_40);
 		uriToPrefixMap.put(NS_NC_40, NS_PREFIX_NC_40);
+		prefixToUriMap.put(NS_PREFIX_NC_50, NS_NC_50);
+		uriToPrefixMap.put(NS_NC_50, NS_PREFIX_NC_50);
 		prefixToUriMap.put(NS_PREFIX_WARRANT, NS_WARRANT);
 		uriToPrefixMap.put(NS_WARRANT, NS_PREFIX_WARRANT);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES, NS_STRUCTURES);
