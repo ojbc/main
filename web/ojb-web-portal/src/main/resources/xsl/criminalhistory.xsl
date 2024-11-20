@@ -504,8 +504,8 @@
 		<xsl:apply-templates select="rap:ArrestCharge">
 		  <xsl:sort select="j:ChargeSequenceID"></xsl:sort>
 		</xsl:apply-templates>
-		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/rap:CourtAction[not(rap:CourtCharge/j:ChargeTrackingIdentification/nc:IdentificationID=//rap:ArrestCharge/j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm"/> 
-		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/ch-ext:Sentencing/ch-ext:Sentence[not(rap:SentenceCharge/j:ChargeTrackingIdentification/nc:IdentificationID=j:ChargeTrackingIdentification/nc:IdentificationID)]" mode="cdm">
+		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/rap:CourtAction" mode="cdm"/> 
+		<xsl:apply-templates select="ancestor::ch-ext:RapSheetCycle/ch-ext:Sentencing/ch-ext:Sentence" mode="cdm">
 		  <xsl:sort select="nc:ActivityIdentification/nc:IdentificationID"></xsl:sort>
 		</xsl:apply-templates> 
 	</xsl:template>

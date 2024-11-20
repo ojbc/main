@@ -58,8 +58,10 @@
         var context = /*[[@{/}]]*/ '';
       /*]]>*/
       $(function(){
+    	  
         $('#scanningConfirmation').click (function(){
         	var homeButton = $(this).next();
+        	unloadConfirmation = false; 
             bootpopup({
                 title: "Have you scanned the QR code?",
                 content: [

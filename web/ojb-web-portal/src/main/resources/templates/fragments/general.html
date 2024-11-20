@@ -108,7 +108,7 @@
 		              </a>
 			          <div class="dropdown-divider"></div>
 <!-- 			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a> -->
-			          <a class="dropdown-item" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
+			          <a class="dropdown-item signout" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
 			        </div>
                 </li>
               </ul>
@@ -163,6 +163,27 @@
 	      /*]]>*/
 	      var idleTime;
 	      var oTable;
+          var ua = window.navigator.userAgent;
+          var isIE = /MSIE|Trident/.test(ua);
+          var isSafari = ua.indexOf("Safari") > -1;
+          var unloadConfirmation = true; 
+          
+			window.addEventListener('beforeunload', (event) =>{
+			    if (unloadConfirmation){
+				    event.preventDefault();
+				    // Chrome requires returnValue to be set.
+				    event.returnValue = '';
+			    }
+			    else {
+			          /* unloadConfirmation = true; */ 
+			    	event.returnValue = '';
+			    }
+			});
+			window.onpageshow = function(event) {
+			    if (isSafari && event.persisted) {
+			        window.dispatchEvent(new Event('beforeunload'));
+			    }
+			};
 	      $(function(){
               console.log("inactivityTimeout on general.html: " + inactivityTimeout);
               console.log("inactivityTimeoutInSeconds on general.html: " + inactivityTimeoutInSeconds);
@@ -235,6 +256,10 @@
 	           }).on('mouseleave', ".clickable", function () {
 	                 $(this).removeClass("hover");
                });
+ 	          
+               $("body").on('click', ".signout", function(){
+            	   unloadConfirmation = false; 
+	           });
  	          
 	      });
 	      
