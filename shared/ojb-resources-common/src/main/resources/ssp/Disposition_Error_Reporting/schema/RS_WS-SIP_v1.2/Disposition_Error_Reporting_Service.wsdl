@@ -22,7 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
+	xmlns:der-doc="http://ojbc.org/IEPD/Exchange/DispositionErrorReport/1.0"
 	
 	xmlns:tns="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/DispositionErrorReportingService/1.0">
@@ -37,7 +37,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="DispositionErrorReport">
-		<wsdl:part name="DispositionErrorReport" element="pd-doc:DispositionErrorReport" />
+		<wsdl:part name="DispositionErrorReport" element="der-doc:DispositionErrorReport" />
 	</wsdl:message>
 	<wsdl:portType name="Disposition-Error-Reporting-Service">
 		<wsdl:operation name="ReportDispositionError">

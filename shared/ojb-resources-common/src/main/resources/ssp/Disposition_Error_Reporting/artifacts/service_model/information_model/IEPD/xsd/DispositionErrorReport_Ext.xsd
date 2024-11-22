@@ -20,6 +20,7 @@
 <xsd:schema 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/5.0/"  
 	xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/" 
 	xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
 	xmlns:der-ext="http://ojbc.org/IEPD/Extensions/DispositionErrorReportExtension/1.0"
@@ -32,6 +33,7 @@
 	elementFormDefault="qualified"
 	attributeFormDefault="qualified" version="1">
 	
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/7.2/" schemaLocation="./Subset/niem/xsd/domains/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/5.0/" schemaLocation="./Subset/niem/xsd/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/5.0/" schemaLocation="./Subset/niem/xsd/utility/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/niem-xs/5.0/" schemaLocation="./Subset/niem/xsd/adapters/niem-xs.xsd" />
@@ -46,13 +48,23 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="der-ext:DispositionErrorReport" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="der-ext:RecipientAgencyDocumentID" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="der-ext:ErrorCategoryText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="der-ext:ParishCode" minOccurs="0" maxOccurs="1" />					
 					<xsd:element ref="der-ext:ErrorCodeText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="der-ext:ErrorValueText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="der-ext:ErrorDescriptionText" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="der-ext:ErrorPriority" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="der-ext:ErrorPriority" minOccurs="0" maxOccurs="1" />					
 					<xsd:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:RapSheetCycleTrackingIdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="der-ext:DispositionErrorBatchSubmission" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -78,9 +90,23 @@
 	</xsd:complexType>
 	
 	
+<xsd:element name="DispositionErrorReport" type="der-ext:DispositionErrorReportType">
+		<xsd:annotation>
+			<xsd:documentation>A report that contains disposition error.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
 <xsd:element name="RecipientAgencyDocumentID" type="niem-xs:string">
 		<xsd:annotation>
-			<xsd:documentation>An document identifier used by the agency that reported the disposition that contains the error.
+			<xsd:documentation>An document identifier used by the agency that reported the disposition that contains the error. double testing commit. 
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="ParishCode" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Type of disposition error, e.g., record syntax, charge, OMV offense, etc.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -120,13 +146,6 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="CaseDocketID" type="niem-xs:string">
-		<xsd:annotation>
-			<xsd:documentation>An identifier used to reference a case docket.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-
 	<xsd:element name="DispositionErrorID" type="niem-xs:string">
 		<xsd:annotation>
 			<xsd:documentation>An identifier for an disposition error.

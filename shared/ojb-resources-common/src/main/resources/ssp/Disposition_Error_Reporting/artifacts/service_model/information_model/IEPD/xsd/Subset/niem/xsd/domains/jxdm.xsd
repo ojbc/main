@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/7.2/" version="1" xml:lang="en-US" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/5.0/ ../utility/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../utility/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument" xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/" xmlns:structures="http://release.niem.gov/niem/structures/5.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/5.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/">
+  <xs:annotation>
+    <xs:documentation>Justice</xs:documentation>
+    <xs:appinfo>
+      <appinfo:LocalTerm term="AAMVA" literal="The American Association of Motor Vehicle Administrators"/>
+      <appinfo:LocalTerm term="ACD" literal="AAMVA Code Dictionary"/>
+      <appinfo:LocalTerm term="ADA" literal="Americans with Disabilities Act"/>
+      <appinfo:LocalTerm term="AFIS" literal="Automated Fingerprint Identification System"/>
+      <appinfo:LocalTerm term="Alpha" definition="Letter(s)"/>
+      <appinfo:LocalTerm term="Amber" literal="America's Missing: Broadcast Emergency Response"/>
+      <appinfo:LocalTerm term="ANSID20" literal="The Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators"/>
+      <appinfo:LocalTerm term="APCO" literal="Association of Public-Safety Communications Officials (APCO) - International, Inc."/>
+      <appinfo:LocalTerm term="BAC" literal="Blood Alcohol Concentration"/>
+      <appinfo:LocalTerm term="BOP" literal="Bureau of Prisons"/>
+      <appinfo:LocalTerm term="BPH" literal="Board of Parole Hearings"/>
+      <appinfo:LocalTerm term="Brady" literal="Brady Law"/>
+      <appinfo:LocalTerm term="CDL" literal="Commercial Driver's License"/>
+      <appinfo:LocalTerm term="CFR" definition="Code of Federal Regulations"/>
+      <appinfo:LocalTerm term="CHRI" literal="Criminal History Record Information"/>
+      <appinfo:LocalTerm term="CJIS" literal="Criminal Justice Information System"/>
+      <appinfo:LocalTerm term="CLP" literal="Commercial Learners Permit"/>
+      <appinfo:LocalTerm term="CMV" literal="Commercial Motor Vehicle"/>
+      <appinfo:LocalTerm term="CODIS" literal="Combined DNA Index System"/>
+      <appinfo:LocalTerm term="COMPAS" literal="Correctional Offender Management Profiling for Alternative Sanctions"/>
+      <appinfo:LocalTerm term="DEA" literal="Drug Enforcement Administration"/>
+      <appinfo:LocalTerm term="DHS" literal="Department of Homeland Security"/>
+      <appinfo:LocalTerm term="DMH" literal="Department of Mental Health"/>
+      <appinfo:LocalTerm term="DNA" literal="Deoxyribonucleic acid"/>
+      <appinfo:LocalTerm term="DOT" literal="Department of Transportation"/>
+      <appinfo:LocalTerm term="EMS" literal="Emergency Medical Service"/>
+      <appinfo:LocalTerm term="Enhanceable" definition="An enhanceable offense means that specific factors can increase the severity level of the offense."/>
+      <appinfo:LocalTerm term="FBI" literal="Federal Bureau of Investigation"/>
+      <appinfo:LocalTerm term="FCN" literal="file control number"/>
+      <appinfo:LocalTerm term="FFL" literal="federal firearms license"/>
+      <appinfo:LocalTerm term="FIPS" literal="Federal Information Processing Standards"/>
+      <appinfo:LocalTerm term="GDEP" literal="Geographic-Drug Enforcement Program"/>
+      <appinfo:LocalTerm term="GVWR" literal="gross vehicle weight rating"/>
+      <appinfo:LocalTerm term="HazMat" literal="Hazardous Materials"/>
+      <appinfo:LocalTerm term="HME" literal="Hazardous Material Endorsement"/>
+      <appinfo:LocalTerm term="HRSO" literal="high risk sex offender"/>
+      <appinfo:LocalTerm term="IAFIS" literal="Integrated Automated Fingerprint Identification System"/>
+      <appinfo:LocalTerm term="IBIS" literal="Integrated Ballistic Identification System"/>
+      <appinfo:LocalTerm term="ICC" literal="Interstate Commerce Commission"/>
+      <appinfo:LocalTerm term="ISBN" literal="International Standard Book Number"/>
+      <appinfo:LocalTerm term="JABS" literal="JABS" definition="Joint Automated Booking System"/>
+      <appinfo:LocalTerm term="Keyhea" definition="Under the Keyhea injunction, 'involuntary medication' cannot be administered to a state prisoner for more than three days unless the professional staff of the facility in which the prisoner is incarcerated has analyzed the prisoner's condition and found that the prisoner is, as a result of a mental disorder, 'gravely disabled and incompetent to refuse medication or a danger to others, or a danger to self,' and the prisoner has been 'advised of the need for, but has not been willing to accept medication on a voluntary basis.'"/>
+      <appinfo:LocalTerm term="LEOKA" literal="Law Enforcement Officer Killed or Assaulted"/>
+      <appinfo:LocalTerm term="LIS" literal="License Plate State"/>
+      <appinfo:LocalTerm term="Livescan" definition="An inkless, electronic means of capturing fingerprints in a digitized format and then transmitting them to a state repository and/or the FBI"/>
+      <appinfo:LocalTerm term="LSTA" definition="State/Country Index"/>
+      <appinfo:LocalTerm term="MACR" literal="Monthly Arrest and Citation Register"/>
+      <appinfo:LocalTerm term="MCMIS" literal="Motor Carrier Management Information System"/>
+      <appinfo:LocalTerm term="MCO" literal="Manufacturer's certificate of origin"/>
+      <appinfo:LocalTerm term="MCSIP" literal="Motor Carrier Safety Improvement Process"/>
+      <appinfo:LocalTerm term="MDO" literal="mentally disordered offender"/>
+      <appinfo:LocalTerm term="MHSDS" literal="Mental Health Services Delivery System"/>
+      <appinfo:LocalTerm term="MMUCC" literal="Model Minimum Uniform Crash Criteria"/>
+      <appinfo:LocalTerm term="MO" literal="Modus Operandi"/>
+      <appinfo:LocalTerm term="ModusOperandi" literal="Mode of operating"/>
+      <appinfo:LocalTerm term="Multi" literal="Multiple"/>
+      <appinfo:LocalTerm term="NCIC" literal="National Crime Information Center"/>
+      <appinfo:LocalTerm term="NCMEC" literal="National Center for Missing &amp; Exploited Children"/>
+      <appinfo:LocalTerm term="NDEX" literal="National Data Exchange"/>
+      <appinfo:LocalTerm term="NDEx" literal="National Data Exchange"/>
+      <appinfo:LocalTerm term="NIBRS" literal="National Incident Based Reporting System"/>
+      <appinfo:LocalTerm term="NICB" literal="National Insurance Crime Bureau"/>
+      <appinfo:LocalTerm term="NICS" literal="National Instant Criminal Background Check System"/>
+      <appinfo:LocalTerm term="NLETS" literal="National Law Enforcement Telecommunication Systems"/>
+      <appinfo:LocalTerm term="OCA" literal="Originating Case Agency"/>
+      <appinfo:LocalTerm term="ORI" definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems."/>
+      <appinfo:LocalTerm term="POST" literal="Peace Official Standards and Training"/>
+      <appinfo:LocalTerm term="Postdirectional" definition="A word following a street name that indicates the directional taken by the thoroughfare from an arbitrary starting point or line, or the sector where it is located."/>
+      <appinfo:LocalTerm term="Predirectional" definition="A word preceding a street name that indicates the directional taken by the thoroughfare from an arbitrary starting point or line, or the sector where it is located."/>
+      <appinfo:LocalTerm term="PRISM" literal="Performance and Registration Information Systems Management"/>
+      <appinfo:LocalTerm term="REALID" definition="Public Law 109–13, 119 Statute 302, enacted May 11, 2005, was an Act of Congress that modified U.S. federal law pertaining to security, authentication, and issuance procedures standards for the state driver's licenses and identification (ID) cards, as well as various immigration issues pertaining to terrorism."/>
+      <appinfo:LocalTerm term="RES" literal="Registration State"/>
+      <appinfo:LocalTerm term="RH" definition="Rhesus (Rh) factor is an inherited protein found on the surface of red blood cells."/>
+      <appinfo:LocalTerm term="RICO" literal="Racketeer Influenced and Corrupt Organizations"/>
+      <appinfo:LocalTerm term="SAFESTAT" literal="Safety Status Measurement System"/>
+      <appinfo:LocalTerm term="Separatee" literal="A person who must be kept separate from another person."/>
+      <appinfo:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics"/>
+      <appinfo:LocalTerm term="SSN" literal="Social Security Number"/>
+      <appinfo:LocalTerm term="TCD" literal="traffic control device"/>
+      <appinfo:LocalTerm term="TCN" literal="Transaction Control Number"/>
+      <appinfo:LocalTerm term="TripleI" literal="III - Interstate Identification Index system"/>
+      <appinfo:LocalTerm term="TSA" definition="Transportation Security Administration"/>
+      <appinfo:LocalTerm term="TYP" literal="(Firearm) Type"/>
+      <appinfo:LocalTerm term="TYPA" literal="(Article) Type"/>
+      <appinfo:LocalTerm term="TYPO" literal="(ORI) Type"/>
+      <appinfo:LocalTerm term="UCR" literal="Uniform Crime Reporting"/>
+      <appinfo:LocalTerm term="USDOT" literal="United States Department of Transportation"/>
+      <appinfo:LocalTerm term="USMS" literal="United States Marshal Service"/>
+      <appinfo:LocalTerm term="VICAP" literal="Violent Criminal Apprehension Program"/>
+      <appinfo:LocalTerm term="VIN" literal="Vehicle Identification Number"/>
+      <appinfo:LocalTerm term="VINA" literal="Vehicle Identification Number Analysis"/>
+      <appinfo:LocalTerm term="WHTI" literal="Western Hemisphere Travel Initiative"/>
+      <appinfo:LocalTerm term="XRay" literal="X-Ray"/>
+      <appinfo:LocalTerm term="XRays" literal="X-Rays"/>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/5.0/" schemaLocation="../niem-core.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/proxy/niem-xs/5.0/" schemaLocation="../adapters/niem-xs.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/5.0/" schemaLocation="../utility/structures.xsd"/>
+  <xs:complexType name="ActivityArrestAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and an arrest.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrestType">
+    <xs:annotation>
+      <xs:documentation>A data type for the apprehension of a subject by a peace official.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChargeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StatuteType">
+    <xs:annotation>
+      <xs:documentation>A data type for a law, rule, or ordinance within a jurisdiction.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActivityArrestAssociation" type="j:ActivityArrestAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and an arrest.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Arrest" type="j:ArrestType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sequentially assigned identifier for charge tracking purposes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RapSheetCycleTrackingIdentificationID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique number or alphanumeric identifier assigned to the entire Rap Sheet cycle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification number of a set of laws for a particular jurisdiction.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

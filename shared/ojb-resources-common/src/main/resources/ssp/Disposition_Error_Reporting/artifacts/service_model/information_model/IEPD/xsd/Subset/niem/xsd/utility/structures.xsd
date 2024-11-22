@@ -75,7 +75,7 @@
     <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
   </xs:complexType>
 
-  <xs:element name="ObjectAugmentationPoint" abstract="false">
+  <xs:element name="ObjectAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for type structures:ObjectType.</xs:documentation>
     </xs:annotation>
