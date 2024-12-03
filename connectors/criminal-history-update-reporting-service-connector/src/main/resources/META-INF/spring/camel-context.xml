@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"	
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+	
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="criminal-history-update-reporting-service-connector" streamCache="true">
+		
+		<streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
+		<endpoint id="inputDir"
+			uri="file:///${criminalHistoryUpdateReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${criminalHistoryUpdateReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+
+		<!-- Incident Reporting Service Handler -->
+		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute" errorHandlerRef="criminalHistoryUpdateReportingErrorHandler">
+		
+			<camel:from uri="inputDir" />
+			<camel:log
+				message="Received file for Criminal History Update: ${file:name}" />
+			
+			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			
+			<camel:removeHeaders pattern="*"/>
+			
+			<camel:setHeader name="operationName">
+                <constant>ReportProsecutionDecisionRecording</constant>
+            </camel:setHeader>
+	                        		
+			<camel:setHeader name="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
+			</camel:setHeader>
+			
+			
+			<log message="\n\n\n operationName = ${in.headers.operationName} \n\n\n"/>
+			
+			<camel:throttle timePeriodMillis="1000">
+				<constant>1</constant>
+			</camel:throttle>
+			
+			<camel:to uri="CriminalHistoryUpdateReportingServiceEndpoint" />
+			
+		</camel:route>
+		
+		
+	</camel:camelContext>
+	
+</beans>
