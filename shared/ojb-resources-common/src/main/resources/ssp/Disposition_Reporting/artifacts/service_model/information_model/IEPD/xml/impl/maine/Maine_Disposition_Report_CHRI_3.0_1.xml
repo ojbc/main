@@ -16,12 +16,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<exchange:DispositionReport xmlns:codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0"
-	xmlns:s="http://release.niem.gov/niem/structures/3.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+<exchange:DispositionReport
+	xmlns:codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0"
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0 ../../../xsd/impl/maine/chri_codes_3.0.xsd">
 	<nc:Case>
 		<j:CaseAugmentation>
@@ -403,12 +408,12 @@
 		</ext:ChargeAugmentation>
 	</j:Charge>
 	<j:PersonChargeAssociation>
-		<nc:Person s:ref="d1e13" />
-		<j:Charge s:ref="d1e5" />
+		<nc:Person s:ref="d1e13"/>
+		<j:Charge s:ref="d1e5"/>
 	</j:PersonChargeAssociation>
 	<ext:CourtEventSentenceAssociation>
-		<j:CaseCourtEvent s:ref="d1e83" />
-		<j:ChargeSentence s:ref="d1e1" />
+		<j:CaseCourtEvent s:ref="d1e83"/>
+		<j:ChargeSentence s:ref="d1e1"/>
 	</ext:CourtEventSentenceAssociation>
 	<ext:DispositionMetadata s:id="DM01">
 		<ext:SealedIndicator>false</ext:SealedIndicator>
