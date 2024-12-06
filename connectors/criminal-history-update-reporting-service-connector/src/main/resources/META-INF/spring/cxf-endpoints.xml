@@ -38,7 +38,7 @@
 
 	<!-- endpoints -->
 	<camel:endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
-		uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryUpdateReportingConnector.cxflogging}&amp;synchronous=true" />
+		uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryUpdateReportingConnector.cxflogging}" />
 
 	<!-- OJB Criminal History Update Reporting Intermediary Service, called by this connector -->
 	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
@@ -54,8 +54,8 @@
 		</cxf:properties>
         <cxf:features> 
            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-               <property name="prettyLogging" value="${laCchAdapter.cxflogging}" />
-               <property name="verbose" value="${laCchAdapter.cxflogging}" />
+               <property name="prettyLogging" value="${criminalHistoryUpdateReportingConnector.cxflogging}" />
+               <property name="verbose" value="${criminalHistoryUpdateReportingConnector.cxflogging}" />
            </bean>
         </cxf:features>             
 	</cxf:cxfEndpoint>
