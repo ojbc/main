@@ -63,7 +63,7 @@
 				<constant>1</constant>
 			</camel:throttle>
 			
-			<camel:to uri="CriminalHistoryUpdateReportingServiceEndpoint" />
+			<camel:to uri="criminalHistoryUpdateReportingServiceEndpoint" />
 			
 		</camel:route>
 		
