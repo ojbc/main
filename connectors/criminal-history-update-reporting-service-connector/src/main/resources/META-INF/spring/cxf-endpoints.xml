@@ -37,12 +37,12 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd">
 
 	<!-- endpoints -->
-	<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
-		uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryUpdateReporting.criminalHistoryUpdateReportingServiceIntermediaryCxflogging}&amp;synchronous=true" />
+	<camel:endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
+		uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryUpdateReportingConnector.cxflogging}&amp;synchronous=true" />
 
-	<!-- OJB Incident Reporting Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="CriminalHistoryUpdateReportingService"
-		address="${criminalHistoryUpdateReporting.criminalHistoryUpdateReportingServiceEndpoint}"
+	<!-- OJB Criminal History Update Reporting Intermediary Service, called by this connector -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
+		address="${criminalHistoryUpdateReportingConnector.intermediaryEndpoint}"
 		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
@@ -50,37 +50,42 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="criminalHistoryUpdateReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username"
-				value="${criminalHistoryUpdateReporting.keystoreCertificateAlias}" />
-			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>
+				value="${criminalHistoryUpdateReportingConnector.keystoreCertificateAlias}" />
 		</cxf:properties>
+        <cxf:features> 
+           <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+               <property name="prettyLogging" value="${laCchAdapter.cxflogging}" />
+               <property name="verbose" value="${laCchAdapter.cxflogging}" />
+           </bean>
+        </cxf:features>             
 	</cxf:cxfEndpoint>
 
 	<util:properties id="criminalHistoryUpdateReportingKeystoreProperties">
 		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${criminalHistoryUpdateReporting.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${criminalHistoryUpdateReporting.keystoreCertificateAlias}
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${criminalHistoryUpdateReportingConnector.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${criminalHistoryUpdateReportingConnector.keystoreCertificateAlias}
 		</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${criminalHistoryUpdateReporting.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${criminalHistoryUpdateReportingConnector.keystoreLocation}</prop>
 	</util:properties>
 
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 		<property name="passwords">
 			<map>
-				<entry key="${criminalHistoryUpdateReporting.keystoreCertificateAlias}"
-					value="${criminalHistoryUpdateReporting.keyPassword}" />
+				<entry key="${criminalHistoryUpdateReportingConnector.keystoreCertificateAlias}"
+					value="${criminalHistoryUpdateReportingConnector.keyPassword}" />
 			</map>
 		</property>
 	</bean>
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${criminalHistoryUpdateReporting.keyPassword}">
-	        	<sec:keyStore type="jks" password="${criminalHistoryUpdateReporting.keystorePassword}" url="${criminalHistoryUpdateReporting.keystoreLocation}" />
+			<sec:keyManagers keyPassword="${criminalHistoryUpdateReportingConnector.keyPassword}">
+	        	<sec:keyStore type="jks" password="${criminalHistoryUpdateReportingConnector.keystorePassword}" url="${criminalHistoryUpdateReportingConnector.keystoreLocation}" />
 	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${criminalHistoryUpdateReporting.truststorePassword}" url="${criminalHistoryUpdateReporting.truststoreLocation}" />
+					password="${criminalHistoryUpdateReportingConnector.truststorePassword}" url="${criminalHistoryUpdateReportingConnector.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>

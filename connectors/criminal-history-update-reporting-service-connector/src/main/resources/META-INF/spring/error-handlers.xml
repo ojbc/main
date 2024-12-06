@@ -35,6 +35,6 @@
 	</camel:errorHandler>
 	
 	<camel:endpoint id="deadLetterDirCriminalHistoryReporting"
-		uri="file:///{{criminalHistoryUpdateReporting.ConnectorFileDirectory}}/deadLetter/IncidentReporting" />
+		uri="file:///{{criminalHistoryUpdateReportingConnector.ConnectorFileDirectory}}/deadLetter/IncidentReporting" />
 
 </beans>

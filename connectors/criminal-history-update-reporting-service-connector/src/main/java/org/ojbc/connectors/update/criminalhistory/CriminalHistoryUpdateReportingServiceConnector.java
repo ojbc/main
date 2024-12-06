@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-package org.ojbc.connectors.incidentreporting.application;
+package org.ojbc.connectors.update.criminalhistory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class, 
 		HibernateJpaAutoConfiguration.class})
-@ComponentScan({"org.ojbc.connectors.incidentreporting.application"})
+@ComponentScan({"org.ojbc.connectors.update.criminalhistory"})
 @ImportResource(value = {"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/error-handlers.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"})

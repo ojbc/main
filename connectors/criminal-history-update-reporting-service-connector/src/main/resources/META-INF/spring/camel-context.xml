@@ -32,10 +32,10 @@
 		
 		<streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
 		<endpoint id="inputDir"
-			uri="file:///${criminalHistoryUpdateReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${criminalHistoryUpdateReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+			uri="file:///${criminalHistoryUpdateReportingConnector.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${criminalHistoryUpdateReportingConnector.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 
 		<!-- Incident Reporting Service Handler -->
-		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute" errorHandlerRef="criminalHistoryUpdateReportingErrorHandler">
+		<camel:route id="criminalHistoryUpdateReportingRoute" errorHandlerRef="criminalHistoryUpdateReportingErrorHandler">
 		
 			<camel:from uri="inputDir" />
 			<camel:log
