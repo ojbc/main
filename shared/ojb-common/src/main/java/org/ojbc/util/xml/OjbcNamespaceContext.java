@@ -267,7 +267,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
 	public static final String NS_JXDM_60 = "http://release.niem.gov/niem/domains/jxdm/6.0/";
 	public static final String NS_JXDM_61 = "http://release.niem.gov/niem/domains/jxdm/6.1/";
+	public static final String NS_JXDM_72 = "http://release.niem.gov/niem/domains/jxdm/7.2/";
 	public static final String NS_PREFIX_JXDM_61 = "jxdm61";
+	public static final String NS_PREFIX_JXDM_72 = "jxdm72";
 	
 	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
 	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
@@ -1357,6 +1359,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_JXDM_61, NS_JXDM_61);
 		uriToPrefixMap.put(NS_JXDM_61, NS_PREFIX_JXDM_61);
+		prefixToUriMap.put(NS_PREFIX_JXDM_72, NS_JXDM_72);
+		uriToPrefixMap.put(NS_JXDM_72, NS_PREFIX_JXDM_72);
 
 		prefixToUriMap.put(NS_PREFIX_JXDM_41, NS_JXDM_41);
 		uriToPrefixMap.put(NS_JXDM_41, NS_PREFIX_JXDM_41);
