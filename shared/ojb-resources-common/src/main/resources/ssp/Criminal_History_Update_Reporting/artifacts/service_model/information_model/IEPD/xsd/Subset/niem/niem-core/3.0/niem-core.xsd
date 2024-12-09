@@ -857,11 +857,11 @@
       <xs:documentation>A last name or family name of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xsd:element name="PersonUSCitizenIndicator" type="niem-xsd:boolean" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>True if a person is a citizen of the United States; false otherwise.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>  
+  <xs:element name="PersonUSCitizenIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a person is a citizen of the United States; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
   <xs:element name="PersonWeightMeasure" type="nc:MeasureType" nillable="true">
     <xs:annotation>
       <xs:documentation>A measurement of the weight of a person.</xs:documentation>
