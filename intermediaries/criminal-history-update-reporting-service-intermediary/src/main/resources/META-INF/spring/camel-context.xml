@@ -43,7 +43,7 @@
 		
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
-		<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
+		<camel:endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
 			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
 
 		<camel:endpoint id="criminalHistoryUpdateReportingSSLServiceEndpoint"
@@ -67,7 +67,7 @@
 	
 		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute">
 		
-			<camel:from uri="CriminalHistoryUpdateReportingServiceEndpoint" />
+			<camel:from uri="criminalHistoryUpdateReportingServiceEndpoint" />
 			
 			<camel:to uri="direct:processCriminalHistory"/>
 			
@@ -135,6 +135,7 @@
 							<camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
 						
 							<camel:log message="About to call prosecution decision recording endpoint"/>
+                            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
 						    <camel:setHeader name="operationName"><constant>ReportProsecutionDecisionRecording</constant></camel:setHeader>
 
