@@ -147,6 +147,7 @@
 			<nc:PersonSurName>Last</nc:PersonSurName>
 			<nc:PersonFullName>First Last</nc:PersonFullName>
 		</nc:PersonName>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>12345678</nc:IdentificationID>
