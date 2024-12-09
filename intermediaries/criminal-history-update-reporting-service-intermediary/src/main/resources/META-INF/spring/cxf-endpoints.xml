@@ -87,6 +87,13 @@
 			<entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" /> 
 		</cxf:properties>
+        <cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+                <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+                <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+            </bean>             
+        </cxf:features>     
     </cxf:cxfEndpoint>	 	
 	
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
@@ -96,6 +103,13 @@
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+        <cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+                <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+                <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+            </bean>             
+        </cxf:features>     
 	</cxf:cxfEndpoint>              
               
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
