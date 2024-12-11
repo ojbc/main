@@ -95,6 +95,13 @@ public class CodeController {
     	return "otp/qrCode";
     }
     
+    @GetMapping(value="/qrCodePreparation/{username}", produces = MediaType.IMAGE_PNG_VALUE)
+    public String showQrCodePreparation(@PathVariable String username, Model model) 
+    		throws WriterException, IOException {
+    	model.addAttribute("userName", username);
+    	return "otp/qrCodePreparation";
+    }
+    
 	@GetMapping(value = "/inputForm")
 	public String searchForm(HttpServletRequest request,
 	        Map<String, Object> model) throws Exception {

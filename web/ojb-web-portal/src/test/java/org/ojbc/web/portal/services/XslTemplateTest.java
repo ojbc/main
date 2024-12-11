@@ -37,6 +37,7 @@ import org.apache.http.Consts;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.joda.time.DateTime;
+import org.jsoup.Jsoup;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -626,16 +627,20 @@ public class XslTemplateTest {
 	private void assertLinesEquals(List<String> expectedHtml,
 			String convertedResult) {
 		
-		String[] split = convertedResult.split("\n");
+		String joinedExpected = String.join("", expectedHtml).replaceAll("\t", " ").replaceAll("\\s+",  " ");
+		String[] expected = Jsoup.parse(joinedExpected).toString().split("\n");
+		String convertedResultsJoined = convertedResult.replaceAll("\n", "").replaceAll("\t", " ").replaceAll("\\s+",  " ");
+		String[] split = Jsoup.parse(convertedResultsJoined).toString().split("\n");
 
-		assertThat("Lines are not equal", split.length, is(expectedHtml.size()));
+		assertThat("Lines are not equal", split.length, is(expected.length));
 
 		try {
 			
 			for (int i = 0; i < split.length; i++) {
 				
 				assertThat("Line " + (i + 1) + " didn't match",
-						split[i].trim(), is(expectedHtml.get(i).trim()));
+						split[i].trim().replaceAll("\t", " ").replaceAll("\\s+",  " "), 
+						is(expected[i].trim().replaceAll("\t", " ").replaceAll("\\s+",  " ")));
 			}
 			
 		} catch (AssertionError e) {

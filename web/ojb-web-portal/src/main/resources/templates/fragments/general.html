@@ -40,6 +40,11 @@
 		<link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{${customStyleCssPath}}" />
 	    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
 		<link rel="shortcut icon"/>
+		<link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-96x96.png}" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" th:href="@{/images/favicon/favicon.svg}" />
+		<link rel="shortcut icon" th:href="@{/images/favicon/favicon.ico}" />
+		<link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/favicon/apple-touch-icon.png}" />
+		<link rel="manifest" th:href="@{/images/favicon/site.webmanifest}" />
 	</head>
 	<body>
 	    <header th:fragment="header">

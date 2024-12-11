@@ -37,13 +37,11 @@
                 TIMED ONE-TIME PASSWORD REGISTRATION
           </div>
           <div class="card-body" style="font-size: 12px;color: #333333; padding: 1.5em; ">
-            <form method="post" id="otpForm" th:object="${otpFormCommand}" th:with="currentDate=${#dates.createNow()}">
-              <p>Please scan the QR code using Microsoft or Google Authenticator App to sign up the secondary token:</p>
-              <img th:src="@{/code/generate/} + ${userName} + '/' + ${#dates.millisecond(currentDate)}"/>
-              
-              <div class="alert alert-primary mt-3" role="alert">When you are done scanning, click 
-                <a class="btn btn-primary" role="button" href="#" id="scanningConfirmation">Continue</a> 
-                to login with the one-time password</div>
+            <form method="post" id="otpForm" th:with="currentDate=${#dates.createNow()}">
+              <th:block th:replace="qrCodeAlertMessage::qrCodeAlertMessage"></th:block>
+              <div class="alert alert-primary mt-3" role="alert">Please read the notice above before proceeding.  
+                <a class="btn btn-primary" role="button" th:href="@{/code/qrCode/} + ${userName}" id="scanningConfirmation">Show the QR code</a> 
+              </div>
             </form>
           </div>
         </div>
@@ -58,25 +56,7 @@
         var context = /*[[@{/}]]*/ '';
       /*]]>*/
       $(function(){
-	    unloadConfirmation = true;
-    	
-        $('#scanningConfirmation').click (function(){
-        	var homeButton = $(this).next();
-        	
-            bootpopup({
-                title: "Have you scanned the QR code?",
-                content: [
-                    '<div class="alert alert-warning"><i class="fas fa-exclamation-circle mr-2"></i>Please confirm that you have scanned the QR code successfully. The QR code will not show up again on your confirmation.</div>'
-                ],
-                yes: function(data,e) { 
-                	unloadConfirmation = false; 
-                	window.location = context;
-                },
-                no: function(data) {
-                }
-            });
-        });
-            
+        	unloadConfirmation = false; 
       });
     </script>
   </body>

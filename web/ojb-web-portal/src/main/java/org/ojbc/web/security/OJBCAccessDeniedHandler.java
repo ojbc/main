@@ -102,7 +102,7 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 					request.getRequestDispatcher("/code/inputForm").forward(request, response);
 				}
 				else {  //Show the QR code for user to register
-					request.getRequestDispatcher("/code/qrCode/" + userEmail)
+					request.getRequestDispatcher("/code/qrCodePreparation/" + userEmail)
 						.forward(request, response);
 				}
 			}

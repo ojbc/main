@@ -69,24 +69,7 @@ public class WebConfig implements WebMvcConfigurer {
     }    
     
     @Bean
-    @Description("Thymeleaf template resolver serving HTML 5")
-    ClassLoaderTemplateResolver templateResolver() {
-
-    	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-
-        templateResolver.setPrefix("templates/");
-        templateResolver.setCacheable(false);
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML");
-        templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setOrder(0);
-        templateResolver.setCheckExistence(true);
-
-        return templateResolver;
-    }
-
-    @Bean
-    @Description("Thymeleaf template resolver serving HTML 5")
+    @Description("Thymeleaf file template resolver serving HTML 5")
     FileTemplateResolver externalTemplateResolver() {
     	
     	FileTemplateResolver templateResolver = new FileTemplateResolver();
@@ -96,11 +79,29 @@ public class WebConfig implements WebMvcConfigurer {
     	templateResolver.setSuffix(".html");
     	templateResolver.setTemplateMode("HTML");
     	templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setOrder(1);
-        templateResolver.setCheckExistence(true);
+    	templateResolver.setOrder(1); 
+    	templateResolver.setCheckExistence(true);
     	
     	return templateResolver;
     }
+    
+    @Bean
+    @Description("Thymeleaf classLoader template resolver serving HTML 5")
+    ClassLoaderTemplateResolver templateResolver() {
+
+    	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+
+        templateResolver.setPrefix("templates/");
+        templateResolver.setCacheable(false);
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setCheckExistence(true);
+    	templateResolver.setOrder(2); 
+
+        return templateResolver;
+    }
+
     
     @Bean
     @Description("Thymeleaf template engine with Spring integration")
