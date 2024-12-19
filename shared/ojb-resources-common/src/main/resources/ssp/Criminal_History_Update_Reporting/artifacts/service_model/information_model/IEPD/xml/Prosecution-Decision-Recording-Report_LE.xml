@@ -99,6 +99,28 @@
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
+		<j:ArrestCharge >
+			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+			<j:ChargeSequenceID>1</j:ChargeSequenceID>
+			<j:ChargeSeverityLevel>
+				<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+			</j:ChargeSeverityLevel>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>12345</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteCodeSectionIdentification>
+					<nc:IdentificationID>12345(1)</nc:IdentificationID>
+				</j:StatuteCodeSectionIdentification>
+			</j:ChargeStatute>
+			<j:ChargeSubject>
+				<nc:RoleOfPerson structures:ref="PER001"/>
+			</j:ChargeSubject>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>CTID1234</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:ArrestCharge>
 	</j:Arrest>
 	<j:Charge structures:id="CRG001">
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
