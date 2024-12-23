@@ -191,6 +191,7 @@
 		<nc:PersonBirthDate>
 			<nc:Date>1991-01-01</nc:Date>
 		</nc:PersonBirthDate>
+		<nc:PersonDescriptionText>STRANGER</nc:PersonDescriptionText>
 		<nc:PersonName>
 			<nc:PersonSurName>Last Victim</nc:PersonSurName>
 			<nc:PersonFullName>Full Name Victim</nc:PersonFullName>

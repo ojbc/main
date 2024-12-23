@@ -373,6 +373,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:PersonDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
@@ -788,6 +789,11 @@
       <xs:documentation>A date a person was born.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
   <xs:element name="PersonEyeColor" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a color of the eyes of a person.</xs:documentation>
