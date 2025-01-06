@@ -31,6 +31,7 @@
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>ID3456</nc:IdentificationID>
 		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>A</nc:ActivityCategoryText>
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
 				<nc:Date>2013-05-15</nc:Date>
@@ -99,13 +100,16 @@
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
-		<j:ArrestCharge >
+		<j:ArrestCharge>
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 			<j:ChargeSequenceID>1</j:ChargeSequenceID>
 			<j:ChargeSeverityLevel>
 				<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
 			</j:ChargeSeverityLevel>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>attempted</j:ChargeEnhancingFactorDescriptionText>
+			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
@@ -166,10 +170,13 @@
 			<nc:Date>1991-01-01</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
+			<nc:PersonGivenName>First</nc:PersonGivenName>
+			<nc:PersonMiddleName>middle</nc:PersonMiddleName>
 			<nc:PersonSurName>Last</nc:PersonSurName>
 			<nc:PersonFullName>First Last</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonResidentText>Y</nc:PersonResidentText>
+		<nc:PersonSSNIdentification>999-99-9999</nc:PersonSSNIdentification>
 		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
