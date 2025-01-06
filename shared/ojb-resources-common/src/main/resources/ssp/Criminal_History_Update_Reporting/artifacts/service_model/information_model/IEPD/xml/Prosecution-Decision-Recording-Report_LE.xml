@@ -103,13 +103,13 @@
 		<j:ArrestCharge>
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>attempted</j:ChargeEnhancingFactorDescriptionText>
+			</j:ChargeEnhancingFactor>
 			<j:ChargeSequenceID>1</j:ChargeSequenceID>
 			<j:ChargeSeverityLevel>
 				<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
 			</j:ChargeSeverityLevel>
-			<j:ChargeEnhancingFactor>
-				<j:ChargeEnhancingFactorDescriptionText>attempted</j:ChargeEnhancingFactorDescriptionText>
-			</j:ChargeEnhancingFactor>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>12345</nc:IdentificationID>
@@ -176,7 +176,9 @@
 			<nc:PersonFullName>First Last</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonResidentText>Y</nc:PersonResidentText>
-		<nc:PersonSSNIdentification>999-99-9999</nc:PersonSSNIdentification>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>999-99-9999</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
 		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
