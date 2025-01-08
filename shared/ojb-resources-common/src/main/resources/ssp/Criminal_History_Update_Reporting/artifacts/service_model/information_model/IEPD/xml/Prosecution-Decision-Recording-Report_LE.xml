@@ -101,10 +101,11 @@
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
 		<j:ArrestCharge>
+			<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 			<j:ChargeEnhancingFactor>
-				<j:ChargeEnhancingFactorDescriptionText>attempted</j:ChargeEnhancingFactorDescriptionText>
+				<j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
 			</j:ChargeEnhancingFactor>
 			<j:ChargeSequenceID>1</j:ChargeSequenceID>
 			<j:ChargeSeverityLevel>
