@@ -127,6 +127,7 @@
 		</j:ArrestCharge>
 	</j:Arrest>
 	<j:Charge structures:id="CRG001">
+		<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
@@ -202,9 +203,15 @@
 		</nc:PersonBirthDate>
 		<nc:PersonDescriptionText>STRANGER</nc:PersonDescriptionText>
 		<nc:PersonName>
-			<nc:PersonSurName>Last Victim</nc:PersonSurName>
+			<nc:PersonGivenName>Firstvictim</nc:PersonGivenName>
+			<nc:PersonMiddleName>middlevictim</nc:PersonMiddleName>
+			<nc:PersonSurName>Lastvictim</nc:PersonSurName>
 			<nc:PersonFullName>Full Name Victim</nc:PersonFullName>
 		</nc:PersonName>
+		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<nc:PersonResidentText>R</nc:PersonResidentText>
+		<j:PersonSexCode>M</j:PersonSexCode>		
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 	</nc:Person>
 	<nc:Identity structures:id="ALIAS001">
 		<nc:IdentityPersonRepresentation>

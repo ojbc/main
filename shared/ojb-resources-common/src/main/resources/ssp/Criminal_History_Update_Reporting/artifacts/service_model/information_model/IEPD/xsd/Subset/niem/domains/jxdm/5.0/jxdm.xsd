@@ -192,6 +192,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded"/>
@@ -474,6 +475,7 @@
       <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeApplicabilityText" type="nc:TextType" nillable="true"/>
   <xs:element name="ChargeAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
