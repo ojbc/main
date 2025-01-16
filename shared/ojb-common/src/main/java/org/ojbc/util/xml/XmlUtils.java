@@ -206,6 +206,21 @@ public class XmlUtils {
     	return xml;
     }
     
+    public static String getPrettyStringFromNode(Node node) throws Exception{
+    	
+    	StringWriter writer = new StringWriter();
+    	Transformer transformer = TransformerFactory.newInstance().newTransformer();
+    	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    	transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+    	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+    	transformer.transform(new DOMSource(node), new StreamResult(writer));
+    	String xml = writer.toString();
+    	
+    	return xml;
+    }
+
+    
     /**
      * Print the specified XML DOM node to the specified output stream
      * 

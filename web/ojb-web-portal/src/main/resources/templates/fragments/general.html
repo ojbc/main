@@ -112,6 +112,8 @@
 			             <span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${currentUserName}"></strong></span>
 		              </a>
 			          <div class="dropdown-divider"></div>
+                      <a class="dropdown-item samlTokenInfo" href="#" id="samlTokenInfo"><span class="small font-italic pr-2">SAML Info</span></a>
+                      <div class="dropdown-divider"></div>
 <!-- 			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a> -->
 			          <a class="dropdown-item signout" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
 			        </div>

@@ -250,7 +250,14 @@
                                 
                     return false;
                 })
-                     
+                $('body').on('click', 'a#samlTokenInfo', function() {   
+                    $(this).parent().toggleClass('show');
+                    xhr = $.get(context + 'samlTokenInfo', function(data) {
+                       $('#portalContent').html(data); 
+                     }).fail(ojbc.displayFailMessage);
+                    return false; 
+                });
+
             });
 	        
             function showHomepage(){

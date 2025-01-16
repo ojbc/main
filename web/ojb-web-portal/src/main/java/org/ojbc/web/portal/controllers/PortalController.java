@@ -19,6 +19,7 @@ package org.ojbc.web.portal.controllers;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -47,6 +48,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
@@ -62,8 +64,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.util.Pair;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,7 +76,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion", "incidentSystemsToQuery"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion", 
+	"requestHeaders", "incidentSystemsToQuery"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource
@@ -228,10 +233,29 @@ public class PortalController implements ApplicationContextAware {
     	return "index";
 	}
 
+	@GetMapping("/samlTokenInfo")
+	public String getSamlTokenInfo(HttpServletRequest request, Model model) throws Exception {
+		
+		Element samlToken = (Element) model.getAttribute("samlAssertion");
+		model.addAttribute("samlToken", XmlUtils.getPrettyStringFromNode(samlToken)); 
+		
+		return "saml::samlTokenInfo";
+	}
+
 	private void putSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
 			throws Exception {
     	Element samlAssertion = (Element)request.getAttribute("samlAssertion");
     	model.put("samlAssertion", samlAssertion);
+    	
+		List<Pair<String,String>> requestHeaders = new ArrayList<>();
+		
+		for (Enumeration<String> e = request.getHeaderNames(); e.hasMoreElements();) {
+			String name = e.nextElement();
+			String value = request.getHeader(name);
+			requestHeaders.add(Pair.of(name, value));
+		}
+		model.put("requestHeaders", requestHeaders);
+    	
 	}
 
     @GetMapping("/portal/defaultLogout")
