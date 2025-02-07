@@ -1063,6 +1063,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 		//Start date/validation date is today's date
 		//Validation due and end date is 5 years from now
+		log.info(subscriptions); 
 		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
 		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getLastValidationDate().toString("yyyy-MM-dd"));
 		assertEquals(LocalDate.now().plusYears(5).toString(), subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
