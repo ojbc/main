@@ -49,7 +49,7 @@
                 var idleTime;
                 console.log("inactivityTimeout: " + inactivityTimeout);
                 console.log("inactivityTimeoutInSeconds: " + inactivityTimeoutInSeconds);
-            	showHomepage();
+                showHomepage();
                 if( !!sensitiveInfoAlert ){
                     bootpopup({
                       title: "NOTICE TO USERS", 
@@ -252,7 +252,12 @@
                 })
                 $('body').on('click', 'a#samlTokenInfo', function() {   
                     $(this).parent().toggleClass('show');
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
                     xhr = $.get(context + 'samlTokenInfo', function(data) {
+                       $('#filterColumn').addClass('d-none');
                        $('#portalContent').html(data); 
                      }).fail(ojbc.displayFailMessage);
                     return false; 
@@ -260,37 +265,39 @@
 
             });
 	        
-            function showHomepage(){
-                if(homePage==="landingPage"){
+
+            function showHomepage() {
+                if (homePage === "landingPage") {
                     $('#searchBarButtonDiv').css("display", "none");
-                    $('#filterColumn').removeClass('d-none');                                    
-                    ojbc.populateLeftBarContentFromUrl(context + "portal/landingLeftBar");
-                    ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
-                }
-                else if(homePage==="query"){
+                    $('#filterColumn').removeClass('d-none');
+                    ojbc.populateLeftBarContentFromUrl(context
+                            + "portal/landingLeftBar");
+                    ojbc.populatePortalContentFromUrl(context
+                            + "portal/landingPage");
+                } else if (homePage === "query") {
                     $.post(context + "portal/leftBar", function(data) {
-                        $('#filterColumn').html(data);   
+                        $('#filterColumn').html(data);
                         $("#demogFilterInfo").hide();
-                        $('#filterColumn').removeClass('d-none');                                    
-                        
-                        $.get(context + "people/searchForm", function(data) {      
-                              $('#portalContent').html(data);
-                        }).fail(ojbc.displayFailMessage);                                                           
-                    }).fail(ojbc.displayFailMessage);   
-                } 
-                     
-                    // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
-                else if (homePage==="subscriptions"){
-                    xhr = $.get(context + "subscriptions/subscriptionResults", function(data) {
-                        $('#filterColumn').addClass('d-none');
-                        $('#portalContent').html(data); 
-                    }).fail(ojbc.displayFailMessage);                                   
+                        $('#filterColumn').removeClass('d-none');
+
+                        $.get(context + "people/searchForm", function(data) {
+                            $('#portalContent').html(data);
+                        }).fail(ojbc.displayFailMessage);
+                    }).fail(ojbc.displayFailMessage);
                 }
-                else {
+
+                // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
+                else if (homePage === "subscriptions") {
+                    xhr = $.get(context + "subscriptions/subscriptionResults",
+                            function(data) {
+                                $('#filterColumn').addClass('d-none');
+                                $('#portalContent').html(data);
+                            }).fail(ojbc.displayFailMessage);
+                } else {
                     alert('Error: unknown page cannot be displayed');
-                }                
+                }
             }
-	    </script>
+        </script>
         <th:block th:replace="tracker :: trackerContent"></th:block>
 	</body>
 </html>

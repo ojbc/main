@@ -33,16 +33,6 @@
 	       </ol>
 		 	</nav>
  	 		<div class="p-1">
-        <div><h6><strong>HTTP Request Headers Received</strong></h6> </div>
-        <table class="table-striped ">
-          <tbody>
-		        <tr th:each="pair: ${requestHeaders}" >
-		          <th th:text="${pair.first}"></th>
-		          <td th:text="${pair.second}"></td>
-		        </tr>
-          </tbody>
-        </table>
- 	 		  <hr>
  	 		  <div><h6><strong>SAML Assertion Extracted from HTTP Header</strong></h6> </div>
  	 		  <pre lang="xml" th:text="${samlToken}"></pre>
 			</div>
