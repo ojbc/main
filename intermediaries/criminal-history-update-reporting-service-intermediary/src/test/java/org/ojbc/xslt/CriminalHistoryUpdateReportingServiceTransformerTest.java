@@ -17,6 +17,7 @@
 package org.ojbc.xslt;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +30,12 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.XsltTransformer;
-
-import junit.framework.Assert;
 
 public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				
@@ -60,7 +60,7 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				"src/test/resources/xmlInstances/cycleTrackingIdentifierAssignmentReport/Cycle-Tracking-Identifier-Assignment-Report.xml");
 		
 		String xslt = FileUtils.readFileToString(new File(
-				"src/main/resources/xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"));
+				"src/main/resources/xslt/cycleTrackingIdentifierAssignmentReportToNotifications.xsl"), Charset.forName("UTF-8"));
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
 		paramsMap.put("systemIdCycleTracking", "{http://ojbc.org}ProbationChCyleTrackingID");
@@ -75,7 +75,7 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				"src/test/resources/xmlInstances/courtDispositionRecordingReport/Court-Disposition-Recording-Report.xml");
 		
 		String xslt = FileUtils.readFileToString(new File(
-				"src/main/resources/xslt/courtDispositionRecordingReportToNotifications.xsl"));
+				"src/main/resources/xslt/courtDispositionRecordingReportToNotifications.xsl"), Charset.forName("UTF-8"));
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
 		paramsMap.put("systemIdCourtDisposition", "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
@@ -90,7 +90,7 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				"src/test/resources/xmlInstances/prosecutionDecisionRecordingReport/Prosecution-Decision-Recording-Report.xml");
 		
 		String xslt = FileUtils.readFileToString(new File(
-				"src/main/resources/xslt/prosecutionDecisionRecordingReportToNotifications.xsl"));
+				"src/main/resources/xslt/prosecutionDecisionRecordingReportToNotifications.xsl"), Charset.forName("UTF-8"));
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>(1);
 		paramsMap.put("systemIdProsecutionDecision", "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
@@ -105,7 +105,7 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				"src/test/resources/xmlInstances/criminalHistory/federalCriminalHistory.xml");
 		
 		String xslt = FileUtils.readFileToString(new File(
-				"src/main/resources/xslt/criminalHistoryToNotification.xsl"));
+				"src/main/resources/xslt/criminalHistoryToNotification.xsl"), Charset.forName("UTF-8"));
 
 		transformAndValidate(xslt, xml,"output/notifications/federalCriminalHistoryNotification.xml", null);
 	}	
@@ -126,7 +126,8 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
-		List<Difference> diffList = detailedDiff.getAllDifferences();
+		@SuppressWarnings("unchecked")
+        List<Difference> diffList = detailedDiff.getAllDifferences();
 		
 		int difCount = diffList.size();
 		
