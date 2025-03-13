@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
         		"/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar",
-        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error");
+        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo");
     }
 
     @Override
