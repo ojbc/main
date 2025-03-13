@@ -957,13 +957,22 @@ public class SubscriptionSearchQueryDAO {
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIBE, subscriptionId, endDate.toDate(), transactionNumber);
     }
     
+    private void validateIdentificationTransaction(Integer subscriptionId, String endDateString){
+    	
+    	final String IDENTIFICATION_TRANSACTION_VALIDATE = "UPDATE rapback_datastore.identification_transaction "
+    			+ "SET available_for_subscription_start_date = ? WHERE subscription_id = ? ";
+        DateTime endDate = XmlUtils.parseXmlDate(endDateString);
+        DateTime availableForSubscriptionDate = endDate.plusDays(1);
+    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_VALIDATE, availableForSubscriptionDate.toDate(), subscriptionId);
+    }
+    
     private void unsubscribeIdentificationTransaction(Integer subscriptionId){
-    	
-    	//We also set the FBI subscription status to null here since we have unsubscribed
-    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE rapback_datastore.identification_transaction "
-    			+ "SET available_for_subscription_start_date = ?, FBI_SUBSCRIPTION_STATUS=null WHERE subscription_id = ? ";
-    	
-    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
+        
+        //We also set the FBI subscription status to null here since we have unsubscribed
+        final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE rapback_datastore.identification_transaction "
+                + "SET available_for_subscription_start_date = ?, FBI_SUBSCRIPTION_STATUS=null WHERE subscription_id = ? ";
+        
+        this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
     }
     
     public void updateLastMatchDate(@Header("subID") String id) {
@@ -1166,19 +1175,23 @@ public class SubscriptionSearchQueryDAO {
     	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CRIMINAL, validationDueDateString, validationDueDateString, subscriptionId);
     }
 
-	private static final String SUBSCRIPTION_VALIDATION_QUERY_CIVIL = 
-			"update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =?, startdate=? where id = ?";
+    private static final String SUBSCRIPTION_VALIDATION_QUERY_CIVIL = 
+            "update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =?, startdate=? where id = ?";
 
-    public int validateSubscriptionCivil(String validationDueDateString, Integer subscriptionId, String startDateString){
-    	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CIVIL, validationDueDateString, validationDueDateString, startDateString, subscriptionId);
+    public int validateSubscriptionCivil(String validationDueDateString, Integer subscriptionId,
+            String startDateString) {
+        this.validateIdentificationTransaction(subscriptionId, validationDueDateString);
+        return this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CIVIL, validationDueDateString,
+                validationDueDateString, startDateString, subscriptionId);
     }
 
-    private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params, final String pkIdName) {
+    private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params,
+            final String pkIdName) {
         return new PreparedStatementCreator() {
 
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement(sql, new String[] {pkIdName});
+                PreparedStatement ps = connection.prepareStatement(sql, new String[] { pkIdName });
                 int paramIndex = 1;
                 for (Object param : params) {
                     ps.setObject(paramIndex, param);

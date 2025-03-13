@@ -89,7 +89,7 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
     	smtpEndpointMock.reset();
     	smtpEndpointMock.expectedMessageCount(2);
     	processUnsubscriptionMock.reset(); 
-    	processUnsubscriptionMock.expectedMessageCount(1);
+    	processUnsubscriptionMock.expectedMessageCount(3);
     	context.start();
     	Thread.sleep(20000);
     	

@@ -57,29 +57,29 @@
     <footer th:replace="fragments/general.html :: footer"></footer> 
     <!-- /.container -->
     <th:block th:include="fragments/general.html :: javascripts"></th:block>
-    <script th:inline="javascript">
+  <script th:inline="javascript">
       /*<![CDATA[*/
-        var context = /*[[@{/}]]*/ '';
+      var context = /*[[@{/}]]*/'';
       /*]]>*/
-      $(function(){
-        $('#submitOtpButton').click (function(){
-            $('#otpForm').attr('action', context + "otp/submitOtp").submit();
+      $(function() {
+        unloadConfirmation = false;
+        $('#submitOtpButton').click(function() {
+          $('#otpForm').attr('action', context + "otp/submitOtp").submit();
         });
-            
-            
-        $('#requestOtpSubmitButton').click (function(){
-        	var formData = $("#otpForm").serialize();
-        	xhr = $.post(context +"otp/requestOtp",formData, function(data) {
+
+        $('#requestOtpSubmitButton').click(function() {
+          var formData = $("#otpForm").serialize();
+          xhr = $.post(context + "otp/requestOtp", formData, function(data) {
           }).fail(ojbc.displayFailMessage);
-          return false; 
+          return false;
         });
-            
-        $('#otpForm').on('keypress', 'input', function(e){
+
+        $('#otpForm').on('keypress', 'input', function(e) {
           if (e.keyCode == 13) {
             $('#otpForm').attr('action', context + "otp/submitOtp").submit();
-          } 
+          }
         });
       });
-    </script>
-  </body>
+  </script>
+</body>
 </html>

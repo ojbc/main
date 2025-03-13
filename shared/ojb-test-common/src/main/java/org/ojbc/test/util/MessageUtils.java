@@ -77,6 +77,7 @@ public class MessageUtils {
 
     	//Set the WS-Address Message ID
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");
+        senderExchange.getIn().setHeader("federatedQueryRequestGUID", "123456789");
 		
 		//Set the operation name and operation namespace for the CXF exchange
 		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
