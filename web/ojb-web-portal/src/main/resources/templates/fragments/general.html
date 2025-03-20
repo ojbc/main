@@ -18,111 +18,103 @@
 -->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-	<head th:fragment="headerfiles">
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
-	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
-	    <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
-	<!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
-	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.15.4/css/all.css}" />
-	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
-	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
-	<!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
-		<link rel="stylesheet" th:href="@{/css/print.css}"/>
-		<link rel="stylesheet" th:href="@{/css/jquery.lwMultiSelect.css}"/>
-		<link rel="stylesheet" th:href="@{/css/jquerysctipttop.css}"/>
-		<link rel="stylesheet" th:unless="${#strings.isEmpty(themePath)}" th:href="@{/css/style.css}"/>
-		<link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{${customStyleCssPath}}" />
-	    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
-		<link rel="shortcut icon"/>
-		<link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-96x96.png}" sizes="96x96" />
-		<link rel="icon" type="image/svg+xml" th:href="@{/images/favicon/favicon.svg}" />
-		<link rel="shortcut icon" th:href="@{/images/favicon/favicon.ico}" />
-		<link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/favicon/apple-touch-icon.png}" />
-		<link rel="manifest" th:href="@{/images/favicon/site.webmanifest}" />
-	</head>
-	<body>
-	    <header th:fragment="header">
-        <div class="banner mt-5 pt-1" th:fragment="banner" id="banner">
-          <div class="text-white pl-3 align-bottom" th:fragment="bannerContent">
-            <img th:src="@{${bannerPath}}" height="75px" class="align-bottom"/>
-            <span class="initials" aria-hidden="true" th:text="${bannerInitial}">OJBC</span>
-            <span class="fullname" th:text="${bannerFullname}">Federated Query</span>
-          </div>
+  <head th:fragment="headerfiles">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
+    <!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.15.4/css/all.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
+    <!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" th:href="@{/css/print.css}" />
+    <link rel="stylesheet" th:href="@{/css/jquery.lwMultiSelect.css}" />
+    <link rel="stylesheet" th:href="@{/css/jquerysctipttop.css}" />
+    <link rel="stylesheet" th:unless="${#strings.isEmpty(themePath)}" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{${customStyleCssPath}}" />
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
+    <link rel="shortcut icon" />
+    <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-96x96.png}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon/favicon.svg}" />
+    <link rel="shortcut icon" th:href="@{/images/favicon/favicon.ico}" />
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/favicon/apple-touch-icon.png}" />
+    <link rel="manifest" th:href="@{/images/favicon/site.webmanifest}" />
+  </head>
+  <body>
+    <header th:fragment="header">
+      <div class="banner mt-5 pt-1" th:fragment="banner" id="banner">
+        <div class="text-white pl-3 align-bottom" th:fragment="bannerContent">
+          <img th:src="@{${bannerPath}}" height="75px" class="align-bottom" /> <span class="initials" aria-hidden="true" th:text="${bannerInitial}">OJBC</span>
+          <span class="fullname" th:text="${bannerFullname}">Federated Query</span>
         </div>
-	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top fh-fixedHeader" sec:authorize="isAuthenticated()">
-	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-	          <span class="navbar-toggler-icon"></span>
-	        </button>
-	        <div class="collapse navbar-collapse" id="navbarCollapse">
-	          <ul class="navbar-nav mr-auto text-white">
-	            <li class="nav-item active">
-	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
-	            </li>
-	            <li class="nav-item dropdown" sec:authorize="hasAuthority('AUTHZ_QUERY')" th:if="${#sets.contains(leftMenuLinks.keySet(), 'queryLink')}">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles['queryLink']}"></a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownQuery" th:utext="${searchLinksHtml}">
-                  </div>
-	            </li>
-                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'subscriptionsLink')}" 
-                    sec:authorize="hasAuthority('AUTHZ_CRIMINAL_SUBSCRIPTION')">
-                  <a class="nav-link subscriptionsLink" id="subscriptionsLink" th:href="${leftMenuLinks['subscriptionsLink']}" th:text="${leftMenuLinkTitles[subscriptionsLink]}"></a> 
-                </li>
-                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'rapbackLink')}" 
-                     sec:authorize="hasAuthority('AUTHZ_CIVIL_SUBSCRIPTION')">
-                  <a class="nav-link rapbackLink" id="rapbackLink" th:href="${leftMenuLinks['rapbackLink']}" th:text="${leftMenuLinkTitles['rapbackLink']}"></a> 
-                </li>
-                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'criminalIdLink')}" 
-                     sec:authorize="hasAuthority('AUTHZ_CRIMINAL_ID_RESULTS')">
-                  <a class="nav-link criminalIdLink" id="criminalIdLink" th:href="${leftMenuLinks['criminalIdLink']}" th:text="${leftMenuLinkTitles['criminalIdLink']}"></a> 
-                </li>
-                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'adminLink')}" 
-                     sec:authorize="hasAuthority('AUTHZ_ADMIN')">
-                  <a class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a> 
-                </li>
-	            <li class="nav-item dropdown" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles['auditLink']}"></a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownAudit">
-                      <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a>
-                      <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a>
-                      <a id="totpUsers" class="dropdown-item small totpUsers">TOTP Users</a>
-                  </div>
-	            </li>
-                <li class="nav-item" th:each="entry : ${leftMenuLinks.entrySet()}" 
-                    th:if="${entry.key != 'subscriptionsLink' && entry.key != 'rapbackLink' && entry.key != 'criminalIdLink'
-                            && entry.key != 'queryLink' && entry.key != 'adminLink' && entry.key != 'auditLink'}">
-                  <a class="nav-link" th:classappend="${entry.key}" th:id="${entry.key}" th:href="${entry.value}"
-                        th:target="${entry.value} == '#'? '_self':'_blank'" 
-                        th:text="${leftMenuLinkTitles[entry.key]}"></a> 
-                </li>
-	          </ul>
-	          
-	          <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle text-primary"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					 <i class="fas fa-user-circle fa-lg"></i>
-					</a>
-			        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item disabled">
-			             <span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${currentUserName}"></strong></span>
-		              </a>
-			          <div class="dropdown-divider"></div>
-                      <a class="dropdown-item samlTokenInfo" href="#" id="samlTokenInfo"><span class="small font-italic pr-2">SAML Info</span></a>
-                      <div class="dropdown-divider"></div>
-<!-- 			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a> -->
-			          <a class="dropdown-item signout" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
-			        </div>
-                </li>
-              </ul>
-	        </div>
-	      </nav>
-      </header>
-	    <p>Go to the next page to see fragments in action</p>
+      </div>
+      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top fh-fixedHeader" sec:authorize="isAuthenticated()">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto text-white">
+            <li class="nav-item active"><a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a></li>
+            <li class="nav-item dropdown" sec:authorize="hasAuthority('AUTHZ_QUERY')" th:if="${#sets.contains(leftMenuLinks.keySet(), 'queryLink')}">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              th:text="${leftMenuLinkTitles['queryLink']}"></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownQuery" th:utext="${searchLinksHtml}"></div>
+            </li>
+            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'subscriptionsLink')}"
+              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_SUBSCRIPTION')"><a class="nav-link subscriptionsLink" id="subscriptionsLink"
+              th:href="${leftMenuLinks['subscriptionsLink']}" th:text="${leftMenuLinkTitles[subscriptionsLink]}"></a></li>
+            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'rapbackLink')}"
+              sec:authorize="hasAuthority('AUTHZ_CIVIL_SUBSCRIPTION')"><a class="nav-link rapbackLink" id="rapbackLink"
+              th:href="${leftMenuLinks['rapbackLink']}" th:text="${leftMenuLinkTitles['rapbackLink']}"></a></li>
+            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'criminalIdLink')}"
+              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_ID_RESULTS')"><a class="nav-link criminalIdLink" id="criminalIdLink"
+              th:href="${leftMenuLinks['criminalIdLink']}" th:text="${leftMenuLinkTitles['criminalIdLink']}"></a></li>
+            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'adminLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')"><a
+              class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a></li>
+            <li class="nav-item dropdown" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              th:text="${leftMenuLinkTitles['auditLink']}"></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownAudit">
+                <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a> <a id='personSearchAuditLink'
+                  href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a> <a id="totpUsers"
+                  class="dropdown-item small totpUsers">TOTP Users</a>
+              </div>
+            </li>
+            <li class="nav-item" th:each="entry : ${leftMenuLinks.entrySet()}"
+              th:if="${entry.key != 'subscriptionsLink' && entry.key != 'rapbackLink' && entry.key != 'criminalIdLink'
+                              && entry.key != 'queryLink' && entry.key != 'adminLink' && entry.key != 'auditLink'}">
+              <a class="nav-link" th:classappend="${entry.key}" th:id="${entry.key}" th:href="${entry.value}"
+              th:target="${entry.value} == '#'? '_self':'_blank'" th:text="${leftMenuLinkTitles[entry.key]}"></a>
+            </li>
+          </ul>
+  
+          <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-primary" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"> <i class="fas fa-user-circle fa-lg"></i>
+            </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item disabled"> <span class="small font-italic pr-2 text-secondary">Signed in as <strong
+                    th:text="${currentUserName}"></strong></span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item samlTokenInfo" href="#" id="samlTokenInfo"><span class="small font-italic pr-2">SAML Info</span></a>
+                <div class="dropdown-divider"></div>
+                <!-- 			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a> -->
+                <a class="dropdown-item signout" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i
+                  class="fas fa-sign-out-alt"></i></a>
+              </div></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <p>Go to the next page to see fragments in action</p>
 	    <footer class="footer" th:fragment="footer">
 	      <div class="container" align="center">
 	        <span class="text-muted" th:utext="${footerText}">Copyright &copy; 2021 OJBC. All rights reserved.</span>
@@ -132,130 +124,130 @@
     <div th:fragment="javascripts">
    	    <!-- Optional JavaScript -->
 	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	    <th:block th:fragment="baseJavascripts">
-			<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-			<script th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
-			<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-	        <script th:src="@{/webjars/jquery-migrate/3.3.2/jquery-migrate.min.js}"></script>
-			<script th:src="@{/webjars/jquery-ui/1.13.0/jquery-ui.min.js}"></script>
-			<script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables-fixedheader/3.1.6/js/dataTables.fixedHeader.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/font-awesome/5.15.4/js/all.js}"></script>
-		     
-	<!-- 	    <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script> -->
-			<script type="text/javascript" th:src="@{/js/plugins/jquery.mask.min.js}"></script> 
-			<script type="text/javascript" th:src="@{/js/plugins/bootpopup.js}"></script> 
-		    <script type="text/javascript" th:src="@{/webjars/chosen-js/1.8.7/chosen.jquery.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/momentjs/2.29.1/min/moment.min.js}"></script>
-			<script type="text/javascript" th:src="@{/js/plugins/datetime-moment.js}"></script> 
-		    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/dataTables.buttons.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.html5.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.print.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.colVis.min.js}"></script>
-		    <script type="text/javascript" th:src="@{/webjars/pdfmake/build/pdfmake.min.js}"></script>
-			<script type="text/javascript" th:src="@{/js/plugins/pdfmake_vfs_fonts.js}"></script> 
-			<script type="text/javascript" th:src="@{/js/ojb-web-portal.js}"></script> 
-	<!--	    <script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js" type="text/javascript"></script>-->
-        </th:block>	    
-        <script th:inline="javascript">
-	      /*<![CDATA[*/
-	          var context = /*[[@{/}]]*/ '';
-	          var inactivityTimeout = /*[[${inactivityTimeout}]]*/ ''; 
-	          var inactivityTimeoutInSeconds = /*[[${inactivityTimeoutInSeconds}]]*/ '';
-	          var sensitiveInfoAlert = /*[[${sensitiveInfoAlert}]]*/ '';
-	          var sensitiveInfoAlertMessage = /*[[${sensitiveInfoAlertMessage}]]*/ '';
-	          var homePage = /*[[${stateSpecificHomePage['thisHomePage']}]]*/ '';
-	      /*]]>*/
-	      var idleTime;
-	      var oTable;
+      <th:block th:fragment="baseJavascripts">
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/1.14.7/umd/popper.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+        <script th:src="@{/webjars/jquery-migrate/3.3.2/jquery-migrate.min.js}"></script>
+        <script th:src="@{/webjars/jquery-ui/1.13.0/jquery-ui.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-fixedheader/3.1.6/js/dataTables.fixedHeader.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/font-awesome/5.15.4/js/all.js}"></script>
+  
+        <!-- 	    <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script> -->
+        <script type="text/javascript" th:src="@{/js/plugins/jquery.mask.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/bootpopup.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/chosen-js/1.8.7/chosen.jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/momentjs/2.29.1/min/moment.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/datetime-moment.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/dataTables.buttons.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.html5.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.print.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.colVis.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/pdfmake/build/pdfmake.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/plugins/pdfmake_vfs_fonts.js}"></script>
+        <script type="text/javascript" th:src="@{/js/ojb-web-portal.js}"></script>
+        <!--	    <script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js" type="text/javascript"></script>-->
+      </th:block>
+      <script th:inline="javascript">
+  	      /*<![CDATA[*/
+  	          var context = /*[[@{/}]]*/ '';
+  	          var inactivityTimeout = /*[[${inactivityTimeout}]]*/ ''; 
+  	          var inactivityTimeoutInSeconds = /*[[${inactivityTimeoutInSeconds}]]*/ '';
+  	          var sensitiveInfoAlert = /*[[${sensitiveInfoAlert}]]*/ '';
+  	          var sensitiveInfoAlertMessage = /*[[${sensitiveInfoAlertMessage}]]*/ '';
+  	          var homePage = /*[[${stateSpecificHomePage['thisHomePage']}]]*/ '';
+  	      /*]]>*/
+  	      var idleTime;
+  	      var oTable;
           var ua = window.navigator.userAgent;
           var isIE = /MSIE|Trident/.test(ua);
           var isSafari = ua.indexOf("Safari") > -1;
           var unloadConfirmation = true; 
-          
-			window.addEventListener('beforeunload', (event) =>{
-			    if (unloadConfirmation){
-				    event.preventDefault();
-				    // Chrome requires returnValue to be set.
-				    event.returnValue = '';
-			    }
-			    else {
-			          /* unloadConfirmation = true; */ 
-			    	event.returnValue = '';
-			    }
-			});
-			window.onpageshow = function(event) {
-			    if (isSafari && event.persisted) {
-			        window.dispatchEvent(new Event('beforeunload'));
-			    }
-			};
-	      $(function(){
-              console.log("inactivityTimeout on general.html: " + inactivityTimeout);
-              console.log("inactivityTimeoutInSeconds on general.html: " + inactivityTimeoutInSeconds);
+            
+    			window.addEventListener('beforeunload', (event) =>{
+    			    if (unloadConfirmation){
+    				    event.preventDefault();
+    				    // Chrome requires returnValue to be set.
+    				    event.returnValue = '';
+    			    }
+    			    else {
+    			          /* unloadConfirmation = true; */ 
+    			    	event.returnValue = '';
+    			    }
+    			});
+    			window.onpageshow = function(event) {
+    			    if (isSafari && event.persisted) {
+    			        window.dispatchEvent(new Event('beforeunload'));
+    			    }
+    			};
+  	      $(function(){
+                console.log("inactivityTimeout on general.html: " + inactivityTimeout);
+                console.log("inactivityTimeoutInSeconds on general.html: " + inactivityTimeoutInSeconds);
+  
+  	    	  if( inactivityTimeout ){
+  	    		  ojbc.reloadPage();
+  	    		  $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+  	    			  /* console.log("activity detected"); */ 
+  	   	              clearTimeout(idleTime);
+  	   	              ojbc.reloadPage();
+     	              });
+      		  }
+  	    	  
+            $(".navbar-nav .nav-link").on("click", function(){
+                $(this).parent().siblings().removeClass('show');
+                $(this).parent().addClass('active').siblings().removeClass('active');
+                $('.dropdown-menu:not(this ~ .dropdown-menu)').removeClass('show');
+                $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
+            });
+              
+            $("#demogFilterInfo").hide();
+  	    	  
+    			  $("#navbarCollapse").on('shown.bs.collapse', function() {
+    				  $('a.nav-link:not(.dropdown-toggle)').click(function() {
+    				      $("#navbarCollapse").collapse('hide');
+    				  });
+    				  $('a.dropdown-item').click(function() {
+    				      $("#navbarCollapse").collapse('hide');
+    			      });
+    			  });
+  
+            $('#totpUsers').click(function() {   
+               $(this).parent().toggleClass('show');
 
-	    	  if( inactivityTimeout ){
-	    		  ojbc.reloadPage();
-	    		  $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
-	    			  /* console.log("activity detected"); */ 
-	   	              clearTimeout(idleTime);
-	   	              ojbc.reloadPage();
-   	              });
-    		  }
-	    	  
-              $(".navbar-nav .nav-link").on("click", function(){
-                  $(this).parent().siblings().removeClass('show');
-                  $(this).parent().addClass('active').siblings().removeClass('active');
-                  $('.dropdown-menu:not(this ~ .dropdown-menu)').removeClass('show');
-                  $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
-              });
-                
-              $("#demogFilterInfo").hide();
-	    	  
-			  $("#navbarCollapse").on('shown.bs.collapse', function() {
-				  $('a.nav-link:not(.dropdown-toggle)').click(function() {
-				      $("#navbarCollapse").collapse('hide');
-				  });
-				  $('a.dropdown-item').click(function() {
-				      $("#navbarCollapse").collapse('hide');
-			      });
-			  });
-
-              $('#totpUsers').click(function() {   
-                 $(this).parent().toggleClass('show');
-
-                 xhr = $.get(context + 'totpUser', function(data) {
-              	   $('#filterColumn').addClass('d-none');
-              	   $('#portalContent').html(data); 
-           	     }).fail(ojbc.displayFailMessage);
-                 return false; 
-              });
-
-              $(document).ajaxStart(function(){
-                  if ($('#subscriptionModal').hasClass('show')){  
-                      $("#modalIframeSpinner").height($("#subscriptionModal .modal-content").height())    
-                      $("#modalIframeSpinner").width($("#subscriptionModal .modal-content").width())  
-                      $("#modalIframeSpinner").show();
-                  }   
-                  else{
-                      var loadingDiv =  $("#loadingAjaxPane");
-                      var mainContentDiv = $("#mainContent");
-                      if($(".searchCancelSection").length > 0){
-                          loadingDiv.css('height',mainContentDiv.height() + 20);
-                      }
-                      else{
-                          loadingDiv.css('height',mainContentDiv.height());
-                      }
-                      loadingDiv.css('width', mainContentDiv.width());
-                      
-                      $("#loadingAjaxPane").show();           
-                  }       
-               }).ajaxStop(function() {
-                   $("#loadingAjaxPane").hide();                
-                   $("#modalIframeSpinner").hide();
-               });
- 	          
+               xhr = $.get(context + 'totpUser', function(data) {
+            	   $('#filterColumn').addClass('d-none');
+            	   $('#portalContent').html(data); 
+         	     }).fail(ojbc.displayFailMessage);
+               return false; 
+            });
+  
+            $(document).ajaxStart(function(){
+                if ($('#subscriptionModal').hasClass('show')){  
+                    $("#modalIframeSpinner").height($("#subscriptionModal .modal-content").height())    
+                    $("#modalIframeSpinner").width($("#subscriptionModal .modal-content").width())  
+                    $("#modalIframeSpinner").show();
+                }   
+                else{
+                    var loadingDiv =  $("#loadingAjaxPane");
+                    var mainContentDiv = $("#mainContent");
+                    if($(".searchCancelSection").length > 0){
+                        loadingDiv.css('height',mainContentDiv.height() + 20);
+                    }
+                    else{
+                        loadingDiv.css('height',mainContentDiv.height());
+                    }
+                    loadingDiv.css('width', mainContentDiv.width());
+                    
+                    $("#loadingAjaxPane").show();           
+                }       
+             }).ajaxStop(function() {
+                 $("#loadingAjaxPane").hide();                
+                 $("#modalIframeSpinner").hide();
+             });
+   	          
  	           $('[data-toggle="popover"]').popover(); 
  	           
                $("body").on('mouseenter', ".clickable", function(){
@@ -267,12 +259,12 @@
                $("body").on('click', ".signout", function(){
             	   unloadConfirmation = false; 
 	           });
- 	          
-	      });
+
+           });
 	      
-      </script>
-		  
-	</div>		
+        </script>
+  
+    </div>		
     
 </body>
 </html>
