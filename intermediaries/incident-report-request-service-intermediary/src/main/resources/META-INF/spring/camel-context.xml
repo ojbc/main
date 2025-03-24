@@ -19,23 +19,19 @@
 -->
 	<!-- Configures the Camel Context-->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-    xmlns:cxf="http://camel.apache.org/schema/cxf"
-    xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:lexpd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"	
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:cxf="http://camel.apache.org/schema/cxf"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:lexpd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-    <!-- needed cxf imports -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+  <!-- needed cxf imports -->
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Incident_Report_Request_Service_Intermediary" streamCache="true">
 	
