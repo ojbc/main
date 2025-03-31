@@ -61,7 +61,6 @@
         var context = /*[[@{/}]]*/ '';
       /*]]>*/
       $(function(){
-        unloadConfirmation = false;
         $('#submitOtpButton').click (function(){
 	        $('#otpForm').attr('action', context + "code/validate/key").submit();
         });

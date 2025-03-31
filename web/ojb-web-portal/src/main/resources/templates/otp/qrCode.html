@@ -58,7 +58,6 @@
         var context = /*[[@{/}]]*/ '';
       /*]]>*/
       $(function(){
-	    unloadConfirmation = true;
     	
         $('#scanningConfirmation').click (function(){
         	var homeButton = $(this).next();
@@ -69,7 +68,6 @@
                     '<div class="alert alert-warning"><i class="fas fa-exclamation-circle mr-2"></i>Please confirm that you have scanned the QR code successfully. The QR code will not show up again on your confirmation.</div>'
                 ],
                 yes: function(data,e) { 
-                	unloadConfirmation = false; 
                 	window.location = context;
                 },
                 no: function(data) {

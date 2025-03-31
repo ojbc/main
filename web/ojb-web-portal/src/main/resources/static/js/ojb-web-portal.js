@@ -101,7 +101,6 @@ ojbc = {
     reloadPage: function() {
         clearTimeout(idleTime);
         idleTime = setTimeout(function () {
-            unloadConfirmation = false;
             window.location.assign(context + "logout");
         }, inactivityTimeoutInSeconds * 1000);
     },
@@ -262,7 +261,6 @@ ojbc = {
 //    		alert(jqXHR.status);
 //    		alert("jqXHR.textStatus: " + jqXHR.textStatus);
     		if (jqXHR.textStatus != "aborted"){
-                unloadConfirmation = false;
     			window.location.reload();
     		}
     	} else {
