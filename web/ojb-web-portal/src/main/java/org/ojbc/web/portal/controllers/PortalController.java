@@ -271,7 +271,7 @@ public class PortalController implements ApplicationContextAware {
 
     @PostMapping(value="/portal/subscriptionsLeftBar")
     public String subscriptionsLeftBar(HttpServletRequest request, 
-    		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
+    		@ModelAttribute SubscriptionFilterCommand subscriptionFilterCommand, 
     		Map<String, Object> model){   
     	
     	return "common/_subscriptionsLeftBar";
@@ -288,7 +288,7 @@ public class PortalController implements ApplicationContextAware {
     }
     
     @PostMapping(value="/portal/leftBar")
-       public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
+       public String leftBar(HttpServletRequest request, @ModelAttribute PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
     	model.put("showReasonsForSearch", showReasonsForSearch);
     	model.put("showDemographicsFilter", showDemographicsFilter);

@@ -101,7 +101,6 @@ public class PortalAccessControlTest {
                 SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
             .andExpect(status().isOk()).andReturn();
-        
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link subscriptionsLink\" id=\"subscriptionsLink\" href=\"#\">Subscriptions</a>" )); 
         
     }

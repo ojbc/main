@@ -63,28 +63,28 @@
           <ul class="navbar-nav mr-auto text-white">
             <li class="nav-item active"><a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a></li>
             <li class="nav-item dropdown" sec:authorize="hasAuthority('AUTHZ_QUERY')" th:if="${#sets.contains(leftMenuLinks.keySet(), 'queryLink')}">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-              th:text="${leftMenuLinkTitles['queryLink']}"></a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles['queryLink']}"></a>
               <div class="dropdown-menu" aria-labelledby="dropdownQuery" th:utext="${searchLinksHtml}"></div>
             </li>
             <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'subscriptionsLink')}"
-              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_SUBSCRIPTION')"><a class="nav-link subscriptionsLink" id="subscriptionsLink"
-              th:href="${leftMenuLinks['subscriptionsLink']}" th:text="${leftMenuLinkTitles[subscriptionsLink]}"></a></li>
-            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'rapbackLink')}"
-              sec:authorize="hasAuthority('AUTHZ_CIVIL_SUBSCRIPTION')"><a class="nav-link rapbackLink" id="rapbackLink"
-              th:href="${leftMenuLinks['rapbackLink']}" th:text="${leftMenuLinkTitles['rapbackLink']}"></a></li>
-            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'criminalIdLink')}"
-              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_ID_RESULTS')"><a class="nav-link criminalIdLink" id="criminalIdLink"
-              th:href="${leftMenuLinks['criminalIdLink']}" th:text="${leftMenuLinkTitles['criminalIdLink']}"></a></li>
-            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'adminLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')"><a
-              class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a></li>
+              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_SUBSCRIPTION')">
+              <a class="nav-link subscriptionsLink" id="subscriptionsLink" th:href="${leftMenuLinks['subscriptionsLink']}" th:text="${leftMenuLinkTitles[subscriptionsLink]}"></a></li>
+          <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'rapbackLink')}"
+            sec:authorize="hasAuthority('AUTHZ_CIVIL_SUBSCRIPTION')">
+            <a class="nav-link rapbackLink" id="rapbackLink" th:href="${leftMenuLinks['rapbackLink']}" th:text="${leftMenuLinkTitles['rapbackLink']}"></a>
+          </li>
+          <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'criminalIdLink')}"
+              sec:authorize="hasAuthority('AUTHZ_CRIMINAL_ID_RESULTS')">
+              <a class="nav-link criminalIdLink" id="criminalIdLink" th:href="${leftMenuLinks['criminalIdLink']}" th:text="${leftMenuLinkTitles['criminalIdLink']}"></a></li>
+            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'adminLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
+              <a class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a></li>
             <li class="nav-item dropdown" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
               th:text="${leftMenuLinkTitles['auditLink']}"></a>
               <div class="dropdown-menu" aria-labelledby="dropdownAudit">
-                <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a> <a id='personSearchAuditLink'
-                  href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a> <a id="totpUsers"
-                  class="dropdown-item small totpUsers">TOTP Users</a>
+                <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a> 
+                <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a> 
+                <a id="totpUsers" class="dropdown-item small totpUsers">TOTP Users</a>
               </div>
             </li>
             <li class="nav-item" th:each="entry : ${leftMenuLinks.entrySet()}"
