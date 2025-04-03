@@ -162,9 +162,9 @@
 			<td><xsl:value-of select="nc:ActivityCategoryText"/></td>
 			<td><xsl:value-of select="ch-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/></td>
 			<td><xsl:value-of select="j:CourtOrderIssuingCourt/nc:OrganizationName"/></td>
-			<td><xsl:value-of select="nc:ActivityDate/nc:Date"/></td>
-			<td><xsl:value-of select="ch-ext:ProtectionOrderExpirationDate/nc:Date"/></td>
-			<td><xsl:value-of select="j:CourtOrderServiceDate/nc:Date"/></td>
+			<td><xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+			<td><xsl:apply-templates select="ch-ext:ProtectionOrderExpirationDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+			<td><xsl:apply-templates select="j:CourtOrderServiceDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
 			<td><xsl:value-of select="j:CourtOrderServiceDescriptionText"/></td>
 		</tr>
 	</xsl:template>
@@ -173,7 +173,7 @@
 		<xsl:variable name="id" select="@s:id"/>
 		<tr>
 			<td>
-				<xsl:value-of select="nc:ActivityDate/nc:Date" />
+				<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 					<!-- <xsl:value-of select="$id"/> -->
 			</td>
 			<td>
@@ -202,7 +202,7 @@
    			<xsl:for-each select="//ch-ext:RapSheet/ch-ext:RapSheetCycle/rap:Supervision" >
    				<xsl:if test="nc:ActivityCategoryText[text()=upper-case($which)]">
 	   				<tr>
-	   					<td><xsl:value-of select="nc:ActivityDate/nc:Date"/></td>
+	   					<td><xsl:apply-templates select="nc:ActivityDate/nc:Date"  mode="formatDateAsMMDDYYYY"/></td>
 	   					<td><xsl:value-of select="//ch-ext:RapSheet/rap:Agency[@s:id=//rap:SupervisionAgencyAssociation/nc:OrganizationReference/@s:ref and //rap:SupervisionAgencyAssociation/rap:SupervisionReference/@s:ref=//rap:Supervision/@s:id]/nc:OrganizationName"/></td>
 	   					<td><xsl:value-of select="nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></td>
 	   				</tr>
@@ -236,74 +236,92 @@
                 <td colspan="8" class="detailsTitle">SUBJECT DETAILS</td>
             </tr>
             <tr>
-                <td colspan="2" class="detailsLabel">FBI#</td>
-                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
-                <td colspan="2" class="detailsLabel">GENDER</td>
-                <td colspan="2">
-					<xsl:for-each select="rap:RapSheetPerson/rap:PersonSexText">
-						<xsl:value-of select="."/>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-                </td>
+              <td colspan="2" class="detailsLabel">FBI#</td>
+              <td colspan="2">
+                <xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" />
+              </td>
+              <td colspan="2" class="detailsLabel">GENDER</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/rap:PersonSexText">
+                  <xsl:value-of select="." />
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
             </tr>
             <tr>
-                <td colspan="2" class="detailsLabel">SID/ISSUER</td>
-                <td colspan="2">
-	               	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID">
-						<xsl:value-of select="."/>
-	               		<xsl:variable name="position" select="position()"/>
-		                <xsl:choose>
-		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText">
-		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
-		                	</xsl:when>
-		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode">
-		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
-		                	</xsl:when>
-		                </xsl:choose>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-	               	</xsl:for-each>
-                </td>	
-                
-                <td colspan="2" class="detailsLabel">RACE</td>
-                <td colspan="2">
-					<xsl:for-each select="rap:RapSheetPerson/rap:PersonRaceText">
-						<xsl:value-of select="."/>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-                </td>
+              <td colspan="2" class="detailsLabel">SID/ISSUER</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID">
+                  <xsl:value-of select="." />
+                  <xsl:variable name="position" select="position()" />
+                  <xsl:choose>
+                    <xsl:when
+                      test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText">
+                      <xsl:text> (</xsl:text>
+                      <xsl:value-of
+                        select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText" />
+                      <xsl:text>)</xsl:text>
+                    </xsl:when>
+                    <xsl:when
+                      test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode">
+                      <xsl:text> (</xsl:text>
+                      <xsl:value-of
+                        select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode" />
+                      <xsl:text>)</xsl:text>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
+          
+              <td colspan="2" class="detailsLabel">RACE</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/rap:PersonRaceText">
+                  <xsl:value-of select="." />
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
             </tr>
             <tr>
-                <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
-            	<td colspan="2">
-	            	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID">
-	            		<xsl:value-of select="."/>
-	            		<xsl:variable name="position" select="position()"/>
-	            		<xsl:choose>
-	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText">
-	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
-	            			</xsl:when>
-	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode">
-	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
-	            			</xsl:when>
-	            		</xsl:choose>
-	            		<xsl:if test="position() != last()">
-	            			<xsl:text>, </xsl:text>
-	            		</xsl:if>
-	            	</xsl:for-each>
-    			</td>        	
-                
-                <td colspan="2" class="detailsLabel">HEIGHT</td>
-                <td colspan="2">
-                	<xsl:call-template name="formatHeight">
-                		<xsl:with-param name="heightInInches" select="rap:RapSheetPerson/nc:PersonHeightMeasure/nc:MeasurePointValue" />
-                	</xsl:call-template>
-               	</td>
+              <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID">
+                  <xsl:value-of select="." />
+                  <xsl:variable name="position" select="position()" />
+                  <xsl:choose>
+                    <xsl:when
+                      test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText">
+                      <xsl:text> (</xsl:text>
+                      <xsl:value-of
+                        select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText" />
+                      <xsl:text>)</xsl:text>
+                    </xsl:when>
+                    <xsl:when
+                      test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode">
+                      <xsl:text> (</xsl:text>
+                      <xsl:value-of
+                        select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode" />
+                      <xsl:text>)</xsl:text>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
+          
+              <td colspan="2" class="detailsLabel">HEIGHT</td>
+              <td colspan="2">
+                <xsl:call-template name="formatHeight">
+                  <xsl:with-param name="heightInInches" select="rap:RapSheetPerson/nc:PersonHeightMeasure/nc:MeasurePointValue" />
+                </xsl:call-template>
+              </td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">SSN</td>
@@ -321,53 +339,53 @@
                 <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/nc:PersonWeightMeasure/nc:MeasurePointValue" /></td>
             </tr>
             <tr>
-            	<td colspan="2" class="detailsLabel">HAIR COLOR</td>
-                <td colspan="2">
-					<xsl:for-each select="rap:RapSheetPerson/rap:PersonHairColorText">
-						<xsl:value-of select="."/>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-                </td>
-                <td colspan="2" class="detailsLabel">EYE COLOR</td>
-                <td colspan="2">
-					<xsl:for-each select="rap:RapSheetPerson/rap:PersonEyeColorText">
-						<xsl:value-of select="."/>
-						<xsl:if test="position() != last()">
-							<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-                </td>
+              <td colspan="2" class="detailsLabel">HAIR COLOR</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/rap:PersonHairColorText">
+                  <xsl:value-of select="." />
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
+              <td colspan="2" class="detailsLabel">EYE COLOR</td>
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/rap:PersonEyeColorText">
+                  <xsl:value-of select="." />
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </td>
             </tr>
             <tr>
-                <td colspan="2" class="detailsLabel">DOB</td>
-                
-               <td colspan="2">
-               <xsl:for-each select="rap:RapSheetPerson/nc:PersonBirthDate">
-                	<xsl:choose>
-                		<xsl:when test="nc:Date">
-                			 <xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="nc:Date" />
-							</xsl:call-template>
-                		</xsl:when>
-                		<xsl:when test="nc:Year">
-                			<xsl:value-of select="nc:Year"/>
-                		</xsl:when>
-                	</xsl:choose>
-			       <xsl:if test="position() != last()">
-			           <xsl:text>, </xsl:text>
-			       </xsl:if>
+              <td colspan="2" class="detailsLabel">DOB</td>
+          
+              <td colspan="2">
+                <xsl:for-each select="rap:RapSheetPerson/nc:PersonBirthDate">
+                  <xsl:choose>
+                    <xsl:when test="nc:Date">
+                      <xsl:call-template name="formatDate">
+                        <xsl:with-param name="date" select="nc:Date" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="nc:Year">
+                      <xsl:value-of select="nc:Year" />
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
                 </xsl:for-each>
-                </td>
-                
-                <td colspan="2" class="detailsLabel">SCARS/MARKS/TATTOOS</td>
-                <td colspan="2">
-                	<xsl:variable name="smtCount" select="count(rap:RapSheetPerson/nc:PersonPhysicalFeature)"/>
-                	<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonPhysicalFeature">
-                		<xsl:with-param name="smtCount" select="$smtCount"/>
-                	</xsl:apply-templates>
-                </td>
+              </td>
+          
+              <td colspan="2" class="detailsLabel">SCARS/MARKS/TATTOOS</td>
+              <td colspan="2">
+                <xsl:variable name="smtCount" select="count(rap:RapSheetPerson/nc:PersonPhysicalFeature)" />
+                <xsl:apply-templates select="rap:RapSheetPerson/nc:PersonPhysicalFeature">
+                  <xsl:with-param name="smtCount" select="$smtCount" />
+                </xsl:apply-templates>
+              </td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">ALIASES</td>
@@ -387,7 +405,7 @@
                 
                  <td colspan="6">
 <!--                 	<xsl:apply-templates select="nc:Location/nc:LocationAddress" mode="constructAddress"/> -->
-						<xsl:apply-templates select="nc:ResidenceAssociation"/>
+						        <xsl:apply-templates select="nc:ResidenceAssociation"/>
                  </td>
             	
             </tr>
@@ -423,25 +441,27 @@
 			<xsl:with-param name="position" select="$position"/>
 		</xsl:apply-templates>
 	</xsl:template>
-    <xsl:template match="nc:LocationAddress" mode="constructAddress">
-    <xsl:param name="position"/>
-    		<xsl:if test="$position != 1">
-    			<xsl:text> / </xsl:text>
-    		</xsl:if>
- 	 		<xsl:choose>
-              	<xsl:when test="nc:StructuredAddress">
-              		<xsl:variable name="addr" select="nc:StructuredAddress" />
-              	   <xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/>
-              	</xsl:when>
-               <xsl:when test="nc:AddressFullText"> 
-               	<xsl:variable name="addr" select="nc:AddressFullText" />
-               		<xsl:value-of select="$addr"/>
-               </xsl:when>
-          	</xsl:choose>
-    </xsl:template>
-    <xsl:template match="rap:SubjectCautionInformationText">
-    	<xsl:value-of select="."/><br/>
-    </xsl:template>
+  <xsl:template match="nc:LocationAddress" mode="constructAddress">
+    <xsl:param name="position" />
+    <xsl:if test="$position != 1">
+      <xsl:text> / </xsl:text>
+    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="nc:StructuredAddress">
+        <xsl:variable name="addr" select="nc:StructuredAddress" />
+        <xsl:value-of
+          select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)" />
+      </xsl:when>
+      <xsl:when test="nc:AddressFullText">
+        <xsl:variable name="addr" select="nc:AddressFullText" />
+        <xsl:value-of select="$addr" />
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+  <xsl:template match="rap:SubjectCautionInformationText">
+    <xsl:value-of select="." />
+    <br />
+  </xsl:template>
     
 	<xsl:template match="nc:PersonPhysicalFeature">
 		<xsl:param name="smtCount"/>
@@ -563,7 +583,7 @@
           <p><span class="smallLabel">Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
         </xsl:if>
         <xsl:if test="j:ChargeDisposition/nc:DispositionDate/nc:Date">       
-          <p><span class="smallLabel">Charge Disposition Date: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDate/nc:Date" /></p>
+          <p><span class="smallLabel">Charge Disposition Date: </span> <xsl:apply-templates select="j:ChargeDisposition/nc:DispositionDate/nc:Date" mode="formatDateAsMMDDYYYY" /></p>
         </xsl:if>
         <xsl:if test="rap:ChargeStatute">
           <p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
@@ -700,7 +720,7 @@
         <xsl:if test="nc:ActivityCategoryText">       
           <p><span class="smallLabel">Sentence Category: </span> <xsl:value-of select="nc:ActivityCategoryText" /></p>
         </xsl:if>
-        <p><span class="smallLabel">Sentence Date: </span> <xsl:value-of select="nc:ActivityDate/nc:Date" /></p>
+        <p><span class="smallLabel">Sentence Date: </span> <xsl:apply-templates select="nc:ActivityDate/nc:Date"  mode="formatDateAsMMDDYYYY"/></p>
         <xsl:if test="j:SentenceDescriptionText">       
             <p><span classz="smallLabel">Sentence Description: </span> <xsl:value-of select="j:SentenceDescriptionText" /></p>
         </xsl:if>
@@ -716,17 +736,19 @@
             </p>
         </xsl:if>       
 	</xsl:template>
-	
-    <xsl:template match="j:SupervisionAssignedTerm">
-        <p>
-            <span class="smallLabel"><xsl:value-of select="concat(nc:ActivityCategoryText, ' Days:')"/> </span>
-            <xsl:call-template name="parseDurationDays">
-                <xsl:with-param name="duration">
-                   <xsl:value-of select="j:TermMaximumDuration" />
-                </xsl:with-param>
-            </xsl:call-template> 
-        </p>
-    </xsl:template>
+
+  <xsl:template match="j:SupervisionAssignedTerm">
+    <p>
+      <span class="smallLabel">
+        <xsl:value-of select="concat(nc:ActivityCategoryText, ' Days:')" />
+      </span>
+      <xsl:call-template name="parseDurationDays">
+        <xsl:with-param name="duration">
+          <xsl:value-of select="j:TermMaximumDuration" />
+        </xsl:with-param>
+      </xsl:call-template>
+    </p>
+  </xsl:template>
 	<xsl:template match="ch-ext:ChargeAlertDescriptionText" mode="alert">
 				<p>
 					<xsl:value-of select="." />
