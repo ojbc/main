@@ -124,29 +124,29 @@
 					</camel:filter>	
 				</camel:pipeline>
 
-        <camel:pipeline>
-          <camel:filter>
-            <camel:simple>${properties:criminalHistoryUpdateReportingService.callProsecutionDecisionRecordingAdapter} == true</camel:simple>
-      
-            <!-- Call prosecution Decision reporting adapter on this action -->
-            <camel:filter>
-              <camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
-      
-              <camel:log message="About to call prosecution decision recording endpoint" />
-              <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-      
-              <camel:setHeader name="operationName">
-                <constant>ReportProsecutionDecisionRecording</constant>
-              </camel:setHeader>
-      
-              <camel:setHeader name="operationNamespace">
-                <constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
-              </camel:setHeader>
-      
-              <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
-            </camel:filter>
-          </camel:filter>
-        </camel:pipeline>					
+		        <camel:pipeline>
+		          <camel:filter>
+		            <camel:simple>${properties:criminalHistoryUpdateReportingService.callProsecutionDecisionRecordingAdapter} == true</camel:simple>
+		      
+		            <!-- Call prosecution Decision reporting adapter on this action -->
+		            <camel:filter>
+		              <camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
+		      
+		              <camel:log message="About to call prosecution decision recording endpoint" />
+		              <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+		      
+		              <camel:setHeader name="operationName">
+		                <constant>ReportProsecutionDecisionRecording</constant>
+		              </camel:setHeader>
+		      
+		              <camel:setHeader name="operationNamespace">
+		                <constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
+		              </camel:setHeader>
+		      
+		              <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
+		            </camel:filter>
+		          </camel:filter>
+		        </camel:pipeline>					
 				
 				<camel:pipeline>
 					<camel:to uri="direct:memberSpecificRoutes"/>
