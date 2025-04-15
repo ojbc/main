@@ -36,16 +36,25 @@
 	<pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>
 		<nc:IdentificationID>899</nc:IdentificationID>
 	</pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>	
+  <pdr-report-ext:ProsecutionDispositionCodeText>CHG</pdr-report-ext:ProsecutionDispositionCodeText>
 	<pdr-report-ext:ReportIdentification>
 		<nc:IdentificationID>ID349234</nc:IdentificationID>
 	</pdr-report-ext:ReportIdentification>
 	<pdr-report-ext:ChargeFilingDate>
 		<nc:Date>2022-01-10</nc:Date>
 	</pdr-report-ext:ChargeFilingDate>
+  <nc:Case>
+    <nc:CaseDocketID>123456789</nc:CaseDocketID>
+  </nc:Case>
 	<j:CaseProsecutionAttorney>
 		<pdr-report-ext:ProsecutionAttorneyOrganization
 			structures:ref="ORG001" />
 	</j:CaseProsecutionAttorney>
+  <j:Arrest>
+    <nc:ActivityDate>
+      <nc:Date>2022-01-09</nc:Date>
+    </nc:ActivityDate>
+  </j:Arrest>
 	<j:Charge>
 		<j:ChargeFilingDate>
 			<nc:Date>2022-01-10</nc:Date>
