@@ -121,6 +121,7 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
+          <xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseFiling" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -537,6 +538,11 @@
   <xs:element name="CaseAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for CaseType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseDocketID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier used to reference a case docket.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseFiling" type="nc:DocumentType" nillable="true">

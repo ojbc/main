@@ -30,22 +30,46 @@
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
+  <pdr-report-ext:FingerprintTransactionControlNumber>
+    <nc:IdentificationID>1234566777</nc:IdentificationID>
+  </pdr-report-ext:FingerprintTransactionControlNumber>
 	<pdr-report-ext:OriginatingAgencyCaseNumber>
 		<nc:IdentificationID>567</nc:IdentificationID>
 	</pdr-report-ext:OriginatingAgencyCaseNumber>
 	<pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>
 		<nc:IdentificationID>899</nc:IdentificationID>
 	</pdr-report-ext:UpdatedOriginatingAgencyCaseNumber>	
+  <pdr-report-ext:ProsecutionDispositionCodeText>CHG</pdr-report-ext:ProsecutionDispositionCodeText>
 	<pdr-report-ext:ReportIdentification>
 		<nc:IdentificationID>ID349234</nc:IdentificationID>
 	</pdr-report-ext:ReportIdentification>
 	<pdr-report-ext:ChargeFilingDate>
 		<nc:Date>2022-01-10</nc:Date>
 	</pdr-report-ext:ChargeFilingDate>
+  <nc:Case>
+    <nc:CaseDocketID>123456789</nc:CaseDocketID>
+  </nc:Case>
 	<j:CaseProsecutionAttorney>
 		<pdr-report-ext:ProsecutionAttorneyOrganization
 			structures:ref="ORG001" />
 	</j:CaseProsecutionAttorney>
+  <j:Court>
+    <j:OrganizationAugmentation>
+      <j:OrganizationORIIdentification>
+        <nc:IdentificationID>LA33344444</nc:IdentificationID>
+      </j:OrganizationORIIdentification>
+    </j:OrganizationAugmentation>
+  </j:Court>
+  <j:Arrest>
+    <nc:ActivityDate>
+      <nc:Date>2022-01-09</nc:Date>
+    </nc:ActivityDate>
+  </j:Arrest>
+  <j:Offense>
+    <nc:ActivityDate>
+      <nc:Date>2022-06-18</nc:Date>
+    </nc:ActivityDate>
+  </j:Offense>
 	<j:Charge>
 		<j:ChargeFilingDate>
 			<nc:Date>2022-01-10</nc:Date>
@@ -64,9 +88,12 @@
 		</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	</j:Charge>
 	<j:Charge>
+    <j:ChargeCountQuantity>2</j:ChargeCountQuantity>
+    <j:ChargeDescriptionText>Possession of a Schedule I Controlled Dangerous Substance</j:ChargeDescriptionText>
 		<j:ChargeFilingDate>
 			<nc:Date>2022-01-10</nc:Date>
 		</j:ChargeFilingDate>
+    <j:ChargeSequenceID>2</j:ChargeSequenceID>
 		<j:ChargeStatute>
 			<j:StatuteCodeIdentification>
 				<nc:IdentificationID>0046790</nc:IdentificationID>

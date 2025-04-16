@@ -47,28 +47,20 @@
 		<camel:endpoint id="criminalHistoryUpdateReportingSSLServiceEndpoint"
 			uri="cxf:bean:criminalHistoryUpdateReportingSSLService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
     
-    	<camel:endpoint id="notificationBrokerServiceEndpoint" 
+    <camel:endpoint id="notificationBrokerServiceEndpoint" 
     		uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}"/>              
 	
 		<camel:endpoint id="criminalhistoryUpdateReportingAdapterServiceEndpoint"
 			uri="cxf:bean:criminalhistoryUpdateReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
 	
-	
-		
 		<camel:route id="CriminalHistoryUpdateReportingSSLServiceHandlerRoute">
-		
-			<camel:from uri="criminalHistoryUpdateReportingSSLServiceEndpoint" />
-			
-			<camel:to uri="direct:processCriminalHistory"/>
-
+  		<camel:from uri="criminalHistoryUpdateReportingSSLServiceEndpoint" />
+  		<camel:to uri="direct:processCriminalHistory"/>
 		</camel:route>
 	
 		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute">
-		
 			<camel:from uri="criminalHistoryUpdateReportingServiceEndpoint" />
-			
 			<camel:to uri="direct:processCriminalHistory"/>
-			
 		</camel:route>
 		
 		<camel:route id="CriminalHistoryUpdateReportingServiceDirectRoute">	
