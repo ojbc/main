@@ -802,6 +802,10 @@
 <!-- ADDED 09/11/24  -->
 			<xsd:enumeration value="REGISTRATION SUSPENSION" />
 			
+<!-- ADDED 04/17/25  -->			
+			<xsd:enumeration value="SUPERVISED RELEASE" />
+			<xsd:enumeration value="NOT TO OWN/POSSESS/CONTROL A FIREARM" />
+			
 			
 		</xsd:restriction>
 	</xsd:simpleType>
@@ -1160,23 +1164,25 @@
 			<xsd:enumeration value="ATTEMPT PRIORS" />
 			<xsd:enumeration value="ATTEMPT PRIORS AND DANG WEAPON" />
 			<xsd:enumeration value="ATTEMPT PRIORS AND FIREARM" />
+			<xsd:enumeration value="CONSPIRACY" />
+			<xsd:enumeration value="CONSPIRACY DANGEROUS WEAPON" />
+			<xsd:enumeration value="CONSPIRACY FIREARM" />
+			<xsd:enumeration value="CONSPIRACY PRIORS" />
+			<xsd:enumeration value="CONSPIRACY PRIORS AND DANG WEAPON" />
+			<xsd:enumeration value="CONSPIRACY PRIORS AND FIREARM" />
+			<xsd:enumeration value="DANGEROUS WEAPON" />
+			<xsd:enumeration value="FIREARM" />
+			<xsd:enumeration value="FIREARM OR DANGEROUS WEAPON" />
+			<xsd:enumeration value="OTHER" />
+			<xsd:enumeration value="PRIORS" />
+			<xsd:enumeration value="PRIORS WITH DANGEROUS WEAPON" />
+			<xsd:enumeration value="PRIORS WITH FIREARM" />
+			<xsd:enumeration value="SOLICITATION" />
 			<xsd:enumeration value="SOLICITATION DANGEROUS WEAPON" />
 			<xsd:enumeration value="SOLICITATION FIREARM" />
 			<xsd:enumeration value="SOLICITATION PRIORS" />
 			<xsd:enumeration value="SOLICITATION PRIORS AND DANG WEAPON" />
 			<xsd:enumeration value="SOLICITATION PRIORS AND FIREARM" />
-			<xsd:enumeration value="CONSPIRACY" />
-			<xsd:enumeration value="CONSPIRACY DANGEROUS WEAPON" />
-			<xsd:enumeration value="CONSPIRACY PRIORS AND FIREARM" />
-			<xsd:enumeration value="PRIORS" />
-			<xsd:enumeration value="PRIORS WITH FIREARM" />
-			<xsd:enumeration value="SOLICITATION" />
-			<xsd:enumeration value="CONSPIRACY PRIORS AND DANG WEAPON" />
-			<xsd:enumeration value="DANGEROUS WEAPON" />
-			<xsd:enumeration value="FIREARM" />
-			<xsd:enumeration value="PRIORS WITH DANGEROUS WEAPON" />
-			<xsd:enumeration value="FIREARM OR DANGEROUS WEAPON" />
-			<xsd:enumeration value="OTHER" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EnhancementCodeType">
