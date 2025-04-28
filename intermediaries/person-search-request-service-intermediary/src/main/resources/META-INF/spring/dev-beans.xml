@@ -63,6 +63,7 @@
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="${federatedQuery.personSearch.personSearchRequestServiceWildlifeSearchEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="${federatedQuery.personSearch.personSearchRequestServiceProfessionalSearchEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Prosecution" value="${federatedQuery.personSearch.personSearchRequestServiceProsecutionCaseEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations" value="${federatedQuery.personSearch.personSearchRequestServiceCitationEndpoint}" />
 			</util:map>				
 		</property>
  	</bean>
@@ -80,7 +81,8 @@
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="personSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="personSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Prosecution" value="personSearchRequestServiceAdapterEndpoint" />
-	</util:map>
+    <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations" value="personSearchRequestServiceAdapterEndpoint" />	
+  </util:map>
 	
 	<util:map id="addressToAdapterURIMap" map-class="java.util.HashMap" >
 		<entry key="${federatedQuery.personSearch.personSearchRequestCriminalHistoryEndpoint}" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" />
@@ -95,6 +97,7 @@
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceWildlifeSearchEndpoint}" value="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceProfessionalSearchEndpoint}" value="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
 		<entry key="${federatedQuery.personSearch.personSearchRequestServiceProsecutionCaseEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Prosecution" />
+    <entry key="${federatedQuery.personSearch.personSearchRequestServiceCitationEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations" />
 	</util:map>
 	
   <bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
@@ -111,6 +114,7 @@
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" value="Firearms Prohibition search timed out or had an error" />
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="Wildlife licensing search timed out or had an error" />
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="Professional licensing search timed out or had an error" />
+        <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations" value="Citation search timed out or had an error" />
       </util:map>       
     </property>
     <property name="uriToErrorSystemNameMap">
@@ -126,6 +130,7 @@
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" value="Firearms Prohibition Repository" />
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" value="Wildlife Licensing Repository" />
         <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" value="Professional Licensing Repository" />
+        <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations" value="Citation Repository" />
       </util:map>       
     </property>
     <property name="parentElementName" value="PersonSearchResults"/>

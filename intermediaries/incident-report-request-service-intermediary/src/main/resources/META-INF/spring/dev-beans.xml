@@ -47,18 +47,21 @@
 	
 	<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
 		<entry key="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}" value="presentIncidentReportResultsServiceEndpoint"/>
+    <entry key="${federatedQuery.incidentReport.presentCitationQueryResultsWebApplicationEndpoint}" value="presentIncidentReportResultsServiceEndpoint"/>
 	</util:map>
 
 	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 		<property name="federatedQueryEndpointMap">
 			<util:map map-class="java.util.HashMap">
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="incidentReportRequestFederatedServiceAdapterEndpoint" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-Citation" value="incidentReportRequestFederatedServiceAdapterEndpoint" />
 			</util:map>	
 		</property>
 	
 		<property name="adapterURItoAddressMap">
 			<util:map>
 			<entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS" value="${federatedQuery.incidentReport.personQueryIncidentReportRequestRMSEndpoint}" />
+      <entry key="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-Citation" value="${federatedQuery.incidentReport.personQueryIncidentReportRequestCitationEndpoint}" />
 			</util:map>
 		</property>
 	</bean>

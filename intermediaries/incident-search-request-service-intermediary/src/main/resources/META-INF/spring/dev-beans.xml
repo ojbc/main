@@ -61,6 +61,7 @@
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS timed out or had an error." />
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS timed out or had an error." />
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS timed out or had an error." />
+                <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="Citation timed out or had an error." />
 	          </util:map>             
 	      </property>
 	      <property name="uriToErrorSystemNameMap">
@@ -68,6 +69,7 @@
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS" />
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS" />
 	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS" />
+                <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="Citation" />
 	          </util:map>             
 	      </property>
 	   <property name="parentElementName" value="IncidentSearchResults"/>
@@ -81,6 +83,7 @@
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
 				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
 			</util:map>				
 		</property>
 	</bean>
@@ -88,6 +91,7 @@
          <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
          <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
          <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+         <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
     </util:map>
     
 		  	
@@ -95,5 +99,6 @@
 		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
 		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
+    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="incidentSearchRequestServiceAdapterEndpoint" />
 	</util:map>
 </beans>
