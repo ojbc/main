@@ -26,7 +26,7 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        "
-       profile="dev">
+       profile="test">
 	
 	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 	
@@ -39,6 +39,12 @@
 	
 	<bean id="incidentReportQueryResponseSQLProcessor" class="org.ojbc.audit.enhanced.processor.IncidentReportQueryResponseNullObjectProcessor"/>
 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
+		<property name="username" value="sa" />
+	</bean>
+	
 	<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
 		<entry key="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}" value="presentIncidentReportResultsServiceEndpoint"/>
     <entry key="${federatedQuery.incidentReport.presentCitationQueryResultsWebApplicationEndpoint}" value="presentIncidentReportResultsServiceEndpoint"/>
