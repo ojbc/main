@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<q1:ProsecutionDecisionRecordingReport xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+  xmlns:q1="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0">
+  <ServiceOperationDescriptionText xmlns="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0">EPCHG</ServiceOperationDescriptionText>
+  <CycleTrackingIdentification xmlns="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0">
+    <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">123451234567</IdentificationID>
+  </CycleTrackingIdentification>
+  <OriginatingAgencyCaseNumber xmlns="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0">
+    <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">123456789</IdentificationID>
+  </OriginatingAgencyCaseNumber>
+  <Case xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+    <ActivityIdentification>
+      <IdentificationID />
+    </ActivityIdentification>
+    <ActivityDisposition>
+      <DispositionDate>
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+      <DispositionDescriptionText>Pled Guilty As Charged</DispositionDescriptionText>
+    </ActivityDisposition>
+  </Case>
+  <j:Court>
+    <j:OrganizationORIIdentification>
+      <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">1111111</IdentificationID>
+    </j:OrganizationORIIdentification>
+    <OrganizationName p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://release.niem.gov/niem/niem-core/3.0/" />
+  </j:Court>
+  <j:Arrest>
+    <j:ArrestAgency>
+      <j:OrganizationORIIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">1234567</IdentificationID>
+      </j:OrganizationORIIdentification>
+      <OrganizationName p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://release.niem.gov/niem/niem-core/3.0/" />
+    </j:ArrestAgency>
+    <j:ArrestCharge>
+      <j:ChargeDescriptionText p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText />
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+        </j:StatuteCodeIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeTrackingIdentification p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeStatus p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+    </j:ArrestCharge>
+    <j:ArrestCharge>
+      <j:ChargeDescriptionText p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText />
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+        </j:StatuteCodeIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeTrackingIdentification p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeStatus p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+    </j:ArrestCharge>
+    <j:ArrestCharge>
+      <j:ChargeDescriptionText p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeSequenceID>708-822(1)(b),577-3.5</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText />
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-822(1)(b) and 577-3.5 HRS</IdentificationID>
+        </j:StatuteCodeIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeTrackingIdentification p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeStatus p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+    </j:ArrestCharge>
+    <j:ArrestCharge>
+      <j:ChargeDescriptionText p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText />
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+        </j:StatuteCodeIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeTrackingIdentification p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeStatus p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+    </j:ArrestCharge>
+    <j:ArrestCharge>
+      <j:ChargeDescriptionText p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText />
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+        </j:StatuteCodeIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeTrackingIdentification p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <j:ChargeStatus p5:nil="true" xmlns:p5="http://www.w3.org/2001/XMLSchema-instance" />
+      <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+        <DateTime>2025-04-16T00:00:00</DateTime>
+      </DispositionDate>
+    </j:ArrestCharge>
+  </j:Arrest>
+  <j:Offense p3:nil="true" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
+  <j:Charge>
+    <j:ChargeDescriptionText p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText />
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+      </j:StatuteCodeIdentification>
+    </j:ChargeStatute>
+    <j:ChargeSubject p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeTrackingIdentification p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeStatus p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+      <DateTime>2025-04-16T00:00:00</DateTime>
+    </DispositionDate>
+  </j:Charge>
+  <j:Charge>
+    <j:ChargeDescriptionText p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText />
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+      </j:StatuteCodeIdentification>
+    </j:ChargeStatute>
+    <j:ChargeSubject p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeTrackingIdentification p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeStatus p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+      <DateTime>2025-04-16T00:00:00</DateTime>
+    </DispositionDate>
+  </j:Charge>
+  <j:Charge>
+    <j:ChargeDescriptionText p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeSequenceID>708-822(1)(b),577-3.5</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText />
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-822(1)(b) and 577-3.5 HRS</IdentificationID>
+      </j:StatuteCodeIdentification>
+    </j:ChargeStatute>
+    <j:ChargeSubject p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeTrackingIdentification p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeStatus p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+      <DateTime>2025-04-16T00:00:00</DateTime>
+    </DispositionDate>
+  </j:Charge>
+  <j:Charge>
+    <j:ChargeDescriptionText p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText />
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+      </j:StatuteCodeIdentification>
+    </j:ChargeStatute>
+    <j:ChargeSubject p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeTrackingIdentification p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeStatus p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+      <DateTime>2025-04-16T00:00:00</DateTime>
+    </DispositionDate>
+  </j:Charge>
+  <j:Charge>
+    <j:ChargeDescriptionText p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeSequenceID>708-833(1)-10</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText />
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">708-833(1) HRS</IdentificationID>
+      </j:StatuteCodeIdentification>
+    </j:ChargeStatute>
+    <j:ChargeSubject p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeTrackingIdentification p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <j:ChargeStatus p4:nil="true" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" />
+    <DispositionDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+      <DateTime>2025-04-16T00:00:00</DateTime>
+    </DispositionDate>
+  </j:Charge>
+  <j:Subject>
+    <RoleOfPerson p4:ref="PER001" xmlns:p4="http://release.niem.gov/niem/structures/3.0/"
+      xmlns="http://release.niem.gov/niem/niem-core/3.0/" />
+  </j:Subject>
+  <Person p3:id="PER001" xmlns:p3="http://release.niem.gov/niem/structures/3.0/" xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+    <PersonBirthDate>
+      <Date>2008-12-23</Date>
+    </PersonBirthDate>
+    <PersonName>
+      <PersonGivenName>Homer</PersonGivenName>
+      <PersonMiddleName>J</PersonMiddleName>
+      <PersonSurName>Simpson</PersonSurName>
+    </PersonName>
+    <PersonSSNIdentification>
+      <IdentificationID>No SSN on case</IdentificationID>
+    </PersonSSNIdentification>
+    <PersonStateIdentification>
+      <IdentificationID></IdentificationID>
+    </PersonStateIdentification>
+    <j:PersonAugmentation>
+      <SeriousHabitualOffenderIndicator xmlns="http://release.niem.gov/niem/domains/cyfs/3.0/">false</SeriousHabitualOffenderIndicator>
+      <MentalHealthHistoryDescriptionText xmlns="http://release.niem.gov/niem/domains/cyfs/3.0/">F</MentalHealthHistoryDescriptionText>
+      <j:SubjectViolentOffenderIndicator>false</j:SubjectViolentOffenderIndicator>
+      <j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
+    </j:PersonAugmentation>
+  </Person>
+  <Identity p3:nil="true" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://release.niem.gov/niem/niem-core/3.0/" />
+</q1:ProsecutionDecisionRecordingReport>

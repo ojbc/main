@@ -26,6 +26,7 @@
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"	
 	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
@@ -117,7 +118,10 @@
         </camel:pipeline>
         <camel:pipeline>
           <camel:filter>
-            <camel:simple>${properties:criminalHistoryUpdateReportingService.callProsecutionDecisionRecordingAdapter} == true</camel:simple>
+            <camel:simple>
+              ${properties:criminalHistoryUpdateReportingService.callProsecutionDecisionRecordingAdapter} == true ||
+              ${properties:criminalHistoryUpdateReportingService.callJuvenileJusticeAdapter} == true
+            </camel:simple>
 
             <!-- Call prosecution Decision reporting adapter on this action -->
             <camel:filter>
@@ -133,7 +137,28 @@
               <camel:setHeader name="operationNamespace">
                 <constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
               </camel:setHeader>
+              <camel:setHeader name="CamelDestinationOverrideUrl">
+                <simple>{{criminalHistoryReportingServiceAdapterEndpoint}}</simple>
+              </camel:setHeader>
 
+              <camel:filter>
+                <camel:simple>{{criminalHistoryUpdateReportingService.callJuvenileJusticeAdapter}} == true</camel:simple>
+                <camel:setHeader name="birthDate">
+                  <camel:xpath resultType="java.lang.String">/pdr-report-doc:ProsecutionDecisionRecordingReport/nc30:Person/nc30:PersonBirthDate/nc30:Date</camel:xpath>
+                </camel:setHeader>
+                <camel:setHeader name="dispositionDate">
+                  <camel:xpath  resultType="java.lang.String" saxon="true">/pdr-report-doc:ProsecutionDecisionRecordingReport/nc30:Case/nc30:ActivityDisposition/nc30:DispositionDate/nc30:DateTime/substring-before(., 'T')</camel:xpath>
+                </camel:setHeader>
+                <camel:setHeader name="isJuvenile">
+                  <camel:simple>${bean:criminalHistoryUpdateMessageProcessor?method=isJuvenile}</camel:simple>
+                </camel:setHeader>
+                <camel:filter>
+                  <camel:simple>${in.headers.isJuvenile} == true </camel:simple>
+                  <camel:setHeader name="CamelDestinationOverrideUrl">
+                    <simple>{{criminalHistoryReportingServiceJuvenileAdapterEndpoint}}</simple>
+                  </camel:setHeader>
+                </camel:filter>
+              </camel:filter>
               <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
             </camel:filter>
           </camel:filter>
@@ -235,7 +260,9 @@
       <camel:setHeader name="operationNamespace">
         <constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
       </camel:setHeader>
-
+      <camel:setHeader name="CamelDestinationOverrideUrl">
+        <simple>{{criminalHistoryReportingServiceAdapterEndpoint}}</simple>
+      </camel:setHeader>
       <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
 
     </camel:route>

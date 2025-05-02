@@ -16,9 +16,12 @@
  */
 package org.ojbc.intermediaries.crimhistoryupdate.processor;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.UUID;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
 
@@ -47,6 +50,25 @@ public class CriminalHistoryUpdateMessageProcessor {
 		
 	}
 	
+    public int getAge(LocalDate birthDate, LocalDate dispositionDate) {
+        if ((birthDate != null) && (dispositionDate != null)) {
+            return Period.between(birthDate, dispositionDate).getYears();
+        } else {
+            return 99;
+        }    
+    }
+	
+    public boolean isJuvenile(@Header("birthDate") String birthDateString, 
+            @Header("dispositionDate") String dispositionDateString) {
+        
+        if (StringUtils.isAnyBlank(birthDateString, dispositionDateString)) {
+            return false; 
+        }
+        LocalDate birthDate = LocalDate.parse(birthDateString);
+        LocalDate dispositionDate = LocalDate.parse(dispositionDateString);
+        return getAge(birthDate, dispositionDate) < 18;
+    }
+    
 	public MessageProcessor getMessageProcessor() {
 		return messageProcessor;
 	}
