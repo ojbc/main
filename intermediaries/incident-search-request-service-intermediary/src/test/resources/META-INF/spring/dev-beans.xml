@@ -42,6 +42,12 @@
 
 	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
+		<property name="username" value="sa" />
+	</bean>
+	
 	<util:map id="endpointReplyToMap">
 		<entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}" value="presentMergeNotificationServiceResultsEndpoint"/>
 		<entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}" value="presentIncidentSearchResultsServiceEndpoint"/>

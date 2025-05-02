@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.person.query.CannabisLicensingRequestProcessor;
+import org.ojbc.processor.person.query.CitationQueryRequestProcessor;
 import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
@@ -113,6 +114,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
+	
+	@Autowired(required=false)
+	private CitationQueryRequestProcessor citationQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	@Qualifier("juvenileCasePlanHistoryRequestProcessor")
@@ -263,7 +267,11 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 			return professionalLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
-		} 
+		} else if (OJBCWebServiceURIs.CITATION.equals(requestIdSrcTxt)) {
+            
+		    return incidentReportRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+            
+        } 
 		else if (OJBCWebServiceURIs.CANNABIS_LICENSING.equals(requestIdSrcTxt)) {
 			
 			return cannabisLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
