@@ -1216,7 +1216,7 @@
 			<xsd:enumeration value="CONSPIRACY DANGEROUS WEAPON" />
 			<xsd:enumeration value="CONSPIRACY FIREARM" />
 			<xsd:enumeration value="CONSPIRACY PRIORS" />
-			<xsd:enumeration value="CONSPIRACY PRIORS AND DANG WEAPON" />
+			<xsd:enumeration value="CONSPIRACY PRIORS AND DANGEROUS WEAPON" />
 			<xsd:enumeration value="CONSPIRACY PRIORS AND FIREARM" />
 			<xsd:enumeration value="DANGEROUS WEAPON" />
 			<xsd:enumeration value="FIREARM" />
