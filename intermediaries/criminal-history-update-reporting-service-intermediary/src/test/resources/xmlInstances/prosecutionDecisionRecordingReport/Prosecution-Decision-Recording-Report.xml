@@ -17,7 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pdr-report-doc:ProsecutionDecisionRecordingReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0 ../xsd/ProsecutionDecisionRecordingReport-exchange.xsd" xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0" xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" xmlns:s="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pdr-report-doc:ProsecutionDecisionRecordingReport
+  xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+  xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+  xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<pdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</pdr-report-ext:CycleTrackingIdentification>
