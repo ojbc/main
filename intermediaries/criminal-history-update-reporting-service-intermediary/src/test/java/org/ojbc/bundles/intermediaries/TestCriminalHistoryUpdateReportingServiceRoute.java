@@ -90,7 +90,7 @@ public class TestCriminalHistoryUpdateReportingServiceRoute {
     	
     	//Create a new exchange
     	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-    			"src/test/resources/xmlInstances/prosecutionDecisionRecordingReport/junvenile.xml");
+    			"src/test/resources/xmlInstances/prosecutionDecisionRecordingReport/juvenile.xml");
 		
     	template.send("direct:processCriminalHistory", senderExchange);
     	mockEndpoint.expectedMessageCount(1);
