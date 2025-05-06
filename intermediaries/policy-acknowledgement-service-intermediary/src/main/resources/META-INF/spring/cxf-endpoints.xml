@@ -53,6 +53,12 @@
 			<entry key="ws-security.signature.properties" value-ref="accessControlKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${accessControl.keystoreCertificateAlias}" />
 		</cxf:properties>
+		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${accessControl.cxflogging}" />
+                <property name="verbose" value="${accessControl.cxflogging}" />
+            </bean> 
+        </cxf:features>    		
     </cxf:cxfEndpoint>
     
     
@@ -68,6 +74,10 @@
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
         >
         <cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${accessControl.cxflogging}" />
+                <property name="verbose" value="${accessControl.cxflogging}" />
+            </bean>        
             <policy:policies>
                 <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
                     <wsam:Addressing>
@@ -91,6 +101,12 @@
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties> 
+		<cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${accessControl.cxflogging}" />
+                <property name="verbose" value="${accessControl.cxflogging}" />
+            </bean> 
+        </cxf:features>		
 	</cxf:cxfEndpoint>
 	
 	<!-- Policy Acknowledgement Recording Request Service  -->
@@ -100,6 +116,10 @@
 		serviceName="ojbc:Policy-Acknowledgement-Recording-Response-ServiceService" endpointName="ojbc:Policy-Acknowledgement-Recording-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0">
         <cxf:features>
+            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+                <property name="prettyLogging" value="${accessControl.cxflogging}" />
+                <property name="verbose" value="${accessControl.cxflogging}" />
+            </bean>        
             <policy:policies>
                 <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
                     <wsam:Addressing>
