@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/humanServices/5.2/" version="1" xml:lang="en-US" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/5.0/ ../utility/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../utility/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/5.2/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/5.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/5.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/">
+  <xs:annotation>
+    <xs:documentation>Human Services</xs:documentation>
+    <xs:appinfo>
+      <appinfo:LocalTerm term="AFCARS" literal="Adoption and Foster Care Analysis and Reporting System (AFCARS)"/>
+      <appinfo:LocalTerm term="ASFA" literal="Adoption and Safe Families Act"/>
+      <appinfo:LocalTerm term="CFR" definition="Code of Federal Regulations"/>
+      <appinfo:LocalTerm term="Comp" literal="Compensation"/>
+      <appinfo:LocalTerm term="EBT" literal="Electronic Benefit Transfer"/>
+      <appinfo:LocalTerm term="FEIN" literal="Federal Employer Identification Number"/>
+      <appinfo:LocalTerm term="FIPS" literal="Federal Information Processing Series"/>
+      <appinfo:LocalTerm term="firesetting" definition="A behavior that includes setting fires both accidentally and intentionally."/>
+      <appinfo:LocalTerm term="FS" literal="Food Stamps"/>
+      <appinfo:LocalTerm term="habilitative" definition="Habilitative services help a person keep, learn, or improve skills and functioning for daily living."/>
+      <appinfo:LocalTerm term="ICPC" literal="Interstate Compact on the Placement of Children"/>
+      <appinfo:LocalTerm term="ICWA" literal="Indian Child Welfare Act"/>
+      <appinfo:LocalTerm term="IV-D" definition="Title IV-D of the Social Security Act"/>
+      <appinfo:LocalTerm term="IV-E" definition="Title IV-E of the Social Security Act addressing Federal Payments for Foster Care and Adoption Assistance."/>
+      <appinfo:LocalTerm term="NCANDS" literal="National Child Abuse and Neglect Data System"/>
+      <appinfo:LocalTerm term="NCIC" literal="National Crime Information Center"/>
+      <appinfo:LocalTerm term="NCP" literal="Noncustodial parent"/>
+      <appinfo:LocalTerm term="NPI" literal="National Provider Identifier"/>
+      <appinfo:LocalTerm term="PARIS" literal="Public Assistance Reporting Information System"/>
+      <appinfo:LocalTerm term="Polyvictimization" definition="Multiple victimizations of a person"/>
+      <appinfo:LocalTerm term="SSA" literal="Social Security Administration"/>
+      <appinfo:LocalTerm term="SSI" literal="Supplemental Security Income"/>
+      <appinfo:LocalTerm term="SSN" literal="Social Security Number"/>
+      <appinfo:LocalTerm term="TANF" literal="Temporary Assistance to Needy Families"/>
+      <appinfo:LocalTerm term="UCCJEA" literal="Uniform Child Custody Jurisdiction and Enforcement Act"/>
+      <appinfo:LocalTerm term="VA" literal="Veterans Affairs"/>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:import namespace="http://release.niem.gov/niem/proxy/niem-xs/5.0/" schemaLocation="../adapters/niem-xs.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/5.0/" schemaLocation="../utility/structures.xsd"/>
+  <xs:complexType name="SeriousHabitualOffenderType">
+    <xs:annotation>
+      <xs:documentation>A data type for information about a person who is considered a Serious Habitual Offender Drug Involved individual by a law enforcement agency.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="hs:SeriousHabitualOffenderCriminalHistoryRegisteredIndicator" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SeriousHabitualOffender" type="hs:SeriousHabitualOffenderType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is considered a Serious Habitual Offender individual by a law enforcement agency.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SeriousHabitualOffenderCriminalHistoryRegisteredIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the juvenile is registered in the state, local, or tribal criminal history (SLCH); false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

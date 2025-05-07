@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
+           xmlns:hs="http://release.niem.gov/niem/domains/humanServices/5.2/"
+           xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/"
+		   xmlns:uco-ext="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/"
+           targetNamespace="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/5.0/" schemaLocation="Subset/niem/xsd/niem-core.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/domains/humanServices/5.2/" schemaLocation="Subset/niem/xsd/domains/hs.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/domains/jxdm/7.2/" schemaLocation="Subset/niem/xsd/domains/jxdm.xsd" />
+
+  <xs:complexType name="UniformCommitmentOrderType" abstract="false" mixed="false"> 
+	  <xs:annotation>
+		  <xs:documentation>A data type for the uniform commitment order document.</xs:documentation>
+	  </xs:annotation>
+	<xs:complexContent mixed="false">
+		<xs:extension base="nc:DocumentType">
+			<xs:sequence>
+				<!-- Header Information -->
+				<xs:element ref="uco-ext:UniformCommitmentOrderIdentification" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="j:OrganizationORIIdentification" minOccurs="0"/>
+				<xs:element ref="nc:Organization" minOccurs="1"/>
+				<xs:element ref="uco-ext:ParishCodeText" minOccurs="1"/>	
+				<xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="1" />
+				
+				<!-- A. Defendant/Case Identifiers -->
+				<xs:element ref="nc:Person" minOccurs="1" />
+				<xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="1" />
+				
+				<!-- B. SENTENCE -->
+				<xs:element ref="j:Charge" minOccurs="1"/>
+				<xs:element ref="j:Sentence" minOccurs="1"/>
+				
+				<!-- C. Sentence/Offense Dates -->
+				<xs:element ref="uco-ext:OffenseDate" minOccurs="0"/>
+				<xs:element ref="nc:DispositionDate" minOccurs="1"/>
+				<xs:element ref="j:SentenceDate" minOccurs="0"/>
+				<xs:element ref="uco-ext:HabitualOffenderIndicator" minOccurs="1"/>
+				<xs:element ref="uco-ext:SentenceVacatedDate" />
+				<xs:element ref="uco-ext:SentenceRevocationDate" />
+				
+				<!-- D. Sentence Conditions -->
+				<xs:element ref="j:SentenceGroupingText" />
+				<xs:element ref="nc:CaseDocketID" />
+				<xs:element ref="j:SentenceConfinementCreditIndicator" />
+				<xs:element ref="uco-ext:MinimumSentenceWaivedIndicator" />
+				<xs:element ref="uco-ext:MultipleBillIndicator" />
+				<xs:element ref="uco-ext:ReentryIndicator" />
+				<xs:element ref="uco-ext:SentenceStartDate" />
+				<xs:element ref="uco-ext:ProbationRequiredIndicator" />
+				<xs:element ref="j:RegisteredSexualOffenderIndicator" />
+				
+				<!-- E. Referrals -->
+				<xs:element ref="uco-ext:SubstanceUseScreeningIndicator" />
+				<xs:element ref="uco-ext:MentalHealthScreeningIndicator" />
+				<xs:element ref="uco-ext:IntensiveIncarcerationIndicator" />
+				<xs:element ref="uco-ext:WorkProgramIndicator" />
+				<xs:element ref="nc:CommentText" />
+				
+				<!-- F. Involved Parties -->
+				<xs:element ref="j:CourtClerk" />
+				<xs:element ref="j:CourtReporter" />
+				<xs:element ref="j:CaseProsecutionAttorney" />
+				<xs:element ref="uco-ext:ProsecutionLocationAddress" />
+				<xs:element ref="j:CaseDefenseAttorney" />
+				<xs:element ref="uco-ext:CaseDefenseAddress" />
+				<xs:element ref="j:CaseJudge" />
+				<xs:element ref="uco-ext:CaseJudgeAddress" />
+				<xs:element ref="uco-ext:JudgeSignatureDate" />
+				
+				<!-- Attachments -->
+				<xs:element ref="uco-ext:BillOfInformationAttachment" />
+				<xs:element ref="uco-ext:UCOPDFAttachment" />
+				<xs:element ref="uco-ext:AdditionalInformationAttachment" />
+					
+			</xs:sequence>
+		</xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+			
+ <!-- Extension Data Elements -->
+   <xs:element name="UniformcCommitmentOrder" type="uco-ext:UniformCommitmentOrderType" >
+  		<xs:annotation>
+  			<xs:documentation>This is the Uniform Commitment Order Document. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+   <xs:element name="UniformCommitmentOrderIdentification" type="nc:TextType">
+  		<xs:annotation>
+  			<xs:documentation>Unique Identification for the Uniform Commitment Order - text. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+    <xs:element name="ParishCodeText" type="nc:TextType">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for each Parish - text. </xs:documentation>
+   		</xs:annotation>
+    </xs:element>
+    <xs:element name="OffenseDate" type="nc:DateType">
+    		<xs:annotation>
+    			<xs:documentation>Date of Offense </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="HabitualOffenderIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if Adjudication as an habitual offender per R.S. 15:529.1 </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="SentenceVacatedDate" type="nc:DateType">
+    		<xs:annotation>
+    			<xs:documentation>Date Original Sentence Vacated </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="SentenceRevocationDate" type="nc:DateType">
+    		<xs:annotation>
+    			<xs:documentation>Date Sentence Revocation </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="MinimumSentenceWaivedIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if Minimum Sentence was Waived </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="MultipleBillIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if multiple bills are involved in sentence </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="ReentryIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject is reentering confinement </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="SentenceStartDate" type="nc:DateType">
+    		<xs:annotation>
+    			<xs:documentation>Date sentence to start </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+    <xs:element name="ProbationRequiredIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject is required to serve probation </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="SubstanceUseScreeningIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject requires substance use screening </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="MentalHealthScreeningIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject require mental health screening </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="IntensiveIncarcerationIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject requires intensive incarceration </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="WorkProgramIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if subject is eligible for work programs </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="ProsecutionLocationAddress" type="nc:AddressType" >
+    		<xs:annotation>
+    			<xs:documentation>Prosecution Attorney Address </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="CaseDefenseAddress" type="nc:AddressType" >
+    		<xs:annotation>
+    			<xs:documentation>Defense Attorney Address </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="CaseJudgeAddress" type="nc:AddressType" >
+    		<xs:annotation>
+    			<xs:documentation>Court Judge Address </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="JudgeSignatureDate" type="nc:DateType">
+		<xs:annotation>
+			<xs:documentation>date judge signed UCO </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="BillOfInformationAttachment" type="nc:BinaryType">
+		<xs:annotation>
+			<xs:documentation>Bill of information attachment </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="UCOPDFAttachment" type="nc:BinaryType">
+		<xs:annotation>
+			<xs:documentation>PDF copy of the UCO </xs:documentation>
+		</xs:annotation>
+	</xs:element><xs:element name="AdditionalInformationAttachment" type="nc:BinaryType">
+		<xs:annotation>
+			<xs:documentation>PDF copy of the UCO </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

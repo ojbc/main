@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<uco-doc:UniformcCommitmentOrder
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/5.2/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
+	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/"
+	xmlns:uco-ext="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/ ../xsd/UniformCommitmentOrder.xsd ">
+	<!-- document tracking -->
+	<nc:DocumentCreationDate>
+		<nc:DateTime>2025-05-05T09:30:47.0Z</nc:DateTime>
+	</nc:DocumentCreationDate>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>document ID</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<!-- Header Information -->
+	<uco-ext:UniformCommitmentOrderIdentification>20250505-001</uco-ext:UniformCommitmentOrderIdentification>
+	<j:OrganizationORIIdentification>
+		<nc:IdentificationID>ID9999999</nc:IdentificationID>
+	</j:OrganizationORIIdentification>
+	<nc:Organization>
+		<nc:OrganizationBranchName>Section B</nc:OrganizationBranchName>
+		<nc:OrganizationName>24th Judicial District</nc:OrganizationName>
+	</nc:Organization>
+	<uco-ext:ParishCodeText>Parish Code</uco-ext:ParishCodeText>
+	<nc:CaseDocketID>25-02705</nc:CaseDocketID>
+	<!-- A. Defendant/Case Identifiers -->
+	<nc:Person>
+		<nc:PersonBirthDate>
+			<nc:Date>2001-12-17</nc:Date>
+	   </nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Bugs</nc:PersonGivenName>
+			<nc:PersonMiddleName>Test</nc:PersonMiddleName>
+			<nc:PersonSurName>Bunny</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonRaceText>B</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
+	</nc:Person>
+	<j:PersonStateFingerprintIdentification>
+			<nc:IdentificationID>01234567</nc:IdentificationID>
+	</j:PersonStateFingerprintIdentification>
+	<!-- B. SENTENCE -->
+	<j:Charge>
+	  <j:ChargeApplicabilityText>Modifier</j:ChargeApplicabilityText>
+	  <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+	  <j:ChargeDescriptionText>Multi Offender Theft</j:ChargeDescriptionText>
+	  <j:ChargeDisposition>
+	  	<nc:DispositionText>Pled Guilty</nc:DispositionText>
+	  </j:ChargeDisposition>
+	  <j:ChargeText>14:67(B)(4)</j:ChargeText>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>1</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+		<j:ChargeSeverityDescriptionText>F</j:ChargeSeverityDescriptionText>
+	</j:Charge>
+	<j:Sentence>
+		<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
+		<j:SentenceDescriptionText></j:SentenceDescriptionText>
+		<j:SentenceGroupingText>Original</j:SentenceGroupingText>
+		<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
+		<j:SentenceTerm>
+			<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
+			<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+		</j:SentenceTerm>
+	</j:Sentence>
+	<!-- C. Sentence/Offense Dates -->
+	<uco-ext:OffenseDate>
+		<nc:Date>2025-04-01</nc:Date>
+	</uco-ext:OffenseDate>
+	<nc:DispositionDate>
+		<nc:Date>2025-04-28</nc:Date>
+	</nc:DispositionDate>
+	<j:SentenceDate>
+		<nc:Date>2025-04-28</nc:Date>
+	</j:SentenceDate>
+	<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
+	<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
+	<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
+	<!-- D. Sentence Conditions -->
+	<j:SentenceGroupingText>Concurrent</j:SentenceGroupingText>
+	<nc:CaseDocketID>docket number of concurrent sentence</nc:CaseDocketID>
+	<j:SentenceConfinementCreditIndicator>true</j:SentenceConfinementCreditIndicator>
+	<uco-ext:MinimumSentenceWaivedIndicator>true</uco-ext:MinimumSentenceWaivedIndicator>
+	<uco-ext:MultipleBillIndicator>true</uco-ext:MultipleBillIndicator>
+	<uco-ext:ReentryIndicator>true</uco-ext:ReentryIndicator>
+	<uco-ext:SentenceStartDate>
+		<nc:Date>2025-04-28</nc:Date>
+	</uco-ext:SentenceStartDate>
+	<uco-ext:ProbationRequiredIndicator>true</uco-ext:ProbationRequiredIndicator>
+	<j:RegisteredSexualOffenderIndicator>true</j:RegisteredSexualOffenderIndicator>
+	<!-- E. Referrals -->
+	<uco-ext:SubstanceUseScreeningIndicator>true</uco-ext:SubstanceUseScreeningIndicator>
+	<uco-ext:MentalHealthScreeningIndicator>true</uco-ext:MentalHealthScreeningIndicator>
+	<uco-ext:IntensiveIncarcerationIndicator>true</uco-ext:IntensiveIncarcerationIndicator>
+	<uco-ext:WorkProgramIndicator>true</uco-ext:WorkProgramIndicator>
+	<nc:CommentText>Comment Text</nc:CommentText>
+	<!-- F. Involved Parties -->
+	<j:CourtClerk>
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Road Runner</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+	</j:CourtClerk>
+	<j:CourtReporter>
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Wiley Coyote</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+	</j:CourtReporter>
+	<j:CaseProsecutionAttorney>
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>DA Smith</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+	</j:CaseProsecutionAttorney>
+	<uco-ext:ProsecutionLocationAddress>
+		<nc:AddressFullText>123 N. Main</nc:AddressFullText> 
+		<nc:AddressSecondaryUnitText>Suite 2</nc:AddressSecondaryUnitText>
+		<nc:AddressCityName>Gretna</nc:AddressCityName>
+		<nc:AddressState>
+			<nc:StateName>LA</nc:StateName>
+		</nc:AddressState>
+		<nc:AddressPostalCode>70053</nc:AddressPostalCode>
+	</uco-ext:ProsecutionLocationAddress>
+	<j:CaseDefenseAttorney>
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Defender Jones</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+	</j:CaseDefenseAttorney>
+	<uco-ext:CaseDefenseAddress>
+		<nc:AddressFullText>456 First Street</nc:AddressFullText> 
+		<nc:AddressSecondaryUnitText>Apt. 1</nc:AddressSecondaryUnitText>
+		<nc:AddressCityName>Gretna</nc:AddressCityName>
+		<nc:AddressState>
+			<nc:StateName>LA</nc:StateName>
+		</nc:AddressState>
+		<nc:AddressPostalCode>70053</nc:AddressPostalCode>
+	 </uco-ext:CaseDefenseAddress>
+	<j:CaseJudge>
+		<nc:RoleOfPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Judge Fudd</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:RoleOfPerson>
+	</j:CaseJudge>
+	<uco-ext:CaseJudgeAddress>
+		<nc:AddressFullText>200 Test Road</nc:AddressFullText> 
+		<nc:AddressSecondaryUnitText>Courtroom 4</nc:AddressSecondaryUnitText>
+		<nc:AddressCityName>Gretna</nc:AddressCityName>
+		<nc:AddressState>
+			<nc:StateName>LA</nc:StateName>
+		</nc:AddressState>
+		<nc:AddressPostalCode>70053</nc:AddressPostalCode>
+	</uco-ext:CaseJudgeAddress>
+	<uco-ext:JudgeSignatureDate>
+		<nc:Date>2025-05-05</nc:Date>
+	</uco-ext:JudgeSignatureDate>
+	<!-- Attachments -->
+	<uco-ext:BillOfInformationAttachment>
+	    <nc:BinaryCaptureDate>
+              <nc:Date>2025-03-07-05:00</nc:Date>
+         </nc:BinaryCaptureDate>
+         <nc:BinaryDescriptionText>BillOfInformation20250505-001.pdf</nc:BinaryDescriptionText>
+    </uco-ext:BillOfInformationAttachment>
+	<uco-ext:UCOPDFAttachment>
+		<nc:BinaryCaptureDate>
+              <nc:Date>2025-03-07-05:00</nc:Date>
+         </nc:BinaryCaptureDate>
+         <nc:BinaryDescriptionText>UCO20250505-001.pdf</nc:BinaryDescriptionText>
+    </uco-ext:UCOPDFAttachment>
+	<uco-ext:AdditionalInformationAttachment>
+		<nc:BinaryCaptureDate>
+              <nc:Date>2025-03-07-05:00</nc:Date>
+         </nc:BinaryCaptureDate>
+         <nc:BinaryDescriptionText>FP20250505-001.pdf</nc:BinaryDescriptionText>
+	</uco-ext:AdditionalInformationAttachment>
+</uco-doc:UniformcCommitmentOrder>
