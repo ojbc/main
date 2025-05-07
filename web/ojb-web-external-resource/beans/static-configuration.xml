@@ -179,6 +179,8 @@
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
 		<entry key="Law Enforcement RMS"
 			value="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" />
+    <entry key="Citations - Maine"
+      value="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-Citation" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
