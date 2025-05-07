@@ -258,6 +258,7 @@
       <MentalHealthHistoryDescriptionText xmlns="http://release.niem.gov/niem/domains/cyfs/3.0/">F</MentalHealthHistoryDescriptionText>
       <j:SubjectViolentOffenderIndicator>false</j:SubjectViolentOffenderIndicator>
       <j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
+      <j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
     </j:PersonAugmentation>
   </Person>
   <Identity p3:nil="true" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://release.niem.gov/niem/niem-core/3.0/" />

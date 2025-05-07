@@ -34,8 +34,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.crimhistoryupdate.CriminalHistoryUpdateReportingServiceApplication;
 import org.ojbc.test.util.MessageUtils;
-import org.ojbc.test.util.XmlTestUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
