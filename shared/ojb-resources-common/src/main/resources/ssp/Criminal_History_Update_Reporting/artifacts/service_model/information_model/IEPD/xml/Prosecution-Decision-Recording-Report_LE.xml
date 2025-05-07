@@ -193,6 +193,7 @@
 			<cyfs:MentalHealthHistoryDescriptionText>true</cyfs:MentalHealthHistoryDescriptionText>
 			<j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
 			<j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
+			<j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
 		</j:PersonAugmentation>
 		<pdr-report-ext:PersonTrackingIdentification>
 			<nc:IdentificationID>PTI1234</nc:IdentificationID>

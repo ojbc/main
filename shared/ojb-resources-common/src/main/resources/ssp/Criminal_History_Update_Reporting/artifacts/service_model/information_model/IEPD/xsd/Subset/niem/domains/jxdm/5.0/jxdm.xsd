@@ -305,6 +305,7 @@
           <xs:element ref="cyfs:MentalHealthHistoryDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:SubjectViolentOffenderIndicator" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="j:PersonFirearmSalesDisqualified" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:JuvenileOffenderIndicator" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -754,6 +755,11 @@
   <xs:element name="ChargeStatus" type="nc:StatusType" nillable="true">
     <xs:annotation>
       <xs:documentation>A state of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
+  <xs:element name="JuvenileOffenderIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the legal status of a person is a juvenile; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>  
 </xs:schema>
