@@ -38,6 +38,7 @@
 			</nc:DispositionDate>
 			<nc:DispositionDescriptionText>CHG</nc:DispositionDescriptionText>
 		</nc:ActivityDisposition>
+		<nc:CaseDocketID>20250512-0012</nc:CaseDocketID>
 		<nc:CaseFiling>
 			<nc:DocumentFiledDate>
 				<nc:Date>2013-05-15</nc:Date>
@@ -157,9 +158,11 @@
 		<j:ChargeStatus>
 			<nc:StatusDescriptionText>REFERRED</nc:StatusDescriptionText>
 		</j:ChargeStatus>
+		<pdr-report-ext:ChargeToCourtIndicator>false</pdr-report-ext:ChargeToCourtIndicator>
 		<pdr-report-ext:CriminalTrackingIdentification>
 			<nc:IdentificationID>CRIM12345</nc:IdentificationID>
 		</pdr-report-ext:CriminalTrackingIdentification>
+		<pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
 	</j:Charge>
 	<j:Subject>
 		<nc:RoleOfPerson structures:ref="PER001"/>
@@ -171,6 +174,12 @@
 		<nc:PersonBirthDate>
 			<nc:Date>1991-01-01</nc:Date>
 		</nc:PersonBirthDate>
+		<j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
+		<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureValueText>6</nc:MeasureValueText>
+			<nc:MeasureUnitText>feet</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
 		<nc:PersonName>
 			<nc:PersonGivenName>First</nc:PersonGivenName>
 			<nc:PersonMiddleName>middle</nc:PersonMiddleName>
@@ -182,6 +191,10 @@
 			<nc:IdentificationID>999-99-9999</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureValueText>180</nc:MeasureValueText>
+			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>12345678</nc:IdentificationID>
