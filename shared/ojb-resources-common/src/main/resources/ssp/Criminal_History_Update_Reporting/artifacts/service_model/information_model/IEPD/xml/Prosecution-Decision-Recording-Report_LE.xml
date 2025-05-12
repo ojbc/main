@@ -177,14 +177,14 @@
 		<j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
 		<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
 		<nc:PersonHeightMeasure>
-			<nc:MeasureValueText>6</nc:MeasureValueText>
-			<nc:MeasureUnitText>feet</nc:MeasureUnitText>
+			<nc:MeasureValueText>6-1</nc:MeasureValueText>
+			<nc:MeasureUnitText>ft-in</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonName>
 			<nc:PersonGivenName>First</nc:PersonGivenName>
-			<nc:PersonMiddleName>middle</nc:PersonMiddleName>
+			<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
 			<nc:PersonSurName>Last</nc:PersonSurName>
-			<nc:PersonFullName>First Last</nc:PersonFullName>
+			<nc:PersonFullName>First Mid Last</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonResidentText>Y</nc:PersonResidentText>
 		<nc:PersonSSNIdentification>
