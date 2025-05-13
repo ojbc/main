@@ -98,7 +98,7 @@
   </xs:complexType>
 			
  <!-- Extension Data Elements -->
-   <xs:element name="UniformcCommitmentOrder" type="uco-ext:UniformCommitmentOrderType" >
+   <xs:element name="UniformCommitmentOrderReport" type="uco-ext:UniformCommitmentOrderType" >
   		<xs:annotation>
   			<xs:documentation>This is the Uniform Commitment Order Document. </xs:documentation>
   		</xs:annotation>

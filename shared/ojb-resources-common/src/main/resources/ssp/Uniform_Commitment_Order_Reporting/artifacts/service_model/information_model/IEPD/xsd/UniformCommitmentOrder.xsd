@@ -18,10 +18,10 @@
 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-   	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/" 
+   	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/" 
 	xmlns:uco-ext="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/" 
-	targetNamespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/" elementFormDefault="qualified">
+	targetNamespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/" elementFormDefault="qualified">
       	  <xs:import namespace="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/" schemaLocation="./UniformCommitmentOrder_ext.xsd" />
 	  <!-- Root data element for a Uniform Commitment Order -->
-	  <xs:element name="UniformcCommitmentOrder" type="uco-ext:UniformCommitmentOrderType" />
+	  <xs:element name="UniformCommitmentOrderReport" type="uco-ext:UniformCommitmentOrderType" />
 </xs:schema> 
