@@ -17,16 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<uco-doc:UniformcCommitmentOrder
+<uco-doc:UniformCommitmentOrderReport
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/5.2/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
-	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/"
+	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/"
 	xmlns:uco-ext="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/ ../xsd/UniformCommitmentOrder.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/ ../xsd/UniformCommitmentOrder.xsd ">
 	<!-- document tracking -->
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2025-05-05T09:30:47.0Z</nc:DateTime>
@@ -201,4 +201,4 @@
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>FP20250505-001.pdf</nc:BinaryDescriptionText>
 	</uco-ext:AdditionalInformationAttachment>
-</uco-doc:UniformcCommitmentOrder>
+</uco-doc:UniformCommitmentOrderReport>
