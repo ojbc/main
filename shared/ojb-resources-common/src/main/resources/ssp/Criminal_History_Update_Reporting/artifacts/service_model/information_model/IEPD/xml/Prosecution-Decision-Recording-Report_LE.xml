@@ -131,6 +131,7 @@
 	<j:Charge structures:id="CRG001">
 		<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+		<j:ChargeDegreeText>1</j:ChargeDegreeText>
 		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
 		<j:ChargeSeverityLevel>
@@ -186,6 +187,9 @@
 			<nc:PersonSurName>Last</nc:PersonSurName>
 			<nc:PersonFullName>First Mid Last</nc:PersonFullName>
 		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>other</nc:IdentificationID>
+		</nc:PersonOtherIdentification>
 		<nc:PersonResidentText>Y</nc:PersonResidentText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>999-99-9999</nc:IdentificationID>
@@ -207,6 +211,7 @@
 			<j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
 			<j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
 			<j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
+			
 		</j:PersonAugmentation>
 		<pdr-report-ext:PersonTrackingIdentification>
 			<nc:IdentificationID>PTI1234</nc:IdentificationID>
