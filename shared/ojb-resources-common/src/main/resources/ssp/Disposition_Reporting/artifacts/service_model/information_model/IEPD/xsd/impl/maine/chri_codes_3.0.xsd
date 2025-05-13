@@ -1206,31 +1206,39 @@
 	<xsd:simpleType name="EnhancementCodeSimpleType">
 		<!-- ChargeClassOption -->
 		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Attempt" />
+			<xsd:enumeration value="Attempt Dangerous Weapon" />
+			<xsd:enumeration value="Attempt Firearm" />
+			<xsd:enumeration value="Attempt Priors" />
+			<xsd:enumeration value="Attempt Priors And Dangerous Weapon" />
+			<xsd:enumeration value="Attempt Priors And Firearm" />
+			<xsd:enumeration value="Conspiracy" />
+			<xsd:enumeration value="Conspiracy Dangerous Weapon" />
+			<xsd:enumeration value="Conspiracy Firearm" />
+			<xsd:enumeration value="Conspiracy Priors" />
+			<xsd:enumeration value="Conspiracy Priors And Dangerous Weapon" />
+			<xsd:enumeration value="Conspiracy Priors And Firearm" />
+			<xsd:enumeration value="Dangerous Weapon" />
+			<xsd:enumeration value="Firearm" />
+			<xsd:enumeration value="Firearm Or Dangerous Weapon" />
+			<xsd:enumeration value="Other" />
+			<xsd:enumeration value="Priors" />
+			<xsd:enumeration value="Priors With Dangerous Weapon" />
+			<xsd:enumeration value="Priors With Firearm" />
+			<xsd:enumeration value="Solicitation" />
+			<xsd:enumeration value="Solicitation Dangerous Weapon" />
+			<xsd:enumeration value="Solicitation Firearm" />
+			<xsd:enumeration value="Solicitation Priors" />
+			<xsd:enumeration value="Solicitation Priors And Dang Weapon" />
+			<xsd:enumeration value="Solicitation Priors And Firearm" />
+			
+			
 			<xsd:enumeration value="ATTEMPT" />
-			<xsd:enumeration value="ATTEMPT DANGEROUS WEAPON" />
-			<xsd:enumeration value="ATTEMPT FIREARM" />
-			<xsd:enumeration value="ATTEMPT PRIORS" />
-			<xsd:enumeration value="ATTEMPT PRIORS AND DANG WEAPON" />
-			<xsd:enumeration value="ATTEMPT PRIORS AND FIREARM" />
 			<xsd:enumeration value="CONSPIRACY" />
-			<xsd:enumeration value="CONSPIRACY DANGEROUS WEAPON" />
-			<xsd:enumeration value="CONSPIRACY FIREARM" />
-			<xsd:enumeration value="CONSPIRACY PRIORS" />
-			<xsd:enumeration value="CONSPIRACY PRIORS AND DANGEROUS WEAPON" />
-			<xsd:enumeration value="CONSPIRACY PRIORS AND FIREARM" />
-			<xsd:enumeration value="DANGEROUS WEAPON" />
-			<xsd:enumeration value="FIREARM" />
+			<xsd:enumeration value="PRIORS" />
+			<xsd:enumeration value="SOLICITATION" />
 			<xsd:enumeration value="FIREARM OR DANGEROUS WEAPON" />
 			<xsd:enumeration value="OTHER" />
-			<xsd:enumeration value="PRIORS" />
-			<xsd:enumeration value="PRIORS WITH DANGEROUS WEAPON" />
-			<xsd:enumeration value="PRIORS WITH FIREARM" />
-			<xsd:enumeration value="SOLICITATION" />
-			<xsd:enumeration value="SOLICITATION DANGEROUS WEAPON" />
-			<xsd:enumeration value="SOLICITATION FIREARM" />
-			<xsd:enumeration value="SOLICITATION PRIORS" />
-			<xsd:enumeration value="SOLICITATION PRIORS AND DANG WEAPON" />
-			<xsd:enumeration value="SOLICITATION PRIORS AND FIREARM" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EnhancementCodeType">
