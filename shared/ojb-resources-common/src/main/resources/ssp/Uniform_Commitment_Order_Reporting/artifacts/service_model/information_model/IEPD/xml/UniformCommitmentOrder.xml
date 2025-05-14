@@ -184,18 +184,21 @@
 	</uco-ext:JudgeSignatureDate>
 	<!-- Attachments -->
 	<uco-ext:BillOfInformationAttachment>
+	    <nc:Base64BinaryObject></nc:Base64BinaryObject>
 	    <nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>BillOfInformation20250505-001.pdf</nc:BinaryDescriptionText>
     </uco-ext:BillOfInformationAttachment>
 	<uco-ext:UCOPDFAttachment>
+		<nc:Base64BinaryObject></nc:Base64BinaryObject>
 		<nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>UCO20250505-001.pdf</nc:BinaryDescriptionText>
     </uco-ext:UCOPDFAttachment>
 	<uco-ext:AdditionalInformationAttachment>
+		<nc:Base64BinaryObject></nc:Base64BinaryObject>
 		<nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>

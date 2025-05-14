@@ -334,6 +334,11 @@
       <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Base64BinaryObject" type="niem-xs:base64Binary" substitutionGroup="nc:BinaryObjectAbstract">
+    <xs:annotation>
+      <xs:documentation>A base64 binary encoding of data.</xs:documentation>
+    </xs:annotation>
+  </xs:element>  
   <xs:element name="BinaryAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for BinaryType.</xs:documentation>
