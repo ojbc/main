@@ -47,8 +47,8 @@
 				<xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="1" />
 				
 				<!-- B. SENTENCE -->
-				<xs:element ref="j:Charge" minOccurs="1"/>
-				<xs:element ref="j:Sentence" minOccurs="1"/>
+				<xs:element ref="j:Charge" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="j:Sentence" minOccurs="1"  maxOccurs="unbounded"/>
 				
 				<!-- C. Sentence/Offense Dates -->
 				<xs:element ref="uco-ext:OffenseDate" minOccurs="0"/>
