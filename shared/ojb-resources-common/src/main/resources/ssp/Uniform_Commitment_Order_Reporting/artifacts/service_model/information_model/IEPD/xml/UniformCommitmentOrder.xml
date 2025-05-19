@@ -104,11 +104,49 @@
 		<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
 		<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
 	</uco-ext:UCOSentence>
+	<uco-ext:UCOSentence>
+		<j:Charge>
+			<j:ChargeApplicabilityText>Modifier</j:ChargeApplicabilityText>
+	 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+		  <j:ChargeDescriptionText>Multiple Offender Theft</j:ChargeDescriptionText>
+		  <j:ChargeDisposition>
+		  	<nc:DispositionText>Plead Guilty</nc:DispositionText>
+		  </j:ChargeDisposition>
+		  <j:ChargeText>14:67(B)(4)</j:ChargeText>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>2</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+			<j:ChargeSeverityDescriptionText>F</j:ChargeSeverityDescriptionText>
+		</j:Charge>
+		<j:Sentence>
+			<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
+			<j:SentenceDescriptionText></j:SentenceDescriptionText>
+			<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
+			<j:SentenceTerm>
+				<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
+				<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+			</j:SentenceTerm>
+		</j:Sentence>
+		<uco-ext:OffenseDate>
+			<nc:Date>2025-04-01</nc:Date>
+		</uco-ext:OffenseDate>
+		<nc:DispositionDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</nc:DispositionDate>
+		<j:SentenceDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</j:SentenceDate>
+		<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
+		<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
+		<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
+	</uco-ext:UCOSentence>
 	<!-- D. Sentence Conditions -->
+	<uco-ext:UCOUniversalConcurrentIndicator>true</uco-ext:UCOUniversalConcurrentIndicator>
 	<uco-ext:UCOConcurrentIndicator>true</uco-ext:UCOConcurrentIndicator>
 	<uco-ext:UCOConcurrentDocketNumbers>20250425-256</uco-ext:UCOConcurrentDocketNumbers>
 	<uco-ext:UCOConcurrentParishes>99</uco-ext:UCOConcurrentParishes>
 	<uco-ext:UCOConcurrentJudicialDistricts>99th JD</uco-ext:UCOConcurrentJudicialDistricts>
+	<uco-ext:UCOConsecutiveIndicator>false</uco-ext:UCOConsecutiveIndicator>
 	<uco-ext:UCOConsecutiveDocketNumbers></uco-ext:UCOConsecutiveDocketNumbers>
 	<uco-ext:UCOConsecutiveParishes></uco-ext:UCOConsecutiveParishes>
 	<uco-ext:UCOConsecutiveJudicialDistricts></uco-ext:UCOConsecutiveJudicialDistricts>
