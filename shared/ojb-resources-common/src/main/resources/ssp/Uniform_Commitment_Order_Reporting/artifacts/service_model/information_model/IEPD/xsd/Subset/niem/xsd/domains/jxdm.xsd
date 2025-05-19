@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
 <xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/7.2/" version="1" xml:lang="en-US" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/5.0/ ../utility/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../utility/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument" xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/" xmlns:structures="http://release.niem.gov/niem/structures/5.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/5.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
@@ -208,11 +190,14 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
+          <xs:element ref="j:SentenceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceConfinementCreditDayQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceConfinementCreditIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceGroupingText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceImposedText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -367,6 +352,21 @@
   <xs:element name="Sentence" type="j:SentenceType">
     <xs:annotation>
       <xs:documentation>A punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SentenceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific charge in a court case resulting in a sentence.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceConfinementCreditDayQuantity" type="nc:QuantityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A total number of presentencing days served credited towards sentence term.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SentenceConfinementCreditIndicator" type="niem-xs:boolean" nillable="true">

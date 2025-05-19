@@ -47,20 +47,25 @@
 				<xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="1" />
 				
 				<!-- B. SENTENCE -->
-				<xs:element ref="j:Charge" minOccurs="1" maxOccurs="unbounded"/>
-				<xs:element ref="j:Sentence" minOccurs="1"  maxOccurs="unbounded"/>
+				<xs:element ref="uco-ext:OriginalSentenceIndicator" />
+				<xs:element ref="uco-ext:AmendedSentenceIndicator" />
+				<xs:element ref="uco-ext:RevocationSentenceIndicator" />
+				<xs:element ref="uco-ext:HabitualSentenceIndicator" />
+				<xs:element ref="uco-ext:HabitualSentenceDocketNumber" />
+				<xs:element ref="uco-ext:HabitualSentenceChargeText" />
 				
-				<!-- C. Sentence/Offense Dates -->
-				<xs:element ref="uco-ext:OffenseDate" minOccurs="0"/>
-				<xs:element ref="nc:DispositionDate" minOccurs="1"/>
-				<xs:element ref="j:SentenceDate" minOccurs="0"/>
-				<xs:element ref="uco-ext:HabitualOffenderIndicator" minOccurs="1"/>
-				<xs:element ref="uco-ext:SentenceVacatedDate" />
-				<xs:element ref="uco-ext:SentenceRevocationDate" />
+				<!-- Charge, counts, verdict, modifiers, sentence details, offense date, adjudication date, sentence date, habitual indicator, original sentence, revocation date for each charge -->
+				<xs:element ref="uco-ext:UCOSentence" minOccurs="1" maxOccurs="unbounded" />
+				
 				
 				<!-- D. Sentence Conditions -->
-				<xs:element ref="j:SentenceGroupingText" />
-				<xs:element ref="nc:CaseDocketID" />
+				<xs:element ref="uco-ext:UCOConcurrentIndicator" />
+				<xs:element ref="uco-ext:UCOConcurrentDocketNumbers" />
+				<xs:element ref="uco-ext:UCOConcurrentParishes" />
+				<xs:element ref="uco-ext:UCOConcurrentJudicialDistricts" />
+				<xs:element ref="uco-ext:UCOConsecutiveDocketNumbers" />
+				<xs:element ref="uco-ext:UCOConsecutiveParishes" />
+				<xs:element ref="uco-ext:UCOConsecutiveJudicialDistricts" />
 				<xs:element ref="j:SentenceConfinementCreditIndicator" />
 				<xs:element ref="uco-ext:MinimumSentenceWaivedIndicator" />
 				<xs:element ref="uco-ext:MultipleBillIndicator" />
@@ -113,6 +118,60 @@
    			<xs:documentation>Unique Identification for each Parish - text. </xs:documentation>
    		</xs:annotation>
     </xs:element>
+    <xs:element name="OriginalSentenceIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if this is the original sentence </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="AmendedSentenceIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if this is an amended sentence </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="RevocationSentenceIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if is a sentence revocation </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="HabitualSentenceIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if habitual offender sentence </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+	<xs:element name="HabitualSentenceDocketNumber" type="nc:TextType">
+  		<xs:annotation>
+  			<xs:documentation>Unique Identification for the docket number associated with the previous sentence if indicated as a habitual offender - text. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+	<xs:element name="HabitualSentenceChargeText" type="nc:TextType">
+  		<xs:annotation>
+  			<xs:documentation>Unique Identification for the charge associated with the previous sentence if indicated as a habitual offender - text. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+    <xs:complexType name="UCOSentenceType">
+     <xs:annotation>
+			<xs:documentation>A data type for set of details associated with a sentence - includes charge and sentence details.</xs:documentation>
+	 </xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="j:SentenceType">
+				<xs:sequence>
+				<xs:element ref="j:Charge" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="j:Sentence" minOccurs="1"  maxOccurs="unbounded"/>
+				<xs:element ref="uco-ext:OffenseDate" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="nc:DispositionDate" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="j:SentenceDate" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="uco-ext:HabitualOffenderIndicator" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="uco-ext:SentenceVacatedDate" maxOccurs="unbounded"/>
+				<xs:element ref="uco-ext:SentenceRevocationDate" maxOccurs="unbounded"/>
+					</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="UCOSentence" type="uco-ext:UCOSentenceType">
+		<xs:annotation>
+			<xs:documentation>A set of details associated with a sentence - includes charge and sentence details.</xs:documentation>
+	 </xs:annotation>
+	</xs:element>
     <xs:element name="OffenseDate" type="nc:DateType">
     		<xs:annotation>
     			<xs:documentation>Date of Offense </xs:documentation>
@@ -133,6 +192,41 @@
     			<xs:documentation>Date Sentence Revocation </xs:documentation>
     		</xs:annotation>
    	</xs:element>
+   	<xs:element name="UCOConcurrentIndicator" type="xs:boolean">
+    		<xs:annotation>
+    			<xs:documentation>Indicates if Sentence to be served concurrent or consecutively </xs:documentation>
+    		</xs:annotation>
+   	</xs:element>
+   	<xs:element name="UCOConcurrentDocketNumbers" type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation>if UCOConncurrentIndicator = true then enter docket numbers of concurrent sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
+	<xs:element name="UCOConcurrentParishes"  type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation>if UCOConncurrentIndicator = true then enter parish numbers of concurrent sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
+	<xs:element name="UCOConcurrentJudicialDistricts"   type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation>if UCOConncurrentIndicator = true then enter judicial districts of concurrent sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
+   	<xs:element name="UCOConsecutiveDocketNumbers" type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation>enter docket numbers of consecutive sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
+	<xs:element name="UCOConsecutiveParishes"  type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation>enter parish numbers of consecutive sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
+	<xs:element name="UCOConsecutiveJudicialDistricts"   type="nc:TextType" >
+    		<xs:annotation>
+    			<xs:documentation> enter judicial districts of consecutive sentence cases </xs:documentation>
+    		</xs:annotation>
+    </xs:element>
     <xs:element name="MinimumSentenceWaivedIndicator" type="xs:boolean">
     		<xs:annotation>
     			<xs:documentation>Indicates if Minimum Sentence was Waived </xs:documentation>
