@@ -85,7 +85,6 @@
 		<j:Sentence>
 			<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
 			<j:SentenceDescriptionText></j:SentenceDescriptionText>
-			<j:SentenceGroupingText>Original</j:SentenceGroupingText>
 			<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
 			<j:SentenceTerm>
 				<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
@@ -93,7 +92,7 @@
 			</j:SentenceTerm>
 		</j:Sentence>
 		<uco-ext:OffenseDate>
-		<nc:Date>2025-04-01</nc:Date>
+			<nc:Date>2025-04-01</nc:Date>
 		</uco-ext:OffenseDate>
 		<nc:DispositionDate>
 			<nc:Date>2025-04-28</nc:Date>
