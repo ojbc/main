@@ -47,8 +47,8 @@
 				<xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="1" />
 				
 				<!-- B. SENTENCE -->
-				<xs:element ref="j:Charge" minOccurs="1"/>
-				<xs:element ref="j:Sentence" minOccurs="1"/>
+				<xs:element ref="j:Charge" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="j:Sentence" minOccurs="1"  maxOccurs="unbounded"/>
 				
 				<!-- C. Sentence/Offense Dates -->
 				<xs:element ref="uco-ext:OffenseDate" minOccurs="0"/>
@@ -98,7 +98,7 @@
   </xs:complexType>
 			
  <!-- Extension Data Elements -->
-   <xs:element name="UniformcCommitmentOrder" type="uco-ext:UniformCommitmentOrderType" >
+   <xs:element name="UniformCommitmentOrderReport" type="uco-ext:UniformCommitmentOrderType" >
   		<xs:annotation>
   			<xs:documentation>This is the Uniform Commitment Order Document. </xs:documentation>
   		</xs:annotation>
