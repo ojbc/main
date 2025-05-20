@@ -12,9 +12,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MessageUtils {
 
 	private static final Log log = LogFactory.getLog(MessageUtils.class);
