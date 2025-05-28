@@ -101,8 +101,12 @@
 			<nc:Date>2025-04-28</nc:Date>
 		</j:SentenceDate>
 		<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
-		<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
-		<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
+		<uco-ext:SentenceVacatedDate> 
+			<nc:Date>2025-04-28</nc:Date>
+		</uco-ext:SentenceVacatedDate>
+		<uco-ext:SentenceRevocationDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</uco-ext:SentenceRevocationDate>
 	</uco-ext:UCOSentence>
 	<uco-ext:UCOSentence>
 		<j:Charge>
