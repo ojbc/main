@@ -44,4 +44,5 @@ public class OJBCWebServiceURIs {
 	public static final String CANNABIS_LICENSING = "{http://ojbc.org/Services/WSDL/Cannabis_License_Query_Request_Service/1.0}Person-Query-Service-Cannabis-License";
 	public static final String FIREARMS_PURCHASE_PROHIBITION = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition";
 	public static final String FIREARMS_PURCHASE_PROHIBITION_QUERY = "{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0}SubmitFirearmPurchaseProhibitionQueryRequest";
+	public static final String CITATION = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Citations";
 }
