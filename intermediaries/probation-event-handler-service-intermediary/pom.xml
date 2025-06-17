@@ -39,7 +39,7 @@
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.4</cxf-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>2.17.2</log4j-version>
+		<log4j-version>2.24.3</log4j-version>
 		<saxon-version>9.5.1-5</saxon-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<spring-version>5.3.24</spring-version>
