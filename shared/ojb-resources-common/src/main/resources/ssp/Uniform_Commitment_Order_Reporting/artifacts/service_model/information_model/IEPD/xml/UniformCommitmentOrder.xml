@@ -17,16 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<uco-doc:UniformcCommitmentOrder
+<uco-doc:UniformCommitmentOrderReport
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/5.2/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/7.2/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/5.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/niem-xs/5.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
-	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/"
+	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/"
 	xmlns:uco-ext="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrder/1.0/ ../xsd/UniformCommitmentOrder.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/ ../xsd/UniformCommitmentOrder.xsd ">
 	<!-- document tracking -->
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2025-05-05T09:30:47.0Z</nc:DateTime>
@@ -62,45 +62,98 @@
 			<nc:IdentificationID>01234567</nc:IdentificationID>
 	</j:PersonStateFingerprintIdentification>
 	<!-- B. SENTENCE -->
-	<j:Charge>
-	  <j:ChargeApplicabilityText>Modifier</j:ChargeApplicabilityText>
-	  <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-	  <j:ChargeDescriptionText>Multi Offender Theft</j:ChargeDescriptionText>
-	  <j:ChargeDisposition>
-	  	<nc:DispositionText>Pled Guilty</nc:DispositionText>
-	  </j:ChargeDisposition>
-	  <j:ChargeText>14:67(B)(4)</j:ChargeText>
-		<j:ChargeTrackingIdentification>
-			<nc:IdentificationID>1</nc:IdentificationID>
-		</j:ChargeTrackingIdentification>
-		<j:ChargeSeverityDescriptionText>F</j:ChargeSeverityDescriptionText>
-	</j:Charge>
-	<j:Sentence>
-		<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
-		<j:SentenceDescriptionText></j:SentenceDescriptionText>
-		<j:SentenceGroupingText>Original</j:SentenceGroupingText>
-		<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
-		<j:SentenceTerm>
-			<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
-			<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
-		</j:SentenceTerm>
-	</j:Sentence>
-	<!-- C. Sentence/Offense Dates -->
-	<uco-ext:OffenseDate>
-		<nc:Date>2025-04-01</nc:Date>
-	</uco-ext:OffenseDate>
-	<nc:DispositionDate>
-		<nc:Date>2025-04-28</nc:Date>
-	</nc:DispositionDate>
-	<j:SentenceDate>
-		<nc:Date>2025-04-28</nc:Date>
-	</j:SentenceDate>
-	<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
-	<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
-	<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
+	<uco-ext:OriginalSentenceIndicator>true</uco-ext:OriginalSentenceIndicator>
+	<uco-ext:AmendedSentenceIndicator>false</uco-ext:AmendedSentenceIndicator>
+	<uco-ext:RevocationSentenceIndicator>false</uco-ext:RevocationSentenceIndicator>
+	<uco-ext:HabitualSentenceIndicator>false</uco-ext:HabitualSentenceIndicator>
+	<uco-ext:HabitualSentenceDocketNumber></uco-ext:HabitualSentenceDocketNumber>
+	<uco-ext:HabitualSentenceChargeText></uco-ext:HabitualSentenceChargeText>
+	<uco-ext:UCOSentence>
+		<j:Charge>
+			<j:ChargeApplicabilityText>Modifier</j:ChargeApplicabilityText>
+	 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+		  <j:ChargeDescriptionText>Multiple Offender Theft</j:ChargeDescriptionText>
+		  <j:ChargeDisposition>
+		  	<nc:DispositionText>Plead Guilty</nc:DispositionText>
+		  </j:ChargeDisposition>
+		  <j:ChargeText>14:67(B)(4)</j:ChargeText>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+			<j:ChargeSeverityDescriptionText>F</j:ChargeSeverityDescriptionText>
+		</j:Charge>
+		<j:Sentence>
+			<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
+			<j:SentenceDescriptionText></j:SentenceDescriptionText>
+			<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
+			<j:SentenceTerm>
+				<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
+				<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+			</j:SentenceTerm>
+		</j:Sentence>
+		<uco-ext:OffenseDate>
+			<nc:Date>2025-04-01</nc:Date>
+		</uco-ext:OffenseDate>
+		<nc:DispositionDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</nc:DispositionDate>
+		<j:SentenceDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</j:SentenceDate>
+		<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
+		<uco-ext:SentenceVacatedDate> 
+			<nc:Date>2025-04-28</nc:Date>
+		</uco-ext:SentenceVacatedDate>
+		<uco-ext:SentenceRevocationDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</uco-ext:SentenceRevocationDate>
+	</uco-ext:UCOSentence>
+	<uco-ext:UCOSentence>
+		<j:Charge>
+			<j:ChargeApplicabilityText>Modifier</j:ChargeApplicabilityText>
+	 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+		  <j:ChargeDescriptionText>Multiple Offender Theft</j:ChargeDescriptionText>
+		  <j:ChargeDisposition>
+		  	<nc:DispositionText>Plead Guilty</nc:DispositionText>
+		  </j:ChargeDisposition>
+		  <j:ChargeText>14:67(B)(4)</j:ChargeText>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>2</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+			<j:ChargeSeverityDescriptionText>F</j:ChargeSeverityDescriptionText>
+		</j:Charge>
+		<j:Sentence>
+			<j:SentenceConfinementCreditIndicator>false</j:SentenceConfinementCreditIndicator>
+			<j:SentenceDescriptionText></j:SentenceDescriptionText>
+			<j:SentenceImposedText>0 yr 6 m 0 d</j:SentenceImposedText>	
+			<j:SentenceTerm>
+				<j:TermMaximumDuration>P1Y2M3DT10H30M0S</j:TermMaximumDuration>
+				<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
+			</j:SentenceTerm>
+		</j:Sentence>
+		<uco-ext:OffenseDate>
+			<nc:Date>2025-04-01</nc:Date>
+		</uco-ext:OffenseDate>
+		<nc:DispositionDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</nc:DispositionDate>
+		<j:SentenceDate>
+			<nc:Date>2025-04-28</nc:Date>
+		</j:SentenceDate>
+		<uco-ext:HabitualOffenderIndicator>false</uco-ext:HabitualOffenderIndicator>
+		<uco-ext:SentenceVacatedDate> </uco-ext:SentenceVacatedDate>
+		<uco-ext:SentenceRevocationDate> </uco-ext:SentenceRevocationDate>
+	</uco-ext:UCOSentence>
 	<!-- D. Sentence Conditions -->
-	<j:SentenceGroupingText>Concurrent</j:SentenceGroupingText>
-	<nc:CaseDocketID>docket number of concurrent sentence</nc:CaseDocketID>
+	<uco-ext:UCOUniversalConcurrentIndicator>true</uco-ext:UCOUniversalConcurrentIndicator>
+	<uco-ext:UCOConcurrentIndicator>true</uco-ext:UCOConcurrentIndicator>
+	<uco-ext:UCOConcurrentDocketNumbers>20250425-256</uco-ext:UCOConcurrentDocketNumbers>
+	<uco-ext:UCOConcurrentParishes>99</uco-ext:UCOConcurrentParishes>
+	<uco-ext:UCOConcurrentJudicialDistricts>99th JD</uco-ext:UCOConcurrentJudicialDistricts>
+	<uco-ext:UCOConsecutiveIndicator>false</uco-ext:UCOConsecutiveIndicator>
+	<uco-ext:UCOConsecutiveDocketNumbers></uco-ext:UCOConsecutiveDocketNumbers>
+	<uco-ext:UCOConsecutiveParishes></uco-ext:UCOConsecutiveParishes>
+	<uco-ext:UCOConsecutiveJudicialDistricts></uco-ext:UCOConsecutiveJudicialDistricts>
 	<j:SentenceConfinementCreditIndicator>true</j:SentenceConfinementCreditIndicator>
 	<uco-ext:MinimumSentenceWaivedIndicator>true</uco-ext:MinimumSentenceWaivedIndicator>
 	<uco-ext:MultipleBillIndicator>true</uco-ext:MultipleBillIndicator>
@@ -184,21 +237,24 @@
 	</uco-ext:JudgeSignatureDate>
 	<!-- Attachments -->
 	<uco-ext:BillOfInformationAttachment>
-	    <nc:BinaryCaptureDate>
+		<nc:Base64BinaryObject>1234</nc:Base64BinaryObject>
+		<nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>BillOfInformation20250505-001.pdf</nc:BinaryDescriptionText>
     </uco-ext:BillOfInformationAttachment>
 	<uco-ext:UCOPDFAttachment>
+		<nc:Base64BinaryObject></nc:Base64BinaryObject>
 		<nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>UCO20250505-001.pdf</nc:BinaryDescriptionText>
     </uco-ext:UCOPDFAttachment>
 	<uco-ext:AdditionalInformationAttachment>
+		<nc:Base64BinaryObject></nc:Base64BinaryObject>
 		<nc:BinaryCaptureDate>
               <nc:Date>2025-03-07-05:00</nc:Date>
          </nc:BinaryCaptureDate>
          <nc:BinaryDescriptionText>FP20250505-001.pdf</nc:BinaryDescriptionText>
 	</uco-ext:AdditionalInformationAttachment>
-</uco-doc:UniformcCommitmentOrder>
+</uco-doc:UniformCommitmentOrderReport>

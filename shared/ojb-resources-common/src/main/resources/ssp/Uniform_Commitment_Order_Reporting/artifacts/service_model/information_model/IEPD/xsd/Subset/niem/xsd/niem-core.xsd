@@ -202,6 +202,14 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="NumericType">
+    <xs:annotation>
+      <xs:documentation>A data type for a number value.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="niem-xs:decimal"/>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:complexType name="OrganizationType">
     <xs:annotation>
       <xs:documentation>A data type for a body of people organized for a particular purpose.</xs:documentation>
@@ -261,6 +269,14 @@
       <xs:extension base="nc:TextType"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="QuantityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a count or tally.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="nc:NumericType"/>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:complexType name="StateType">
     <xs:annotation>
       <xs:documentation>A data type for a state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
@@ -314,6 +330,11 @@
   <xs:element name="AddressState" type="nc:StateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Base64BinaryObject" type="niem-xs:base64Binary" substitutionGroup="nc:BinaryObjectAbstract" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A base64 binary encoding of data.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="BinaryAugmentationPoint" abstract="true">

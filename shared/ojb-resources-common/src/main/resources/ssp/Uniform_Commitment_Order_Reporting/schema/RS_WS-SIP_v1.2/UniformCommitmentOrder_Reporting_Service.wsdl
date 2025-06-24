@@ -22,7 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0"
+	xmlns:uco-doc="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/UniformCommitmentOrderReportingService/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/UniformCommitmentOrderReportingService/1.0">
 	<wsdl:import
@@ -31,7 +31,7 @@
 	<wsdl:types>
 		<xsd:schema>
 			<xsd:import
-				namespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0"
+				namespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderReport/1.0/"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/UniformCommitmentOrder.xsd" />
 		</xsd:schema>
 	</wsdl:types>

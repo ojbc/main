@@ -42,6 +42,7 @@
       <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
       <entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" />
       <entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" />
+      <entry key="publishedEndpointUrl" value="${criminalHistoryUpdateReportingService.publishedEndpointUrl:}" />
     </cxf:properties>
     <cxf:features>
       <bean class="org.apache.cxf.ext.logging.LoggingFeature">

@@ -21,6 +21,7 @@
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:CommentText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
@@ -86,6 +87,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SentenceType" w:isRequested="false">
+    <w:ElementInType w:name="j:SentenceCharge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceConfinementCreditDayQuantity"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceConfinementCreditIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceDescriptionText"
@@ -96,6 +101,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SentenceTerm" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SubjectType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
