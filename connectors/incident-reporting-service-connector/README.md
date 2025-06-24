@@ -1,0 +1,1 @@
+At this time, this bundle will not build because of a license header error. If you wish to build this bundle ensure to add the -Dlicense.skip=true argument to your Maven install command.
