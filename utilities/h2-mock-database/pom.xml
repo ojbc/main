@@ -24,7 +24,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>h2-mock-database</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<version>5.0.0</version>
 	<name>H2 Instance containing mock versions of all databases needed for
 		testing/demos</name>
@@ -38,7 +38,6 @@
 
 	<properties>
 		<h2database-version>1.4.200</h2database-version>
-		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
 		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
 		<spring-version>6.1.2</spring-version>
 		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
@@ -136,12 +135,6 @@
 					<source>${java-version}</source>
 					<target>${java-version}</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
 			</plugin>
 		</plugins>
 	</build>
