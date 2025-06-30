@@ -60,13 +60,10 @@
 	</properties>
 
 	<dependencies>
-		<!-- note any project "parent" that depends on ojb-common will have a
-    transitive
+		<!-- note any project "parent" that depends on ojb-common will have a transitive
 		 	dependency on these saxon dependencies, unless that parent project edits its
-		 	declared ojb-common dependency to specify exclusion elements on these
-    transitive
-		 	saxon jars.  Having saxon on the classpath causes TransformerFactory instances
-    and other
+		 	declared ojb-common dependency to specify exclusion elements on these transitive
+		 	saxon jars.  Having saxon on the classpath causes TransformerFactory instances and other
 		 	transform code to behave unexpectedly when saxon is included unintentionally.
 		-->
 		<dependency>
