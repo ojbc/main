@@ -98,21 +98,6 @@
         <configuration>
           <!-- Reference license on plugin classpath -->
           <header>src/main/resources/ojb-license.txt</header>
-          <excludes>
-            <exclude>**/jquery-datatable/**</exclude>
-            <exclude>**/jquery-ui-themes-1.12.1/**</exclude>
-            <exclude>**/jquery-ui-1.12.1/**</exclude>
-            <exclude>**/jquery-ui/**</exclude>
-            <exclude>**/jquery.maskinput.js</exclude>
-            <exclude>**/bin/**</exclude>
-            <!-- note not excluding static/js/ojb-web-portal.js -->
-            <exclude>**/ebts-10.0-ws-specification/**</exclude>
-            <exclude>**/static/DataTables/**</exclude>
-            <exclude>**/static/bootstrap/**</exclude>
-            <exclude>**/static/jquery/**</exclude>
-            <exclude>**/static/js/**</exclude>
-            <exclude>**/static/css/**</exclude>
-          </excludes>
           <includes>
             <include>**/*.java</include>
             <include>**/*.xml</include>
@@ -127,6 +112,23 @@
             <include>**/*.sql</include>
             <include>**/*.css</include>
           </includes>
+          <excludes>
+            <exclude>**/jquery-datatable/**</exclude>
+            <exclude>**/jquery-ui-themes-1.12.1/**</exclude>
+            <exclude>**/jquery-ui-1.12.1/**</exclude>
+            <exclude>**/jquery-ui/**</exclude>
+            <exclude>**/jquery.maskinput.js</exclude>
+            <exclude>**/bin/**</exclude>
+            <!-- note not excluding static/js/ojb-web-portal.js -->
+            <exclude>**/ebts-10.0-ws-specification/**</exclude>
+            <exclude>**/static/DataTables/**</exclude>
+            <exclude>**/static/bootstrap/**</exclude>
+            <exclude>**/static/jquery/**</exclude>
+            <exclude>**/static/js/**</exclude>
+            <exclude>**/static/css/**</exclude>
+            <exclude>**/xsd/**/*.xml</exclude>
+            <exclude>**/xsd/**/*.xsd</exclude>
+          </excludes>
           <mapping>
             <java>SLASHSTAR_STYLE</java>
             <wsdl>XML_STYLE</wsdl>
