@@ -41,7 +41,7 @@
 		<spring-boot-version>2.5.14</spring-boot-version>
 		<camel-version>3.11.7</camel-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>2.20.0</log4j-version>
+		<log4j-version>2.24.3</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
 		<xmlunit-version>1.6</xmlunit-version>
