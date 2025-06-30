@@ -17,20 +17,23 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>h2-mock-database</artifactId>
 	<packaging>bundle</packaging>
-	<version>4.0.2</version> 
-	<name>H2 Instance containing mock versions of all databases needed for testing/demos</name>
+	<version>4.0.2</version>
+	<name>H2 Instance containing mock versions of all databases needed for
+		testing/demos</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-utilities-aggregate</artifactId>
-	  <version>1.0.0</version>
+		<artifactId>ojb-utilities-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
@@ -60,23 +63,24 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter-engine</artifactId>
-		    <version>${junit-jupiter-engine-version}</version>
-		    <scope>test</scope>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter-engine-version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.junit.vintage</groupId>
-		    <artifactId>junit-vintage-engine</artifactId>
-		    <version>${junit-vintage-engine-version}</version>
-		    <scope>test</scope>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit-vintage-engine-version}</version>
+			<scope>test</scope>
 		</dependency>
- 		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+		<!--
+		https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
 		<dependency>
-		    <groupId>org.junit.platform</groupId>
-		    <artifactId>junit-platform-launcher</artifactId>
-		    <version>${junit-platform-launcher-version}</version>
-		    <scope>test</scope>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit-platform-launcher-version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -102,17 +106,17 @@
 			<version>${commons-logging-version}</version>
 			<scope>test</scope>
 		</dependency>
-    <!-- logging -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j-version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>${log4j-version}</version>
-    </dependency>    
+		<!-- logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
