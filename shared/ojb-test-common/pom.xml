@@ -31,24 +31,24 @@
 
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-test-common</artifactId>
-	<version>4.0.1</version>
+	<version>5.0.0</version>
 
 	<name>ojb-test-common</name>
 
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xmlunit-version>2.10.0</xmlunit-version>
-		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
+		<xmlunit-version>2.10.3</xmlunit-version>
+		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<java-version>1.8</java-version>
+		<java-version>24</java-version>
 
-		<log4j-version>2.24.2</log4j-version>
+		<log4j-version>2.24.3</log4j-version>
 		<!-- Plugin versions -->
-		<surefire.version>2.22.2</surefire.version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<surefire.version>3.5.3</surefire.version>
+		<maven-compiler-version>3.14.0</maven-compiler-version>
 	</properties>
 
 	<dependencyManagement>
@@ -112,7 +112,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
