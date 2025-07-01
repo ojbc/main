@@ -18,9 +18,9 @@ package org.ojbc.util.rest;
 
 import java.io.InputStream;
 
-import javax.mail.Address;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.Address;
+import jakarta.mail.Message.RecipientType;
+import jakarta.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

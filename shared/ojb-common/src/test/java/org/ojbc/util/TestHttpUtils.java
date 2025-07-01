@@ -21,13 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.localserver.LocalTestServer;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.protocol.HttpRequestHandler;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpException;
+import org.apache.hc.core5.http.io.HttpRequestHandler;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.protocol.HttpContext;
+import org.apache.hc.core5.testing.classic.ClassicTestServer;
 import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.HttpUtils;
 
@@ -36,16 +36,16 @@ public class TestHttpUtils {
 	@Test
 	public void test() throws Exception {
 		final String responseString = "yeppers";
-		LocalTestServer server = new LocalTestServer(null, null);
+		ClassicTestServer server = new ClassicTestServer();
 		server.register("/test", new HttpRequestHandler() {
 			@Override
-			public void handle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
+			public void handle(ClassicHttpRequest request, ClassicHttpResponse response, HttpContext context) throws HttpException, IOException {
 				response.setEntity(new StringEntity(responseString));
 			}
 		});
 		server.start();
-		String host = server.getServiceAddress().getHostName();
-		int port = server.getServiceAddress().getPort();
+		String host = server.getInetAddress().getHostName();
+		int port = server.getPort();
 		String response = HttpUtils.post("ok?", "http://" + host + ":" + port + "/test");
 		assertEquals(responseString, response);
 	}

@@ -24,6 +24,7 @@ import org.apache.wss4j.dom.handler.RequestData;
 import org.apache.wss4j.dom.validate.Credential;
 import org.apache.wss4j.dom.validate.SamlAssertionValidator;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.saml.common.SAMLVersion;
 
 /**
@@ -75,12 +76,12 @@ public class OJBSimpleWSPSamlTokenValidator extends SamlAssertionValidator{
         DateTime validTill = null;
         if (assertion.getSamlVersion().equals(SAMLVersion.VERSION_20)
             && assertion.getSaml2().getConditions() != null) {
-            validFrom = assertion.getSaml2().getConditions().getNotBefore();
-            validTill = assertion.getSaml2().getConditions().getNotOnOrAfter();
+        	validFrom = new DateTime(assertion.getSaml2().getConditions().getNotBefore().toEpochMilli(), DateTimeZone.getDefault());
+            validTill = new DateTime(assertion.getSaml2().getConditions().getNotOnOrAfter().toEpochMilli(), DateTimeZone.getDefault());
         } else if (assertion.getSamlVersion().equals(SAMLVersion.VERSION_11)
             && assertion.getSaml1().getConditions() != null) {
-            validFrom = assertion.getSaml1().getConditions().getNotBefore();
-            validTill = assertion.getSaml1().getConditions().getNotOnOrAfter();
+        	validFrom = new DateTime(assertion.getSaml1().getConditions().getNotBefore().toEpochMilli(), DateTimeZone.getDefault());
+            validTill = new DateTime(assertion.getSaml1().getConditions().getNotOnOrAfter().toEpochMilli(), DateTimeZone.getDefault());
         }
         
         if (validFrom != null) {

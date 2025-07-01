@@ -16,17 +16,12 @@
  */
 package org.ojbc.util.helper;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 
 /**
  * A set of utilities for dealing with Http streams.
@@ -43,20 +38,16 @@ public class HttpUtils {
 	 */
 	public static String post(String payload, String url) throws Exception {
 		
-		HttpClient client = HttpClients.createDefault();
+		CloseableHttpClient client = HttpClients.createDefault();
 		
 		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(payload, Consts.UTF_8));
-		HttpResponse response = client.execute(post);
-		HttpEntity reply = response.getEntity();
-		StringWriter sw = new StringWriter();
-		BufferedReader isr = new BufferedReader(new InputStreamReader(reply.getContent()));
-		String line;
-		while ((line = isr.readLine()) != null) {
-			sw.append(line);
-		}
-		sw.close();
-		return sw.toString();
+		post.setEntity(new StringEntity(payload, ContentType.DEFAULT_TEXT));
+		BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
+		String response = client.execute(post, responseHandler);
+		
+		client.close();
+		
+		return response;
 	}
 
 }

@@ -22,9 +22,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.15</version>
+	<version>6.0.0</version>
 	<name>OJB :: ojb-common :: Shared</name>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
@@ -35,30 +35,39 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>5.3.27</spring.version>
-		<slf4j-version>2.20.0</slf4j-version>
-		<commons.lang3.version>3.12.0</commons.lang3.version>
-		<commons.text.version>1.9</commons.text.version>
-		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-		<wss4j-version>2.3.1</wss4j-version>
-		<apache-commons-codec-version>1.6</apache-commons-codec-version>
-		<cxf-version>3.4.4</cxf-version>
-		<osgi-core-version>1.4.0</osgi-core-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<io-utils-version>2.8.0</io-utils-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<httpcomponents.version>4.3.3</httpcomponents.version>
-		<saxon-version>9.9.1-7</saxon-version>
-		<java-version>1.8</java-version>
-		<xmlunit.version>1.6</xmlunit.version>
-		<javax.mail.version>1.6.7</javax.mail.version>
+		<spring.version>6.1.2</spring.version>
+		<slf4j-version>2.24.3</slf4j-version>
+		<commons.lang3.version>3.17.0</commons.lang3.version>
+		<commons.text.version>1.13.1</commons.text.version>
+		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+		<wss4j-version>4.0.0</wss4j-version>
+		<apache-commons-codec-version>1.18.0</apache-commons-codec-version>
+		<cxf-version>4.1.2</cxf-version>
+		<ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+		<io-utils-version>2.19.0</io-utils-version>
+		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
+		<httpcomponents.version>5.5</httpcomponents.version>
+		<saxon-version>12.7</saxon-version>
+		<java-version>24</java-version>
+		<xmlunit.version>2.10.3</xmlunit.version>
+		<jakarta.mail.version>2.0.1</jakarta.mail.version>
+		<joda.time.version>2.14.0</joda.time.version>
 
 		<!-- Plugin versions -->
-		<surefire.version>2.22.2</surefire.version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<surefire.version>3.5.3</surefire.version>
 	</properties>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.13.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<!-- note any project "parent" that depends on ojb-common will have a transitive
 		 	dependency on these saxon dependencies, unless that parent project edits its
@@ -72,13 +81,13 @@
 			<version>${saxon-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
 			<version>${httpcomponents.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 			<version>${httpcomponents.version}</version>
@@ -126,12 +135,6 @@
 			<version>${apache-commons-codec-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>${osgi-core-version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
@@ -154,33 +157,38 @@
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>jakarta.mail</artifactId>
-			<version>${javax.mail.version}</version>
+			<version>${jakarta.mail.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.woodstox</groupId>
-			<artifactId>woodstox-core-asl</artifactId>
-			<version>4.4.1</version>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>7.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>2.12.3</version>
 		</dependency>
-
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda.time.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit-jupiter-engine-version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
-			<version>${junit-vintage-engine-version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -206,10 +214,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<version>${xmlunit.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5-testing</artifactId>
+			<version>${httpcomponents.version}</version>
 		</dependency>
 		<!-- logging -->
 		<dependency>
@@ -226,7 +239,6 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -247,17 +259,6 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Export-Package>org.ojbc.util.*</Export-Package>
-					</instructions>
 				</configuration>
 			</plugin>
 

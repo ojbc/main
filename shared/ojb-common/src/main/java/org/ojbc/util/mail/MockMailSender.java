@@ -18,7 +18,7 @@ package org.ojbc.util.mail;
 
 import java.io.InputStream;
 
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

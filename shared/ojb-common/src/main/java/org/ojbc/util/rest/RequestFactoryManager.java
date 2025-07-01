@@ -30,11 +30,13 @@ import java.security.cert.CertificateException;
 import javax.net.ssl.SSLContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.ssl.DefaultClientTlsStrategy;
+import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
+import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
@@ -61,7 +63,7 @@ public class RequestFactoryManager {
 
 		SSLContextBuilder sslContextBuilder = new SSLContextBuilder();
 		
-		sslContextBuilder.loadTrustMaterial(truststore);
+		sslContextBuilder.loadTrustMaterial(truststore, null);
 		
 		if (StringUtils.isNotBlank(keystoreLocation) && StringUtils.isNotBlank(keystorePassword)&& StringUtils.isNotBlank(keypassword))
 		{	
@@ -76,9 +78,14 @@ public class RequestFactoryManager {
 		
 		SSLContext sslContext = sslContextBuilder.build();
 		
-		SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,new AllowAllHostnameVerifier());
+		DefaultClientTlsStrategy socketFactory = new DefaultClientTlsStrategy(sslContext, NoopHostnameVerifier.INSTANCE);
 		
-		HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
+		PoolingHttpClientConnectionManagerBuilder connectionManagerBuilder = PoolingHttpClientConnectionManagerBuilder
+				.create().setTlsSocketStrategy(socketFactory);
+
+		CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(connectionManagerBuilder.build())
+				.build();
+		
 		return httpClient;
 		
 	}	 
