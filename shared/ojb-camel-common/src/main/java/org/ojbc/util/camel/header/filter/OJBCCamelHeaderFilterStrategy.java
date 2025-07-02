@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.camel.header.filter;
 
-import org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy;
+import org.apache.camel.component.cxf.transport.header.CxfHeaderFilterStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
