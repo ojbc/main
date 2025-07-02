@@ -16,20 +16,21 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-ui-common</artifactId>
-	<version>4.0.3</version> 
+	<version>4.0.3</version>
 	<name>ojb-ui-common</name>
 	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-        <artifactId>ojb-shared-aggregate</artifactId>
-        <version>1.0.0</version>
+		<artifactId>ojb-shared-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
@@ -39,23 +40,23 @@
 		<hibernate.validator.version>6.0.11.Final</hibernate.validator.version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<java-version>1.8</java-version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>
-	    <dependency>
-	      <groupId>org.ojbc.bundles.shared</groupId>
-	      <artifactId>ojb-common</artifactId>
-	      <version>${ojb-common-version}</version>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
 
-	      <!-- Exclude older saxon from ojb connector classpath.  Saxon is a
+			<!-- Exclude older saxon from ojb connector classpath.  Saxon is a
 	      		dependency in utility classes. We don't want it included transitively on
 	      		the ojb connector classpath, so we need to exclude it.  When saxon is on the
 	      		classpath, it gets used by the JVM during certain non explicit TransformerFactory
 	      		calls.  When this is unintended, there is unexpected behavior.
 	      -->
-	      <exclusions>
+			<exclusions>
 				<exclusion>
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>saxon</artifactId>
@@ -65,14 +66,14 @@
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>saxon-dom</artifactId>
 				</exclusion>
-				
+
 				<!-- Transitive junit somehow hides CoreMatchers class that's needed by this ojb connector -->
 				<exclusion>
 					<groupId>junit</groupId>
 					<artifactId>junit</artifactId>
-				</exclusion>				
-			</exclusions>			
-	    </dependency>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -93,7 +94,7 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
