@@ -29,6 +29,7 @@ import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
+import java.time.Instant;
 import org.opensaml.core.xml.XMLObjectBuilderFactory;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.saml.common.SAMLObjectBuilder;
@@ -92,7 +93,7 @@ public class GFIPM_SAML2ComponentBuilder {
         SubjectConfirmationDataBean subjectConfirmationDataBean=new SubjectConfirmationDataBean();
         subjectConfirmationDataBean.setInResponseTo(inResponseTo);
         subjectConfirmationDataBean.setRecipient(recipient);
-        subjectConfirmationDataBean.setNotAfter(notOnOrAfter);
+        subjectConfirmationDataBean.setNotAfter(Instant.ofEpochMilli(notOnOrAfter.getMillis()));
         
         SubjectConfirmationData subjectConfData = 
                 SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, null);
@@ -140,7 +141,7 @@ public class GFIPM_SAML2ComponentBuilder {
         DateTime delegateInstant = new DateTime();
         log.debug("Not before time: " + delegateInstant.toString("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
 
-        delegate.setDelegationInstant(delegateInstant);
+        delegate.setDelegationInstant(Instant.ofEpochMilli(delegateInstant.getMillis()));
         
         NameID nameID = createNameID(nameIDString);
         delegate.setNameID(nameID);
@@ -205,8 +206,8 @@ public class GFIPM_SAML2ComponentBuilder {
 
         Conditions conditions = conditionsBuilder.buildObject();
 
-        conditions.setNotBefore(notBefore);
-        conditions.setNotOnOrAfter(notOnOrAfter);
+        conditions.setNotBefore(Instant.ofEpochMilli(notBefore.getMillis()));
+        conditions.setNotOnOrAfter(Instant.ofEpochMilli(notOnOrAfter.getMillis()));
 
         if (!StringUtils.isEmpty(entityIDfromAppliesToAddress))
         {	  

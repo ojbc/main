@@ -190,7 +190,7 @@ public class TestSAMLAssertionBuilder {
 		assertEquals("https://idp.ojbc-local.org:9443/idp/shibboleth", assertion.getIssuer().getValue());
 		assertEquals("_408184603d310905303442e592991adc", assertion.getSubject().getSubjectConfirmations().get(0).getSubjectConfirmationData().getInResponseTo());
 		assertEquals("https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST", assertion.getSubject().getSubjectConfirmations().get(0).getSubjectConfirmationData().getRecipient());
-		assertEquals("http://ojbc.org/ADS/WebServiceConsumer", assertion.getConditions().getAudienceRestrictions().get(0).getAudiences().get(0).getAudienceURI());
+		assertEquals("http://ojbc.org/ADS/WebServiceConsumer", assertion.getConditions().getAudienceRestrictions().get(0).getAudiences().get(0).getURI());
 		assertEquals(SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD_PROTECTED_TRANSPORT, assertion.getAuthnStatements().get(0).getAuthnContext().getAuthnContextClassRef().getDOM().getTextContent());
 		assertEquals(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, assertion.getSignature().getSignatureAlgorithm());
 		assertEquals(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, assertion.getSignature().getCanonicalizationAlgorithm());

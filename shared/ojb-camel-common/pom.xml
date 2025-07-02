@@ -16,78 +16,98 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-camel-common</artifactId>
-	<version>4.0.10</version>  
+	<version>4.0.10</version>
 	<name>OJB :: ojb-camel-common :: shared</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
-	   <groupId>org.ojbc.build</groupId>
-	   <artifactId>ojb-shared-aggregate</artifactId>
-	   <version>1.0.0</version>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-shared-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
-		<camel.version>3.11.7</camel.version>
-		<cxf.version>3.4.4</cxf.version>
-		<osgi-core-version>1.4.0</osgi-core-version>
-		<spring-version>5.3.27</spring-version>	
-		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<java-version>1.8</java-version>
-		<log4j-version>2.20.0</log4j-version>
-		
+		<camel.version>3.17.0</camel.version>
+		<cxf.version>4.1.2</cxf.version>
+		<spring-version>6.1.2</spring-version>
+		<spring-boot-version>3.5.3</spring-boot-version>
+		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<java-version>24</java-version>
+		<log4j-version>2.24.3</log4j-version>
+		<osgi-core-version>8.0.0</osgi-core-version>
+
 		<!-- Plugin versions -->
-    	<surefire.version>2.22.2</surefire.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<surefire.version>2.22.2</surefire.version>
+		<maven-compiler-version>3.14.0</maven-compiler-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-    <dependencyManagement>
-        <dependencies>
-	      <dependency>
-	          <groupId>org.apache.logging.log4j</groupId>
-	          <artifactId>log4j-bom</artifactId>
-	          <version>${log4j-version}</version>
-	          <type>pom</type>
-	          <scope>import</scope>
-	      </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-bom</artifactId>
+				<version>${log4j-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.13.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
-        <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-data-jpa</artifactId>
-	        <version>2.5.15</version>
-        </dependency> 
-	    <dependency>
-	        <groupId>com.h2database</groupId>
-	        <artifactId>h2</artifactId>
-	        <version>1.4.200</version>
-	        <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-test</artifactId>
-	        <version>2.5.15</version>
-	        <scope>test</scope>
-	    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-version}</version> <!-- or whatever the latest is -->
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.3.232</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot-version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring-version}</version>
-		</dependency>	
+		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-expression</artifactId>
-		    <version>${spring-version}</version>
-		</dependency>	
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.utilities</groupId>
 			<artifactId>h2-mock-database</artifactId>
@@ -101,21 +121,19 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.junit.jupiter</groupId>
-		    <artifactId>junit-jupiter-engine</artifactId>
-		    <version>${junit-jupiter-engine-version}</version>
-		    <scope>test</scope>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.junit.vintage</groupId>
-		    <artifactId>junit-vintage-engine</artifactId>
-		    <version>${junit-vintage-engine-version}</version>
-		    <scope>test</scope>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
 		</dependency>
 
- 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
 			<version>${osgi-core-version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -155,9 +173,9 @@
 			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.cxf</groupId>
-		    <artifactId>cxf-rt-security-saml</artifactId>
-		    <version>${cxf.version}</version>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-security-saml</artifactId>
+			<version>${cxf.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -165,26 +183,26 @@
 		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-surefire-plugin</artifactId>
-			  <version>${surefire.version}</version>
-			  <configuration>
-			    <argLine>-Xmx1024m</argLine>
-			  </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire.version}</version>
+				<configuration>
+					<argLine>-Xmx1024m</argLine>
+				</configuration>
 			</plugin>
-            <plugin>
+			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${surefire.version}</version>
-		    </plugin>
-		    <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
 				</configuration>
-		    </plugin>
-	   </plugins>
+			</plugin>
+		</plugins>
 	</build>
 </project> 
