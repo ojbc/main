@@ -29,9 +29,12 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
+import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,7 +85,7 @@ public class SQLLoggingProcessorTest {
     @Autowired
     private SQLLoggingProcessor sqlLoggingProcessorWithRedactionAndNullValue;
     
-    private DefaultCamelContext camelContext;
+    private CamelContext camelContext;
     
     @BeforeEach
     public void setup() throws Exception {
@@ -91,7 +94,8 @@ public class SQLLoggingProcessorTest {
         Assertions.assertNotNull(t);
         t.execute("delete from AuditLog");
         camelContext = new DefaultCamelContext();
-//        camelContext.setManagementName("SQLLoggingProcessorTest" + " CamelContext");
+        CamelContextNameStrategy nameStrategy = new ExplicitCamelContextNameStrategy("SQLLoggingProcessorTest" + " CamelContext");
+        camelContext.setNameStrategy(nameStrategy);
     }
     
     @Test
@@ -169,7 +173,7 @@ public class SQLLoggingProcessorTest {
         Assertions.assertEquals(row.get("userLastName"), "owen");
         Assertions.assertEquals(row.get("userFirstName"), "andrew");
         Assertions.assertEquals(row.get("identityProviderID"), "https://idp.ojbc-local.org:9443/idp/shibboleth");
-//        Assertions.assertEquals(row.get("camelContextID"), "SQLLoggingProcessorTest CamelContext");
+        Assertions.assertEquals(row.get("camelContextID"), "SQLLoggingProcessorTest CamelContext");
 
         String hostAddress = (String) row.get("hostAddress");
         InetAddress ia = InetAddress.getByName(hostAddress);
