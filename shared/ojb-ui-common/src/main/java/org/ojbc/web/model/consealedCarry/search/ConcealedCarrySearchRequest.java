@@ -18,13 +18,13 @@ package org.ojbc.web.model.consealedCarry.search;
 
 import java.util.List;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotEmpty;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.ojbc.web.SearchFieldMetadata;
+
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotEmpty;
 
 public class ConcealedCarrySearchRequest {
 

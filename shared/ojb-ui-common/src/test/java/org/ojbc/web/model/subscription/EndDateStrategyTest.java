@@ -19,10 +19,9 @@ package org.ojbc.web.model.subscription;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.web.model.subscription.add.EditableEndDateStrategy;
+import org.junit.jupiter.api.Assertions;
 
 public class EndDateStrategyTest {
 	
@@ -43,7 +42,7 @@ public class EndDateStrategyTest {
 		
 		int strategyCalYear = strategyCal.get(Calendar.YEAR);
 		
-		Assert.assertEquals(nextYear, strategyCalYear);
+		Assertions.assertEquals(nextYear, strategyCalYear);
 	}
 
 }

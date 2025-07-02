@@ -19,7 +19,7 @@ package org.ojbc.web.portal.services;
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;

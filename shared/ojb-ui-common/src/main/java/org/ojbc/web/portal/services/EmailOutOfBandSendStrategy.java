@@ -18,8 +18,6 @@ package org.ojbc.web.portal.services;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +25,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import jakarta.annotation.Resource;
 
 @Service("EmailOutOfBandSendStrategy")
 public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {

@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-ui-common</artifactId>
-	<version>4.0.3</version>
+	<version>5.0.0</version>
 	<name>ojb-ui-common</name>
 	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
@@ -34,12 +34,14 @@
 	</parent>
 
 	<properties>
-		<junit.version>4.10</junit.version>
-		<json.version>20231013</json.version>
-		<joda-time.version>2.2</joda-time.version>
-		<hibernate.validator.version>6.0.11.Final</hibernate.validator.version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<java-version>1.8</java-version>
+		<junit-version>5.13.2</junit-version>
+		<json.version>20250517</json.version>
+		<joda-time.version>2.14.0</joda-time.version>
+		<hibernate.validator.version>9.0.1.Final</hibernate.validator.version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<java-version>24</java-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
+		<jakarta-annotation-version>3.0.0</jakarta-annotation-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -75,6 +77,11 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>${jakarta-annotation-version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>${json.version}</version>
@@ -85,14 +92,14 @@
 			<version>${joda-time.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.validator.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -101,7 +108,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

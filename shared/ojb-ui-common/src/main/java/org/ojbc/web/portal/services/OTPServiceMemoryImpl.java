@@ -19,7 +19,7 @@ package org.ojbc.web.portal.services;
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -29,79 +29,73 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service("emailedOtpService")
-public class OTPServiceMemoryImpl{
+public class OTPServiceMemoryImpl {
 
 	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
-	
+
 	@Resource
 	ConcurrentHashMap<String, UserOTPDetails> otpMap;
 
-	@Resource (name="${otpGeneratorBean:DefaultOtpGenerator}")
+	@Resource(name = "${otpGeneratorBean:DefaultOtpGenerator}")
 	OtpGenerator otpGenerator;
-		
-	@Resource (name="${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
+
+	@Resource(name = "${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
 	OtpOutOfBandSendStrategy otpOutOfBandSendStrategy;
-	
+
 	/**
-	 * If string ends with 'M', minutes.  If string ends with 'S', seconds.
+	 * If string ends with 'M', minutes. If string ends with 'S', seconds.
 	 */
 	@Value("${portal.otpValidityPeriodInMinutes:5M}")
 	String otpValidityPeriod;
-		
 
 	public String generateOTP(String userIdentifier) {
 
 		String oneTimePassword = otpGenerator.generateToken();
-		
+
 		UserOTPDetails userOTPDetails = new UserOTPDetails();
-		
+
 		userOTPDetails.setOneTimePassword(oneTimePassword);
 		userOTPDetails.setEmailAddress(userIdentifier);
-		
+
 		LocalDateTime expirationTimestamp = null;
-		
-		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
-		{	
-			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "M")));
-		} 
-		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
-		{
-			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "S")));
-		}	
-		else
-		{
+
+		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M")) {
+			expirationTimestamp = LocalDateTime.now()
+					.plusMinutes(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "M")));
+		} else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S")) {
+			expirationTimestamp = LocalDateTime.now()
+					.plusSeconds(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "S")));
+		} else {
 			expirationTimestamp = LocalDateTime.now();
-		}	
-		
+		}
+
 		userOTPDetails.setExpirationTimestamp(expirationTimestamp);
-		
+
 		otpMap.put(userIdentifier, userOTPDetails);
-		
+
 		otpOutOfBandSendStrategy.sendToken(oneTimePassword, userIdentifier);
-		
+
 		return oneTimePassword;
 	}
 
 	public boolean confirmOTP(String userIdentifier, String enteredOtp) {
 
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
-		
-		if (userOTPDetails != null)
-		{
+
+		if (userOTPDetails != null) {
 			String expectedOneTimePassword = userOTPDetails.getOneTimePassword();
-			
+
 			LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
 			LocalDateTime now = LocalDateTime.now();
-			
-			if (now.isBefore(expirationTimestamp) && expectedOneTimePassword.equals(enteredOtp))
-			{
+
+			if (now.isBefore(expirationTimestamp) && expectedOneTimePassword.equals(enteredOtp)) {
 				otpMap.get(userIdentifier).setUserAuthenticated(true);
 				return true;
-			}	
-		}	
-		
+			}
+		}
+
 		return false;
 	}
-			
+
 }

@@ -20,14 +20,14 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 
 
 public class PersonSearchRequest implements Serializable{

@@ -18,10 +18,10 @@ package org.ojbc.web.model.otp;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import jakarta.validation.Valid;
 
 public class OTPFormCommand implements Serializable{
 	
