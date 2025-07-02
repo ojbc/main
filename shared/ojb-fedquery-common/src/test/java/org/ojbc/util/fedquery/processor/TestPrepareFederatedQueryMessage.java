@@ -30,7 +30,7 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

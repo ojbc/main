@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.fedquery.FederatedQueryProfile;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;

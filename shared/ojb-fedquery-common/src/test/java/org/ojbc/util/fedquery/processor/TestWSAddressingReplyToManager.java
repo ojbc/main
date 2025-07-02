@@ -17,6 +17,7 @@
 package org.ojbc.util.fedquery.processor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 
@@ -24,8 +25,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.processor.WSAddressingEndpointProcessor;
 
 public class TestWSAddressingReplyToManager {
@@ -33,7 +34,7 @@ public class TestWSAddressingReplyToManager {
 	private WSAddressingReplyToManager wsAddressingReplyToManager = new WSAddressingReplyToManager();
 	private WSAddressingEndpointProcessor wsAddressingEndpointProcessor = new WSAddressingEndpointProcessor();
 	
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		HashMap<String, String> endpointReplyToMap = new HashMap<String, String>();
@@ -59,10 +60,13 @@ public class TestWSAddressingReplyToManager {
 		
 	}
 
-	@Test(expected=Exception.class)
+	@Test
 	public void testWSAddressingReplyToManagerInvalidReplyToAddress() throws Exception
 	{
-		wsAddressingReplyToManager.putReplyToAddress("12345", "http://replyToAddressBad.com");
+		assertThrows(Exception.class,
+		        () -> {
+		            wsAddressingReplyToManager.putReplyToAddress("12345", "http://replyToAddressBad.com");
+		        });
 	}
 
 }

@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
-	<version>4.0.5</version>
+	<version>5.0.0</version>
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
 	<url>http://www.ojbc.org</url>
 
@@ -32,16 +32,17 @@
 	</parent>
 
 	<properties>
-		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<log4j-version>2.17.2</log4j-version>
-		<xmlunit.version>1.6</xmlunit.version>
-		<java-version>1.8</java-version>
-        <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<log4j-version>2.24.3</log4j-version>
+		<xmlunit.version>2.10.3</xmlunit.version>
+		<java-version>24</java-version>
+		<joda.time.version>2.14.0</joda.time.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <surefire.version>3.5.3</surefire.version>
 	</properties>
 
     <dependencyManagement>
@@ -53,15 +54,16 @@
               <type>pom</type>
               <scope>import</scope>
           </dependency>
+          <dependency>
+              <groupId>org.junit</groupId>
+              <artifactId>junit-bom</artifactId>
+              <version>5.13.2</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
         </dependencies>
     </dependencyManagement>
 	<dependencies>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
@@ -75,45 +77,55 @@
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-engine</artifactId>
-		    <version>${junit-jupiter-engine-version}</version>
 		    <scope>test</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.junit.vintage</groupId>
 		    <artifactId>junit-vintage-engine</artifactId>
-		    <version>${junit-vintage-engine-version}</version>
 		    <scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-legacy</artifactId>
+            <version>${xmlunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+           <groupId>joda-time</groupId>
+           <artifactId>joda-time</artifactId>
+           <version>${joda.time.version}</version>
+        </dependency>
   </dependencies> 
 
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <argLine>-Xmx1024m</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<import-package>
-							!org.junit.*,
-							!org.custommonkey
-						</import-package>
-						<Export-Package>org.ojbc.util.fedquery.*</Export-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
