@@ -18,14 +18,14 @@ package org.ojbc.util.camel.processor;
 
 import java.io.File;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
 
 /**
  * This camel processor will accept a message with the property currentXMLFilePath specified.
