@@ -23,7 +23,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-camel-common</artifactId>
-	<version>4.0.10</version>
+	<version>5.0.0</version>
 	<name>OJB :: ojb-camel-common :: shared</name>
 	<url>http://www.ojbc.org</url>
 
