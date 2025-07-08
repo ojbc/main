@@ -24,7 +24,7 @@ import java.util.Map.Entry;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
-import org.apache.camel.component.cxf.CxfPayload;
+import org.apache.camel.component.cxf.common.CxfPayload;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
