@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,28 +24,27 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
+@CamelSpringTest
+@SpringJUnitConfig(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
-@Ignore
+@Disabled
 public class TestRetreiveExpiringSubscriptions {
 
 	private static final Log log = LogFactory
@@ -61,7 +60,7 @@ public class TestRetreiveExpiringSubscriptions {
     //This is used to update database to achieve desired state for test
 	private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);

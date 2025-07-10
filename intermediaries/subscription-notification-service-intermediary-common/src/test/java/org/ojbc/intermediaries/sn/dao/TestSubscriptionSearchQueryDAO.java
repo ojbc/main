@@ -16,11 +16,12 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +47,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -63,11 +66,9 @@ import org.joda.time.Days;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -82,15 +83,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * Basic unit test for the subscription search query DAO.
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
+@CamelSpringTest
+@SpringJUnitConfig(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
@@ -114,7 +114,7 @@ public class TestSubscriptionSearchQueryDAO {
     @SuppressWarnings("unused")
 	private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -123,7 +123,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.getValidationDueDateStrategy();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(springConfiguredStrategy);
@@ -611,7 +611,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	@DirtiesContext
 	public void testSearchForSubscriptionsWithNullValidationDate()
 			throws Exception {
@@ -619,8 +619,10 @@ public class TestSubscriptionSearchQueryDAO {
 
 		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
-		subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
+		
+		assertThrows(IllegalStateException.class, () -> {
+			subscriptionSearchQueryDAO.searchForSubscriptionsMatchingNotificationRequest(request);
+		});
 
 	}
 
@@ -701,7 +703,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 	@Test
 	@DirtiesContext
-	@Ignore
+	@Disabled
 	public void testWildcardSubscription() throws Exception {
 
 		loadWildcardTestData();

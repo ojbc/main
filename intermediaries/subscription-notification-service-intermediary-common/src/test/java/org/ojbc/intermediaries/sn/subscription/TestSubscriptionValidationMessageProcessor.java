@@ -16,8 +16,9 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.util.Arrays;
@@ -35,13 +36,13 @@ import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.Subscription;
@@ -52,13 +53,12 @@ import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
+@CamelSpringTest
+@SpringJUnitConfig(locations = { "classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
@@ -78,7 +78,7 @@ public class TestSubscriptionValidationMessageProcessor {
     //This is used to update database to achieve desired state for test
 	private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
@@ -164,7 +164,7 @@ public class TestSubscriptionValidationMessageProcessor {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testInvalidReturnSubscriptionIDFromSubscriptionValidationRequestMessage() throws Exception {
 		SubscriptionValidationMessageProcessor processor = new SubscriptionValidationMessageProcessor();
 
@@ -175,8 +175,10 @@ public class TestSubscriptionValidationMessageProcessor {
 		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
 		Document document = docBuilder.parse(inputFile);
 
-		processor.returnSubscriptionIDFromSubscriptionValidationRequestMessage(document);
-
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			processor.returnSubscriptionIDFromSubscriptionValidationRequestMessage(document);
+		});
 	}
 
 	private SAMLTokenPrincipal createSAMLToken() throws Exception {

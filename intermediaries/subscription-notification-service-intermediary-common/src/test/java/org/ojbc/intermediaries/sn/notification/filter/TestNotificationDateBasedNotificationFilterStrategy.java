@@ -16,7 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.notification.filter;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -25,9 +26,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.junit.jupiter.api.Test;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Test;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -57,7 +57,7 @@ public class TestNotificationDateBasedNotificationFilterStrategy {
 		
 		NotificationRequest notificationRequest = new IncidentNotificationRequest(ex.getIn());
 	
-		Assert.assertTrue(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		assertTrue(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	
@@ -84,7 +84,7 @@ public class TestNotificationDateBasedNotificationFilterStrategy {
 		
 		NotificationRequest notificationRequest = new IncidentNotificationRequest(ex.getIn());
 	
-		Assert.assertTrue(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		assertTrue(notificationDateBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	

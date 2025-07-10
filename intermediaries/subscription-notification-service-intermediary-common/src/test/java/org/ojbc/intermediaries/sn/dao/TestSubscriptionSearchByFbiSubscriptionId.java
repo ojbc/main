@@ -16,29 +16,28 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * Basic unit test for the subscription search query DAO.
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
+@CamelSpringTest
+@SpringJUnitConfig(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
@@ -58,13 +57,13 @@ public class TestSubscriptionSearchByFbiSubscriptionId {
 
 	private ValidationDueDateStrategy springConfiguredStrategy;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		springConfiguredStrategy = subscriptionSearchQueryDAO
 				.getValidationDueDateStrategy();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(springConfiguredStrategy);

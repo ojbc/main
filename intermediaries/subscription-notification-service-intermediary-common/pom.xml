@@ -22,8 +22,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
-	<version>3.0.8</version> 
-	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
+	<version>4.0.0</version>
+	<name>OJB :: subscription-notification-service-intermediary-common ::
+		intermediary</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
@@ -33,74 +34,88 @@
 	</parent>
 
 	<properties>
-		<camel-version>3.11.7</camel-version>
-		<xmlunit.version>1.6</xmlunit.version>
-		<commons-lang3-version>3.12.0</commons-lang3-version>
-	    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-	    <ojb-common-version>[5.0.0,)</ojb-common-version>
-	    <ojb-resources-common-version>[2.0.1,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<slf4j-version>1.7.31</slf4j-version>
-		<log4j-version>2.20.0</log4j-version>
-	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-		<velocity-version>1.7</velocity-version>
-		<httpcomponents.version>4.2.5</httpcomponents.version>
+		<camel-version>4.12.0</camel-version>
+		<xmlunit.version>2.10.3</xmlunit.version>
+		<commons-lang3-version>3.17.0</commons-lang3-version>
+		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+		<ojb-enhanced-audit-common-version>[4.0.0,)</ojb-enhanced-audit-common-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
+		<slf4j-version>2.0.17</slf4j-version>
+		<log4j-version>2.25.0</log4j-version>
+		<velocity-version>2.4.1</velocity-version>
+		<httpcomponents.version>5.5</httpcomponents.version>
 		<wiser.version>3.1.7</wiser.version>
-		<dbunit.version>2.4.9</dbunit.version>
-		<commonsIo.version>2.10.0</commonsIo.version>
-        <spring-version>5.3.24</spring-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
-		<java-version>1.8</java-version>
-		<surefire.version>2.22.2</surefire.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
+		<dbunit.version>3.0.0</dbunit.version>
+		<commonsIo.version>2.19.0</commonsIo.version>
+		<spring-version>6.2.8</spring-version>
+		<spring-boot-version>3.5.3</spring-boot-version>
+		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
+		<ojb-test-common-version>[5.0.0,)</ojb-test-common-version>
+		<java-version>24</java-version>
+		<surefire.version>3.5.3</surefire.version>
+		<junit-version>5.13.2</junit-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencyManagement>
-	  <dependencies>
-	    <dependency>
-	     <groupId>org.apache.logging.log4j</groupId>
-	     <artifactId>log4j-bom</artifactId>
-	     <version>${log4j-version}</version>
-	     <type>pom</type>
-	     <scope>import</scope>
-	    </dependency>
-	  </dependencies>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-bom</artifactId>
+				<version>${log4j-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-    		<groupId>org.springframework</groupId>
-    		<artifactId>spring-expression</artifactId>
-    		<version>5.3.24</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring-version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-data-jpa</artifactId>
-		    <version>2.5.2</version>
-		</dependency> 
-		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>1.4.200</version>
-		    <scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot-version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-test</artifactId>
-		    <version>2.5.2</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<version>${xmlunit.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
+			<artifactId>velocity-engine-core</artifactId>
 			<version>${velocity-version}</version>
 		</dependency>
 
@@ -133,43 +148,53 @@
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
 		</dependency>
-	    <dependency>
-	      <groupId>org.ojbc.bundles.shared</groupId>
-	      <artifactId>ojb-enhanced-audit-common</artifactId>
-	      <version>${ojb-enhanced-audit-common-version}</version>
-	      <exclusions>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-enhanced-audit-common</artifactId>
+			<version>${ojb-enhanced-audit-common-version}</version>
+			<exclusions>
 				<exclusion>
 					<groupId>net.sf.saxon</groupId>
 					<artifactId>Saxon-HE</artifactId>
-				</exclusion>				
-			</exclusions>	
-	    </dependency>		
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- for testing -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter-engine-version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>${junit-vintage-engine-version}</version>
-        <scope>test</scope>
-    </dependency>
+		
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit-vintage-engine-version}</version>
+			<scope>test</scope>
+		</dependency> -->
 
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test-spring-junit5</artifactId>
-      <version>${camel-version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring-junit5</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${spring-version}</version>
-      <scope>test</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.dbunit</groupId>
@@ -201,10 +226,10 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j-version}</version>
 			<exclusions>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -214,8 +239,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
 			<version>${httpcomponents.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -232,23 +257,23 @@
 		<defaultGoal>install</defaultGoal>
 
 		<plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${surefire.version}</version>
-        <configuration>
-          <argLine>-Xmx1024m</argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${surefire.version}</version>
-      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire.version}</version>
+				<configuration>
+					<argLine>-Xmx1024m</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${surefire.version}</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

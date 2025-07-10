@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.testutil;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -29,14 +29,14 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.junit.jupiter.api.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
-import org.junit.Test;
 import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.IEPDResourceResolver;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.util.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -117,7 +117,7 @@ public class TestFaultMessageBuilderUtil {
 	private void validateFaultResponse(String fault) throws Exception {
 
 		Node faultResponse = XmlUtils.xPathNodeSearch(OJBUtils.loadXMLFromString(fault), "//subfltrsp-exch:SubscriptionFaultResponseMessage");
-		Assert.assertNotNull(faultResponse);
+		assertNotNull(faultResponse);
 
 		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
 		docBuilderFact.setNamespaceAware(true);

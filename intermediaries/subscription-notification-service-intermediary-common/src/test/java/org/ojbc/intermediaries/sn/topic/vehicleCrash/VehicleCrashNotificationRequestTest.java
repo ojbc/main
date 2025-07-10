@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.vehicleCrash;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
@@ -24,10 +24,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
-import org.joda.time.DateTime;
+
+import org.junit.jupiter.api.Test;import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.util.xml.XmlUtils;

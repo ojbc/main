@@ -16,11 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
 
 public class TestEmailAddressPatternValidator {
@@ -36,7 +39,7 @@ public class TestEmailAddressPatternValidator {
 		
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
 	
 	@Test
@@ -50,7 +53,7 @@ public class TestEmailAddressPatternValidator {
 
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
 
 	@Test
@@ -64,7 +67,7 @@ public class TestEmailAddressPatternValidator {
 
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
 
 	@Test
@@ -77,7 +80,7 @@ public class TestEmailAddressPatternValidator {
 
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
 
 	@Test
@@ -91,11 +94,11 @@ public class TestEmailAddressPatternValidator {
 		
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 
-		Assert.assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
 		
 		//Remove the valid email address from the list and then compare with the return value
 		emailAddresses.remove("1@1.com");
-		Assert.assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
+		assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
 	}
 
 	@Test
@@ -109,8 +112,8 @@ public class TestEmailAddressPatternValidator {
 
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
-		Assert.assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
-		Assert.assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
+		assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
 	}
 	
 	@Test
@@ -125,7 +128,7 @@ public class TestEmailAddressPatternValidator {
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
 		//test one valid email
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 		
 		emailAddresses.clear();
 		emailAddresses.add("bkushima@invalid.gov");
@@ -136,8 +139,8 @@ public class TestEmailAddressPatternValidator {
 		emailAddresses.remove("bkushima@co.hawaii.hi.us");
 		
 		//Test one valid and one invalid email
-		Assert.assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
-		Assert.assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
+		assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
 
 		
 		emailAddresses.clear();
@@ -147,8 +150,8 @@ public class TestEmailAddressPatternValidator {
 		addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
 		//Test two invalid email addresses
-		Assert.assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
-		Assert.assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
+		assertFalse(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertEquals(emailAddresses,addressValidatorResponse.getInvalidEmailAddresses() );
 
 		emailAddresses.clear();
 		emailAddresses.add("bkushima@mpd.net");
@@ -157,7 +160,7 @@ public class TestEmailAddressPatternValidator {
 		addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
 		//Test two valid email addressses
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
 	
 	@Test
@@ -182,7 +185,7 @@ public class TestEmailAddressPatternValidator {
 		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
 		
 		//test one valid email from each domain
-		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+		assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 		
 	}
 }

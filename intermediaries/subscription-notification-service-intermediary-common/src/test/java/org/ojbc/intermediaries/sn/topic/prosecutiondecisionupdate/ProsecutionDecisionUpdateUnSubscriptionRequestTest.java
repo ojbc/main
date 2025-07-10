@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 
@@ -25,8 +25,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
-import org.junit.Test;
-import org.mockito.Mockito;
+
+import org.junit.jupiter.api.Test;import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.w3c.dom.Document;
 

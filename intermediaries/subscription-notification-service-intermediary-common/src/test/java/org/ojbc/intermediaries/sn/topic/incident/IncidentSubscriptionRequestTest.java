@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.incident;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.util.HashMap;
@@ -26,8 +26,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.w3c.dom.Document;
@@ -38,7 +38,7 @@ public class IncidentSubscriptionRequestTest {
 	
 	Map<String, String> namespaceUris;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		namespaceUris = new HashMap<String, String>();
 		namespaceUris.put("wsnb2", "http://docs.oasis-open.org/wsn/b-2");

@@ -23,7 +23,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;

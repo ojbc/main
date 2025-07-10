@@ -16,10 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.notification;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,28 +38,26 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
+@CamelSpringTest
+@SpringJUnitConfig(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
@@ -76,7 +74,7 @@ public class NotificationProcessorTest {
 
     private NotificationProcessor notificationProcessor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         notificationProcessor = new NotificationProcessor() {
 
@@ -222,10 +220,10 @@ public class NotificationProcessorTest {
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(2, emailNotifications.size());
+        assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
-        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        assertEquals("po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        assertEquals("po1@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
         
 
     }
@@ -265,10 +263,10 @@ public class NotificationProcessorTest {
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(2, emailNotifications.size());
+        assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
-        Assert.assertEquals("po3@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        assertEquals("po3@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
 
     }
 
@@ -309,9 +307,9 @@ public class NotificationProcessorTest {
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(1, emailNotifications.size());
+        assertEquals(1, emailNotifications.size());
 
-        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
 
         subscriptions = new ArrayList<Subscription>();
 
@@ -335,11 +333,11 @@ public class NotificationProcessorTest {
         subscriptions.add(subscription);
 
         emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(2, emailNotifications.size());
+        assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        assertEquals("po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
         // note how po1 is removed from the second one, because he already was notified for this event...
-        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        assertEquals("po2@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
 
     }
 
@@ -379,22 +377,22 @@ public class NotificationProcessorTest {
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(1, emailNotifications.size());
+        assertEquals(1, emailNotifications.size());
         
         EmailNotification notificationToTest = emailNotifications.get(0);
         assertEquals(subscriptionSubjectIdentifiers, notificationToTest.getSubscriptionSubjectIdentifiers());
 
         String emailAddress = emailNotifications.get(0).getToAddressees();
-        Assert.assertEquals("po1@courts.hawaii.gov", emailAddress);
-        // Assert.assertEquals("12345",uniqueSubscriptions.get(0).getSID());
-        Assert.assertEquals("Joe Smith", emailNotifications.get(0).getSubjectName());
+        assertEquals("po1@courts.hawaii.gov", emailAddress);
+        // assertEquals("12345",uniqueSubscriptions.get(0).getSID());
+        assertEquals("Joe Smith", emailNotifications.get(0).getSubjectName());
 
         // Confirm that different email addresses will produce two unique subscriptions
         emailAddresses.clear();
         emailAddresses.add("frank.smith@hawaii.gov");
 
         emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(2, emailNotifications.size());
+        assertEquals(2, emailNotifications.size());
 
         // Return to original value
         emailAddresses.clear();
@@ -413,7 +411,7 @@ public class NotificationProcessorTest {
         subscriptions.add(subscription);
 
         emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(1, emailNotifications.size());
+        assertEquals(1, emailNotifications.size());
 
         // Add a fourth subscription from a different system, confirm we get two unique records
         subscription = new Subscription();
@@ -428,7 +426,7 @@ public class NotificationProcessorTest {
         subscriptions.add(subscription);
 
         emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
-        Assert.assertEquals(2, emailNotifications.size());
+        assertEquals(2, emailNotifications.size());
     }
 
 }

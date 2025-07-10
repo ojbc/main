@@ -19,7 +19,7 @@ package org.ojbc.intermediaries.sn.dao;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;

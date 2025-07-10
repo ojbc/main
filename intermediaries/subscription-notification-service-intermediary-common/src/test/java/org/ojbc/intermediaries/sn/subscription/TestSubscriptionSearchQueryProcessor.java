@@ -16,9 +16,9 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,12 +26,12 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
@@ -49,7 +49,7 @@ public class TestSubscriptionSearchQueryProcessor {
     static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     private SubscriptionSearchQueryProcessor processor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         processor = new SubscriptionSearchQueryProcessor();
         processor.setMaxSubscriptionsCount(500);

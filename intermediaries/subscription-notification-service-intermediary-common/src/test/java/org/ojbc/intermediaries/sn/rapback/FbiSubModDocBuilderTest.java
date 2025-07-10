@@ -16,23 +16,23 @@
  */
 package org.ojbc.intermediaries.sn.rapback;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor;
@@ -42,12 +42,11 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
+@CamelSpringTest
+@SpringJUnitConfig(locations = { "classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
@@ -63,7 +62,7 @@ public class FbiSubModDocBuilderTest {
 
 	private FbiSubModDocBuilder fbiSubModDocBuilder = new FbiSubModDocBuilder();
 
-	@Before
+	@BeforeEach
 	public void init() {
 		
 		XMLUnit.setIgnoreAttributeOrder(true);
@@ -94,7 +93,7 @@ public class FbiSubModDocBuilderTest {
 			XmlUtils.printNode(fbiSubModDoc);
 		}		
 		
-		assertEquals(detailedDiff.toString(), 0, diffCount);		
+		assertEquals(0, diffCount, detailedDiff.toString());		
 	}
 		
 	

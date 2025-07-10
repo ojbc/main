@@ -19,9 +19,9 @@ package org.ojbc.intermediaries.sn.testutil;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
 import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 import org.ojbc.util.xml.XmlUtils;

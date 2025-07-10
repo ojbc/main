@@ -16,11 +16,11 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -28,22 +28,21 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.BooleanUtils;
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
+@CamelSpringTest
+@SpringJUnitConfig(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
@@ -56,7 +55,7 @@ public class RapbackDAOImplGetMethodsTest {
 	@Resource
 	private FbiRapbackDao rapbackDao;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDao);
 	}
@@ -141,7 +140,7 @@ public class RapbackDAOImplGetMethodsTest {
 	}
 	
 	@Test
-	@Ignore("This test works locally but not in a maven build")
+	@Disabled("This test works locally but not in a maven build")
 	public void testGetFbiSubscriptionQualification() throws Exception {
 		Boolean fbiSubscriptionQualificationByTransactionNumber = rapbackDao.getfbiSubscriptionQualification("000001820140729014008339993"); 
 		assertEquals(Boolean.TRUE, fbiSubscriptionQualificationByTransactionNumber);

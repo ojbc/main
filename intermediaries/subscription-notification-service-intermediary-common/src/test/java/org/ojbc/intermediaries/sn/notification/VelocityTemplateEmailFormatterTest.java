@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.notification;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.util.HashMap;
@@ -25,8 +25,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter.EmailTemplate;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
@@ -34,12 +34,13 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
 @DirtiesContext
 public class VelocityTemplateEmailFormatterTest {
 
     private VelocityTemplateEmailFormatter formatter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         formatter = new VelocityTemplateEmailFormatter();

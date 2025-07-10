@@ -23,9 +23,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.Message;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -117,7 +117,7 @@ public abstract class SubscriptionRequest {
 			
 			if (endDate.withTimeAtStartOfDay().isBefore(startDate.withTimeAtStartOfDay()))
 			{
-				throw new Exception("End Date Can Not Be Before Start Date in a Subscription.");
+				throw new IllegalStateException("End Date Can Not Be Before Start Date in a Subscription.");
 			}	
 			
 		}	

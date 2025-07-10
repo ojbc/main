@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.topic.rapback;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,8 +29,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultMessage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.w3c.dom.Document;
 
@@ -38,7 +38,7 @@ public class RapbackSubscriptionRequestTest {
 
 	Map<String, String> namespaceUris;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		namespaceUris = new HashMap<String, String>();
 		namespaceUris.put("wsnb2", "http://docs.oasis-open.org/wsn/b-2");

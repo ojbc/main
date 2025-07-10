@@ -16,7 +16,9 @@
  */
 package org.ojbc.intermediaries.sn.notification.filter;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -27,10 +29,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
+import org.junit.jupiter.api.Test;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationRequest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -39,7 +40,7 @@ public class TestOriBasedNotificationFilterStrategy{
 	
 	private OriBasedNotificationFilterStrategy oriBasedNotificationFilterStrategy;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		oriBasedNotificationFilterStrategy = new OriBasedNotificationFilterStrategy();
 		
@@ -66,7 +67,7 @@ public class TestOriBasedNotificationFilterStrategy{
 		
 		NotificationRequest notificationRequest = new ChCycleNotificationRequest(ex.getIn());
 	
-		Assert.assertFalse(oriBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		assertFalse(oriBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	
@@ -89,7 +90,7 @@ public class TestOriBasedNotificationFilterStrategy{
 		
 		NotificationRequest notificationRequest = new ChCycleNotificationRequest(ex.getIn());
 	
-		Assert.assertTrue(oriBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
+		assertTrue(oriBasedNotificationFilterStrategy.shouldMessageBeFiltered(notificationRequest));
 		
 	}
 	

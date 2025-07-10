@@ -16,9 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +27,8 @@ import java.util.Map;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultMessage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
@@ -37,7 +38,7 @@ public class ArrestSubscriptionRequestTest {
 
 	Map<String, String> namespaceUris;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		namespaceUris = new HashMap<String, String>();
 		namespaceUris.put("wsnb2", "http://docs.oasis-open.org/wsn/b-2");
@@ -117,7 +118,7 @@ public class ArrestSubscriptionRequestTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(expected=InvalidEmailAddressesException.class)
+	@Test
 	public void testEmailPatternFailure() throws Exception {
 		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
@@ -127,9 +128,10 @@ public class ArrestSubscriptionRequestTest {
         
         String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(test.com)";
 		
-		@SuppressWarnings("unused")
-        ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
-		
+		assertThrows(InvalidEmailAddressesException.class, () -> {
+			@SuppressWarnings("unused")
+			ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		});
 	}
 	
 	@Test
@@ -162,7 +164,7 @@ public class ArrestSubscriptionRequestTest {
 		
 	}
 
-	@Test(expected=Exception.class)
+	@Test
 	public void testWithEndDateBeforeStartDate() throws Exception {
 		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithEndDateBeforeStartDate.xml");
@@ -170,8 +172,10 @@ public class ArrestSubscriptionRequestTest {
         Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
         
-        @SuppressWarnings("unused")
-        ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, null);
+		assertThrows(IllegalStateException.class, () -> {
+			@SuppressWarnings("unused")
+			ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, null);
+		});
 		
 	}
 	

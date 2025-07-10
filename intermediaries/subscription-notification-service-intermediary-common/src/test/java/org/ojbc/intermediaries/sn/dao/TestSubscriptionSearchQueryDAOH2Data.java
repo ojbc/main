@@ -16,9 +16,10 @@
  */
 
 package org.ojbc.intermediaries.sn.dao;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -33,16 +34,16 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.junit.jupiter.api.Test;
+import org.apache.camel.test.spring.junit5.CamelSpringTest;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -53,21 +54,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * Basic unit test for the subscription search query DAO. This class will use H2 database as is 
  * defined in h2-mock-database-context-rapback-datastore.xml 
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
+@CamelSpringTest
+@SpringJUnitConfig(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml" })
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
-@Ignore
+@Disabled
 public class TestSubscriptionSearchQueryDAOH2Data {
 
 	private static final Log log = LogFactory
@@ -85,7 +85,7 @@ public class TestSubscriptionSearchQueryDAOH2Data {
     @SuppressWarnings("unused")
 	private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -94,7 +94,7 @@ public class TestSubscriptionSearchQueryDAOH2Data {
 				.getValidationDueDateStrategy();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(springConfiguredStrategy);
