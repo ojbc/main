@@ -32,130 +32,130 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<properties>
-		<camel-version>3.11.7</camel-version>
-		<xmlunit.version>1.6</xmlunit.version>
-		<commons-lang3-version>3.12.0</commons-lang3-version>
-	    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-	    <ojb-common-version>[5.0.0,)</ojb-common-version>
-	    <ojb-resources-common-version>[2.0.1,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<slf4j-version>1.7.31</slf4j-version>
-		<log4j-version>2.20.0</log4j-version>
-	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-		<velocity-version>1.7</velocity-version>
-		<httpcomponents.version>4.2.5</httpcomponents.version>
-		<wiser.version>3.1.7</wiser.version>
-		<dbunit.version>2.4.9</dbunit.version>
-		<commonsIo.version>2.10.0</commonsIo.version>
-        <spring-version>5.3.24</spring-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
-		<java-version>1.8</java-version>
-		<surefire.version>2.22.2</surefire.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>    
-	</properties>
+  <properties>
+    <camel-version>3.11.7</camel-version>
+    <xmlunit.version>1.6</xmlunit.version>
+    <commons-lang3-version>3.12.0</commons-lang3-version>
+    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+    <ojb-common-version>[5.0.0,)</ojb-common-version>
+    <ojb-resources-common-version>[2.0.1,)</ojb-resources-common-version>
+    <ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
+    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+    <slf4j-version>1.7.31</slf4j-version>
+    <log4j-version>2.20.0</log4j-version>
+    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
+    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+    <velocity-version>1.7</velocity-version>
+    <httpcomponents.version>4.2.5</httpcomponents.version>
+    <wiser.version>3.1.7</wiser.version>
+    <dbunit.version>2.4.9</dbunit.version>
+    <commonsIo.version>2.10.0</commonsIo.version>
+    <spring-version>5.3.24</spring-version>
+    <h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
+    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
+    <java-version>1.8</java-version>
+    <surefire.version>2.22.2</surefire.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
-	<dependencyManagement>
-	  <dependencies>
-	    <dependency>
-	     <groupId>org.apache.logging.log4j</groupId>
-	     <artifactId>log4j-bom</artifactId>
-	     <version>${log4j-version}</version>
-	     <type>pom</type>
-	     <scope>import</scope>
-	    </dependency>
-	  </dependencies>
-	</dependencyManagement>
-	<dependencies>
-		<dependency>
-    		<groupId>org.springframework</groupId>
-    		<artifactId>spring-expression</artifactId>
-    		<version>5.3.24</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-data-jpa</artifactId>
-		    <version>2.5.2</version>
-		</dependency> 
-		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>1.4.200</version>
-		    <scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-test</artifactId>
-		    <version>2.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>${velocity-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3-version}</version>
-		</dependency>
-		<!-- OJB Shared Bundles -->
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-common</artifactId>
-			<version>${ojb-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-resources-common</artifactId>
-			<version>${ojb-resources-common-version}</version>
-		</dependency>
-	    <dependency>
-	      <groupId>org.ojbc.bundles.shared</groupId>
-	      <artifactId>ojb-enhanced-audit-common</artifactId>
-	      <version>${ojb-enhanced-audit-common-version}</version>
-	      <exclusions>
-				<exclusion>
-					<groupId>net.sf.saxon</groupId>
-					<artifactId>Saxon-HE</artifactId>
-				</exclusion>				
-			</exclusions>	
-	    </dependency>		
-		<!-- for testing -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
     <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter-engine-version}</version>
-        <scope>test</scope>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>5.3.24</version>
     </dependency>
     <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>${junit-vintage-engine-version}</version>
-        <scope>test</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>2.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.200</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>2.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>xmlunit</groupId>
+      <artifactId>xmlunit</artifactId>
+      <version>${xmlunit.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>${velocity-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3-version}</version>
+    </dependency>
+    <!-- OJB Shared Bundles -->
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-camel-common</artifactId>
+      <version>${ojb-camel-common-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-common</artifactId>
+      <version>${ojb-common-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-resources-common</artifactId>
+      <version>${ojb-resources-common-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-enhanced-audit-common</artifactId>
+      <version>${ojb-enhanced-audit-common-version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>net.sf.saxon</groupId>
+          <artifactId>Saxon-HE</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- for testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter-engine-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit-vintage-engine-version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -171,67 +171,67 @@
       <scope>test</scope>
     </dependency>
 
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>${dbunit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.ojbc.bundles.utilities</groupId>
-			<artifactId>h2-mock-database</artifactId>
-			<version>${h2-mock-database-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-test-common</artifactId>
-			<version>${ojb-test-common-version}</version>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>${dbunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.utilities</groupId>
+      <artifactId>h2-mock-database</artifactId>
+      <version>${h2-mock-database-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-test-common</artifactId>
+      <version>${ojb-test-common-version}</version>
+      <scope>test</scope>
+    </dependency>
 
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-version}</version>
-			<exclusions>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commonsIo.version}</version>
-		</dependency>
+    <!-- logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j-version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commonsIo.version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpcomponents.version}</version>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${httpcomponents.version}</version>
+      <scope>test</scope>
+    </dependency>
 
-		<dependency>
-			<groupId>org.subethamail</groupId>
-			<artifactId>subethasmtp</artifactId>
-			<version>${wiser.version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>org.subethamail</groupId>
+      <artifactId>subethasmtp</artifactId>
+      <version>${wiser.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-	<build>
-		<defaultGoal>install</defaultGoal>
+  <build>
+    <defaultGoal>install</defaultGoal>
 
-		<plugins>
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -241,35 +241,35 @@
         </configuration>
       </plugin>
       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${surefire.version}</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${surefire.version}</version>
       </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-				</configuration>
-			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+        </configuration>
+      </plugin>
 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin-version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Import-Package>javax.xml.*,*</Import-Package>
-						<Export-Package>org.ojbc.intermediaries.*</Export-Package>
-					</instructions>
-				</configuration>
-			</plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>${maven-bundle-plugin-version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <DynamicImport-Package>*</DynamicImport-Package>
+            <Import-Package>javax.xml.*,*</Import-Package>
+            <Export-Package>org.ojbc.intermediaries.*</Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
 
-		</plugins>
-	</build>
+    </plugins>
+  </build>
 
 </project>
