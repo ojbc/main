@@ -16,8 +16,8 @@
  */
 package org.ojbc.util.lucene.personid;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,6 +37,7 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.index.KeepOnlyLastCommitDeletionPolicy;
 import org.apache.lucene.index.SnapshotDeletionPolicy;
+import org.apache.lucene.index.StoredFields;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
@@ -47,7 +48,6 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 import org.springframework.util.StringUtils;
 
 /**
@@ -112,18 +112,21 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 		
 		Document ret = null;
 		
-		BooleanQuery query = new BooleanQuery();
+		BooleanQuery.Builder builder = new BooleanQuery.Builder();
 		
 		String firstNameAttributeValue = getFormattedAttributeValue(attributes.get(FIRST_NAME_FIELD));
 		if (resolveEquivalentNames) {
 			firstNameAttributeValue = firstNameEquivalentCorpus.getEquivalentName(firstNameAttributeValue);
 		}
-		query.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
-		query.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
-		query.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.SHOULD);
-		query.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
-		query.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
-		query.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
+		builder.add(new FuzzyQuery(new Term(FIRST_NAME_FIELD, firstNameAttributeValue), 2, 1), Occur.MUST);
+		builder.add(new FuzzyQuery(new Term(LAST_NAME_FIELD, getFormattedAttributeValue(attributes.get(LAST_NAME_FIELD))), 2, 1), Occur.MUST);
+		builder.add(new FuzzyQuery(new Term(MIDDLE_NAME_FIELD, getFormattedAttributeValue(attributes.get(MIDDLE_NAME_FIELD))), 2, 1), Occur.SHOULD);
+		builder.add(new FuzzyQuery(new Term(BIRTHDATE_FIELD, getFormattedAttributeValue(attributes.get(BIRTHDATE_FIELD))), 1, 0), Occur.MUST);
+		builder.add(new TermQuery(new Term(SEX_FIELD, getFormattedAttributeValue(attributes.get(SEX_FIELD)))), Occur.SHOULD);
+		builder.add(new FuzzyQuery(new Term(SSN_FIELD, getFormattedAttributeValue(attributes.get(SSN_FIELD))), 1, 0), Occur.SHOULD);
+		
+		BooleanQuery query = builder.build();
+		
 		log.debug("Query: " + query.toString());
 		
 		Directory directory = indexWriter.getDirectory();
@@ -139,8 +142,10 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 				throw new RuntimeException("Invalid index state:  multiple matches for attributes=" + attributes);
 			}
 			if (hitDocs.length == 1) {
+				StoredFields storedFields = searcher.storedFields();
+				
 				int id = hitDocs[0].doc;
-				ret = searcher.doc(id);
+				ret = storedFields.document(hitDocs[0].doc);
 				log.debug("Found a match, id=" + id);
 			}
 			
@@ -164,10 +169,10 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	}
 
 	private void init() throws Exception {
-		Directory indexDirectory = FSDirectory.open(new File(indexDirectoryPath));
+		Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
 		log.info("Set Lucene index directory to " + indexDirectory.toString());
-		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+		Analyzer analyzer = new StandardAnalyzer();
+		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 		config.setIndexDeletionPolicy(new SnapshotDeletionPolicy(new KeepOnlyLastCommitDeletionPolicy()));
 		indexWriter = new IndexWriter(indexDirectory, config);

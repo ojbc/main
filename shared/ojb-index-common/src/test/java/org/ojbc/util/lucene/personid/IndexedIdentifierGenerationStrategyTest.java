@@ -16,7 +16,8 @@
  */
 package org.ojbc.util.lucene.personid;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -74,14 +75,13 @@ public class IndexedIdentifierGenerationStrategyTest {
 	
 	@After
 	public void tearDown() throws Exception {
-		File directory = new File(tempFilePath + "lucene");
+		strategy.destroy();
 		
+		File directory = new File(tempFilePath + "lucene");
 		if (directory.exists())
 		{	
 			FileUtils.deleteDirectory(directory);
 		}	
-		
-		strategy.destroy();
 	}
 	
 	@Test

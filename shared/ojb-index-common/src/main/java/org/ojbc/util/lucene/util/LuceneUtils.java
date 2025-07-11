@@ -16,25 +16,26 @@
  */
 package org.ojbc.util.lucene.util;
 
-import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.index.KeepOnlyLastCommitDeletionPolicy;
+import org.apache.lucene.index.LeafReader;
+import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.index.SnapshotDeletionPolicy;
+import org.apache.lucene.index.StoredFields;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 import org.ojbc.util.lucene.personid.IdentifierGenerationStrategy;
 
 /**
@@ -50,12 +51,12 @@ public class LuceneUtils {
 			System.err.println("Must provide source and target index directories as command line arguments");
 			System.exit(1);
 		}
-		Directory sourceDir = FSDirectory.open(new File(args[0]));
+		Directory sourceDir = FSDirectory.open(Paths.get(args[0]));
 		DirectoryReader reader = DirectoryReader.open(sourceDir);
 
-		Directory targetDir = FSDirectory.open(new File(args[1]));
-		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+		Directory targetDir = FSDirectory.open(Paths.get(args[1]));
+		Analyzer analyzer = new StandardAnalyzer();
+		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 		config.setIndexDeletionPolicy(new SnapshotDeletionPolicy(new KeepOnlyLastCommitDeletionPolicy()));
 		IndexWriter writer = new IndexWriter(targetDir, config);
@@ -70,21 +71,22 @@ public class LuceneUtils {
 		allowedFields.add(IdentifierGenerationStrategy.ID_FIELD);
 
 		try {
-			int lastDocumentIndex = reader.maxDoc();
-			for (int i = 0; i < lastDocumentIndex; i++) {
-				Document d = reader.document(i);
-				Document newDoc = new Document();
-				List<IndexableField> fields = d.getFields();
-				for (IndexableField f : fields) {
-					String fieldName = f.name();
-					String fieldValue = f.stringValue();
-					if (allowedFields.contains(fieldName)) {
-						newDoc.add(new StringField(fieldName, fieldValue, Store.YES));
+			for (LeafReaderContext leaf : reader.leaves()) {
+				LeafReader leafReader = leaf.reader();
+				for (int docID = 0; docID < leafReader.maxDoc(); docID++) {
+					StoredFields storedFields = leafReader.storedFields();
+					Document d = storedFields.document(docID);
+					Document newDoc = new Document();
+					for (IndexableField field : d.getFields()) {
+						String fieldName = field.name();
+						if (allowedFields.contains(fieldName)) {
+							newDoc.add(new StringField(fieldName, field.stringValue(), Field.Store.YES));
+						}
 					}
+					writer.addDocument(newDoc);
 				}
-				writer.addDocument(newDoc);
-				writer.commit();
 			}
+			writer.commit();
 		} finally {
 			reader.close();
 			writer.close();

@@ -34,18 +34,18 @@
 	</parent>
 
 	<properties>
-		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
-		<commons-lang-version>2.6</commons-lang-version>
-		<spring-version>3.2.11.RELEASE</spring-version>
-		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
-		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<xmlunit-version>1.5</xmlunit-version>
-		<lucene-version>4.7.2</lucene-version>
-		<java-version>1.8</java-version>
+		<slf4j-version>2.0.17</slf4j-version>
+		<log4j-version>2.25.0</log4j-version>
+		<commons-lang-version>3.17.0</commons-lang-version>
+		<spring-version>6.2.8</spring-version>
+		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+		<junit-platform-launcher-version>5.13.2</junit-platform-launcher-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<xmlunit-version>2.10.3</xmlunit-version>
+		<lucene-version>10.2.2</lucene-version>
+		<java-version>24</java-version>
 	</properties>
 
 	<dependencies>
@@ -57,7 +57,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-analyzers-common</artifactId>
+			<artifactId>lucene-analysis-common</artifactId>
 			<version>${lucene-version}</version>
 		</dependency>
 		<!-- Spring jars -->
@@ -91,8 +91,8 @@
 			<version>${slf4j-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
 
