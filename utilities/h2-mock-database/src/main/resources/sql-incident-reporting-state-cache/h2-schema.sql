@@ -14,17 +14,14 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-drop schema if exists incident_reporting_state_cache;
+DROP SCHEMA IF EXISTS incident_reporting_state_cache CASCADE;
+CREATE SCHEMA incident_reporting_state_cache;
+SET SCHEMA incident_reporting_state_cache;
 
-CREATE schema incident_reporting_state_cache;
-
---
--- Create tables for Person Involvment State
---
-CREATE TABLE `Person_Involvement_State` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  incident_id varchar(45) DEFAULT NULL,
-  person_involvement_hash varchar(100) DEFAULT NULL,
-  incident_originating_system_uri varchar(45) DEFAULT NULL,
-  person_involvement_activity varchar(45) DEFAULT NULL
+CREATE TABLE Person_Involvement_State (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  incident_id VARCHAR(45),
+  person_involvement_hash VARCHAR(100),
+  incident_originating_system_uri VARCHAR(45),
+  person_involvement_activity VARCHAR(45)
 );
