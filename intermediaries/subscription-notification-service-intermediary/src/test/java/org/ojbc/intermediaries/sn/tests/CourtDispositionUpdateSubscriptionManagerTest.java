@@ -53,6 +53,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 
 @DirtiesContext
@@ -64,6 +65,9 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
     @Resource  
     private DataSource dataSource;  
     
+    @Resource  
+    private JdbcTemplate jdbcTemplate;
+    
     @Value("${publishSubscribe.subscriptionManagerEndpoint}")
     private String subscriptionManagerUrl;
     
@@ -74,6 +78,8 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
 	public void setUp() throws Exception {
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
         context.start();
 	}
 	

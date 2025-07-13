@@ -63,7 +63,7 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
 	public void setUp() throws Exception {
 		//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
     	AdviceWith.adviceWith(context, "notifyOfExpiringSubscriptionsRoute", route -> {
-    		route.replaceFromWith("quartz://testTimer?fireNow=true&trigger.repeatCount=0");
+    		route.replaceFromWith("quartz://testTimer?trigger.startDelay=0&trigger.repeatCount=0");
     		route.weaveByToString("To[smtpEndpoint]").replace().to(smtpEndpointMock).stop(); 
     	});
     	

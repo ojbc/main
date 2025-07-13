@@ -47,6 +47,7 @@ import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 
@@ -68,12 +69,15 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		
 	@Resource
 	private DataSource dataSource;
+	@Resource
+	private JdbcTemplate jdbcTemplate;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
-		
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
     	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
     		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
     		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
@@ -97,7 +101,8 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	
 	@Test
 	public void subscribeArrestWithFbiData() throws Exception {
-		
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
 		String response = invokeRequest("fbiSubscribeSoapRequest.xml", notificationBrokerUrl);
 		
 		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));    

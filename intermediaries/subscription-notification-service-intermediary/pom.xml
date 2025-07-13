@@ -33,22 +33,21 @@
 	</parent>
 
   <properties>
-    <spring-boot-version>2.5.15</spring-boot-version>
-    <camel.version>3.11.7</camel.version>
-    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-    <ojb-common-version>[5.0.0,)</ojb-common-version>
-    <ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-    <cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
+    <spring-boot-version>2.7.18</spring-boot-version>
+    <camel.version>3.14.10</camel.version>
+    <ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
+    <ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
+    <ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
+    <cxf-boot-starter-version>3.4.10</cxf-boot-starter-version>
     <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
     <xmlunit.version>1.5</xmlunit.version>
-    <sn-intermediary-common-version>[3.0.5,)</sn-intermediary-common-version>
+    <sn-intermediary-common-version>[3.0.5, 4.0.0)</sn-intermediary-common-version>
     <wiser.version>3.1.7</wiser.version>
     <dbunit.version>2.4.9</dbunit.version>
-    <h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<osgi-core-version>1.4.0</osgi-core-version> 
-		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+    <h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
     <java-version>1.8</java-version>
-    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
+    <ojb-test-common-version>[4.0.0, 5.0.0)</ojb-test-common-version>
+    <osgi-core-version>1.4.0</osgi-core-version>
     <maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -232,13 +231,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-osgi-common</artifactId>
-			<version>${ojb-osgi-common-version}</version>
-		</dependency>
-		<dependency>
-	    	<groupId>mysql</groupId>
-	    	<artifactId>mysql-connector-java</artifactId>
+	    	<groupId>com.mysql</groupId>
+	    	<artifactId>mysql-connector-j</artifactId>
+	    	<version>8.2.0</version>
 		</dependency>
 
     <!-- Test Dependencies -->

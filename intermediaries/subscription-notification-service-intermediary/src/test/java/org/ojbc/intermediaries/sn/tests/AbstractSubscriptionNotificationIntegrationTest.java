@@ -59,6 +59,7 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.HttpUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 import org.w3c.dom.Document;
@@ -75,6 +76,8 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 	@Resource
 	protected DataSource dataSource;
 	@Resource
+	protected JdbcTemplate jdbcTemplate;
+	@Resource
 	protected SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	@Resource
 	protected ModelCamelContext context;
@@ -90,6 +93,8 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
 	}
 
 	protected IDatabaseConnection getConnection() throws Exception {

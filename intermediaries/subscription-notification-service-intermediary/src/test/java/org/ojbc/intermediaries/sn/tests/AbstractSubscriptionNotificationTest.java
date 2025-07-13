@@ -30,12 +30,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 @CamelSpringBootTest
-@SpringBootTest(classes=SubscriptionNotificationService.class)
+@SpringBootTest(classes=SubscriptionNotificationService.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("dev")
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @ContextConfiguration(locations={ //TODO see if we can remove this
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
