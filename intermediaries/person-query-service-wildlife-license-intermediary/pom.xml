@@ -153,11 +153,6 @@
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-			<version>${cxf-version}</version>
-		</dependency>
 
 		<!-- ws-security -->
 		<dependency>
