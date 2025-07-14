@@ -53,6 +53,7 @@
 		<xmlunit.version>2.10.3</xmlunit.version>
 		<jakarta.mail.version>2.0.1</jakarta.mail.version>
 		<joda.time.version>2.14.0</joda.time.version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
 
 		<!-- Plugin versions -->
 		<surefire.version>3.5.3</surefire.version>
@@ -255,7 +256,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

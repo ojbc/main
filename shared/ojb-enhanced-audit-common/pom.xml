@@ -54,6 +54,7 @@
 		<!-- Plugin versions -->
 		<surefire.version>2.22.2</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
@@ -201,7 +202,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

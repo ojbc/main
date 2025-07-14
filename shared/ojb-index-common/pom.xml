@@ -43,6 +43,7 @@
 		<junit-platform-launcher-version>5.13.2</junit-platform-launcher-version>
 		<ojb-common-version>[6.0.0,)</ojb-common-version>
 		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
 		<xmlunit-version>2.10.3</xmlunit-version>
 		<lucene-version>10.2.2</lucene-version>
 		<java-version>24</java-version>
@@ -116,7 +117,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
