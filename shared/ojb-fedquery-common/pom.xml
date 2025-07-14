@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
-	<version>4.0.5</version>
+	<version>4.0.6</version>
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
 	<url>http://www.ojbc.org</url>
 
@@ -34,9 +34,9 @@
   <properties>
     <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
     <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-    <ojb-common-version>[5.0.0,)</ojb-common-version>
-    <log4j-version>2.17.2</log4j-version>
+    <ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
+    <ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
+    <log4j-version>2.24.3</log4j-version>
     <xmlunit.version>1.6</xmlunit.version>
     <java-version>1.8</java-version>
     <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -92,28 +92,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.8.1</version>
         <configuration>
           <source>${java-version}</source>
           <target>${java-version}</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>${maven-bundle-plugin-version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <import-package>
-              !org.junit.*,
-              !org.custommonkey
-            </import-package>
-            <Export-Package>org.ojbc.util.fedquery.*</Export-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-
     </plugins>
   </build>
 
