@@ -20,15 +20,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:camel="http://camel.apache.org/schema/spring"
-       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
        xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
@@ -135,7 +135,7 @@
 
 			<camel:log message="Timer started"/>
 
-			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+			<camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//nc30:IdentificationSourceText</camel:xpath>
 				<camel:log message="\n\n\n Split body: ${body}.\n  Webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
@@ -211,7 +211,7 @@
 	      
 			<log message="\n\n\n In aggregator with correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
 			
-			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
+			<aggregate aggregationStrategy="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 			
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
