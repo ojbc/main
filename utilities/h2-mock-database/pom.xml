@@ -36,7 +36,7 @@
 	<properties>
 		<h2database-version>2.1.214</h2database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<spring-version>5.3.33</spring-version>
+		<spring-version>5.3.37</spring-version>
 		<junit-jupiter-engine-version>5.8.2</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.8.2</junit-vintage-engine-version>
 		<junit-platform-launcher-version>1.8.2</junit-platform-launcher-version>

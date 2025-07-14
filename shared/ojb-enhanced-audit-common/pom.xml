@@ -39,7 +39,7 @@
     <camel-version>3.14.10</camel-version>
     <cxf-version>3.4.10</cxf-version>
     <saxon-version>9.9.1-7</saxon-version>
-    <spring-version>5.3.33</spring-version>
+    <spring-version>5.3.37</spring-version>
     <apache-commons-io-version>2.8.0</apache-commons-io-version>
     <xmlunit-version>1.6</xmlunit-version>
     <commons-lang>3.12.0</commons-lang>
