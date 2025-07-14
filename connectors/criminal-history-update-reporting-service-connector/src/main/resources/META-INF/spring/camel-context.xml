@@ -42,7 +42,7 @@
       <camel:from uri="inputDir" />
       <camel:log message="Received file for Criminal History Update: ${file:name}" />
 
-      <camel:convertBodyTo type="java.lang.String" charset="UTF-8" />
+      <camel:convertBodyTo type="java.lang.String" />
 
       <camel:removeHeaders pattern="*" />
 
