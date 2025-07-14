@@ -26,8 +26,9 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>person-query-service-professional-license-intermediary</artifactId>
-	<version>2.0.1</version>
-	<name>OJB :: person-query-service-professional-license-intermediary :: intermediary</name>
+	<version>3.0.0</version>
+	<name>OJB :: person-query-service-professional-license-intermediary ::
+		intermediary</name>
 	<url>http://www.search.org</url>
 
 	<parent>
@@ -37,21 +38,22 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.15</spring-boot-version>
-		<camel-version>3.11.7</camel-version>
-		<log4j-version>2.20.0</log4j-version>
-		<cxf-version>3.4.4</cxf-version>
-		<spring-version>5.3.24</spring-version>
-		<xmlunit-version>1.6</xmlunit-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
+		<spring-boot-version>3.5.3</spring-boot-version>
+		<camel-version>4.12.0</camel-version>
+		<log4j-version>2.25.0</log4j-version>
+		<cxf-version>4.1.2</cxf-version>
+		<spring-version>6.2.8</spring-version>
+		<xmlunit-version>2.10.3</xmlunit-version>
+		<commons-io-version>2.19.0</commons-io-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<maven-surefire-plugin-version>3.5.3</maven-surefire-plugin-version>
+		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>[3.0.3,)</ojb-enhanced-audit-common-version>
-		<java-version>1.8</java-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
+		<ojb-fedquery-common-version>[5.0.0,)</ojb-fedquery-common-version>
+		<ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+		<ojb-enhanced-audit-common-version>[4.0.0,)</ojb-enhanced-audit-common-version>
+		<java-version>24</java-version>
 	</properties>
 
 	<dependencyManagement>
@@ -91,10 +93,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-actuator</artifactId>
 		</dependency>
 
@@ -121,7 +119,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
+			<artifactId>camel-cxf-spring-soap</artifactId>
 		</dependency>
 
 		<!-- CXF libs -->
@@ -133,28 +131,34 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf.services.sts</groupId>
 			<artifactId>cxf-services-sts-core</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 
 		<!-- ws-security -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 
 		<dependency>
@@ -205,30 +209,30 @@
 			<artifactId>junit-vintage-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-test-spring-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -246,8 +250,8 @@
 			<artifactId>commons-dbcp2</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
 
 	</dependencies>

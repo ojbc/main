@@ -25,8 +25,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class, 
-		HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
 @ComponentScan({"org.ojbc.bundles.intermediaries.personquery"})
 @ImportResource(value = {"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml", 
