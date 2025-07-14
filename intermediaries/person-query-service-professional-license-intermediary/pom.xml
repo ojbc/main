@@ -45,6 +45,7 @@
 		<spring-version>6.2.8</spring-version>
 		<xmlunit-version>2.10.3</xmlunit-version>
 		<commons-io-version>2.19.0</commons-io-version>
+		<junit-version>5.13.2</junit-version>
 		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>3.5.3</maven-surefire-plugin-version>
 		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
@@ -76,6 +77,13 @@
 				<groupId>org.apache.camel.springboot</groupId>
 				<artifactId>camel-spring-boot-dependencies</artifactId>
 				<version>${camel-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -128,7 +136,7 @@
 			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-		<dependency>
+		<dependency> 
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>${cxf-version}</version>
@@ -205,6 +213,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+	        <groupId>org.junit.platform</groupId>
+	        <artifactId>junit-platform-launcher</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
 			<scope>test</scope>
