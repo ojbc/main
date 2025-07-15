@@ -29,16 +29,16 @@ import org.ojbc.web.security.SamlAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
@@ -48,54 +48,51 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 	@Resource
+	@Lazy
 	SamlService samlService;
 	
 	@Resource
+	@Lazy
 	PortalAuthenticationDetailsSource portalAuthenticationDetailsSource;
 	
 	@Resource
+	@Lazy
 	OJBCAccessDeniedHandler ojbcAccessDeniedHandler;
 	
 	@Resource
+	@Lazy
 	CustomLogoutSuccessHandler customLogoutSuccessHandler;
 	
-	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
-        		"/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
-        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests(requests -> requests
-                    .anyRequest().hasAuthority("AUTHZ_PORTAL"))
-            .logout(logout -> logout
-//            		.logoutUrl("/portal/performLogout")
-            		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            		.logoutSuccessHandler(customLogoutSuccessHandler)
-            		.deleteCookies("JSESSIONID")
-            		.clearAuthentication(true)
-            		.permitAll())
-            .headers(headers -> headers
-                    .frameOptions()
-                    .sameOrigin())
-            .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
-                    LogoutFilter.class)
-            .exceptionHandling(handling -> handling.accessDeniedHandler(ojbcAccessDeniedHandler));
-    }
-    
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(preauthAuthProvider());
-    }
-    
-    @Override
     @Bean
-    protected AuthenticationManager authenticationManager() throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+        http
+        .authorizeRequests(requests -> requests
+            .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
+                    "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
+                    "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo").permitAll()
+            .anyRequest().hasAuthority("AUTHZ_PORTAL"))
+        .logout(logout -> logout
+//              .logoutUrl("/portal/performLogout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessHandler(customLogoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true)
+                .permitAll())
+        .headers(headers -> headers
+                .frameOptions()
+                .sameOrigin())
+        .addFilterBefore(samlAuthenticationFilter(authenticationManager),
+                LogoutFilter.class)
+        .exceptionHandling(handling -> handling.accessDeniedHandler(ojbcAccessDeniedHandler));
+        return http.build();
+    }
+    
+    
+    @Bean
+    @Lazy
+    AuthenticationManager authenticationManager() throws Exception {
         final List<AuthenticationProvider> providers = new ArrayList<>(1);
         providers.add(preauthAuthProvider());
         return new ProviderManager(providers);
@@ -124,9 +121,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("AUTHZ_"); 
     }
-    
+
     @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter() {
+    CommonsRequestLoggingFilter requestLoggingFilter() {
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
         loggingFilter.setIncludeClientInfo(true);
         loggingFilter.setIncludeQueryString(true);
