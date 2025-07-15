@@ -131,6 +131,7 @@
 			<property name="operationName"><value>SubmitSubscriptionSearchRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>subscriptionSearchRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 	
 		<!-- Subscription Query Request and Response Endpoints -->
@@ -148,6 +149,7 @@
 			<property name="operationName"><value>SubmitSubscriptionQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>subscriptionQueryRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 		
 	    <!-- Subscription Request Endpoints -->
@@ -191,6 +193,7 @@
 			<property name="operationNamespace"><value>http://docs.oasis-open.org/wsn/bw-2</value></property>
 			<property name="destinationEndpoint"><value>subscriptionManagerServiceSecure</value></property>
 			<property name="callServiceSynchronous"><value>true</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 		
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="subscriptionSearchRequestResponseMap"/>

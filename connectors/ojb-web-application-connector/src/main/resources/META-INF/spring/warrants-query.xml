@@ -79,6 +79,7 @@
 		<property name="operationName"><value>Submit-Person-Query---Warrants</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0</value></property>
 		<property name="destinationEndpoint"><value>personQueryRequestWarrantsService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="warrantsSearchRequestResponseMap"/>

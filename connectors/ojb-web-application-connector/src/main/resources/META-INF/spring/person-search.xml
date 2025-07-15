@@ -75,6 +75,7 @@
 			<property name="operationName"><value>SubmitPersonSearchRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>personSearchRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 		
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="personSearchRequestResponseMap"/>

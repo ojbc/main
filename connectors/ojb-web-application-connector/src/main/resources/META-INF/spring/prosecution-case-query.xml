@@ -64,6 +64,7 @@
 			<property name="operationName"><value>SubmitProsecutionCaseQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Request_Service/1.0</value></property>
 			<property name="destinationEndpoint"><value>prosecutionCaseQueryRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="prosecutionCaseQueryRequestResponseMap"/>

@@ -35,11 +35,12 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 	
-	  <camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	  <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="webConnectorCamelContext">
 	    <camel:contextScan></camel:contextScan>
   	</camel:camelContext>
 
   	<!-- SAML map to persist tokens between CXF and Camel -->	
 	  <bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+    <camel:template id="producerTemplate" camelContextId="webConnectorCamelContext"/>
 	
 </beans>
