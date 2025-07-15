@@ -46,13 +46,11 @@ public class IncidentReportingDaoImpl implements IncidentReportingDao {
 	public PersonInvolvement isThereAPriorPersonInvolvment(String incidentId, String incidentOriginatingSystemUri, String personInvolvementHash, String personInvolvementActivity) {
 		String queryString = "SELECT * FROM PERSON_INVOLVEMENT_STATE where incident_id =? and incident_originating_system_uri=? and person_involvement_hash = ? and person_involvement_activity = ?";
 
-		Object[] criteriaArray = new Object[] { incidentId,incidentOriginatingSystemUri,personInvolvementHash,personInvolvementActivity};
-
 		PersonInvolvement personInvolvement = null;
 		
 		try
 		{
-		personInvolvement = (PersonInvolvement)this.jdbcTemplate.queryForObject(queryString, criteriaArray, new PersonInvolvementRowMapper());
+			personInvolvement = (PersonInvolvement)this.jdbcTemplate.queryForObject(queryString, new PersonInvolvementRowMapper(), incidentId, incidentOriginatingSystemUri, personInvolvementHash, personInvolvementActivity);
 		} 
 		catch (EmptyResultDataAccessException e) {
 			return null;

@@ -41,6 +41,7 @@
 		<cxf-version>4.1.2</cxf-version>
 		<ojb-common-version>[6.0.0,)</ojb-common-version>
 		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
 		<log4j-version>2.25.0</log4j-version>
 		<junit.version>5.13.2</junit.version>
 		<hamcrest.version>3.0</hamcrest.version>
@@ -262,7 +263,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
