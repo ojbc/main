@@ -34,6 +34,7 @@ import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,9 +53,15 @@ public class AuditDaoImplTest {
 	@Resource
 	private AuditDAOImpl auditDAOImpl;
 	
+	@Resource
+	private JdbcTemplate jdbcTemplateAudit;
+	
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(auditDAOImpl);
+		jdbcTemplateAudit.execute("ALTER TABLE enhanced_auditlog.notifications_sent ALTER COLUMN notifications_sent_id RESTART WITH 10");
+		jdbcTemplateAudit.execute("ALTER TABLE enhanced_auditlog.NOTIFICATION_PROPERTIES ALTER COLUMN NOTIFICATION_PROPERTIES_id RESTART WITH 10");
+
 	}
 	
 	@Test

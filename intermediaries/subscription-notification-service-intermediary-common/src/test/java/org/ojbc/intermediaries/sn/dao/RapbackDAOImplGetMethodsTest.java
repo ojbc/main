@@ -36,8 +36,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
+import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -55,6 +57,8 @@ public class RapbackDAOImplGetMethodsTest {
 	    
 	@Resource
 	private FbiRapbackDao rapbackDao;
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -122,9 +126,16 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals("123456789", ucn);				
 	}	
 	
+    final String CIVIL_FINGER_PRINTS_UPDATE="update CIVIL_FINGER_PRINTS "
+            + "SET FINGER_PRINTS_FILE = ?  where TRANSACTION_NUMBER = ? ";
+	
 	@Test
 	public void testGetCivilFingerprints()
 	{
+        byte[] civilFingerPrints = ZipUtils.zip("StateCivilFingerPrints".getBytes()); 
+
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, civilFingerPrints, "000001820140729014008339990");
+
 		byte[] fingerPrints = rapbackDao.getCivilFingerPrints("000001820140729014008339990");
 		
 		assertEquals("StateCivilFingerPrints", new String(fingerPrints, StandardCharsets.UTF_8));

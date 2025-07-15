@@ -22,12 +22,15 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +41,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -56,9 +60,16 @@ public class TestSubscriptionMigrationProcessor {
 	
 	@Autowired
     private SubscriptionMigrationProcessor subscriptionMigrationProcessor;
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+    @Before
+    public void setUp() throws Exception {
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.AGENCY_PROFILE ALTER COLUMN AGENCY_ID RESTART WITH 10");
+    }
 
     @Test
     public void testProcessAgencyProfileORIEntry() throws Exception {
