@@ -41,7 +41,7 @@
 		<cxf-version>4.1.2</cxf-version>
 		<log4j-version>2.25.0</log4j-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
-		<commons-lang-version>3.17.0</commons-lang-version>
+		<commons-lang-version>3.18.0</commons-lang-version>
 		<spring-version>6.2.8</spring-version>
 		<apache-commons-io-version>2.19.0</apache-commons-io-version>
 		<xmlunit-version>2.10.3</xmlunit-version>
@@ -180,6 +180,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->

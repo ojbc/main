@@ -44,6 +44,7 @@
 		<cxf-version>4.1.2</cxf-version>
 		<spring-version>6.2.8</spring-version>
 		<xmlunit-version>2.10.3</xmlunit-version>
+		<commons-lang3-version>3.18.0</commons-lang3-version>
 		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>3.5.3</maven-surefire-plugin-version>
 		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
@@ -91,10 +92,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -169,6 +166,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
