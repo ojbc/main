@@ -38,20 +38,20 @@
 		<java.version>1.8</java.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
-		<spring-boot-version>2.5.15</spring-boot-version>
-		<camel-version>3.11.7</camel-version>
-		<log4j-version>2.20.0</log4j-version>
-		<cxf-version>3.4.4</cxf-version>
-		<spring-version>5.3.24</spring-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
+		<spring-boot-version>2.7.18</spring-boot-version>
+		<camel-version>3.14.10</camel-version>
+		<log4j-version>2.24.3</log4j-version>
+		<cxf-version>3.4.10</cxf-version>
+		<spring-version>5.3.37</spring-version>
+		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xmlunit-version>1.6</xmlunit-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<incident-reporting-service-intermediary-commmon-version>[1.0.1,)</incident-reporting-service-intermediary-commmon-version>
-		<ojb-camel-common>[4.0.0,)</ojb-camel-common>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
+		<h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
+		<incident-reporting-service-intermediary-commmon-version>[1.0.1, 2.0.0)</incident-reporting-service-intermediary-commmon-version>
+		<ojb-camel-common>[4.0.0, 5.0.0)</ojb-camel-common>
+		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
 		<saxon-version>9.5.1-5</saxon-version>
-		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
+		<ojb-test-common-version>[4.0.0, 5.0.0)</ojb-test-common-version>
 	</properties>
 	
 	<dependencyManagement>
@@ -293,10 +293,9 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 		</dependency>		
 	</dependencies>
 
