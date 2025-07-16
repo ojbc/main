@@ -37,19 +37,19 @@
 	<properties>
 		<spring-boot-version>2.5.15</spring-boot-version>
 		<camel-version>3.11.7</camel-version>
-		<log4j-version>2.20.0</log4j-version>
+		<log4j-version>2.24.3</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
 		<spring-version>5.3.24</spring-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>[3.0.3,)</ojb-enhanced-audit-common-version>
+		<h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
+		<ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
+		<ojb-fedquery-common-version>[4.0.0, 5.0.0)</ojb-fedquery-common-version>
+		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
+		<ojb-enhanced-audit-common-version>[3.0.3, 4.0.0)</ojb-enhanced-audit-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 	

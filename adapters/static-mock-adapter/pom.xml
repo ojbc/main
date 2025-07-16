@@ -46,10 +46,10 @@
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
+		<h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
+		<ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
 		<static-mock-adapter-version>[2.0.0,)</static-mock-adapter-version>
 		<java-version>1.8</java-version>
 	</properties>
@@ -283,7 +283,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
