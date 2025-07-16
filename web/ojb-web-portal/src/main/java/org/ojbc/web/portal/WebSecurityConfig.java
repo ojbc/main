@@ -66,7 +66,7 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http
-        .authorizeRequests(requests -> requests
+        .authorizeHttpRequests(auth -> auth
             .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
                     "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
                     "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo").permitAll()
