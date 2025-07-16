@@ -19,7 +19,7 @@ CREATE SCHEMA incident_reporting_state_cache;
 SET SCHEMA incident_reporting_state_cache;
 
 CREATE TABLE Person_Involvement_State (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id IDENTITY PRIMARY KEY,
   incident_id VARCHAR(45),
   person_involvement_hash VARCHAR(100),
   incident_originating_system_uri VARCHAR(45),

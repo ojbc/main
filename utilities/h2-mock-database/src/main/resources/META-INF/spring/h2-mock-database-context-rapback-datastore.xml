@@ -37,6 +37,6 @@
     <jdbc:initialize-database data-source="rapbackDataSource" ignore-failures="ALL">
         <jdbc:script location="classpath:sql-rapback-datastore/h2-schema.sql"/>
         <jdbc:script location="classpath:sql-rapback-datastore/h2-test-data.sql"/>
-	</jdbc:initialize-database>
+	  </jdbc:initialize-database>
 	
 </beans>

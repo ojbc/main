@@ -36,7 +36,7 @@
     </bean>
     
     <jdbc:initialize-database data-source="incidentReportingStateCacheDataSource" ignore-failures="ALL">
-		<jdbc:script location="classpath:sql-incident-reporting-state-cache/h2-schema.sql"/>
-	</jdbc:initialize-database>
+		  <jdbc:script location="classpath:sql-incident-reporting-state-cache/h2-schema.sql"/>
+	  </jdbc:initialize-database>
 	
 </beans>
