@@ -85,7 +85,7 @@ public class VehiclesController {
 	SamlService samlService;
 	
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm || userSession.getMostRecentVehicleSearch() == null) {
@@ -100,7 +100,7 @@ public class VehiclesController {
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("vehicleSearchCommand") VehicleSearchCommand vehicleSearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute VehicleSearchCommand vehicleSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentVehicleSearch(vehicleSearchCommand);
 
@@ -119,7 +119,7 @@ public class VehiclesController {
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+	        @ModelAttribute DetailsRequest detailsRequest, 
 	        Map<String, Object> model) throws InterruptedException {
 		try {
 			processDetailRequest(request, systemName, detailsRequest, model);
@@ -134,7 +134,7 @@ public class VehiclesController {
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public @ResponseBody String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
+	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		String convertedResult = processDetailRequest(request, systemName, detailsRequest, model);
 

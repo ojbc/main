@@ -104,7 +104,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
     
 	@RequestMapping(value = "adminSearchForm", method = RequestMethod.GET)
-	public String adminSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String adminSearchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the search Form");
 		if (resetForm) {
@@ -117,7 +117,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     
 	@RequestMapping(value = "adminAdvancedsearch", method = RequestMethod.POST)
 	public String adminAdvancedSearch(HttpServletRequest request,	
-			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
+			@ModelAttribute @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
 	        Map<String, Object> model) {	
 		if (errors.hasErrors()) {
@@ -134,7 +134,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
 	public String getExpiringSubscriptions(HttpServletRequest request,	
-			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
+			@ModelAttribute @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
@@ -158,7 +158,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	@RequestMapping(value = "expiredSubscriptions", method = RequestMethod.POST)
 	public String getExpiredSubscriptions(HttpServletRequest request,	
-			@ModelAttribute("expiredSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiredSubscriptionRequest,
+			@ModelAttribute @Valid ExpiringSubscriptionRequest expiredSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
@@ -206,7 +206,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@RequestMapping(value = "expiringSubscriptionsForm", method = RequestMethod.GET)
 	public String getExpiringSubscriptionsForm(
-			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the expiringSubscriptionsForm");
 		
@@ -220,7 +220,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     
 	@RequestMapping(value = "expiredSubscriptionsForm", method = RequestMethod.GET)
 	public String getExpiredSubscriptionsForm(
-			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			@RequestParam(required = false) boolean resetForm,
 			Map<String, Object> model) {
 		log.info("Presenting the expiredSubscriptionsForm");
 		
@@ -234,7 +234,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@RequestMapping(value = "notificationsSearchForm", method = RequestMethod.GET)
 	public String getNotificationsSearchForm(
-			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			@RequestParam(required = false) boolean resetForm,
 			Map<String, Object> model) {
 		log.info("Presenting the notificationsSearchForm");
 		
@@ -249,7 +249,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@RequestMapping(value = "federalRapbackSubscriptionDetail/{subscriptionId}", method = RequestMethod.GET)
 	public String getFederalRapbackSubscriptionDetail(
-			@PathVariable("subscriptionId") String subscriptionId,
+			@PathVariable String subscriptionId,
 			Map<String, Object> model) {
 		log.info("getting FederalRapbackSubscriptionDetail for " + subscriptionId);
 		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = 
@@ -270,7 +270,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     
     @RequestMapping("notifications")
     public String getNotifications(HttpServletRequest request,	        
-    		@ModelAttribute("rapbackNotificationDateRange") @Valid QueryRequestByDateRange rapbackNotificationDateRange,
+    		@ModelAttribute @Valid QueryRequestByDateRange rapbackNotificationDateRange,
     		BindingResult errors,
     		Map<String, Object> model){
     	

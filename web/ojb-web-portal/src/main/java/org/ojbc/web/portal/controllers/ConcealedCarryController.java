@@ -71,7 +71,7 @@ public class ConcealedCarryController {
     AppProperties appProperties;
 
 	@GetMapping(value = "searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		ConcealedCarrySearchRequest mostRecentConcealedCarrySearch = (ConcealedCarrySearchRequest) model.get("mostRecentConcealedCarrySearch"); 
 		
@@ -87,7 +87,7 @@ public class ConcealedCarryController {
 	}
 	
 	@PostMapping(value = "advanceSearch")
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("concealedCarrySearchCommand") ConcealedCarrySearchRequest concealedCarrySearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute ConcealedCarrySearchRequest concealedCarrySearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 
 		if (errors.hasErrors()) {
@@ -102,7 +102,7 @@ public class ConcealedCarryController {
 
 	@GetMapping(value = "concealedCarryDetails")
 	public String concealedCarryDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
+	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model, 
 	        Authentication authentication) throws InterruptedException {
 		try {
 			

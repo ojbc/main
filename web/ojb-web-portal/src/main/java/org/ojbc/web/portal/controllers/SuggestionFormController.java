@@ -82,7 +82,7 @@ public class SuggestionFormController {
 	private final Log log = LogFactory.getLog(this.getClass());
 	
 	@RequestMapping(value = "suggestionForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		SuggestionFormCommand suggestionFormCommand = new SuggestionFormCommand();
@@ -92,7 +92,7 @@ public class SuggestionFormController {
 	}
 	
 	@RequestMapping(value = "submitEmail", method = RequestMethod.POST)
-	public String submitEmail(HttpServletRequest request,  @ModelAttribute("suggestionFormCommand") SuggestionFormCommand suggestionFormCommand,
+	public String submitEmail(HttpServletRequest request,  @ModelAttribute SuggestionFormCommand suggestionFormCommand,
 	        BindingResult errors, Map<String, Object> model) {
 		
 		log.info("Entering submit email method with suggestion form command object: " + suggestionFormCommand.toString());

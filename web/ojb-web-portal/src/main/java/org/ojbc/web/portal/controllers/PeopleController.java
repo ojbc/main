@@ -142,8 +142,8 @@ public class PeopleController {
 	}
 
 	@GetMapping(value = "/searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
-	        @RequestParam(value = "activeSearchTab", defaultValue = "simpleSearchTab") String activeSearchTab,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
+	        @RequestParam(defaultValue = "simpleSearchTab") String activeSearchTab,
 	        Map<String, Object> model) {
 
 		if (resetForm || userSession.getMostRecentSearch() == null) {
@@ -164,7 +164,7 @@ public class PeopleController {
 
 
 	@PostMapping(value = "simpleSearch")
-	public String simpleSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") @Valid PersonSearchCommand personSearchCommand,
+	public String simpleSearch(HttpServletRequest request, @ModelAttribute @Valid PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		
 		userSession.setMostRecentSearch(personSearchCommand);
@@ -201,7 +201,7 @@ public class PeopleController {
 
 	//http://host/ojbc_web_portal/people/filter post
 	@PostMapping(value="filter")
-	public String filter(@ModelAttribute("personFilterCommand") @Valid PersonFilterCommand personFilterCommand, 
+	public String filter(@ModelAttribute @Valid PersonFilterCommand personFilterCommand, 
 			BindingResult errors, Map<String, Object> model) {
 		
 		String filterInput;
@@ -257,7 +257,7 @@ public class PeopleController {
     }
 	
 	@PostMapping(value = "advanceSearch")
-	public String advanceSearch(HttpServletRequest request,  @Valid @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String advanceSearch(HttpServletRequest request,  @Valid @ModelAttribute PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(personSearchCommand.getSearchType());
@@ -276,8 +276,8 @@ public class PeopleController {
 
 	@GetMapping(value = "searchDetails")
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
-			@RequestParam("searchResultCategory") String searchResultCategory,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			@RequestParam String searchResultCategory,
+	        @ModelAttribute DetailsRequest detailsRequest, 
 	        Map<String, Object> model, Authentication authentication) {
 		
 		try {
@@ -292,8 +292,8 @@ public class PeopleController {
 
 	@GetMapping(value = "detailsPage")
 	public String getDetailsPage(HttpServletRequest request, @RequestParam String systemName, 
-			@RequestParam("searchResultCategory") String searchResultCategory,
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			@RequestParam String searchResultCategory,
+			@ModelAttribute DetailsRequest detailsRequest, 
 			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
 		
 		try {
@@ -315,7 +315,7 @@ public class PeopleController {
 	 */
 	@GetMapping(value = "cch/detailsPage")
 	public String getCchCriminalHistoryDetailsPage(HttpServletRequest request,  
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			@ModelAttribute DetailsRequest detailsRequest, 
 			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
 		
 		detailsRequest.setIdentificationSourceText(appProperties.getCchDrillDownIdentificationSourceText());
@@ -329,14 +329,14 @@ public class PeopleController {
 	
 	@GetMapping(value = "instanceDetails")
 	public @ResponseBody String instanceDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
+	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		return getConvertedSearchResult(request, systemName, detailsRequest, model);
 	}
 	
 	@GetMapping(value = "instanceDetailsPage")
 	public String instanceDetailsPage(HttpServletRequest request, @RequestParam String systemName,
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
+			@ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
 					throws Exception {
 		String convertedSearchResult = getConvertedSearchResult(request, systemName, detailsRequest, model);
 		model.put("instanceDetails", convertedSearchResult);

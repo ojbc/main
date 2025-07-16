@@ -35,6 +35,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
@@ -66,10 +67,7 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http
-        .authorizeHttpRequests(auth -> auth
-            .antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
-                    "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
-                    "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo").permitAll()
+        .authorizeRequests(auth -> auth
             .anyRequest().hasAuthority("AUTHZ_PORTAL"))
         .logout(logout -> logout
 //              .logoutUrl("/portal/performLogout")
@@ -87,7 +85,13 @@ public class WebSecurityConfig {
         return http.build();
     }
     
-    
+    @Bean
+    WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
+                "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
+                "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo");
+    }
+
     @Bean
     @Lazy
     AuthenticationManager authenticationManager() throws Exception {

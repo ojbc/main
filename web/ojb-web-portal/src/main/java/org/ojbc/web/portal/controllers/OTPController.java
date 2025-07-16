@@ -85,7 +85,7 @@ public class OTPController {
 	}
 	
 	@PostMapping(value = "/requestOtp")
-	public String requestOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, Map<String, Object> model) throws Exception {
+	public String requestOtp(HttpServletRequest request, @ModelAttribute OTPFormCommand otpFormCommand, Map<String, Object> model) throws Exception {
 
 		log.info("Entering function to request OTP.");
 		
@@ -109,7 +109,7 @@ public class OTPController {
 	}
 
 	@PostMapping(value = "submitOtp")
-	public String submitOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
+	public String submitOtp(HttpServletRequest request, @ModelAttribute OTPFormCommand otpFormCommand, 
 			Map<String, Object> model) throws Exception {
 	
 		log.info("Entering function to confirm OTP.");
