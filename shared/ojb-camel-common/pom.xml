@@ -20,55 +20,55 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.ojbc.bundles.shared</groupId>
-	<artifactId>ojb-camel-common</artifactId>
-	<version>5.0.0</version>
-	<name>OJB :: ojb-camel-common :: shared</name>
-	<url>http://www.ojbc.org</url>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ojbc.bundles.shared</groupId>
+  <artifactId>ojb-camel-common</artifactId>
+  <version>5.0.1</version>
+  <name>OJB :: ojb-camel-common :: shared</name>
+  <url>http://www.ojbc.org</url>
 
-	<parent>
-		<groupId>org.ojbc.build</groupId>
-		<artifactId>ojb-shared-aggregate</artifactId>
-		<version>1.0.0</version>
-	</parent>
+  <parent>
+    <groupId>org.ojbc.build</groupId>
+    <artifactId>ojb-shared-aggregate</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-	<properties>
-		<camel.version>4.12.0</camel.version>
-		<cxf.version>4.1.2</cxf.version>
-		<spring-version>6.1.2</spring-version>
-		<spring-boot-version>3.5.3</spring-boot-version>
-		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
-		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
-		<ojb-common-version>[6.0.0,)</ojb-common-version>
-		<java-version>24</java-version>
-		<log4j-version>2.24.3</log4j-version>
-		<osgi-core-version>8.0.0</osgi-core-version>
+  <properties>
+    <camel.version>4.12.0</camel.version>
+    <cxf.version>4.1.2</cxf.version>
+    <spring-version>6.1.2</spring-version>
+    <spring-boot-version>3.5.3</spring-boot-version>
+    <junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+    <junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+    <h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
+    <ojb-common-version>[6.0.0,)</ojb-common-version>
+    <java-version>24</java-version>
+    <log4j-version>2.24.3</log4j-version>
+    <osgi-core-version>8.0.0</osgi-core-version>
     <h2database-version>1.4.200</h2database-version>
 
-		<!-- Plugin versions -->
-		<surefire.version>2.22.2</surefire.version>
-		<maven-compiler-version>3.14.0</maven-compiler-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>${log4j-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.13.2</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+    <!-- Plugin versions -->
+    <surefire.version>2.22.2</surefire.version>
+    <maven-compiler-version>3.14.0</maven-compiler-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.13.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-bom</artifactId>
@@ -76,31 +76,26 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>${spring-boot-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring-version}</version> <!-- or whatever the latest is -->
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${h2database-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring-boot-version}</version>
-			<scope>test</scope>
-		</dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring-version}</version> <!-- or whatever the latest is -->
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2database-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>${spring-boot-version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
@@ -111,113 +106,113 @@
       <artifactId>spring-context</artifactId>
       <version>${spring-version}</version>
     </dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-launcher</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.ojbc.bundles.utilities</groupId>
-			<artifactId>h2-mock-database</artifactId>
-			<version>${h2-mock-database-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.utilities</groupId>
+      <artifactId>h2-mock-database</artifactId>
+      <version>${h2-mock-database-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>osgi.core</artifactId>
-			<version>${osgi-core-version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-common</artifactId>
-			<version>${ojb-common-version}</version>
-			<!-- Exclude older saxon from classpath. Saxon is a dependency
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>osgi.core</artifactId>
+      <version>${osgi-core-version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-common</artifactId>
+      <version>${ojb-common-version}</version>
+      <!-- Exclude older saxon from classpath. Saxon is a dependency
 				in ojb-common. We don't want it included transitively on the ojb connector
 				classpath, so we need to exclude it. When saxon is on the classpath, it gets
 				used by the JVM during certain non explicit TransformerFactory calls. When
 				this is unintended, there is unexpected behavior. -->
-			<exclusions>
-				<exclusion>
-					<groupId>net.sf.saxon</groupId>
-					<artifactId>saxon</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.saxon</groupId>
-					<artifactId>saxon-dom</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-		</dependency>
-    <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-cxf-spring-soap</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>net.sf.saxon</groupId>
+          <artifactId>saxon</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.sf.saxon</groupId>
+          <artifactId>saxon-dom</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-security-saml</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-cxf-spring-soap</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-spring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-security-saml</artifactId>
+      <version>${cxf.version}</version>
+    </dependency>
 
-	</dependencies>
-	<build>
-		<defaultGoal>install</defaultGoal>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${surefire.version}</version>
-				<configuration>
-					<argLine>-Xmx1024m</argLine>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${surefire.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-version}</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  </dependencies>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${surefire.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-version}</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project> 
