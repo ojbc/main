@@ -54,6 +54,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipat
 import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
@@ -72,6 +73,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 	
     @Resource  
     private DataSource dataSource;  
+    private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
@@ -268,6 +270,12 @@ public class TestAnalyticalDatastoreDAOImpl {
 	@Test
 	public void testSavePretrial() throws Exception
 	{
+	    
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.execute("ALTER TABLE ANALYTICSDATASTORE.ASSESSEDNEED ALTER COLUMN ASSESSEDNEEDID RESTART WITH "
+                + " (select max (ASSESSEDNEEDID) + 1 from ANALYTICSDATASTORE.ASSESSEDNEED) ");
+        jdbcTemplate.execute("ALTER TABLE ANALYTICSDATASTORE.PRETRIALSERVICE ALTER COLUMN PRETRIALSERVICEID RESTART WITH "
+                + " (select max (PRETRIALSERVICEID) + 1 from ANALYTICSDATASTORE.PRETRIALSERVICE) ");
 		AssessedNeed assessedNeed = new AssessedNeed();
 		assessedNeed.setAssessedNeedDescription("Assessed Need Description");
 		

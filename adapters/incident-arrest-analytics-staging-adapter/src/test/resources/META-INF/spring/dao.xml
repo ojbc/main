@@ -28,32 +28,25 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-	
-	
-	
-	
-		<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" 
-	destroy-method="stop" depends-on="h2WebServer">
-	    <constructor-arg value="-tcp,-tcpAllowOthers,-ifNotExists, -tcpPort,9092"/>
-	</bean>
-	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-	    <constructor-arg value="-web,-webAllowOthers,-ifNotExists, -webPort,8082"/>
-	</bean>
-	
-	<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-        <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>
-        <jdbc:script location="classpath:db/populate-code-tables.sql"/>
-	</jdbc:initialize-database>
-	
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-				<property name="driverClassName" value="org.h2.Driver" />
-                <property name="url" value="jdbc:h2:tcp:localhost:9092/mem:AnalyticsDataStore"/>
-                <property name="username" value="sa"/>
-                <property name="password" value="" />
-    </bean>
-    
-    
-	
 
+  <bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop"
+    depends-on="h2WebServer">
+    <constructor-arg value="-tcp,-tcpAllowOthers,-ifNotExists, -tcpPort,9092" />
+  </bean>
+  <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+    <constructor-arg value="-web,-webAllowOthers,-ifNotExists, -webPort,8082" />
+  </bean>
+
+  <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+    <jdbc:script location="classpath:db/analyticsDB-h2.sql" />
+    <jdbc:script location="classpath:db/populate-code-tables.sql" />
+  </jdbc:initialize-database>
+
+  <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="org.h2.Driver" />
+    <property name="url" value="jdbc:h2:tcp:localhost:9092/mem:AnalyticsDataStore" />
+    <property name="username" value="sa" />
+    <property name="password" value="" />
+  </bean>
 	
 </beans>

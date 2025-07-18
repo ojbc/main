@@ -650,11 +650,17 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		String arrestAgencyReference=XmlUtils.xPathStringSearch(incidentReport, 
 				PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:PersonReference"
 						+ "[@s:ref='" + arrestingOfficerRefernce + "']/following-sibling::nc:OrganizationReference/@s:ref");
+
+		if (StringUtils.isBlank(arrestAgencyReference)) {
+		    arrestAgencyReference = XmlUtils.xPathStringSearch(incidentReport, 
+	                PATH_TO_LEXS_DIGEST + "/lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation/nc:OrganizationReference/@s:ref");
+		}
 		log.debug("Arresting Agency Reference: " + arrestAgencyReference);
 		
 		String arrestingAgency = XmlUtils.xPathStringSearch(incidentReport, 
 				PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityOrganization/nc:Organization[@s:id='" + arrestAgencyReference + "']/nc:OrganizationName");
 		log.debug("Arresting Agency: " + arrestingAgency);
+		
 		
 		return arrestingAgency;
 	}

@@ -279,7 +279,7 @@ public class CamelContextTest {
 		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
 		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
 		
-		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
+		incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
 		
 		assertEquals(2, incidentOffenses.size());
 
