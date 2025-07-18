@@ -30,14 +30,6 @@ $(function() {
 	      cache: false
 	});
 	
-  document.querySelector('form').addEventListener('submit', function (e) {
-      if (this.dataset.submitted) {
-          e.preventDefault();
-      } else {
-          this.dataset.submitted = true;
-      }
-  });
-
    ojbc.handlePlaceholders(); 
    ojbc.maskInputs();
    ojbc.handleEsc();
