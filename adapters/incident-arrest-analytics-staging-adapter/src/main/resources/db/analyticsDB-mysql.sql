@@ -354,3 +354,8 @@ FOREIGN KEY (ArrestID)
 REFERENCES Arrest (ArrestID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+ALTER TABLE `AnalyticsDataStore`.`incident` 
+CHANGE COLUMN `IncidentCaseNumber` `IncidentCaseNumber` VARCHAR(36) NOT NULL ;
+ALTER TABLE `AnalyticsDataStore`.`incidentoffense` 
+CHANGE COLUMN `IncidentOffenseText` `IncidentOffenseText` VARCHAR(100) NOT NULL ;

@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
+import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
@@ -85,7 +86,11 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			
 			if (reportingAgencyId == null)
 			{
-				throw new Exception("Valid Agency ORI required for incident.  Agency Name is: " + reportingAgencyName + ", Agency ORI is: " + reportingAgencyORI);
+				log.info("ORI not found.  Add entry into the Agency table with Agency Name " + reportingAgencyName + " and Agency ORI is: " + reportingAgencyORI);
+				Agency agency = new Agency(); 
+				agency.setAgencyName(reportingAgencyName); 
+				agency.setAgencyOri(reportingAgencyORI); 
+				reportingAgencyId = analyticalDatastoreDAO.saveAgency(agency); 
 			}	
 			
 			incident.setReportingAgencyID(reportingAgencyId);
@@ -495,7 +500,7 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			{	
 				incidentOffense.setIncidentID(incidentPk);
 				incidentOffense.setIncidentOffenseCode(offenseCode);
-				incidentOffense.setIncidentOffenseText(offenseText);
+				incidentOffense.setIncidentOffenseText(offenseText.replaceAll("\\s+", " "));
 				
 				analyticalDatastoreDAO.saveIncidentOffense(incidentOffense);
 			}
