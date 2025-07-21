@@ -23,101 +23,101 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.ojbc.build</groupId>
-		<artifactId>ojb-shared-aggregate</artifactId>
-		<version>1.0.0</version>
-	</parent>
+  <parent>
+    <groupId>org.ojbc.build</groupId>
+    <artifactId>ojb-shared-aggregate</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-	<groupId>org.ojbc.bundles.shared</groupId>
-	<artifactId>ojb-test-common</artifactId>
-	<version>5.0.0</version>
+  <groupId>org.ojbc.bundles.shared</groupId>
+  <artifactId>ojb-test-common</artifactId>
+  <version>5.0.0</version>
 
-	<name>ojb-test-common</name>
+  <name>ojb-test-common</name>
 
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xmlunit-version>2.10.3</xmlunit-version>
-		<junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
-		<ojb-common-version>[6.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<java-version>24</java-version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <xmlunit-version>2.10.3</xmlunit-version>
+    <junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
+    <junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
+    <ojb-common-version>[6.0.0,)</ojb-common-version>
+    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+    <java-version>24</java-version>
 
-		<log4j-version>2.24.3</log4j-version>
-		<!-- Plugin versions -->
-		<surefire.version>3.5.3</surefire.version>
-		<maven-compiler-version>3.14.0</maven-compiler-version>
-	</properties>
+    <log4j-version>2.24.3</log4j-version>
+    <!-- Plugin versions -->
+    <surefire.version>3.5.3</surefire.version>
+    <maven-compiler-version>3.14.0</maven-compiler-version>
+  </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>${log4j-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
 
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-common</artifactId>
-			<version>${ojb-common-version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-common</artifactId>
+      <version>${ojb-common-version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common-version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-camel-common</artifactId>
+      <version>${ojb-camel-common-version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit-jupiter-engine-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>${junit-vintage-engine-version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter-engine-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit-vintage-engine-version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.xmlunit</groupId>
-			<artifactId>xmlunit-legacy</artifactId>
-			<version>${xmlunit-version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-legacy</artifactId>
+      <version>${xmlunit-version}</version>
+    </dependency>
 
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${surefire.version}</version>
-				<configuration>
-					<argLine>-Xmx1024m</argLine>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${surefire.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-version}</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${surefire.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-version}</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
