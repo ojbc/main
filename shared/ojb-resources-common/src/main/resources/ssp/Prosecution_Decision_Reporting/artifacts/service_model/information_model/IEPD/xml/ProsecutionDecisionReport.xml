@@ -108,7 +108,7 @@
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
 		<j:ChargeDisposition>
-			<nc:DispositionDescriptionText>Disposition Text</<nc:DispositionDescriptionText>
+			<nc:DispositionDescriptionText>Disposition Text</nc:DispositionDescriptionText>
 		</j:ChargeDisposition>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
 		<j:ChargeSeverityLevel>
