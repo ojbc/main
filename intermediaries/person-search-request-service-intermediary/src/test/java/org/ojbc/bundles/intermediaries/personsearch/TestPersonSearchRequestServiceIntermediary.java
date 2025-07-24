@@ -20,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-
-import javax.annotation.Resource;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -36,13 +35,14 @@ import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Consts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.annotation.Resource;
 
 
 @CamelSpringBootTest
@@ -89,7 +89,7 @@ public class TestPersonSearchRequestServiceIntermediary {
 
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/personSearchResults/personSearchResultsLarge.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
