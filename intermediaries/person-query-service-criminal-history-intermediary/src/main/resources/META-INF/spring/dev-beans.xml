@@ -20,17 +20,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
 	xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:policy="http://cxf.apache.org/policy"
 	xmlns:util="http://www.springframework.org/schema/util"
     xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        "
