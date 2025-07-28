@@ -121,7 +121,7 @@ public class FirearmsController extends AbstractBaseController {
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute FirearmSearchCommand firearmSearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute("firearmSearchCommand") FirearmSearchCommand firearmSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentFirearmSearch(firearmSearchCommand);
 
@@ -141,7 +141,7 @@ public class FirearmsController extends AbstractBaseController {
 	@Override
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-			@ModelAttribute DetailsRequest detailsRequest,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest,
 			Map<String, Object> model) throws Exception {
 
 		throw new NotImplementedException("Incident details not supported for firearm search profile");

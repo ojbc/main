@@ -92,7 +92,8 @@ public class SuggestionFormController {
 	}
 	
 	@RequestMapping(value = "submitEmail", method = RequestMethod.POST)
-	public String submitEmail(HttpServletRequest request,  @ModelAttribute SuggestionFormCommand suggestionFormCommand,
+	public String submitEmail(HttpServletRequest request,  
+	        @ModelAttribute("suggestionFormCommand") SuggestionFormCommand suggestionFormCommand,
 	        BindingResult errors, Map<String, Object> model) {
 		
 		log.info("Entering submit email method with suggestion form command object: " + suggestionFormCommand.toString());

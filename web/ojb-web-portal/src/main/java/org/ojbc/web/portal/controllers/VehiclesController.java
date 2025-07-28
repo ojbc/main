@@ -100,7 +100,8 @@ public class VehiclesController {
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute VehicleSearchCommand vehicleSearchCommand,
+	public String advanceSearch(HttpServletRequest request, 
+	        @ModelAttribute("vehicleSearchCommand") VehicleSearchCommand vehicleSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentVehicleSearch(vehicleSearchCommand);
 
@@ -119,7 +120,7 @@ public class VehiclesController {
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute DetailsRequest detailsRequest, 
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 	        Map<String, Object> model) throws InterruptedException {
 		try {
 			processDetailRequest(request, systemName, detailsRequest, model);
@@ -134,7 +135,7 @@ public class VehiclesController {
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public @ResponseBody String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		String convertedResult = processDetailRequest(request, systemName, detailsRequest, model);
 

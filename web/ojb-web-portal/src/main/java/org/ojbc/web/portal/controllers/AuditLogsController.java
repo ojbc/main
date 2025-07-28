@@ -198,7 +198,7 @@ public class AuditLogsController {
 	}
 	
 	@RequestMapping(value="/userLoginSearch", method=RequestMethod.POST)
-	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
+	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute("userAuthenticationSearchRequest") UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");
@@ -214,7 +214,7 @@ public class AuditLogsController {
 	}
 
 	@RequestMapping(value="/personSearchLogs", method=RequestMethod.POST)
-	public String getPersonSearchRequestLogs(HttpServletRequest request, @Valid @ModelAttribute AuditPersonSearchRequest auditPersonSearchRequest, BindingResult bindingResult, 
+	public String getPersonSearchRequestLogs(HttpServletRequest request, @Valid @ModelAttribute("auditPersonSearchRequest") AuditPersonSearchRequest auditPersonSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");

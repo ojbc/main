@@ -271,7 +271,7 @@ public class PortalController implements ApplicationContextAware {
 
     @PostMapping(value="/portal/subscriptionsLeftBar")
     public String subscriptionsLeftBar(HttpServletRequest request, 
-    		@ModelAttribute SubscriptionFilterCommand subscriptionFilterCommand, 
+    		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
     		Map<String, Object> model){   
     	
     	return "common/_subscriptionsLeftBar";

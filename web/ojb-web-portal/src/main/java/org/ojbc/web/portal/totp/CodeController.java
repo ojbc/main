@@ -121,7 +121,7 @@ public class CodeController {
 	
     @PostMapping("/validate/key")
     public String validateKey(HttpServletRequest request, HttpServletResponse response,
-    		@ModelAttribute OTPFormCommand otpFormCommand, 
+    		@ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
     		Map<String, Object> model) throws Exception{
 		String oneTimePassword = otpFormCommand.getOtpRequest().getOneTimePassword();
 		log.info("otpFormCommand:" + oneTimePassword); 

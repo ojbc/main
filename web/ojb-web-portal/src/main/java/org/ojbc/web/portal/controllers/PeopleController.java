@@ -277,7 +277,7 @@ public class PeopleController {
 	@GetMapping(value = "searchDetails")
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam String searchResultCategory,
-	        @ModelAttribute DetailsRequest detailsRequest, 
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 	        Map<String, Object> model, Authentication authentication) {
 		
 		try {
@@ -293,7 +293,7 @@ public class PeopleController {
 	@GetMapping(value = "detailsPage")
 	public String getDetailsPage(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam String searchResultCategory,
-			@ModelAttribute DetailsRequest detailsRequest, 
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
 		
 		try {
@@ -315,7 +315,7 @@ public class PeopleController {
 	 */
 	@GetMapping(value = "cch/detailsPage")
 	public String getCchCriminalHistoryDetailsPage(HttpServletRequest request,  
-			@ModelAttribute DetailsRequest detailsRequest, 
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 			Map<String, Object> model, Authentication authentication) throws UnsupportedEncodingException {
 		
 		detailsRequest.setIdentificationSourceText(appProperties.getCchDrillDownIdentificationSourceText());
@@ -329,14 +329,14 @@ public class PeopleController {
 	
 	@GetMapping(value = "instanceDetails")
 	public @ResponseBody String instanceDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
 		return getConvertedSearchResult(request, systemName, detailsRequest, model);
 	}
 	
 	@GetMapping(value = "instanceDetailsPage")
 	public String instanceDetailsPage(HttpServletRequest request, @RequestParam String systemName,
-			@ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model)
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 					throws Exception {
 		String convertedSearchResult = getConvertedSearchResult(request, systemName, detailsRequest, model);
 		model.put("instanceDetails", convertedSearchResult);

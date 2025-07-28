@@ -230,7 +230,7 @@ public class RapbackController {
 	
 	@PostMapping(value = "rapbackAdvancedSearch")
 	public String advanceSearch(HttpServletRequest request,
-			@ModelAttribute IdentificationResultSearchRequest rapbackSearchRequest,
+			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 
 		if (errors.hasErrors()) {
@@ -247,8 +247,9 @@ public class RapbackController {
 	public void auditInitialResultsPrint(HttpServletRequest request,
 			@RequestParam String messageId,
 			@RequestParam String activeTab,
-			@ModelAttribute IdentificationResultsQueryResponse identificationResultsQueryResponse,
-			@ModelAttribute UserLogonInfo userLogonInfo,
+			@ModelAttribute("identificationResultsQueryResponse") 
+	            IdentificationResultsQueryResponse identificationResultsQueryResponse,
+			@ModelAttribute("userLogonInfo") UserLogonInfo userLogonInfo,
 	        Map<String, Object> model) throws Exception {
 
 		logger.info("Message ID: " + messageId);
@@ -288,8 +289,8 @@ public class RapbackController {
 	public void auditRapsheetPrint(HttpServletRequest request,
 			@RequestParam String messageId,
 			@RequestParam String activeTab,
-			@ModelAttribute DetailsRequest detailsRequest, 
-			@ModelAttribute UserLogonInfo userLogonInfo,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			@ModelAttribute("userLogonInfo") UserLogonInfo userLogonInfo,
 			Map<String, Object> model) throws Exception {
 		if (!enableEnhancedAudit) return;
 			

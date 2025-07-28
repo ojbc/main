@@ -112,7 +112,7 @@ public abstract class AbstractBaseController {
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
-			@ModelAttribute DetailsRequest detailsRequest, 
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 			Map<String, Object> model) throws InterruptedException {
 				try {
 					processDetailRequest(request, systemName, detailsRequest, model);
@@ -126,7 +126,7 @@ public abstract class AbstractBaseController {
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public @ResponseBody String incidentDetails(HttpServletRequest request, 
-			@RequestParam String systemName, @ModelAttribute DetailsRequest detailsRequest, 
+			@RequestParam String systemName, @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 			Map<String, Object> model) throws Exception {
 				String convertedResult = processDetailRequest(request, systemName, detailsRequest, model);
 			

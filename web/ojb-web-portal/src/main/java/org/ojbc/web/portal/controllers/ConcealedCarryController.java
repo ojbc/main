@@ -87,7 +87,7 @@ public class ConcealedCarryController {
 	}
 	
 	@PostMapping(value = "advanceSearch")
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute ConcealedCarrySearchRequest concealedCarrySearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute("concealedCarrySearchCommand") ConcealedCarrySearchRequest concealedCarrySearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 
 		if (errors.hasErrors()) {
@@ -102,7 +102,7 @@ public class ConcealedCarryController {
 
 	@GetMapping(value = "concealedCarryDetails")
 	public String concealedCarryDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model, 
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
 	        Authentication authentication) throws InterruptedException {
 		try {
 			

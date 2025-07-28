@@ -289,7 +289,7 @@ public class SubscriptionsController {
 
 	@PostMapping("search")
 	public String advancedSearch(HttpServletRequest request,	
-			@ModelAttribute @Valid SubscriptionSearchRequest subscriptionSearchRequest,
+			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
 	        Map<String, Object> model, Authentication authentication) {	
 		if (errors.hasErrors()) {
@@ -469,7 +469,7 @@ public class SubscriptionsController {
 	@GetMapping(value="sidLookup")
 	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
 			@RequestParam("identificationID") String sid,
-			@ModelAttribute Subscription subscription,
+			@ModelAttribute("subscription") Subscription subscription,
 			Model model) throws Exception {
 		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, StringUtils.trimToEmpty(sid));
 		model.addAttribute("rapsheetData", rapsheetData);
@@ -538,7 +538,7 @@ public class SubscriptionsController {
 	
 	@GetMapping(value="rapbackForm")
 	public String getRapbackForm(HttpServletRequest request,
-			@ModelAttribute Subscription subscription,
+			@ModelAttribute("subscription") Subscription subscription,
 			Map<String, Object> model) throws Exception{
 		
 		log.info("inside getRapbackForm()");		
@@ -735,7 +735,7 @@ public class SubscriptionsController {
 	 */
 	@PostMapping(value="saveSubscription")
 	public  @ResponseBody SaveSubscriptionResponse  saveSubscription(HttpServletRequest request, @RequestParam Map<String,String> allRequestParams,
-			@ModelAttribute @Valid Subscription subscription,
+			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors, 
 			Map<String, Object> model) {
 								
@@ -1525,7 +1525,7 @@ public class SubscriptionsController {
 	@PostMapping(value="updateSubscription")
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody String updateSubscription(HttpServletRequest request,
-			@ModelAttribute @Valid Subscription subscription,
+			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		

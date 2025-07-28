@@ -117,7 +117,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     
 	@RequestMapping(value = "adminAdvancedsearch", method = RequestMethod.POST)
 	public String adminAdvancedSearch(HttpServletRequest request,	
-			@ModelAttribute @Valid SubscriptionSearchRequest subscriptionSearchRequest,
+			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
 	        Map<String, Object> model) {	
 		if (errors.hasErrors()) {
@@ -134,7 +134,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
 	public String getExpiringSubscriptions(HttpServletRequest request,	
-			@ModelAttribute @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
+			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
@@ -158,7 +158,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	@RequestMapping(value = "expiredSubscriptions", method = RequestMethod.POST)
 	public String getExpiredSubscriptions(HttpServletRequest request,	
-			@ModelAttribute @Valid ExpiringSubscriptionRequest expiredSubscriptionRequest,
+			@ModelAttribute("expiredSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiredSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
@@ -268,9 +268,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	    return "subscriptions/admin/federalRapbackSubscriptionErrors::federalRapbackSubscriptionErrorsContent";
 	}
     
-    @RequestMapping("notifications")
+    @GetMapping("notifications")
     public String getNotifications(HttpServletRequest request,	        
-    		@ModelAttribute @Valid QueryRequestByDateRange rapbackNotificationDateRange,
+    		@ModelAttribute("rapbackNotificationDateRange") @Valid QueryRequestByDateRange rapbackNotificationDateRange,
     		BindingResult errors,
     		Map<String, Object> model){
     	
@@ -306,7 +306,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
 	
     @ModelAttribute
-    public void addModelAttributes(Model model) {
+    public void setup(Model model) {
     	
     	if (! model.containsAttribute("expiringSubscriptionRequest")){
     		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));

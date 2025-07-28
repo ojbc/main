@@ -139,7 +139,7 @@ public class IncidentsController {
 
 	@GetMapping(value = "incidentDetails")
 	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute DetailsRequest detailsRequest, Map<String, Object> model, 
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
 	        Authentication authentication) throws InterruptedException {
 		try {
 			
