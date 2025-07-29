@@ -105,6 +105,13 @@
 			<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+      <j:ChargeDisposition>
+        <nc:DispositionDate>
+          <nc:Date>2013-05-15</nc:Date>
+        </nc:DispositionDate>
+        <nc:DispositionDescriptionText>Pled Guilty As Charged</nc:DispositionDescriptionText>
+        <nc:DispositionText>DPGPAC</nc:DispositionText>
+      </j:ChargeDisposition>
 			<j:ChargeEnhancingFactor>
 				<j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
 			</j:ChargeEnhancingFactor>
@@ -133,6 +140,13 @@
 		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 		<j:ChargeDegreeText>1</j:ChargeDegreeText>
 		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+    <j:ChargeDisposition>
+      <nc:DispositionDate>
+        <nc:Date>2013-05-15</nc:Date>
+      </nc:DispositionDate>
+      <nc:DispositionDescriptionText>Pled Guilty As Charged</nc:DispositionDescriptionText>
+      <nc:DispositionText>DPGPAC</nc:DispositionText>
+    </j:ChargeDisposition>
 		<j:ChargeSequenceID>1</j:ChargeSequenceID>
 		<j:ChargeSeverityLevel>
 			<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>

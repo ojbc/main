@@ -160,6 +160,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="CaseOfficialType">
     <xs:annotation>
       <xs:documentation>A data type for an official's involvement in a case.</xs:documentation>
@@ -196,6 +204,7 @@
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDegreeText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="1"/>
@@ -496,6 +505,11 @@
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeEnhancingFactor" type="j:ChargeEnhancingFactorType" nillable="true">

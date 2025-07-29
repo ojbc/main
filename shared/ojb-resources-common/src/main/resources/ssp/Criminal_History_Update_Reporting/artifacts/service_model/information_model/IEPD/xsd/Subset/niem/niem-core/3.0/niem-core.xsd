@@ -188,6 +188,7 @@
           <xs:element ref="nc:DispositionEntity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DispositionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -619,6 +620,11 @@
   <xs:element name="DispositionDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a disposition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DispositionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or outcome of a disposition.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DispositionEntity" type="nc:EntityType" nillable="true">
