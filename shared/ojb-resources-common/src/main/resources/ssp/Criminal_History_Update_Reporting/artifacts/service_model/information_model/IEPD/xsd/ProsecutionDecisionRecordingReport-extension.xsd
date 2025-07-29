@@ -199,6 +199,13 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
+  <xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType"
+    substitutionGroup="j:ArrestAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>A tracking number associated with an arrest.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
 	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>An enumeration set for a report jurisdiction.

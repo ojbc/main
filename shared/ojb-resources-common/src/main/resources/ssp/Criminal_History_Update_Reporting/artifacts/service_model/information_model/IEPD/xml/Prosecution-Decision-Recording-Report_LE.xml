@@ -134,6 +134,9 @@
 				<nc:IdentificationID>CTID1234</nc:IdentificationID>
 			</j:ChargeTrackingIdentification>
 		</j:ArrestCharge>
+    <pdr-report-ext:ArrestTrackingNumberIdentification>
+      <nc:IdentificationID>1143299</nc:IdentificationID>
+    </pdr-report-ext:ArrestTrackingNumberIdentification>
 	</j:Arrest>
 	<j:Charge structures:id="CRG001">
 		<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
