@@ -17,213 +17,200 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:usps-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
-		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
-		schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
-	<xsd:import namespace="http://publication.niem.gov/niem/niem-core/3.0/1/"
-		schemaLocation="Subset/niem/niem-core/3.0/1/niem-core.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
-		schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
-		schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
-	<xsd:complexType name="ProsecutionDecisionRecordingReportType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a report that contains information about the recording of a prosecutor's decision whether
-				charges will proceed to the courts.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="pdr-report-ext:ServiceOperationDescriptionText" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="pdr-report-ext:CycleTrackingIdentification" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="pdr-report-ext:FingerprintTransactionControlNumber" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="pdr-report-ext:OriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="pdr-report-ext:UpdatedOriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="pdr-report-ext:ProsecutionCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="pdr-report-ext:ProsecutionEnhancedCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="pdr-report-ext:ProsecutionDispositionCodeText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="pdr-report-ext:ReportIdentification" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="pdr-report-ext:ChargeFilingDate" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="nc:Case" minOccurs="0" />
-					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Court" minOccurs="0" />
-					<xsd:element ref="j:Arrest" minOccurs="0" />
-					<xsd:element ref="j:Offense" minOccurs="0" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Subject" />
-					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Person"  minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Identity" minOccurs="0" />
-					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:element name="ServiceOperationDescriptionText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A description of the operation to be used for the message.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>	
-	<xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this
-				activity to a criminal history.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="FingerprintTransactionControlNumber" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>A unique identifier issued for the purpose of tracking fingerprint activity and can be used to link this
-				activity to a criminal history.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="OriginatingAgencyCaseNumber" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>Case or incident number assigned by law enforcement agency.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="UpdatedOriginatingAgencyCaseNumber" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>Updated Case or incident number assigned by law enforcement agency.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ProsecutionCitationCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code assigned by the prosecution with regard to a wanted person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ProsecutionEnhancedCitationCodeText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>An enhanced code assigned by the prosecution with regard to a wanted person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ProsecutionDispositionCodeText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A disposition code provided by the prosecution.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ChargeFilingDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>The date the charges were filed.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ReportIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>Identification information for a report..
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType"
-		substitutionGroup="j:CaseOfficialAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>An agency that institutes legal proceedings.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if the charge will proceed to the courts; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ChargeOrdinanceIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if the charge is a local or municipal offense; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="GeneralOffenseCharacterCodeText" type="nc:TextType"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code that may be used to further define the offense.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Person Transaction Control Number.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-		<xsd:element name="CriminalTrackingIdentification" type="nc:IdentificationType"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Criminal Transaction Control Number.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation" abstract="true">
-		<xsd:annotation>
-			<xsd:documentation>A data concept representing a report's jurisdiction.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CriminalHistoryReportJurisdictionCode"
-		type="pdr-report-ext:CriminalHistoryReportJurisdictionCodeType"
-		substitutionGroup="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation">
-		<xsd:annotation>
-			<xsd:documentation>A code for a report jurisdiction.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
-		<xsd:annotation>
-			<xsd:documentation>A code type for a report jurisdiction.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="pdr-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-  <xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType"
-    substitutionGroup="j:ArrestAugmentationPoint">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+  xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+  xmlns:usps-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
+  elementFormDefault="qualified">
+  <xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+  <xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+  <xsd:import namespace="http://publication.niem.gov/niem/niem-core/3.0/1/" schemaLocation="Subset/niem/niem-core/3.0/1/niem-core.xsd" />
+  <xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+  <xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
+  <xsd:complexType name="ProsecutionDecisionRecordingReportType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a report that contains information about the recording of a prosecutor's decision whether
+        charges will proceed to the courts.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="structures:ObjectType">
+        <xsd:sequence>
+          <xsd:element ref="pdr-report-ext:ServiceOperationDescriptionText" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="pdr-report-ext:CycleTrackingIdentification" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="pdr-report-ext:FingerprintTransactionControlNumber" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="pdr-report-ext:OriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="pdr-report-ext:UpdatedOriginatingAgencyCaseNumber" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="pdr-report-ext:ProsecutionCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="pdr-report-ext:ProsecutionEnhancedCitationCodeText" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="pdr-report-ext:ProsecutionDispositionCodeText" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="pdr-report-ext:ReportIdentification" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="pdr-report-ext:ChargeFilingDate" minOccurs="0" maxOccurs="1" />
+          <xsd:element ref="nc:Case" minOccurs="0" />
+          <xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="j:Court" minOccurs="0" />
+          <xsd:element ref="j:Arrest" minOccurs="0" />
+          <xsd:element ref="j:Offense" minOccurs="0" />
+          <xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="j:Subject" />
+          <xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:Identity" minOccurs="0" />
+          <xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ServiceOperationDescriptionText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>A description of the operation to be used for the message.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
+    <xsd:annotation>
+      <xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this
+        activity to a criminal history.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="FingerprintTransactionControlNumber" type="nc:IdentificationType">
+    <xsd:annotation>
+      <xsd:documentation>A unique identifier issued for the purpose of tracking fingerprint activity and can be used to link this
+        activity to a criminal history.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="OriginatingAgencyCaseNumber" type="nc:IdentificationType">
+    <xsd:annotation>
+      <xsd:documentation>Case or incident number assigned by law enforcement agency.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="UpdatedOriginatingAgencyCaseNumber" type="nc:IdentificationType">
+    <xsd:annotation>
+      <xsd:documentation>Updated Case or incident number assigned by law enforcement agency.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProsecutionCitationCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>A code assigned by the prosecution with regard to a wanted person.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProsecutionEnhancedCitationCodeText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>An enhanced code assigned by the prosecution with regard to a wanted person.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProsecutionDispositionCodeText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>A disposition code provided by the prosecution.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ChargeFilingDate" type="nc:DateType">
+    <xsd:annotation>
+      <xsd:documentation>The date the charges were filed.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ReportIdentification" type="nc:IdentificationType">
+    <xsd:annotation>
+      <xsd:documentation>Identification information for a report..
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>An agency that institutes legal proceedings.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>True if the charge will proceed to the courts; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ChargeOrdinanceIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>True if the charge is a local or municipal offense; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="GeneralOffenseCharacterCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>A code that may be used to further define the offense.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>Person Transaction Control Number.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CriminalTrackingIdentification" type="nc:IdentificationType" substitutionGroup="j:ChargeAugmentationPoint">
+    <xsd:annotation>
+      <xsd:documentation>Criminal Transaction Control Number.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CriminalHistoryReportJurisdictionRepresentation" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A data concept representing a report's jurisdiction.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CriminalHistoryReportJurisdictionCode" type="pdr-report-ext:CriminalHistoryReportJurisdictionCodeType"
+    substitutionGroup="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation">
+    <xsd:annotation>
+      <xsd:documentation>A code for a report jurisdiction.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+    <xsd:annotation>
+      <xsd:documentation>A code type for a report jurisdiction.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="pdr-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+        <xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType" substitutionGroup="j:ArrestAugmentationPoint">
     <xsd:annotation>
       <xsd:documentation>A tracking number associated with an arrest.
       </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>An enumeration set for a report jurisdiction.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="State">
-				<xsd:annotation>
-					<xsd:documentation>A code value for a state report.
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="FBI">
-				<xsd:annotation>
-					<xsd:documentation>A code value for an FBI report.
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
+  <xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration set for a report jurisdiction.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="State">
+        <xsd:annotation>
+          <xsd:documentation>A code value for a state report.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FBI">
+        <xsd:annotation>
+          <xsd:documentation>A code value for an FBI report.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
 </xsd:schema>

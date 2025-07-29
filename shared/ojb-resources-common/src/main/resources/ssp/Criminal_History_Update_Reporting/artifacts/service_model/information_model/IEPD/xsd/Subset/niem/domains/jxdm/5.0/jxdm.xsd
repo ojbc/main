@@ -17,96 +17,92 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xs:schema
-	targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	version="1"
-	xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd 
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/" version="1"
+  xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd 
 	http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd 
 	http://release.niem.gov/niem/localTerminology/3.0/ ../../../localTerminology/3.0/localTerminology.xsd
 	http://release.niem.gov/niem/domains/cyfs/3.0/ ../../cyfs/3.0/cyfs.xsd"
-	ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
-	xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
+  ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument"
+  xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+  xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/"
+  xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
     <xs:appinfo>
-      <term:LocalTerm term="NCIC" literal="National Crime Information Center"/>
-      <term:LocalTerm term="PRISM" literal="Performance and Registration Information Systems Management"/>
-      <term:LocalTerm term="VINA" literal="Vehicle Identification Number Analysis"/>
-      <term:LocalTerm term="AFIS" literal="Automated Fingerprint Identification System"/>
-      <term:LocalTerm term="USDOT" literal="United States Department of Transportation"/>
-      <term:LocalTerm term="APCO" literal="Association of Public-Safety Communications Officials (APCO) - International, Inc."/>
-      <term:LocalTerm term="NLETS" literal="National Law Enforcement Telecommunication Systems"/>
-      <term:LocalTerm term="NIBRS" literal="National Incident Based Reporting System"/>
-      <term:LocalTerm term="MCO" literal="Manufacturer's certificate of origin"/>
-      <term:LocalTerm term="TripleI" literal="III - Interstate Identification Index system"/>
-      <term:LocalTerm term="MMUCC" literal="Model Minimum Uniform Crash Criteria"/>
-      <term:LocalTerm term="SAFESTAT" literal="Safety Status Measurement System"/>
-      <term:LocalTerm term="XRay" literal="X-Ray"/>
-      <term:LocalTerm term="ISSN" literal="International Standard Serial Number"/>
-      <term:LocalTerm term="TYPA" literal="(Article) Type"/>
-      <term:LocalTerm term="UCR" literal="Uniform Crime Reporting"/>
-      <term:LocalTerm term="ICC" literal="Interstate Commerce Commission"/>
-      <term:LocalTerm term="DEA" literal="Drug Enforcement Administration"/>
-      <term:LocalTerm term="EMS" literal="Emergency Medical Service"/>
-      <term:LocalTerm term="Amber" literal="America's Missing: Broadcast Emergency Response"/>
-      <term:LocalTerm term="LIS" literal="License Plate State"/>
-      <term:LocalTerm term="FIPS" literal="Federal Information Processing Standards"/>
-      <term:LocalTerm term="BOP" literal="Bureau of Prisons"/>
-      <term:LocalTerm term="HME" literal="Hazardous Material Endorsement"/>
-      <term:LocalTerm term="Brady" literal="Brady Law"/>
-      <term:LocalTerm term="CHRI" literal="Criminal History Record Information"/>
-      <term:LocalTerm term="Alpha" definition="Letter(s)"/>
-      <term:LocalTerm term="XRays" literal="X-Rays"/>
-      <term:LocalTerm term="VICAP" literal="Violent Criminal Apprehension Program"/>
-      <term:LocalTerm term="DOT" literal="Department of Transportation"/>
-      <term:LocalTerm term="NICB" literal="National Insurance Crime Bureau"/>
-      <term:LocalTerm term="GDEP" literal="Geographic-Drug Enforcement Program"/>
-      <term:LocalTerm term="CMV" literal="Commercial Motor Vehicle"/>
-      <term:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics"/>
-      <term:LocalTerm term="TYPO" literal="(ORI) Type"/>
-      <term:LocalTerm term="FBI" literal="Federal Bureau of Investigation"/>
-      <term:LocalTerm term="MCSIP" literal="Motor Carrier Safety Improvement Process"/>
-      <term:LocalTerm term="ANSID20" literal="The Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators"/>
-      <term:LocalTerm term="Multi" literal="Multiple"/>
-      <term:LocalTerm term="POST" literal="Peace Official Standards and Training"/>
-      <term:LocalTerm term="NDEx" literal="National Data Exchange"/>
-      <term:LocalTerm term="REALID" definition="Public Law 109&#x2013;13, 119 Statute 302, enacted May 11, 2005, was an Act of Congress that modified U.S. federal law pertaining to security, authentication, and issuance procedures standards for the state driver's licenses and identification (ID) cards, as well as various immigration issues pertaining to terrorism."/>
-      <term:LocalTerm term="JABS" literal="JABS" definition="Joint Automated Booking System"/>
-      <term:LocalTerm term="IBIS" literal="Integrated Ballistic Identification System"/>
-      <term:LocalTerm term="LEOKA" literal="Law Enforcement Officer Killed or Assaulted"/>
-      <term:LocalTerm term="LSTA" definition="State/Country Index"/>
-      <term:LocalTerm term="FFLID" literal="federal firearms license"/>
-      <term:LocalTerm term="NDEX" literal="National Data Exchange"/>
-      <term:LocalTerm term="ORI" definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems."/>
-      <term:LocalTerm term="VIN" literal="Vehicle Identification Number"/>
-      <term:LocalTerm term="IAFIS" literal="Integrated Automated Fingerprint Identification System"/>
-      <term:LocalTerm term="TYP" literal="(Firearm) Type"/>
-      <term:LocalTerm term="HazMat" literal="Hazardous Materials"/>
-      <term:LocalTerm term="CDL" literal="Commercial Driver's License"/>
-      <term:LocalTerm term="MACR" literal="Monthly Arrest and Citation Register"/>
-      <term:LocalTerm term="RES" literal="Registration State"/>
-      <term:LocalTerm term="USMS" literal="United States Marshal Service"/>
-      <term:LocalTerm term="MO" literal="Modus Operandi"/>
-      <term:LocalTerm term="ISBN" literal="International Standard Book Number"/>
-      <term:LocalTerm term="DHS" literal="Department of Homeland Security"/>
-      <term:LocalTerm term="CODIS" literal="Combined DNA Index System"/>
+      <term:LocalTerm term="NCIC" literal="National Crime Information Center" />
+      <term:LocalTerm term="PRISM" literal="Performance and Registration Information Systems Management" />
+      <term:LocalTerm term="VINA" literal="Vehicle Identification Number Analysis" />
+      <term:LocalTerm term="AFIS" literal="Automated Fingerprint Identification System" />
+      <term:LocalTerm term="USDOT" literal="United States Department of Transportation" />
+      <term:LocalTerm term="APCO" literal="Association of Public-Safety Communications Officials (APCO) - International, Inc." />
+      <term:LocalTerm term="NLETS" literal="National Law Enforcement Telecommunication Systems" />
+      <term:LocalTerm term="NIBRS" literal="National Incident Based Reporting System" />
+      <term:LocalTerm term="MCO" literal="Manufacturer's certificate of origin" />
+      <term:LocalTerm term="TripleI" literal="III - Interstate Identification Index system" />
+      <term:LocalTerm term="MMUCC" literal="Model Minimum Uniform Crash Criteria" />
+      <term:LocalTerm term="SAFESTAT" literal="Safety Status Measurement System" />
+      <term:LocalTerm term="XRay" literal="X-Ray" />
+      <term:LocalTerm term="ISSN" literal="International Standard Serial Number" />
+      <term:LocalTerm term="TYPA" literal="(Article) Type" />
+      <term:LocalTerm term="UCR" literal="Uniform Crime Reporting" />
+      <term:LocalTerm term="ICC" literal="Interstate Commerce Commission" />
+      <term:LocalTerm term="DEA" literal="Drug Enforcement Administration" />
+      <term:LocalTerm term="EMS" literal="Emergency Medical Service" />
+      <term:LocalTerm term="Amber" literal="America's Missing: Broadcast Emergency Response" />
+      <term:LocalTerm term="LIS" literal="License Plate State" />
+      <term:LocalTerm term="FIPS" literal="Federal Information Processing Standards" />
+      <term:LocalTerm term="BOP" literal="Bureau of Prisons" />
+      <term:LocalTerm term="HME" literal="Hazardous Material Endorsement" />
+      <term:LocalTerm term="Brady" literal="Brady Law" />
+      <term:LocalTerm term="CHRI" literal="Criminal History Record Information" />
+      <term:LocalTerm term="Alpha" definition="Letter(s)" />
+      <term:LocalTerm term="XRays" literal="X-Rays" />
+      <term:LocalTerm term="VICAP" literal="Violent Criminal Apprehension Program" />
+      <term:LocalTerm term="DOT" literal="Department of Transportation" />
+      <term:LocalTerm term="NICB" literal="National Insurance Crime Bureau" />
+      <term:LocalTerm term="GDEP" literal="Geographic-Drug Enforcement Program" />
+      <term:LocalTerm term="CMV" literal="Commercial Motor Vehicle" />
+      <term:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics" />
+      <term:LocalTerm term="TYPO" literal="(ORI) Type" />
+      <term:LocalTerm term="FBI" literal="Federal Bureau of Investigation" />
+      <term:LocalTerm term="MCSIP" literal="Motor Carrier Safety Improvement Process" />
+      <term:LocalTerm term="ANSID20"
+        literal="The Data Dictionary for Traffic Record Systems, maintained by AAMVA, the American Association of Motor Vehicle Administrators" />
+      <term:LocalTerm term="Multi" literal="Multiple" />
+      <term:LocalTerm term="POST" literal="Peace Official Standards and Training" />
+      <term:LocalTerm term="NDEx" literal="National Data Exchange" />
+      <term:LocalTerm term="REALID"
+        definition="Public Law 109&#x2013;13, 119 Statute 302, enacted May 11, 2005, was an Act of Congress that modified U.S. federal law pertaining to security, authentication, and issuance procedures standards for the state driver's licenses and identification (ID) cards, as well as various immigration issues pertaining to terrorism." />
+      <term:LocalTerm term="JABS" literal="JABS" definition="Joint Automated Booking System" />
+      <term:LocalTerm term="IBIS" literal="Integrated Ballistic Identification System" />
+      <term:LocalTerm term="LEOKA" literal="Law Enforcement Officer Killed or Assaulted" />
+      <term:LocalTerm term="LSTA" definition="State/Country Index" />
+      <term:LocalTerm term="FFLID" literal="federal firearms license" />
+      <term:LocalTerm term="NDEX" literal="National Data Exchange" />
+      <term:LocalTerm term="ORI"
+        definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems." />
+      <term:LocalTerm term="VIN" literal="Vehicle Identification Number" />
+      <term:LocalTerm term="IAFIS" literal="Integrated Automated Fingerprint Identification System" />
+      <term:LocalTerm term="TYP" literal="(Firearm) Type" />
+      <term:LocalTerm term="HazMat" literal="Hazardous Materials" />
+      <term:LocalTerm term="CDL" literal="Commercial Driver's License" />
+      <term:LocalTerm term="MACR" literal="Monthly Arrest and Citation Register" />
+      <term:LocalTerm term="RES" literal="Registration State" />
+      <term:LocalTerm term="USMS" literal="United States Marshal Service" />
+      <term:LocalTerm term="MO" literal="Modus Operandi" />
+      <term:LocalTerm term="ISBN" literal="International Standard Book Number" />
+      <term:LocalTerm term="DHS" literal="Department of Homeland Security" />
+      <term:LocalTerm term="CODIS" literal="Combined DNA Index System" />
     </xs:appinfo>
   </xs:annotation>
-  <xs:import namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" schemaLocation="../../../codes/fbi_ncic/3.0/fbi_ncic.xsd"/>
-  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd"/>
-  <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../proxy/xsd/3.0/xs.xsd"/>
-  <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd"/>
-  <xs:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../cyfs/3.0/cyfs.xsd"/>
+  <xs:import namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.0/" schemaLocation="../../../codes/fbi_ncic/3.0/fbi_ncic.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../../niem-core/3.0/niem-core.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../../proxy/xsd/3.0/xs.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../../structures/3.0/structures.xsd" />
+  <xs:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="../../cyfs/3.0/cyfs.xsd" />
   <xs:complexType name="ActivityAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about an activity.</xs:documentation>
@@ -114,7 +110,7 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="j:CaseNumberText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseNumberText" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -126,9 +122,9 @@
     <xs:complexContent>
       <xs:extension base="nc:AssociationType">
         <xs:sequence>
-          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ActivityChargeAssociationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ActivityChargeAssociationAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -140,10 +136,10 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
-          <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -155,8 +151,8 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -166,7 +162,7 @@
       <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:DispositionType"/>
+      <xs:extension base="nc:DispositionType" />
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="CaseOfficialType">
@@ -176,7 +172,7 @@
     <xs:complexContent>
       <xs:extension base="j:JudicialOfficialType">
         <xs:sequence>
-          <xs:element ref="j:CaseOfficialAugmentationPoint" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:CaseOfficialAugmentationPoint" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -188,8 +184,8 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="j:ChargeEnhancingFactorDescriptionText" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeEnhancingFactorAugmentationPoint" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:ChargeEnhancingFactorDescriptionText" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeEnhancingFactorAugmentationPoint" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -201,21 +197,21 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeDegreeText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeStatus" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeDegreeText" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeEnhancingFactor" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeStatus" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -227,8 +223,8 @@
     <xs:complexContent>
       <xs:extension base="nc:OrganizationType">
         <xs:sequence>
-          <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -240,7 +236,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="j:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -252,7 +248,7 @@
     <xs:complexContent>
       <xs:extension base="j:DriverLicenseBaseType">
         <xs:sequence>
-          <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -262,18 +258,19 @@
       <xs:documentation>A data type for a person involved in a judicial area of government.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType" />
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="OffenseChargeAssociationType">
     <xs:annotation>
-      <xs:documentation>A data type for a relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+      <xs:documentation>A data type for a relationship between an offense that occurred and the formal charge that was assigned to it as a result of
+        classifying the offense.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="nc:AssociationType">
         <xs:sequence>
-          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -285,7 +282,7 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
-          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -297,7 +294,7 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="j:OrganizationIdentification" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:OrganizationIdentification" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -309,14 +306,14 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="cyfs:SeriousHabitualOffenderIndicator" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="cyfs:MentalHealthHistoryDescriptionText" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:SubjectViolentOffenderIndicator" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:PersonFirearmSalesDisqualified" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:JuvenileOffenderIndicator" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="cyfs:SeriousHabitualOffenderIndicator" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="cyfs:MentalHealthHistoryDescriptionText" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:SubjectViolentOffenderIndicator" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:PersonFirearmSalesDisqualified" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:JuvenileOffenderIndicator" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -328,8 +325,8 @@
     <xs:complexContent>
       <xs:extension base="nc:AssociationType">
         <xs:sequence>
-          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -341,24 +338,25 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
-          <xs:element ref="j:SentenceCondition" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:SentenceGroupingText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:SentenceIssuerEntity" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:SentenceSuspendedTerm" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceCondition" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:SentenceGroupingText" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:SentenceIssuerEntity" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:SentenceSuspendedTerm" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="SeverityLevelType">
     <xs:annotation>
-      <xs:documentation>A data type for a sentencing guideline severity level assigned to a charge by a judge or supervising agency.</xs:documentation>
+      <xs:documentation>A data type for a sentencing guideline severity level assigned to a charge by a judge or supervising agency.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="j:SeverityLevelDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SeverityLevelDescriptionText" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -370,23 +368,24 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:StatuteDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:StatuteText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="1" />
+          <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:StatuteDescriptionText" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:StatuteText" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="SubjectType">
     <xs:annotation>
-      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute, ordinance or rule.</xs:documentation>
+      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute,
+        ordinance or rule.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1"/>
-          <xs:element ref="j:SubjectSupervision" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1" />
+          <xs:element ref="j:SubjectSupervision" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -398,8 +397,8 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1"/>
-        </xs:sequence>      
+          <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -410,9 +409,9 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
-          <xs:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:TermLifeIndicator" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:TermAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:TermLifeIndicator" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:TermAugmentationPoint" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -434,7 +433,8 @@
   </xs:element>
   <xs:element name="Arrest" type="j:ArrestType">
     <xs:annotation>
-      <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xs:documentation>
+      <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an
+        outstanding arrest warrant, or probable cause information.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestAugmentationPoint" abstract="true">
@@ -448,10 +448,10 @@
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
-	<xs:annotation>
-		<xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
-	</xs:annotation>
-  </xs:element>  
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ArrestSubject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is arrested.</xs:documentation>
@@ -474,7 +474,8 @@
   </xs:element>
   <xs:element name="CaseNumberText" type="nc:TextType" nillable="true">
     <xs:annotation>
-      <xs:documentation>An identifying number for a case that this activity is a part of, where the case number belongs to the agency that owns the activity information.</xs:documentation>
+      <xs:documentation>An identifying number for a case that this activity is a part of, where the case number belongs to the agency that owns the
+        activity information.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseOfficialAugmentationPoint" abstract="true">
@@ -492,7 +493,7 @@
       <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="ChargeApplicabilityText" type="nc:TextType" nillable="true"/>
+  <xs:element name="ChargeApplicabilityText" type="nc:TextType" nillable="true" />
   <xs:element name="ChargeAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
@@ -507,7 +508,7 @@
     <xs:annotation>
       <xs:documentation>A degree of a charge.</xs:documentation>
     </xs:annotation>
-  </xs:element>  
+  </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
@@ -550,7 +551,8 @@
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.</xs:documentation>
+      <xs:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeSubject" type="j:SubjectType" nillable="true">
@@ -565,7 +567,8 @@
   </xs:element>
   <xs:element name="ChargeTrackingIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A unique identification number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xs:documentation>
+      <xs:documentation>A unique identification number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if
+        cases have been consolidated.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Court" type="j:CourtType" nillable="true">
@@ -590,7 +593,9 @@
   </xs:element>
   <xs:element name="DriverLicenseCardIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.</xs:documentation>
+      <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID
+        cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DriverLicenseIdentification" type="nc:IdentificationType" nillable="true">
@@ -600,7 +605,8 @@
   </xs:element>
   <xs:element name="Offense" type="j:OffenseType" nillable="true">
     <xs:annotation>
-      <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+      <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an
+        incident.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OffenseAugmentationPoint" abstract="true">
@@ -610,7 +616,8 @@
   </xs:element>
   <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+      <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the
+        offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">
@@ -625,7 +632,8 @@
   </xs:element>
   <xs:element name="OrganizationORIIdentification" type="nc:IdentificationType" substitutionGroup="j:OrganizationIdentification">
     <xs:annotation>
-      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.</xs:documentation>
+      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OriginatorOrganization" type="nc:OrganizationType" nillable="true">
@@ -650,7 +658,8 @@
   </xs:element>
   <xs:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xs:documentation>
+      <xs:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonHairColorCode" type="ncic:HAICodeType" substitutionGroup="nc:PersonHairColor">
@@ -670,12 +679,14 @@
   </xs:element>
   <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's
+        fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="RapSheetTransactionControlIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A Transaction Control Number (TCN) is the identification for a fingerprint event, submitted from the Livescan device to AFIS when transmitting fingerprints.  The TCN links the offender to the fingerprint event.</xs:documentation>
+      <xs:documentation>A Transaction Control Number (TCN) is the identification for a fingerprint event, submitted from the Livescan device to AFIS
+        when transmitting fingerprints. The TCN links the offender to the fingerprint event.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Sentence" type="j:SentenceType" nillable="true">
@@ -710,7 +721,8 @@
   </xs:element>
   <xs:element name="SentenceTerm" type="j:TermType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.</xs:documentation>
+      <xs:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SeverityLevelDescriptionText" type="nc:TextType" nillable="true">
@@ -768,7 +780,8 @@
       <xs:documentation>A data concept for a status of person's eligibility to purchase firearms.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="PersonFirearmSalesDisqualifiedCode" type="ncic:IFSCodeType" substitutionGroup="j:PersonFirearmSalesDisqualified" nillable="true">
+  <xs:element name="PersonFirearmSalesDisqualifiedCode" type="ncic:IFSCodeType" substitutionGroup="j:PersonFirearmSalesDisqualified"
+    nillable="true">
     <xs:annotation>
       <xs:documentation>A status of person's eligibility to purchase firearms.</xs:documentation>
     </xs:annotation>
@@ -777,15 +790,15 @@
     <xs:annotation>
       <xs:documentation>True if a subject is considered to have a history of violent behavior; false otherwise.</xs:documentation>
     </xs:annotation>
-  </xs:element>  
+  </xs:element>
   <xs:element name="ChargeStatus" type="nc:StatusType" nillable="true">
     <xs:annotation>
       <xs:documentation>A state of a charge.</xs:documentation>
     </xs:annotation>
-  </xs:element>  
+  </xs:element>
   <xs:element name="JuvenileOffenderIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if the legal status of a person is a juvenile; false otherwise.</xs:documentation>
     </xs:annotation>
-  </xs:element>  
+  </xs:element>
 </xs:schema>
