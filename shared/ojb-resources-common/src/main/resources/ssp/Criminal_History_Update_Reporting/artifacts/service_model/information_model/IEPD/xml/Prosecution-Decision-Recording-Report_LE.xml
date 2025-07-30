@@ -187,11 +187,24 @@
     <nc:RoleOfPerson structures:ref="PER002" />
   </j:Victim>
   <nc:Person structures:id="PER001">
+    <nc:PersonAlternateName>
+      <nc:PersonGivenName>FirstAlias</nc:PersonGivenName>
+      <nc:PersonMiddleName>MiddleAlias</nc:PersonMiddleName>
+      <nc:PersonSurName>SurAlias</nc:PersonSurName>
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <nc:AliasIdentification>
+        <nc:IdentificationID>100</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </nc:AliasIdentification>
+    </nc:PersonAlternateName>
     <nc:PersonBirthDate>
-      <nc:Date>1991-01-01</nc:Date>
+      <nc:Date>2009-01-01</nc:Date>
     </nc:PersonBirthDate>
+    <nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
     <j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
+    <nc:PersonEyeColorText>GREEN</nc:PersonEyeColorText>
     <j:PersonHairColorCode>BLK</j:PersonHairColorCode>
+    <nc:PersonHairColorText>BLACK</nc:PersonHairColorText>
     <nc:PersonHeightMeasure>
       <nc:MeasureValueText>6-1</nc:MeasureValueText>
       <nc:MeasureUnitText>ft-in</nc:MeasureUnitText>
@@ -203,9 +216,37 @@
       <nc:PersonFullName>First Mid Last</nc:PersonFullName>
     </nc:PersonName>
     <nc:PersonOtherIdentification>
-      <nc:IdentificationID>other</nc:IdentificationID>
+      <nc:IdentificationID>INT123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
     </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>AGY123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+    <nc:PersonPhysicalFeature>
+      <nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
+      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
+      <nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
+      <nc:PhysicalFeatureCategoryText>TAT HAND</nc:PhysicalFeatureCategoryText>
+      <!-- ? Not sure what this is  -->
+      <nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
+      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
+      <nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
+      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
+      <nc:PhysicalFeatureIdentification>
+        <nc:IdentificationID>200</nc:IdentificationID>
+        <!-- GM and SO ? each Person Physical Feature block should have an Id assigned in the back end -->
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+        <!-- Fixed "INTERNAL" -->
+      </nc:PhysicalFeatureIdentification>
+      
+    </nc:PersonPhysicalFeature>
+    <j:PersonRaceCode>W</j:PersonRaceCode>
+    <nc:PersonRaceText>WHITE</nc:PersonRaceText>
     <nc:PersonResidentText>Y</nc:PersonResidentText>
+    <j:PersonSexCode>M</j:PersonSexCode>
+    <nc:PersonSexText>MALE</nc:PersonSexText>
     <nc:PersonSSNIdentification>
       <nc:IdentificationID>999-99-9999</nc:IdentificationID>
     </nc:PersonSSNIdentification>
