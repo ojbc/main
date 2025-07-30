@@ -25,6 +25,7 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:term="http://release.niem.gov/niem/localTerminology/3.0/" 
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0"
 	xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xs:annotation>
     <xs:documentation>NIEM Core.</xs:documentation>
@@ -49,6 +50,8 @@
   </xs:annotation>
   <xs:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../proxy/xsd/3.0/xs.xsd"/>
   <xs:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../structures/3.0/structures.xsd"/>
+  <xs:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../fbi/2.0/fbi.xsd" />
+  
   <xs:complexType name="ActivityType">
     <xs:annotation>
       <xs:documentation>A data type for a single or set of related actions, events, or process steps.</xs:documentation>
@@ -241,6 +244,7 @@
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
           <xs:element ref="nc:IdentificationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentificationCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -354,7 +358,9 @@
           <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:PersonNameSuffixText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:AliasIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -374,8 +380,11 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:PersonAlternateName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonEthnicityText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonEthnicityCode" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
@@ -510,6 +519,11 @@
   <xs:element name="Agency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A division of a governmental or international body.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AliasIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification with a kind that is not explicitly defined in the standard that refers to a person within a certain domain.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Amount" type="niem-xs:decimal" nillable="true">
@@ -667,6 +681,11 @@
       <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="IdentificationCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a kind of identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
@@ -797,6 +816,11 @@
       <xs:documentation>An augmentation point for PersonType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonAlternateName" type="nc:PersonNameType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An alternate name used by a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a person was born.</xs:documentation>
@@ -807,6 +831,24 @@
       <xs:documentation>A description of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>  
+  <xs:element name="PersonEthnicity" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a cultural lineage of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonEthnicityText" type="nc:TextType" substitutionGroup="nc:PersonEthnicity">
+    <xs:annotation>
+      <xs:documentation>A cultural lineage of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonEthnicityCode" type="fbi:EthnicityCodeType" substitutionGroup="nc:PersonEthnicity" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A cultural lineage of a person.</xs:documentation>
+      <xs:appinfo>
+        <appinfo:Base appinfo:name="PersonEthnicity"/>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonEyeColor" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a color of the eyes of a person.</xs:documentation>
@@ -845,6 +887,11 @@
   <xs:element name="PersonName" type="nc:PersonNameType" nillable="true">
     <xs:annotation>
       <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonNameSuffixText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A term appended after the family name that qualifies the name.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true">
