@@ -77,6 +77,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:AddressDeliveryPoint" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:AddressSecondaryUnitText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationState" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationPostalCode" minOccurs="0" maxOccurs="unbounded"/>
@@ -279,6 +280,7 @@
           <xs:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
           <xs:element ref="nc:IdentificationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IdentificationCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentificationEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -303,10 +305,39 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="LocationCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategoryText" type="nc:TextType" substitutionGroup="nc:LocationCategory">
+    <xs:annotation>
+      <xs:documentation>A kind or functional description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationContactInformation" type="nc:ContactInformationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of contact information for a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification of a Location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:complexType name="MeasureType">
     <xs:annotation>
       <xs:documentation>A data type for a measurement.</xs:documentation>
@@ -567,6 +598,11 @@
       <xs:documentation>A data concept for a single place or unit at which mail is delivered.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="AddressSecondaryUnitText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A particular unit within a larger unit or grouping at a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Agency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A division of a governmental or international body.</xs:documentation>
@@ -770,6 +806,11 @@
       <xs:documentation>A description of a kind of identification.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="IdentificationEffectiveDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date an identification takes effect.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
@@ -798,6 +839,11 @@
   <xs:element name="LocationCityName" type="nc:ProperNameTextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of a city or town.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCountryName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationPostalCode" type="niem-xs:string" nillable="true">

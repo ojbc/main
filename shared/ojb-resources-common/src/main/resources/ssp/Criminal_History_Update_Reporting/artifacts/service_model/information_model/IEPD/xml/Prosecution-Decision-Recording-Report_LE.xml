@@ -313,6 +313,51 @@
       </nc:PersonName>
     </nc:IdentityPersonRepresentation>
   </nc:Identity>
+  <nc:Location structures:id="idLOC001">
+    <nc:Address>
+      <!-- Structured Address can use either the full text or the individual components -->
+        <nc:LocationStreet>
+          <nc:StreetFullText>123 TEST DR</nc:StreetFullText>
+          <!--tblDfDefendantsWitnesses.StreetAddress1 and tblDfContactInfoAddress.Description (Ie Primary) parse out Street Number Street Fields, Person screen, "Address 1" block -->
+        </nc:LocationStreet>
+        <nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
+        <!-- tblDfDefendantsWitnesses.StreetAddress2, Person screen, parse out Apt info, I.e. "APT 3A" text from "Address 1" or "Address 2" block -->
+        <nc:LocationCityName>HILO</nc:LocationCityName>
+        <!--tblDfDefendantsWitnesses.City, Person screen, "City" block -->
+        <nc:LocationStateName>HI</nc:LocationStateName>
+        <!--tblDfDefendantsWitnesses.State, Person screen, "State" block -->
+        <nc:LocationPostalCode>96768</nc:LocationPostalCode>
+        <!-- tblDfDefendantsWitnesses.ZipCode, Person screen, "Zip" block -->
+        <nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
+        <!--parse out from tblDfDefendantsWitnesses.ZipCode, Person screen, parse out Postal Extension from "Zip" block -->
+    </nc:Address>
+    <nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
+    <nc:LocationContactInformation structures:id="idCONT005">
+      <!-- Ie this is the 5th contact info -->
+      <nc:ContactTelephoneNumber structures:id="idPHN003">
+        <!-- Ie this is the 3rd phone number for the 5th contact information -->
+        <nc:FullTelephoneNumber>
+          <nc:TelephoneNumberFullID>808-555-1212</nc:TelephoneNumberFullID>
+          <!--tblDfContactInfoPhone.Phone, Person screen, "Phone" block -->
+          <nc:TelephoneSuffixID xsi:nil="true"/>
+          <!--True if the suffix id exists in tblDfDefendantsWitnesses.Extension -->
+        </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntityDescriptionText>PARENT'S HOME</nc:ContactEntityDescriptionText>
+      <!--TblDfDefendantsWitnesses using the Defendant Number from the tblDfRelations table for PARENT. , Person screen "Entity" box? -->
+    </nc:LocationContactInformation>
+    <nc:LocationDescriptionText/>
+    <nc:LocationIdentification>
+      <nc:IdentificationID>12345</nc:IdentificationID>
+      <!--tblDfDefendantsWitnesses.LocationUniqueIdnt emailed Karpel 7/14/2025 -->
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      <!-- Fixed text INTERNAL -->
+      <nc:IdentificationEffectiveDate>
+        <nc:Date>2000-01-01</nc:Date>
+      </nc:IdentificationEffectiveDate>
+      <!-- tblDfDefendantsWitnesses.UpdateDate TblDfDefedantsWitnesses. UpdateDate does contain an update, it is the date time of the last time the defendant record was updated. -->
+    </nc:LocationIdentification>
+  </nc:Location>
   <nc:PersonContactInformationAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
@@ -326,6 +371,14 @@
     <!-- Karpel, Contact Info screen, "Resides With" block -->
     <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
   </nc:PersonContactInformationAssociation>
+  <nc:PersonResidenceAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="PER001"/>
+    <nc:Location structures:ref="idLOC001"/>
+  </nc:PersonResidenceAssociation>
   <nc:PersonAliasIdentityAssociation>
     <nc:Person structures:ref="PER001" />
     <nc:Identity structures:ref="ALIAS001" />
