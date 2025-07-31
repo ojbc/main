@@ -26,7 +26,7 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        "
-       profile="test">
+       profile="dev, test">
 	
 	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 	
