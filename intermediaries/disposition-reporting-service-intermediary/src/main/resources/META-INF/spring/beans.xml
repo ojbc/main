@@ -19,12 +19,12 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
        
        	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
@@ -40,7 +40,7 @@
 	</bean>
 
 	<!-- RETRY POLICY -->
-	<bean id="chriRedeliveryPolicyConfig" class="org.apache.camel.processor.errorhandler.RedeliveryPolicy">
+	<bean id="chriRedeliveryPolicyConfig" class="org.apache.camel.model.RedeliveryPolicyDefinition">
 		<property name="maximumRedeliveries" value="${maximumRedeliveries}" />
 		<property name="redeliveryDelay" value="${redeliveryDelay}" />
 	</bean>
