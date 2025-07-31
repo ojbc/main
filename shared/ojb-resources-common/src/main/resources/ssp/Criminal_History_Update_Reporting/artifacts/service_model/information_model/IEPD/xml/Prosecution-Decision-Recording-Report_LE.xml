@@ -289,6 +289,22 @@
     <j:PersonSexCode>M</j:PersonSexCode>
     <nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
   </nc:Person>
+  <nc:ContactInformation structures:id="idCONT001">
+    <!-- Id for 1st Contact Info block of information -->
+    <nc:ContactWebsiteURI/>
+    <nc:ContactTelephoneNumber/>
+    <nc:ContactMobileTelephoneNumber structures:id="idPHN001">
+      <!-- Id for 1st Phone number in Contact Info block -->
+      <nc:FullTelephoneNumber>
+        <nc:TelephoneNumberFullID>8081234567</nc:TelephoneNumberFullID>
+        <!-- tblDfContactInfoPhone.Phone, tblDfContactInfoPhone.Description "Primary", Person screen, Entity "Phone" box-->
+        <nc:TelephoneSuffixID xsi:nil="true"/>
+        <!-- tblDfContactInfoPhone.Extension, True if the DefendantWitness has a telephone suffix ID -->
+      </nc:FullTelephoneNumber>
+    </nc:ContactMobileTelephoneNumber>
+    <nc:ContactEntityDescriptionText>JUVENILE CONTACT INFO</nc:ContactEntityDescriptionText>
+    <!-- Fixed text description of contact information -->
+  </nc:ContactInformation>
   <nc:Identity structures:id="ALIAS001">
     <nc:IdentityPersonRepresentation>
       <nc:PersonName>
@@ -297,6 +313,19 @@
       </nc:PersonName>
     </nc:IdentityPersonRepresentation>
   </nc:Identity>
+  <nc:PersonContactInformationAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="PER001"/>
+    <nc:ContactInformation structures:ref="idCONT001"/>
+    <nc:ContactInformationIsPrimaryIndicator>true</nc:ContactInformationIsPrimaryIndicator>
+    <!-- Karpel, Contact Info screen, "Phone Numbers", "Primary" Y/N -->
+    <nc:ContactInformationIsHomeIndicator>false</nc:ContactInformationIsHomeIndicator>
+    <!-- Karpel, Contact Info screen, "Resides With" block -->
+    <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
+  </nc:PersonContactInformationAssociation>
   <nc:PersonAliasIdentityAssociation>
     <nc:Person structures:ref="PER001" />
     <nc:Identity structures:ref="ALIAS001" />
