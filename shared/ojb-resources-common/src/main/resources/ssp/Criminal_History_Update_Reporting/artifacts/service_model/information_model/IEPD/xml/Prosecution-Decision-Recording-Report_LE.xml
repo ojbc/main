@@ -289,6 +289,49 @@
     <j:PersonSexCode>M</j:PersonSexCode>
     <nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
   </nc:Person>
+  <nc:Person structures:id="idPER003">
+    <nc:PersonDescriptionText>FATHER</nc:PersonDescriptionText>
+    <!-- Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the relationship.code for FATHER from tblDfRelations.RelationCode and tblCtRelations.Code (FAT for FATHER) , Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the FATHER relationship using the defendant number found in the relations table tblDfRelations, TblDfDefendantsWitnesses.Firstname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "First Name" box -->
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.MiddleName using the Defendant Number from the tblDfRelations table finding the FATHER relationship using the defendant number found in the relations table tblDfRelations, TblDfDefendantsWitnesses.Middlename and SequenceNumber,, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Middle Name" box -->
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.LastName using the defendant number found in the relations table finding the FATHER relationship using the defendant number TblDfDefendantsWitnesses.Lastname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Last Name" box -->
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <!--referencing tbldfdefendantswitnesses table TblDfDefendantsWitnesses.Suffix using the defendant number found in the relations table finding the FATHER tblDfRelations SuffixName, TblDfDefendantsWitnesses.Suffixname and SequenceNumber -->
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
+      <!-- concatenate LAST, FIRST, MIDDLE -->
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT523456789</nc:IdentificationID>
+      <!--tblDfDefendantNumber.SequenceNumber, Karpel back end unique identificaion id for "Father" above -->
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+  </nc:Person>
+  <nc:Person structures:id="idPER004">
+    <nc:PersonDescriptionText>COUSIN</nc:PersonDescriptionText>
+    <!-- tblDfRelations.RelationCode and and tblCtRelations.Code (COU for COUSIN) Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <!--referencing tblDfDefendantswitnesses table (.FirstName) using the defendant number found in the relations table for COUSIN tblDfRelations, tblDfDefendantsWitnesses.Firstname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "First Name" box -->
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <!--referencing tblDfDefendantswitnesses table (.MiddleName) using the defendant number found in the relations table for COUSIN tblDfRelations, tblDfDefendantsWitnesses.Middlename and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Middle Name" box -->
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <!--referencing tblDfDefendantswitnesses table (.LastName) using the defendant number found in the relations table tblDfRelations.LastName, tblDfDefendantsWitnesses.Lastname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Last Name" box -->
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <!--referencing tblDfDefendantswitnesses table (.SuffixName) using the defendant number found in the relations table tblDfRelations.SuffixName, tblDfDefendantsWitnesses.Suffixname and SequenceNumber, I don't see a Relation Name Suffix on the Relation screen -->
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+      <!-- concatenate LAST, FIRST, MIDDLE -->
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT123333389</nc:IdentificationID>
+      <!--tblDfDefendantswitnesses.SequenceNumber?, Karpel back end unique identificaion id for "COUSIN" above? -->
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      <!-- "INTERNAL" fixed text -->
+    </nc:PersonOtherIdentification>
+  </nc:Person>
   <nc:ContactInformation structures:id="idCONT001">
     <!-- Id for 1st Contact Info block of information -->
     <nc:ContactWebsiteURI/>
@@ -371,6 +414,27 @@
     <!-- Karpel, Contact Info screen, "Resides With" block -->
     <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
   </nc:PersonContactInformationAssociation>
+  <nc:CohabitantAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2020-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="idPER004"/>
+    <!-- These reference that idPER004 and idPER001 are associated to each other -->
+    <nc:Person structures:ref="PER001"/>
+    <!-- These reference that idPER004 and idPER001 are associated to each other -->
+  </nc:CohabitantAssociation>
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- - - - - - - Immediate family associations - OPTIONAL- - - - - - - - - - - -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <nc:ImmediateFamilyAssociation>
+    <nc:Parent structures:ref="idPER003"/>
+    <!-- These reference that idPER003 and idPER001 are associated to each other -->
+    <nc:Child structures:ref="PER001"/>
+    <!-- These reference that idPER003 and idPER001 are associated to each other -->
+    <nc:FamilyKinshipText>FATHER</nc:FamilyKinshipText>
+    <!--tblDfRelations.RelationCode and tblCtRelations.Code FAT for FATHER, Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
+  </nc:ImmediateFamilyAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>

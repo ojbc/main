@@ -61,6 +61,8 @@
           <xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:CohabitantAssociation" minOccurs="0" maxOccurs="unbounded" />
+          <xsd:element ref="nc:ImmediateFamilyAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
