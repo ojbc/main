@@ -866,6 +866,11 @@
       <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="IdentificationJurisdictionText" type="nc:TextType" substitutionGroup="nc:IdentificationAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>An area, region, or unit in which a unique identification is issued.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationCategoryDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a kind of identification.</xs:documentation>

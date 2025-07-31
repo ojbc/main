@@ -136,6 +136,29 @@
       <nc:IdentificationID>1143299</nc:IdentificationID>
     </pdr-report-ext:ArrestTrackingNumberIdentification>
   </j:Arrest>
+  <j:Offense structures:id="idOFF001">
+    <nc:ActivityIdentification>
+      <nc:IdentificationID>1234567</nc:IdentificationID>
+      <!-- tblCsCharge.TicketNumber Charge screen "C#" above Referral Charges RED/Left side-->
+      <!-- tblCsCases.ReportNumber Case Police Report Number shown in Referral Tab, Report Number -->
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:ActivityIdentification>
+    <nc:ActivityDate>
+      <nc:DateTime>2010-12-23T12:35:00</nc:DateTime>
+    </nc:ActivityDate>
+    <j:OffenseViolatedStatute>
+      <j:StatuteCodeSectionIdentification>
+        <nc:IdentificationID>13A-8-41</nc:IdentificationID>
+        <!--tblCsCharge.ReferredCharge Red/Left side Charge screen, Red box "Charge" (statute) -->
+        <nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+      </j:StatuteCodeSectionIdentification>
+      <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate
+        felony; penalty</j:StatuteDescriptionText>
+      <!--tblCsCharge.ReferralChargeDescription Charge screen, RED/Left side Box, "Desc" Statute Description -->
+      <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
+      <!--tblCsCharge.ReferralSeverity concatenated with tblCsCharge.ReferralClass, Charge screen, RED/Left side box, "Severity" -->
+    </j:OffenseViolatedStatute>
+  </j:Offense>
   <j:Charge structures:id="CRG001">
     <j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
     <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
@@ -435,6 +458,10 @@
     <nc:FamilyKinshipText>FATHER</nc:FamilyKinshipText>
     <!--tblDfRelations.RelationCode and tblCtRelations.Code FAT for FATHER, Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
   </nc:ImmediateFamilyAssociation>
+  <j:OffenseChargeAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <j:Charge structures:ref="CRG001"/>
+  </j:OffenseChargeAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
