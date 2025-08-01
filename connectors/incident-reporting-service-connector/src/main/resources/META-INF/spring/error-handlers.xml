@@ -27,7 +27,7 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        ">
 
 	<camel:errorHandler id="incidentReportingErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirIncidentReporting">
