@@ -275,6 +275,34 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OffenseLocationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense and a location at which the offense occurred.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseSubjectAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense that was committed and the subject alleged to have committed that offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseJuvenileIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseUnderInfluenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="OffenseType">
     <xs:annotation>
       <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
@@ -630,6 +658,26 @@
     <xs:annotation>
       <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the
         offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseJuvenileIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the offense was committed by a juvenile; False otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseLocationAssociation" type="j:OffenseLocationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense and a location at which the offense occurred.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseSubjectAssociation" type="j:OffenseSubjectAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense that was committed and the subject alleged to have committed that offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseUnderInfluenceIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the offense was committed by an individual was under the influence of a controlled substance; False otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">

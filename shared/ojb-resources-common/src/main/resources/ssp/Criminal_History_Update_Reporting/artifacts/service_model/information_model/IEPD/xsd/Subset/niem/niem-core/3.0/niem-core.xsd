@@ -415,6 +415,9 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:OrganizationAbbreviationText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationActivityText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="1"/>
@@ -491,6 +494,19 @@
           <xs:element ref="nc:PersonNameSuffixText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:AliasIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonOrganizationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -976,9 +992,29 @@
       <xs:documentation>A unit which conducts some sort of business or operations.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationAbbreviationText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An abbreviation, acronym, or code for an organization name.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationActivityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An activity that an organization is known or thought to be involved with.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional type of organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationCategoryText" type="nc:TextType" substitutionGroup="nc:OrganizationCategory">
+    <xs:annotation>
+      <xs:documentation>A kind or functional type of organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationIdentification" type="nc:IdentificationType" nillable="true">
@@ -1125,6 +1161,11 @@
   <xs:element name="PersonNameSuffixText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A term appended after the family name that qualifies the name.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonOrganizationAssociation" type="nc:PersonOrganizationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true">

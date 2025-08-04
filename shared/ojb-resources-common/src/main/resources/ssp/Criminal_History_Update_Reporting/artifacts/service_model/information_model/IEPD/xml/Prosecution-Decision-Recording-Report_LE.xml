@@ -424,6 +424,53 @@
       <!-- tblDfDefendantsWitnesses.UpdateDate TblDfDefedantsWitnesses. UpdateDate does contain an update, it is the date time of the last time the defendant record was updated. -->
     </nc:LocationIdentification>
   </nc:Location>
+  <nc:Organization structures:id="idORG001">
+    <nc:OrganizationAbbreviationText>HiloHigh</nc:OrganizationAbbreviationText>
+    <nc:OrganizationCategoryText>SCHOOL</nc:OrganizationCategoryText>
+    <nc:OrganizationIdentification>
+      <nc:IdentificationID>355</nc:IdentificationID>
+      <!--tblDfSchoolEmployAttending.SchoolEmployCode 355, School Code/ID if Karpel has Juv School information -->
+      <nc:IdentificationCategoryDescriptionText>Hilo High
+        School</nc:IdentificationCategoryDescriptionText>
+      <!-- tblCtSchoolEmploy.Description describing School Identification ID -->
+    </nc:OrganizationIdentification>
+    <nc:OrganizationLocation structures:id="idLOC002">
+      <nc:Address>
+          <nc:LocationStreet>
+            <nc:StreetFullText>111 Street Ave</nc:StreetFullText>
+          </nc:LocationStreet>
+          <nc:AddressSecondaryUnitText/>
+          <nc:LocationCityName>HILO</nc:LocationCityName>
+          <!-- tblCtSchoolEmploy.City Karpel Person screen, click on "Schools" button, under "Location" column -->
+          <nc:LocationStateName>HI</nc:LocationStateName>
+          <!-- tblCtSchoolEmploy.State Person screen, click on "Schools" button, under "Location" column -->
+          <nc:LocationPostalCode>12345</nc:LocationPostalCode>
+          <!-- tblCtSchoolEmploy.ZipCode Person screen, click on "Schools" button, under "Location" column -->
+          <nc:LocationPostalExtensionCode/>
+          <!-- Parse from tblCtSchoolEmploy.ZipCode Person screen, click on "Schools" button, under "Location" column -->
+      </nc:Address>
+      <nc:LocationCategoryText>SCHOOL</nc:LocationCategoryText>
+      <nc:LocationContactInformation structures:id="idCONT009">
+        <!-- idCONT009 is the contact info number associated with the School -->
+        <nc:ContactTelephoneNumber structures:id="idPHN005">
+          <!-- idPHN005 is the contact info number associated with the School -->
+          <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>111 222-22222</nc:TelephoneNumberFullID>
+            <!--tblCtSchoolEmploy.Phone -->
+            <nc:TelephoneSuffixID xsi:nil="true"/>
+            <!-- Parse from tblCtSchoolEmploy.Phone, Karpel Contact Info screen under "Ext" -->
+          </nc:FullTelephoneNumber>
+        </nc:ContactTelephoneNumber>
+        <nc:ContactEntityDescriptionText/>
+      </nc:LocationContactInformation>
+      <nc:LocationIdentification>
+        <nc:IdentificationID>355</nc:IdentificationID>
+        <!--tblDfSchoolEmployAttending.SchoolEmployCode 355, Back end Identification Id for School -->
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </nc:LocationIdentification>
+    </nc:OrganizationLocation>
+    <nc:OrganizationName>HILO HIGH SCHOOL</nc:OrganizationName>
+  </nc:Organization>
   <nc:PersonContactInformationAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
@@ -437,6 +484,12 @@
     <!-- Karpel, Contact Info screen, "Resides With" block -->
     <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
   </nc:PersonContactInformationAssociation>
+  <nc:PersonOrganizationAssociation>
+    <nc:Person structures:ref="PER001"/>
+    <!-- These reference the idPER001 and idORG001 are associated to each other, shown above -->
+    <nc:Organization structures:ref="idORG001"/>
+    <!-- These reference the idPER001 and idORG001 are associated to each other, shown above -->
+  </nc:PersonOrganizationAssociation>
   <nc:CohabitantAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2020-08-01</nc:Date></nc:StartDate>
@@ -462,6 +515,20 @@
     <j:Offense structures:ref="idOFF001"/>
     <j:Charge structures:ref="CRG001"/>
   </j:OffenseChargeAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <nc:Location structures:ref="idLOC001"/>
+  </j:OffenseLocationAssociation>
+  <j:OffenseSubjectAssociation>
+    <j:Offense structures:ref="idOFF001" />
+    <j:Subject>
+      <nc:RoleOfPerson structures:ref="PER001" />
+    </j:Subject>
+    <j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+    <!-- tbldfreportingtype=JO for Juvenile, 0=not juv, 1=juv -->
+    <j:OffenseUnderInfluenceIndicator xsi:nil="true"/>
+    <!-- “Case Reporting Type” where DUI is an option. tblDfDefendantWitness.ReportingType connecting to Case Reporting Type DUI for this info-->
+  </j:OffenseSubjectAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
