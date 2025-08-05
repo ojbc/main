@@ -21,10 +21,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -33,7 +33,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.support.DefaultExchange;
@@ -56,6 +55,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=IncidentReportingServiceIntermediaryApplication.class)
@@ -179,7 +180,7 @@ public class CamelContextTest {
 
 	    //Read the incident report file from the file system, this example has an as an approved submitter
 	    File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
@@ -240,7 +241,7 @@ public class CamelContextTest {
 
 	    //Read the incident report file from the file system, this submitter is not an approved submitter
 	    inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReportNotSendToNDex.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
