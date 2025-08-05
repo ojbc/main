@@ -27,7 +27,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
@@ -54,10 +53,13 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipat
 import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
+import jakarta.annotation.Resource;
 
 
 @SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
@@ -75,6 +77,9 @@ public class TestAnalyticalDatastoreDAOImpl {
 	
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	
+	@Autowired
+    private JdbcTemplate jdbcTemplate;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -142,13 +147,13 @@ public class TestAnalyticalDatastoreDAOImpl {
 		//incident.setCountyID(countyID);
 		
 		//Explicitly set incident ID and make sure database honors it
-		incident.setIncidentID(new Integer(999999999));
+		incident.setIncidentID(Integer.valueOf(999999999));
 		
 		incident.setIncidentDate(new Date());
 		incident.setIncidentTime(new java.sql.Time(incident.getIncidentDate().getTime()));
 		
 		int incidentPk = analyticalDatastoreDAOImpl.saveIncident(incident);
-		assertEquals(999999999, incidentPk);
+		assertEquals(Integer.valueOf(999999999), incidentPk);
 
 		IncidentType incidentType = new IncidentType();
 		incidentType.setIncidentID(incidentPk);
@@ -226,11 +231,11 @@ public class TestAnalyticalDatastoreDAOImpl {
 		assertEquals(1, trafficStops.size());
 		
 		TrafficStop trafficStopFromDatabase = trafficStops.get(0);
-		assertEquals(new Integer(25), trafficStopFromDatabase.getDriverAge());
+		assertEquals(Integer.valueOf(25), trafficStopFromDatabase.getDriverAge());
 		assertEquals("A", trafficStopFromDatabase.getDriverRace());
 		assertEquals("WI", trafficStopFromDatabase.getDriverResidenceState());
 		assertEquals("cross plains", trafficStopFromDatabase.getDriverResidenceTown());
-		assertEquals(new Integer(999999999), trafficStopFromDatabase.getIncidentID());
+		assertEquals(Integer.valueOf(999999999), trafficStopFromDatabase.getIncidentID());
 		assertEquals("CS", trafficStopFromDatabase.getTrafficStopContrabandStatus());
 		assertEquals("OD", trafficStopFromDatabase.getTrafficStopOutcomeDescription());
 		assertEquals("R", trafficStopFromDatabase.getTrafficStopReasonDescription());
@@ -268,6 +273,12 @@ public class TestAnalyticalDatastoreDAOImpl {
 	@Test
 	public void testSavePretrial() throws Exception
 	{
+	    jdbcTemplate.execute("ALTER TABLE ANALYTICSDATASTORE.ASSESSEDNEED ALTER COLUMN ASSESSEDNEEDID RESTART WITH "
+                + " (select max (ASSESSEDNEEDID) + 1 from ANALYTICSDATASTORE.ASSESSEDNEED) ");
+	    
+	    jdbcTemplate.execute("ALTER TABLE ANALYTICSDATASTORE.PRETRIALSERVICE ALTER COLUMN PRETRIALSERVICEID RESTART WITH "
+                + " (select max (PRETRIALSERVICEID) + 1 from ANALYTICSDATASTORE.PRETRIALSERVICE) ");
+        
 		AssessedNeed assessedNeed = new AssessedNeed();
 		assessedNeed.setAssessedNeedDescription("Assessed Need Description");
 		

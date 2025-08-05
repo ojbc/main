@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>incident-arrest-analytics-staging-adapter</artifactId>
-	<version>2.0.3</version> 
+	<version>3.0.0</version> 
 	<name>OJB :: incident-arrest-analytics-staging-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
@@ -35,23 +35,24 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<cxf-version>3.4.4</cxf-version>
-		<saxon-version>9.5.1-5</saxon-version>
-		<commons-lang-version>3.12.0</commons-lang-version>
-		<spring-version>5.3.24</spring-version>
-		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
+		<spring-boot-version>3.5.3</spring-boot-version>
+		<camel-version>4.12.0</camel-version>
+		<cxf-version>4.1.2</cxf-version>
+		<saxon-version>12.7</saxon-version>
+		<commons-lang-version>3.18.0</commons-lang-version>
+		<spring-version>6.2.8</spring-version>
+		<ojb-camel-common-version>[5.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[6.0.0,)</ojb-common-version>
 		<ojb-index-common-version>[1.0.1,)</ojb-index-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<xmlunit-version>1.6</xmlunit-version>
-		<lucene-version>4.7.2</lucene-version>
-		<java-version>1.8</java-version>
-		<cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
-		<log4j-version>2.17.1</log4j-version>
+		<ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+		<maven-surefire-plugin-version>3.5.3</maven-surefire-plugin-version>
+		<maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
+		<xmlunit-version>2.10.3</xmlunit-version>
+		<lucene-version>10.2.2</lucene-version>
+		<java-version>24</java-version>
+		<log4j-version>2.25.0</log4j-version>
 	</properties>
 	
 	<dependencyManagement>
@@ -96,10 +97,6 @@
 	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-undertow</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-actuator</artifactId>
 	    </dependency>
 	    <!-- Camel -->
@@ -130,7 +127,7 @@
 		<dependency>
 		    <groupId>org.apache.cxf</groupId>
 		    <artifactId>cxf-spring-boot-starter-jaxws</artifactId>			    
-		    <version>${cxf-boot-starter-version}</version>
+		    <version>${cxf-version}</version>
 		</dependency>
 		<!--Lucene Jars -->
 		<dependency>
@@ -140,7 +137,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-analyzers-common</artifactId>
+			<artifactId>lucene-analysis-common</artifactId>
 			<version>${lucene-version}</version>
 		</dependency>
 		<!-- Camel libs -->
@@ -154,7 +151,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
+			<artifactId>camel-cxf-spring-soap</artifactId>
 		</dependency>
 
 		<!-- CXF libs -->
@@ -162,28 +159,34 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf.services.sts</groupId>
 			<artifactId>cxf-services-sts-core</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 
 		<!-- ws-security -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 
 		<dependency>
@@ -193,6 +196,7 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
@@ -270,15 +274,15 @@
     		<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<version>${xmlunit-version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -302,6 +306,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
@@ -310,7 +315,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>${maven-surefire-plugin-version}</version>
 				<configuration>
 					<argLine>-Xmx1024m</argLine>
 					<reuseForks>false</reuseForks>

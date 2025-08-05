@@ -23,13 +23,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -79,6 +79,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 @UseAdviceWith
 @CamelSpringBootTest
@@ -165,7 +167,7 @@ public class CamelContextTest {
 		assertEquals("Incident Number", disposition.getIncidentCaseNumber());
 		assertEquals("12/17/2001",DATE_FOMRAT.format(disposition.getDispositionDate()));
 		assertEquals(545, disposition.getSentenceTermDays().intValue());
-		assertEquals(new Float("100.00"), disposition.getSentenceFineAmount());
+		assertEquals(Float.valueOf("100.00"), disposition.getSentenceFineAmount());
 		assertEquals('N', disposition.getIsProbationViolation().charValue());
 		assertEquals(null, disposition.getIsProbationViolationOnOldCharge());
 		assertEquals(3, disposition.getDispositionTypeID().intValue());
@@ -268,16 +270,6 @@ public class CamelContextTest {
 		assertEquals(2, incidentTypes.size());
 		assertEquals("Nature 1", incidentTypes.get(0).getIncidentDescriptionText());
 		assertEquals("Nature 2", incidentTypes.get(1).getIncidentDescriptionText());
-		
-		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
-		
-		assertEquals(2, incidentOffenses.size());
-
-		assertEquals("Violation of a Court Order",incidentOffenses.get(0).getIncidentOffenseCode() );
-		assertEquals("DRIVING - LICENSE SUSPENDED",incidentOffenses.get(0).getIncidentOffenseText() );
-
-		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
-		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
 		
 		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
 		
@@ -424,7 +416,7 @@ public class CamelContextTest {
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File(pathToInputFile);
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 	    assertNotNull(inputStr);
 	    

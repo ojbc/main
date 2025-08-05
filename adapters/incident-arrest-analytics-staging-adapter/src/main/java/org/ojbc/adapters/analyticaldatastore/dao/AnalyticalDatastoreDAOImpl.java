@@ -223,26 +223,25 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	@Override
-	public Integer saveAssessedNeed(final AssessedNeed assessedNeed) {
+    public Integer saveAssessedNeed(final AssessedNeed assessedNeed) {
+        String checkSql = "SELECT AssessedNeedID FROM AssessedNeed WHERE AssessedNeedDescription = ?";
+        List<Integer> ids = jdbcTemplate.queryForList(checkSql, Integer.class,
+                assessedNeed.getAssessedNeedDescription());
 
-        log.debug("Inserting row into Assessed Need table");
+        if (!ids.isEmpty()) {
+            return ids.get(0);
+        }
 
-        final String assessedNeedInsertStatement="INSERT into AssessedNeed (AssessedNeedDescription) values (?)";
-        
+        String insertSql = "INSERT INTO AssessedNeed (AssessedNeedDescription) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(assessedNeedInsertStatement, new String[] {"AssessedNeedID"});
-        	            ps.setString(1, assessedNeed.getAssessedNeedDescription());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(insertSql, new String[] { "AssessedNeedID" });
+            ps.setString(1, assessedNeed.getAssessedNeedDescription());
+            return ps;
+        }, keyHolder);
 
-         return keyHolder.getKey().intValue();
-	}
+        return keyHolder.getKey().intValue();
+    }
 
 	@Override
 	public Integer savePreTrialService(final PretrialService preTrialService) {
