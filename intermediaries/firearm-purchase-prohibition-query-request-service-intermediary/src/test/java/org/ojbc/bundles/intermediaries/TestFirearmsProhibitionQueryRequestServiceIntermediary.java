@@ -18,15 +18,15 @@ package org.ojbc.bundles.intermediaries;
 
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.EndpointInject;
@@ -37,6 +37,7 @@ import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.RecipientListDefinition;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
@@ -67,11 +68,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import jakarta.annotation.Resource;
+
+@UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=FirearmPurchaseProhibitionQueryRequestServiceApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@UseAdviceWith
 public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
 
 	private static final Log log = LogFactory.getLog( TestFirearmsProhibitionQueryRequestServiceIntermediary.class );
@@ -85,21 +88,21 @@ public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(value = "mock:cxf:bean:firearmsPurchaseProhibitionQueryServiceAdapter")
+    @EndpointInject(value = "mock:firearmsPurchaseProhibitionQueryServiceAdapterEndpoint")
     protected MockEndpoint firearmsPurchaseProhibitionQueryServiceMock;
     
-	@BeforeEach
-	public void setUp() throws Exception {
-		
-		AdviceWith.adviceWith(context, context.getRouteDefinition("firearmsPurchaseProhibitionQueryServiceRoute"), route -> {
-			route.replaceFromWith("direct:firearmsPurchaseProhibitionQueryServiceEndpoint");
-			route.mockEndpoints();
-		});
-    	//Advise the firearm search results endpoint and replace it with a mock endpoint.
-    	//We then will test this mock endpoint to see if it gets the proper payload.
+    @BeforeEach
+    public void setUp() throws Exception {
+        AdviceWith.adviceWith(context, "firearmsPurchaseProhibitionQueryServiceRoute", route -> {
+            route.replaceFromWith("direct:firearmsPurchaseProhibitionQueryServiceEndpoint");
+            route.weaveByType(RecipientListDefinition.class)
+                .replace()
+                .to("mock:firearmsPurchaseProhibitionQueryServiceAdapterEndpoint");
+        });
 
-    	context.start();
-	}
+        context.start();
+    }
+
     
     @Test
     public void testFirearmSearch() throws Exception {
@@ -135,7 +138,7 @@ public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
 	    
 	    //Read the firearm prohibition query request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/FirearmPurchaseProhibitionQueryRequest.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
@@ -172,7 +175,7 @@ public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xmlInstances/FirearmPurchaseProhibitionQueryAdapterRequest.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, StandardCharsets.UTF_8);
 			
 		log.info("Expected Response: " + expectedResponseAsString);
 		log.info("Actual Response: " + actualResponse);
