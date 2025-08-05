@@ -16,12 +16,9 @@
  */
 package org.ojbc.intermediaries.crimhistoryupdate.processor;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.UUID;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Header;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
 

@@ -22,11 +22,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -48,6 +48,7 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.crimhistoryupdate.CriminalHistoryUpdateReportingServiceApplication;
@@ -60,6 +61,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import jakarta.annotation.Resource;
 
 @UseAdviceWith
 @CamelSpringBootTest
@@ -74,7 +77,7 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:cxf:bean:notificationBrokerServiceEndpoint")
     protected MockEndpoint notificationBrokerMockEndpoint;
 
     @EndpointInject(value = "mock:log:org.ojbc.intermediaries.crimhistoryupdate")
@@ -91,29 +94,30 @@ public class CamelContextTest {
     	assertTrue(true);
     }	
     
-	@BeforeEach
-	public void setUp() throws Exception {
-		
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+    @BeforeEach
+    public void setUp() throws Exception {
+        AdviceWith.adviceWith(context, "CriminalHistoryUpdateReportingServiceHandlerRoute", route -> {
+            route.replaceFromWith("direct:criminalHistoryUpdatedReportingService");
+        });
+        
+        AdviceWith.adviceWith(context, "CriminalHistoryUpdateReportingServiceDirectRoute", route -> {
+            route.weaveByToUri("direct:memberSpecificRoutes").replace().to("mock:log:org.ojbc.intermediaries.crimhistoryupdate");
+        });
 
-		AdviceWith.adviceWith(context, "CriminalHistoryUpdateReportingServiceHandlerRoute", route -> {
-			route.replaceFromWith("direct:criminalHistoryUpdatedReportingService");
-	    	route.mockEndpoints("log:org.ojbc.intermediaries.crimhistoryupdate*");
-		});
+        AdviceWith.adviceWith(context, "callNotificationBrokerRoute", route -> {
+            route.weaveByToUri("notificationBrokerServiceEndpoint").replace().to("mock:cxf:bean:notificationBrokerServiceEndpoint");
+        });
 
-    	//We mock the web service endpoints here
-		AdviceWith.adviceWith(context, "callNotificationBrokerRoute", route -> {
-			route.mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
-		});
-
-    	context.start();		
-    	
-	}	
+        context.start();
+    }
+    
+    @AfterEach
+    public void after() throws Exception {
+        context.stop();
+    }
 	
     @Test
     public void testNotificationBroker() throws Exception {
-    
-    	
     	notificationBrokerMockEndpoint.expectedMessageCount(1);
     	loggingEndpoint.expectedMessageCount(1);
     	
@@ -139,7 +143,7 @@ public class CamelContextTest {
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/cycleTrackingIdentifierAssignmentReport/Cycle-Tracking-Identifier-Assignment-Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 	    assertNotNull(inputStr);
 	    
@@ -149,7 +153,13 @@ public class CamelContextTest {
 	    senderExchange.getIn().setBody(inputStr);
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:criminalHistoryUpdatedReportingService", senderExchange);
+	    log.debug("Before sending message");
+	    log.debug("Camel context started? " + context.isStarted());
+
+	    Exchange returnExchange = template.send("direct:criminalHistoryUpdatedReportingService", senderExchange);
+
+	    log.debug("After sending message");
+	    log.debug("Camel context started? " + context.isStarted());
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
