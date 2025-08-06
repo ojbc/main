@@ -52,9 +52,18 @@
         </j:OrganizationAugmentation>
         <j:CourtName>Court</j:CourtName>
       </j:CaseCourt>
+      <j:CaseOtherIdentification>
+        <nc:IdentificationID>2222</nc:IdentificationID>
+        <!-- Karpel Case screen (green) "File #" Left top of screen-->
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+        <!--Fixed "INTERNAL" -->
+      </j:CaseOtherIdentification>
+      <j:CaseTerminationCategoryText/>
+      <j:CaseSeverityText>MISDEMEANOR</j:CaseSeverityText>
     </j:CaseAugmentation>
   </nc:Case>
   <j:CaseProsecutionAttorney>
+    <nc:RoleOfPerson structures:ref="idAttorneyPER001"></nc:RoleOfPerson>
     <pdr-report-ext:ProsecutionAttorneyOrganization structures:id="ORG001">
       <nc:OrganizationLocation>
         <nc:Address>
@@ -80,6 +89,10 @@
         </j:OrganizationORIIdentification>
       </j:OrganizationAugmentation>
     </pdr-report-ext:ProsecutionAttorneyOrganization>
+    <j:CaseOfficialStartDate>
+      <nc:Date>2013-07-01</nc:Date>
+      <!-- tblCsCases.EnterDate Case Official Start Date  Enter Date is when the case is created-->
+    </j:CaseOfficialStartDate>
   </j:CaseProsecutionAttorney>
   <j:Arrest structures:id="ARR001">
     <nc:ActivityIdentification>
@@ -110,6 +123,13 @@
         <nc:DispositionDescriptionText>Pled Guilty As Charged</nc:DispositionDescriptionText>
         <nc:DispositionText>DPGPAC</nc:DispositionText>
       </j:ChargeDisposition>
+      <j:ChargeIdentification>
+        <!-- 3837 for Code 702-221(2)(c) & 702-222(1)(a) and/or (1)(b) & 708-836.5, line 6469 in statute xls-->
+        <nc:IdentificationID>3837</nc:IdentificationID>
+        <!--tblCsCharge.ChargeCodeSequence, Statute Unique Id, INTERNAL Karpel back end unique key-->
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </j:ChargeIdentification>
+      <j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
       <j:ChargeEnhancingFactor>
         <j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
       </j:ChargeEnhancingFactor>
@@ -152,8 +172,7 @@
         <!--tblCsCharge.ReferredCharge Red/Left side Charge screen, Red box "Charge" (statute) -->
         <nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
       </j:StatuteCodeSectionIdentification>
-      <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate
-        felony; penalty</j:StatuteDescriptionText>
+      <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate felony; penalty</j:StatuteDescriptionText>
       <!--tblCsCharge.ReferralChargeDescription Charge screen, RED/Left side Box, "Desc" Statute Description -->
       <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
       <!--tblCsCharge.ReferralSeverity concatenated with tblCsCharge.ReferralClass, Charge screen, RED/Left side box, "Severity" -->
@@ -182,6 +201,8 @@
       <j:StatuteCodeSectionIdentification>
         <nc:IdentificationID>12345(1)</nc:IdentificationID>
       </j:StatuteCodeSectionIdentification>
+      <j:StatuteDescriptionText>Accomplice to Attempted Murder in the First Degree</j:StatuteDescriptionText>
+      <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
     </j:ChargeStatute>
     <j:ChargeSubject>
       <nc:RoleOfPerson structures:ref="PER001" />
@@ -353,6 +374,39 @@
       <!--tblDfDefendantswitnesses.SequenceNumber?, Karpel back end unique identificaion id for "COUSIN" above? -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
       <!-- "INTERNAL" fixed text -->
+    </nc:PersonOtherIdentification>
+  </nc:Person>
+  <nc:Person structures:id="idAttorneyPER001">
+    <nc:PersonDescriptionText>Prosecuting Attorney</nc:PersonDescriptionText>
+    <!--tblDfRelations.RelationCode, code for Prosecuting Attorney, Charge screen "Prosecuting Attorney" -->
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <!-- Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the prosecutor relationship. tblDfDefendantsWitnesses.FirstName. Charge screen, extract First name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <!-- Karpel TblDfDefendantsWitnesses.MiddleName using the Defendant Number from the tblDfRelations table, Charge screen, extract Middle name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <!-- Karpel TblDfDefendantsWitnesses.LastName using the Defendant Number from the tblDfRelations table, , Charge screen, extract Last name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday-->
+      <nc:PersonNameSuffixText/>
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+      <!-- concatenate LAST, FIRST, MIDDLE Charge screen, extract last, first, middle name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT123456789</nc:IdentificationID>
+      <!-- tblDfDefendantNumber.SequenceNumber? Karpel Back end Internal Identifying ID for Prosecutor Assigned -->
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      <!-- Fixed INTERNAL ?? -->
+    </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>AGY123456789</nc:IdentificationID>
+      <!-- Back End Agency Id for Agency Code? I.e. Hawaii Police Department Agy Id?? -->
+      <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+      <!-- Fixed AGENCY , HCPD? -->
+    </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>STF123456789</nc:IdentificationID>
+      <!-- Clerk staff identification id -->
+      <nc:IdentificationCategoryDescriptionText>STAFFID</nc:IdentificationCategoryDescriptionText>
+      <!-- "STAFFID" for Clerk staff identification id Clerks would not like to have their Name or Staff Id associated in the case-->
     </nc:PersonOtherIdentification>
   </nc:Person>
   <nc:ContactInformation structures:id="idCONT001">
