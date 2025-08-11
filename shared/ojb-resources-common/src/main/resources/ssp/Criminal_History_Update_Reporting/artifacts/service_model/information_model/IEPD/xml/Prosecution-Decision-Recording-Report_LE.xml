@@ -54,9 +54,7 @@
       </j:CaseCourt>
       <j:CaseOtherIdentification>
         <nc:IdentificationID>2222</nc:IdentificationID>
-        <!-- Karpel Case screen (green) "File #" Left top of screen-->
         <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-        <!--Fixed "INTERNAL" -->
       </j:CaseOtherIdentification>
       <j:CaseTerminationCategoryText/>
       <j:CaseSeverityText>MISDEMEANOR</j:CaseSeverityText>
@@ -91,7 +89,6 @@
     </pdr-report-ext:ProsecutionAttorneyOrganization>
     <j:CaseOfficialStartDate>
       <nc:Date>2013-07-01</nc:Date>
-      <!-- tblCsCases.EnterDate Case Official Start Date  Enter Date is when the case is created-->
     </j:CaseOfficialStartDate>
   </j:CaseProsecutionAttorney>
   <j:Arrest structures:id="ARR001">
@@ -124,9 +121,7 @@
         <nc:DispositionText>DPGPAC</nc:DispositionText>
       </j:ChargeDisposition>
       <j:ChargeIdentification>
-        <!-- 3837 for Code 702-221(2)(c) & 702-222(1)(a) and/or (1)(b) & 708-836.5, line 6469 in statute xls-->
         <nc:IdentificationID>3837</nc:IdentificationID>
-        <!--tblCsCharge.ChargeCodeSequence, Statute Unique Id, INTERNAL Karpel back end unique key-->
         <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
       </j:ChargeIdentification>
       <j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
@@ -159,8 +154,6 @@
   <j:Offense structures:id="idOFF001">
     <nc:ActivityIdentification>
       <nc:IdentificationID>1234567</nc:IdentificationID>
-      <!-- tblCsCharge.TicketNumber Charge screen "C#" above Referral Charges RED/Left side-->
-      <!-- tblCsCases.ReportNumber Case Police Report Number shown in Referral Tab, Report Number -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
     </nc:ActivityIdentification>
     <nc:ActivityDate>
@@ -169,13 +162,10 @@
     <j:OffenseViolatedStatute>
       <j:StatuteCodeSectionIdentification>
         <nc:IdentificationID>13A-8-41</nc:IdentificationID>
-        <!--tblCsCharge.ReferredCharge Red/Left side Charge screen, Red box "Charge" (statute) -->
         <nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
       </j:StatuteCodeSectionIdentification>
       <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate felony; penalty</j:StatuteDescriptionText>
-      <!--tblCsCharge.ReferralChargeDescription Charge screen, RED/Left side Box, "Desc" Statute Description -->
       <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
-      <!--tblCsCharge.ReferralSeverity concatenated with tblCsCharge.ReferralClass, Charge screen, RED/Left side box, "Severity" -->
     </j:OffenseViolatedStatute>
   </j:Offense>
   <j:Charge structures:id="CRG001">
@@ -245,6 +235,7 @@
       <nc:Date>2009-01-01</nc:Date>
     </nc:PersonBirthDate>
     <nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
+    <nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
     <j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
     <nc:PersonEyeColorText>GREEN</nc:PersonEyeColorText>
     <j:PersonHairColorCode>BLK</j:PersonHairColorCode>
@@ -269,20 +260,13 @@
     </nc:PersonOtherIdentification>
     <nc:PersonPhysicalFeature>
       <nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
-      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
       <nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
-      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
       <nc:PhysicalFeatureCategoryText>TAT HAND</nc:PhysicalFeatureCategoryText>
-      <!-- ? Not sure what this is  -->
       <nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
-      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
       <nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
-      <!-- 5/21/2025- Karpel does NOT have Tatoos -->
       <nc:PhysicalFeatureIdentification>
         <nc:IdentificationID>200</nc:IdentificationID>
-        <!-- GM and SO ? each Person Physical Feature block should have an Id assigned in the back end -->
         <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-        <!-- Fixed "INTERNAL" -->
       </nc:PhysicalFeatureIdentification>
       
     </nc:PersonPhysicalFeature>
@@ -335,95 +319,64 @@
   </nc:Person>
   <nc:Person structures:id="idPER003">
     <nc:PersonDescriptionText>FATHER</nc:PersonDescriptionText>
-    <!-- Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the relationship.code for FATHER from tblDfRelations.RelationCode and tblCtRelations.Code (FAT for FATHER) , Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
     <nc:PersonName>
       <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
-      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the FATHER relationship using the defendant number found in the relations table tblDfRelations, TblDfDefendantsWitnesses.Firstname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "First Name" box -->
       <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
-      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.MiddleName using the Defendant Number from the tblDfRelations table finding the FATHER relationship using the defendant number found in the relations table tblDfRelations, TblDfDefendantsWitnesses.Middlename and SequenceNumber,, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Middle Name" box -->
       <nc:PersonSurName>LASTNAME</nc:PersonSurName>
-      <!--referencing tbldfdefendantswitnesses table Karpel TblDfDefendantsWitnesses.LastName using the defendant number found in the relations table finding the FATHER relationship using the defendant number TblDfDefendantsWitnesses.Lastname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Last Name" box -->
       <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
-      <!--referencing tbldfdefendantswitnesses table TblDfDefendantsWitnesses.Suffix using the defendant number found in the relations table finding the FATHER tblDfRelations SuffixName, TblDfDefendantsWitnesses.Suffixname and SequenceNumber -->
       <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
-      <!-- concatenate LAST, FIRST, MIDDLE -->
     </nc:PersonName>
     <nc:PersonOtherIdentification>
       <nc:IdentificationID>INT523456789</nc:IdentificationID>
-      <!--tblDfDefendantNumber.SequenceNumber, Karpel back end unique identificaion id for "Father" above -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
     </nc:PersonOtherIdentification>
   </nc:Person>
   <nc:Person structures:id="idPER004">
     <nc:PersonDescriptionText>COUSIN</nc:PersonDescriptionText>
-    <!-- tblDfRelations.RelationCode and and tblCtRelations.Code (COU for COUSIN) Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
     <nc:PersonName>
       <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
-      <!--referencing tblDfDefendantswitnesses table (.FirstName) using the defendant number found in the relations table for COUSIN tblDfRelations, tblDfDefendantsWitnesses.Firstname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "First Name" box -->
       <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
-      <!--referencing tblDfDefendantswitnesses table (.MiddleName) using the defendant number found in the relations table for COUSIN tblDfRelations, tblDfDefendantsWitnesses.Middlename and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Middle Name" box -->
       <nc:PersonSurName>LASTNAME</nc:PersonSurName>
-      <!--referencing tblDfDefendantswitnesses table (.LastName) using the defendant number found in the relations table tblDfRelations.LastName, tblDfDefendantsWitnesses.Lastname and SequenceNumber, Person screen "Relation" button, "Relation" dropdown, "New Relation" button, "Last Name" box -->
       <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
-      <!--referencing tblDfDefendantswitnesses table (.SuffixName) using the defendant number found in the relations table tblDfRelations.SuffixName, tblDfDefendantsWitnesses.Suffixname and SequenceNumber, I don't see a Relation Name Suffix on the Relation screen -->
       <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
-      <!-- concatenate LAST, FIRST, MIDDLE -->
     </nc:PersonName>
     <nc:PersonOtherIdentification>
       <nc:IdentificationID>INT123333389</nc:IdentificationID>
-      <!--tblDfDefendantswitnesses.SequenceNumber?, Karpel back end unique identificaion id for "COUSIN" above? -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-      <!-- "INTERNAL" fixed text -->
     </nc:PersonOtherIdentification>
   </nc:Person>
   <nc:Person structures:id="idAttorneyPER001">
     <nc:PersonDescriptionText>Prosecuting Attorney</nc:PersonDescriptionText>
-    <!--tblDfRelations.RelationCode, code for Prosecuting Attorney, Charge screen "Prosecuting Attorney" -->
     <nc:PersonName>
       <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
-      <!-- Karpel TblDfDefendantsWitnesses.FirstName using the Defendant Number from the tblDfRelations table finding the prosecutor relationship. tblDfDefendantsWitnesses.FirstName. Charge screen, extract First name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
       <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
-      <!-- Karpel TblDfDefendantsWitnesses.MiddleName using the Defendant Number from the tblDfRelations table, Charge screen, extract Middle name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
       <nc:PersonSurName>LASTNAME</nc:PersonSurName>
-      <!-- Karpel TblDfDefendantsWitnesses.LastName using the Defendant Number from the tblDfRelations table, , Charge screen, extract Last name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday-->
       <nc:PersonNameSuffixText/>
       <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
-      <!-- concatenate LAST, FIRST, MIDDLE Charge screen, extract last, first, middle name from top left "Assigned" box I.e. RCADAY-Ryan K. Caday -->
     </nc:PersonName>
     <nc:PersonOtherIdentification>
       <nc:IdentificationID>INT123456789</nc:IdentificationID>
-      <!-- tblDfDefendantNumber.SequenceNumber? Karpel Back end Internal Identifying ID for Prosecutor Assigned -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-      <!-- Fixed INTERNAL ?? -->
     </nc:PersonOtherIdentification>
     <nc:PersonOtherIdentification>
       <nc:IdentificationID>AGY123456789</nc:IdentificationID>
-      <!-- Back End Agency Id for Agency Code? I.e. Hawaii Police Department Agy Id?? -->
       <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
-      <!-- Fixed AGENCY , HCPD? -->
     </nc:PersonOtherIdentification>
     <nc:PersonOtherIdentification>
       <nc:IdentificationID>STF123456789</nc:IdentificationID>
-      <!-- Clerk staff identification id -->
       <nc:IdentificationCategoryDescriptionText>STAFFID</nc:IdentificationCategoryDescriptionText>
-      <!-- "STAFFID" for Clerk staff identification id Clerks would not like to have their Name or Staff Id associated in the case-->
     </nc:PersonOtherIdentification>
   </nc:Person>
   <nc:ContactInformation structures:id="idCONT001">
-    <!-- Id for 1st Contact Info block of information -->
     <nc:ContactWebsiteURI/>
     <nc:ContactTelephoneNumber/>
     <nc:ContactMobileTelephoneNumber structures:id="idPHN001">
-      <!-- Id for 1st Phone number in Contact Info block -->
       <nc:FullTelephoneNumber>
         <nc:TelephoneNumberFullID>8081234567</nc:TelephoneNumberFullID>
-        <!-- tblDfContactInfoPhone.Phone, tblDfContactInfoPhone.Description "Primary", Person screen, Entity "Phone" box-->
         <nc:TelephoneSuffixID xsi:nil="true"/>
-        <!-- tblDfContactInfoPhone.Extension, True if the DefendantWitness has a telephone suffix ID -->
       </nc:FullTelephoneNumber>
     </nc:ContactMobileTelephoneNumber>
     <nc:ContactEntityDescriptionText>JUVENILE CONTACT INFO</nc:ContactEntityDescriptionText>
-    <!-- Fixed text description of contact information -->
   </nc:ContactInformation>
   <nc:Identity structures:id="ALIAS001">
     <nc:IdentityPersonRepresentation>
@@ -435,47 +388,32 @@
   </nc:Identity>
   <nc:Location structures:id="idLOC001">
     <nc:Address>
-      <!-- Structured Address can use either the full text or the individual components -->
         <nc:LocationStreet>
           <nc:StreetFullText>123 TEST DR</nc:StreetFullText>
-          <!--tblDfDefendantsWitnesses.StreetAddress1 and tblDfContactInfoAddress.Description (Ie Primary) parse out Street Number Street Fields, Person screen, "Address 1" block -->
         </nc:LocationStreet>
         <nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
-        <!-- tblDfDefendantsWitnesses.StreetAddress2, Person screen, parse out Apt info, I.e. "APT 3A" text from "Address 1" or "Address 2" block -->
         <nc:LocationCityName>HILO</nc:LocationCityName>
-        <!--tblDfDefendantsWitnesses.City, Person screen, "City" block -->
         <nc:LocationStateName>HI</nc:LocationStateName>
-        <!--tblDfDefendantsWitnesses.State, Person screen, "State" block -->
         <nc:LocationPostalCode>96768</nc:LocationPostalCode>
-        <!-- tblDfDefendantsWitnesses.ZipCode, Person screen, "Zip" block -->
         <nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
-        <!--parse out from tblDfDefendantsWitnesses.ZipCode, Person screen, parse out Postal Extension from "Zip" block -->
     </nc:Address>
     <nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
     <nc:LocationContactInformation structures:id="idCONT005">
-      <!-- Ie this is the 5th contact info -->
       <nc:ContactTelephoneNumber structures:id="idPHN003">
-        <!-- Ie this is the 3rd phone number for the 5th contact information -->
         <nc:FullTelephoneNumber>
           <nc:TelephoneNumberFullID>808-555-1212</nc:TelephoneNumberFullID>
-          <!--tblDfContactInfoPhone.Phone, Person screen, "Phone" block -->
           <nc:TelephoneSuffixID xsi:nil="true"/>
-          <!--True if the suffix id exists in tblDfDefendantsWitnesses.Extension -->
         </nc:FullTelephoneNumber>
       </nc:ContactTelephoneNumber>
       <nc:ContactEntityDescriptionText>PARENT'S HOME</nc:ContactEntityDescriptionText>
-      <!--TblDfDefendantsWitnesses using the Defendant Number from the tblDfRelations table for PARENT. , Person screen "Entity" box? -->
     </nc:LocationContactInformation>
     <nc:LocationDescriptionText/>
     <nc:LocationIdentification>
       <nc:IdentificationID>12345</nc:IdentificationID>
-      <!--tblDfDefendantsWitnesses.LocationUniqueIdnt emailed Karpel 7/14/2025 -->
       <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-      <!-- Fixed text INTERNAL -->
       <nc:IdentificationEffectiveDate>
         <nc:Date>2000-01-01</nc:Date>
       </nc:IdentificationEffectiveDate>
-      <!-- tblDfDefendantsWitnesses.UpdateDate TblDfDefedantsWitnesses. UpdateDate does contain an update, it is the date time of the last time the defendant record was updated. -->
     </nc:LocationIdentification>
   </nc:Location>
   <nc:Organization structures:id="idORG001">
@@ -483,10 +421,8 @@
     <nc:OrganizationCategoryText>SCHOOL</nc:OrganizationCategoryText>
     <nc:OrganizationIdentification>
       <nc:IdentificationID>355</nc:IdentificationID>
-      <!--tblDfSchoolEmployAttending.SchoolEmployCode 355, School Code/ID if Karpel has Juv School information -->
       <nc:IdentificationCategoryDescriptionText>Hilo High
         School</nc:IdentificationCategoryDescriptionText>
-      <!-- tblCtSchoolEmploy.Description describing School Identification ID -->
     </nc:OrganizationIdentification>
     <nc:OrganizationLocation structures:id="idLOC002">
       <nc:Address>
@@ -495,31 +431,22 @@
           </nc:LocationStreet>
           <nc:AddressSecondaryUnitText/>
           <nc:LocationCityName>HILO</nc:LocationCityName>
-          <!-- tblCtSchoolEmploy.City Karpel Person screen, click on "Schools" button, under "Location" column -->
           <nc:LocationStateName>HI</nc:LocationStateName>
-          <!-- tblCtSchoolEmploy.State Person screen, click on "Schools" button, under "Location" column -->
           <nc:LocationPostalCode>12345</nc:LocationPostalCode>
-          <!-- tblCtSchoolEmploy.ZipCode Person screen, click on "Schools" button, under "Location" column -->
           <nc:LocationPostalExtensionCode/>
-          <!-- Parse from tblCtSchoolEmploy.ZipCode Person screen, click on "Schools" button, under "Location" column -->
       </nc:Address>
       <nc:LocationCategoryText>SCHOOL</nc:LocationCategoryText>
       <nc:LocationContactInformation structures:id="idCONT009">
-        <!-- idCONT009 is the contact info number associated with the School -->
         <nc:ContactTelephoneNumber structures:id="idPHN005">
-          <!-- idPHN005 is the contact info number associated with the School -->
           <nc:FullTelephoneNumber>
             <nc:TelephoneNumberFullID>111 222-22222</nc:TelephoneNumberFullID>
-            <!--tblCtSchoolEmploy.Phone -->
             <nc:TelephoneSuffixID xsi:nil="true"/>
-            <!-- Parse from tblCtSchoolEmploy.Phone, Karpel Contact Info screen under "Ext" -->
           </nc:FullTelephoneNumber>
         </nc:ContactTelephoneNumber>
         <nc:ContactEntityDescriptionText/>
       </nc:LocationContactInformation>
       <nc:LocationIdentification>
         <nc:IdentificationID>355</nc:IdentificationID>
-        <!--tblDfSchoolEmployAttending.SchoolEmployCode 355, Back end Identification Id for School -->
         <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
       </nc:LocationIdentification>
     </nc:OrganizationLocation>
@@ -533,16 +460,12 @@
     <nc:Person structures:ref="PER001"/>
     <nc:ContactInformation structures:ref="idCONT001"/>
     <nc:ContactInformationIsPrimaryIndicator>true</nc:ContactInformationIsPrimaryIndicator>
-    <!-- Karpel, Contact Info screen, "Phone Numbers", "Primary" Y/N -->
     <nc:ContactInformationIsHomeIndicator>false</nc:ContactInformationIsHomeIndicator>
-    <!-- Karpel, Contact Info screen, "Resides With" block -->
     <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
   </nc:PersonContactInformationAssociation>
   <nc:PersonOrganizationAssociation>
     <nc:Person structures:ref="PER001"/>
-    <!-- These reference the idPER001 and idORG001 are associated to each other, shown above -->
     <nc:Organization structures:ref="idORG001"/>
-    <!-- These reference the idPER001 and idORG001 are associated to each other, shown above -->
   </nc:PersonOrganizationAssociation>
   <nc:CohabitantAssociation>
     <nc:AssociationDateRange>
@@ -550,20 +473,15 @@
       <nc:EndDate xsi:nil="true"></nc:EndDate>
     </nc:AssociationDateRange>
     <nc:Person structures:ref="idPER004"/>
-    <!-- These reference that idPER004 and idPER001 are associated to each other -->
     <nc:Person structures:ref="PER001"/>
-    <!-- These reference that idPER004 and idPER001 are associated to each other -->
   </nc:CohabitantAssociation>
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <!-- - - - - - - Immediate family associations - OPTIONAL- - - - - - - - - - - -->
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <nc:ImmediateFamilyAssociation>
     <nc:Parent structures:ref="idPER003"/>
-    <!-- These reference that idPER003 and idPER001 are associated to each other -->
     <nc:Child structures:ref="PER001"/>
-    <!-- These reference that idPER003 and idPER001 are associated to each other -->
     <nc:FamilyKinshipText>FATHER</nc:FamilyKinshipText>
-    <!--tblDfRelations.RelationCode and tblCtRelations.Code FAT for FATHER, Karpel Person screen "Relation" button, "Relation" dropdown or "Person Type" dropdown in "Relation Search" screen-->
   </nc:ImmediateFamilyAssociation>
   <j:OffenseChargeAssociation>
     <j:Offense structures:ref="idOFF001"/>
@@ -579,9 +497,7 @@
       <nc:RoleOfPerson structures:ref="PER001" />
     </j:Subject>
     <j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
-    <!-- tbldfreportingtype=JO for Juvenile, 0=not juv, 1=juv -->
     <j:OffenseUnderInfluenceIndicator xsi:nil="true"/>
-    <!-- “Case Reporting Type” where DUI is an option. tblDfDefendantWitness.ReportingType connecting to Case Reporting Type DUI for this info-->
   </j:OffenseSubjectAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>
