@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
@@ -44,6 +43,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import jakarta.annotation.Resource;
 
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",

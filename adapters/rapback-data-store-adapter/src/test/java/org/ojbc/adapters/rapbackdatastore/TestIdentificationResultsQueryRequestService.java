@@ -41,16 +41,20 @@ import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApp
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 @UseAdviceWith
 @CamelSpringBootTest
@@ -59,8 +63,8 @@ import org.w3c.dom.Document;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
-		})
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"})
 public class TestIdentificationResultsQueryRequestService {
 	private final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
 
@@ -71,6 +75,9 @@ public class TestIdentificationResultsQueryRequestService {
     
     @EndpointInject(value = "mock:cxf:bean:identificationResultsQueryResponseService")
     protected MockEndpoint identificationInitialResultsQueryResponseServiceMock;
+    
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Test
     public void testApplicationStartup() {
@@ -88,16 +95,61 @@ public class TestIdentificationResultsQueryRequestService {
     	});
     	
     	AdviceWith.adviceWith(context, "identificationInitialResultsQueryResponseRoute", route -> {
-    		route.mockEndpointsAndSkip("cxf:bean:identificationResultsQueryResponseService*");
+    		route.weaveByToUri("identificationResultsQueryResponseServiceEndpoint").replace().to("mock:cxf:bean:identificationResultsQueryResponseService");
     	});
     	
         context.start();
     }
+    
+    final String CIVIL_FINGER_PRINTS_UPDATE = "update rapback_datastore.CIVIL_FINGER_PRINTS "
+            + "set FINGER_PRINTS_FILE = ? where TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID = ?";
+    
+    final String CIVIL_INITIAL_RESULTS_UPDATE = "update rapback_datastore.CIVIL_INITIAL_RESULTS "
+            + "set SEARCH_RESULT_FILE = ? where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ?";
+    
+    final String CIVIL_RAPSHEET_UPDATE = "update rapback_datastore.CIVIL_INITIAL_RAP_SHEET "
+            + "set RAP_SHEET = ? where CIVIL_INITIAL_RESULT_ID = ?";
 
+    final String NSOR_DEMOGRAPHICS_UPDATE = "update rapback_datastore.NSOR_DEMOGRAPHICS "
+            + "set DEMOGRAPHICS_FILE = ? where TRANSACTION_NUMBER = ? and NSOR_DEMOGRAPHICS_ID = ?";
+    
+    final String NSOR_SEARCH_RESULTS_UPDATE = "update rapback_datastore.NSOR_SEARCH_RESULT "
+            + "set SEARCH_RESULT_FILE = ? where TRANSACTION_NUMBER = ? and NSOR_SEARCH_RESULT_ID = ?";
+    
     @Test
     @DirtiesContext
     public void testInitialResultsRoute() throws Exception {
-    	
+        byte[] fbiCivilFingerprints = ZipUtils.zip("FBICivilFingerprints".getBytes());
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, fbiCivilFingerprints, "000001820140729014008339990", 1);
+        
+        byte[] stateCivilFingerprints = ZipUtils.zip("StateCivilFingerprints".getBytes());
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, stateCivilFingerprints, "000001820140729014008339990", 2);
+        
+        byte[] fbiCivilResults = ZipUtils.zip("FBICivilInitialResults".getBytes());
+        jdbcTemplate.update(CIVIL_INITIAL_RESULTS_UPDATE, fbiCivilResults, "000001820140729014008339990", 1);
+        
+        byte[] stateCivilResults = ZipUtils.zip("StateCivilInitialResults".getBytes());
+        jdbcTemplate.update(CIVIL_INITIAL_RESULTS_UPDATE, stateCivilResults, "000001820140729014008339990", 2);
+        
+        byte[] civilRapSheet = ZipUtils.zip("CivilInitialResultsRapsheet1".getBytes());
+        jdbcTemplate.update(CIVIL_RAPSHEET_UPDATE, civilRapSheet, 1);
+        
+        byte[] civilRapSheet2 = ZipUtils.zip("CivilInitialResultsRapsheet2".getBytes());
+        jdbcTemplate.update(CIVIL_RAPSHEET_UPDATE, civilRapSheet2, 2);
+        
+        byte[] nsorDemo = ZipUtils.zip("NsorDemographics".getBytes());
+        jdbcTemplate.update(NSOR_DEMOGRAPHICS_UPDATE, nsorDemo, "000001820140729014008339990", 1);
+        
+        byte[] nsorDemo1 = ZipUtils.zip("NsorDemographics1".getBytes());
+        jdbcTemplate.update(NSOR_DEMOGRAPHICS_UPDATE, nsorDemo1, "000001820140729014008339990", 2);
+        
+        byte[] nsorSearch = ZipUtils.zip("NsorSearchResults".getBytes());
+        jdbcTemplate.update(NSOR_SEARCH_RESULTS_UPDATE, nsorSearch, "000001820140729014008339990", 1);
+        
+        byte[] nsorSearch1 = ZipUtils.zip("NsorSearchResults1".getBytes());
+        jdbcTemplate.update(NSOR_SEARCH_RESULTS_UPDATE, nsorSearch1, "000001820140729014008339990", 2);
+        
+        
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryRequest.xml");
 		

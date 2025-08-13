@@ -21,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
@@ -29,6 +28,8 @@ import org.apache.camel.ServiceStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
+
+import jakarta.annotation.Resource;
 
 /**
  * This class will handle archive processing.  It will interact with the DAO and then create either a valid response or error response 

@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,7 +47,6 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.apache.http.Consts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
@@ -62,6 +61,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import jakarta.annotation.Resource;
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -69,8 +70,8 @@ import org.w3c.dom.Element;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
-		})
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"})
 public class TestCriminalHistoryDemographicUpdates {
 	
 	@SuppressWarnings("unused")
@@ -91,7 +92,7 @@ public class TestCriminalHistoryDemographicUpdates {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject("mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceEndpointMock;
     
 	@BeforeEach
@@ -103,7 +104,8 @@ public class TestCriminalHistoryDemographicUpdates {
 		});
 		
 		AdviceWith.adviceWith(context, "directUpdateSubscriptionsRoute", route -> {
-			route.interceptSendToEndpoint("cxf:bean:notificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:notificationBrokerService");
+            route.weaveByToUri("notificationBrokerServiceEndpoint").replace()
+                    .to("mock:cxf:bean:notificationBrokerService");
 		});
 
     	context.start();
@@ -122,7 +124,7 @@ public class TestCriminalHistoryDemographicUpdates {
     	
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryDemographicsUpdateReport/CriminalHistory-DemographicsUpdate-Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    

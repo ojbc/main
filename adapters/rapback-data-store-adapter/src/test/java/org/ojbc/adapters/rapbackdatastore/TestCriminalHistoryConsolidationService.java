@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,14 +45,13 @@ import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.apache.http.Consts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
@@ -68,6 +67,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import jakarta.annotation.Resource;
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -75,8 +76,8 @@ import org.w3c.dom.Element;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
-		})
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml" })
 public class TestCriminalHistoryConsolidationService {
 	
 	@SuppressWarnings("unused")
@@ -85,9 +86,9 @@ public class TestCriminalHistoryConsolidationService {
 	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "ReportCriminalHistoryIdentifierUpdate";
 	private static final Object CXF_OPERATION_NAMESPACE_NOTIFICATION = "http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0";
 	
-	private static final String UCN_BASE_QUERY="select count(*) as rowcount from identification_subject where ucn = 'UCN_PLACEHOLDER'";
-	private static final String SID_BASE_QUERY="select count(*) as rowcount from identification_subject where civil_sid = 'SID_PLACEHOLDER' or criminal_Sid = 'SID_PLACEHOLDER'";
-	private static final String FBI_BASE_QUERY="select count(*) as rowcount from fbi_rap_back_subscription where ucn = 'UCN_PLACEHOLDER'";
+	private static final String UCN_BASE_QUERY="select count(*) as rowcount from rapback_datastore.identification_subject where ucn = 'UCN_PLACEHOLDER'";
+	private static final String SID_BASE_QUERY="select count(*) as rowcount from rapback_datastore.identification_subject where civil_sid = 'SID_PLACEHOLDER' or criminal_Sid = 'SID_PLACEHOLDER'";
+	private static final String FBI_BASE_QUERY="select count(*) as rowcount from rapback_datastore.fbi_rap_back_subscription where ucn = 'UCN_PLACEHOLDER'";
 	
 	
     @Resource  
@@ -114,7 +115,7 @@ public class TestCriminalHistoryConsolidationService {
 		});
 		
     	AdviceWith.adviceWith(context, "directUpdateSubscriptionsRoute", route -> {
-    		route.interceptSendToEndpoint("cxf:bean:notificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:notificationBrokerService");
+    		route.weaveByToUri("notificationBrokerServiceEndpoint").replace().to("mock:cxf:bean:notificationBrokerService");
     	});
 
     	context.start();
@@ -161,7 +162,7 @@ public class TestCriminalHistoryConsolidationService {
     	
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Consolidation-Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
@@ -211,7 +212,7 @@ public class TestCriminalHistoryConsolidationService {
 		
 	    //Read the criminal history update file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-IdentifierUpdate-Report.xml");
-	    inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
@@ -260,7 +261,7 @@ public class TestCriminalHistoryConsolidationService {
 		
 	    //Read the criminal history expungement file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Expungement-Report.xml");
-	    inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    

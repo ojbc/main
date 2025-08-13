@@ -19,7 +19,6 @@ package org.ojbc.adapters.rapbackdatastore.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
@@ -27,7 +26,7 @@ import org.springframework.context.annotation.ImportResource;
 /**
  * A sample Spring Boot application that starts the Camel routes.
  */
-@SpringBootApplication(exclude = {ActiveMQAutoConfiguration.class})
+@SpringBootApplication
 @ComponentScan({"org.ojbc.adapters.rapbackdatastore.application"})
 @ImportResource(value = {"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",

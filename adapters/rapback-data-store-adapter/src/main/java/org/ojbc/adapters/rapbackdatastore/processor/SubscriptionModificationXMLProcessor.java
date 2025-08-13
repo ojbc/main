@@ -23,9 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -35,6 +33,8 @@ import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 @Service
 public class SubscriptionModificationXMLProcessor {

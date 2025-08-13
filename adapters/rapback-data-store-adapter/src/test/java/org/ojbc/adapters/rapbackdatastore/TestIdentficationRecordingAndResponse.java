@@ -30,7 +30,6 @@ import static org.ojbc.adapters.rapbackdatastore.processor.IdentificationReporti
 import java.io.IOException;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
@@ -66,6 +65,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import jakarta.annotation.Resource;
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -73,7 +74,8 @@ import org.xml.sax.SAXException;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 public class TestIdentficationRecordingAndResponse {
 	
@@ -121,10 +123,15 @@ public class TestIdentficationRecordingAndResponse {
 		});
 		
     	AdviceWith.adviceWith(context, "send_identification_reporting_response_route", route -> {
-    		route.mockEndpointsAndSkip("cxf:bean:identificationReportingResponseService*");
+    		route.weaveByToUri("identificationReportingResponseServiceEndpoint").replace().to("mock:cxf:bean:identificationReportingResponseService");
     	});
     	
     	context.start();
+    	jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.IDENTIFICATION_SUBJECT ALTER COLUMN SUBJECT_ID RESTART WITH "
+                + " (select max (SUBJECT_ID) + 1 from RAPBACK_DATASTORE.IDENTIFICATION_SUBJECT) ");
+    	
+    	jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.CRIMINAL_INITIAL_RESULTS ALTER COLUMN CRIMINAL_INITIAL_RESULT_ID RESTART WITH "
+                + " (select max (CRIMINAL_INITIAL_RESULT_ID) + 1 from RAPBACK_DATASTORE.CRIMINAL_INITIAL_RESULTS) ");
 	}	
 	
 	

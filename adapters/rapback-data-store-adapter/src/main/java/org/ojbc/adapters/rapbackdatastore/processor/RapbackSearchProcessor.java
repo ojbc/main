@@ -45,14 +45,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -74,6 +73,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import jakarta.annotation.Resource;
 
 @Service
 public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{

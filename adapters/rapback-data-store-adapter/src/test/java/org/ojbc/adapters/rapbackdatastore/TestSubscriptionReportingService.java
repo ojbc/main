@@ -26,8 +26,6 @@ import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstant
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
@@ -53,6 +51,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import jakarta.annotation.Resource;
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -60,8 +60,8 @@ import org.springframework.test.context.ContextConfiguration;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
-		})
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"})
 public class TestSubscriptionReportingService {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );

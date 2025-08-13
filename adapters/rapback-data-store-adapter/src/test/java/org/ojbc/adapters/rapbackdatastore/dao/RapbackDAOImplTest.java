@@ -17,11 +17,11 @@
 package org.ojbc.adapters.rapbackdatastore.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.Connection;
@@ -30,7 +30,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
@@ -60,11 +59,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -114,6 +116,17 @@ public class RapbackDAOImplTest {
     	
 		List<String> result = jdbcTemplate.queryForList("select table_name from information_schema.tables",String.class); 
 		assertNotNull(result);
+		
+		jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS ALTER COLUMN CIVIL_INITIAL_RESULT_ID RESTART WITH "
+                + " (select max (CIVIL_INITIAL_RESULT_ID) + 1 from RAPBACK_DATASTORE.CIVIL_INITIAL_RESULTS) ");
+		jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.CRIMINAL_INITIAL_RESULTS ALTER COLUMN CRIMINAL_INITIAL_RESULT_ID RESTART WITH "
+		        + " (select max (CRIMINAL_INITIAL_RESULT_ID) + 1 from RAPBACK_DATASTORE.CRIMINAL_INITIAL_RESULTS) ");
+		jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.IDENTIFICATION_SUBJECT ALTER COLUMN SUBJECT_ID RESTART WITH "
+                + " (select max (SUBJECT_ID) + 1 from RAPBACK_DATASTORE.IDENTIFICATION_SUBJECT) ");
+		jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.NSOR_DEMOGRAPHICS ALTER COLUMN NSOR_DEMOGRAPHICS_ID RESTART WITH "
+		        + " (select max (NSOR_DEMOGRAPHICS_ID) + 1 from RAPBACK_DATASTORE.NSOR_DEMOGRAPHICS) ");
+		jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.NSOR_SEARCH_RESULT ALTER COLUMN NSOR_SEARCH_RESULT_ID RESTART WITH "
+		        + " (select max (NSOR_SEARCH_RESULT_ID) + 1 from RAPBACK_DATASTORE.NSOR_SEARCH_RESULT) ");
 	}
 	
 	@Test
@@ -179,7 +192,7 @@ public class RapbackDAOImplTest {
 
 	@Test
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
-		assertThrows(IllegalArgumentException.class, () -> { IdentificationTransaction transaction = new IdentificationTransaction(); 
+		assertThrows(InvalidDataAccessApiUsageException.class, () -> { IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
@@ -386,11 +399,16 @@ public class RapbackDAOImplTest {
 		Connection conn = dataSource.getConnection();
 		DateTime currentDate = new DateTime(); 
 		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
-		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
-				+ "FROM identification_transaction t "
-				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "AND archived = 'false' "
-				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
+		String countQualifiedToArchiveSql = 
+		        "SELECT count(*) as rowcount " +
+		        "FROM identification_transaction t " +
+		        "WHERE EXISTS ( " +
+		        "    SELECT 1 FROM civil_initial_results c " +
+		        "    WHERE c.transaction_number = t.transaction_number " +
+		        ") " +
+		        "AND archived = false " +
+		        "AND available_for_subscription_start_date < '" + 
+		        comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
 		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
 		assertTrue(rs.next());
 		
@@ -405,11 +423,16 @@ public class RapbackDAOImplTest {
 		Connection conn = dataSource.getConnection();
 		DateTime currentDate = new DateTime(); 
 		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
-		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
-				+ "FROM identification_transaction t "
-				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "AND archived = 'false' "
-				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
+		String countQualifiedToArchiveSql = 
+		        "SELECT count(*) as rowcount " +
+		        "FROM identification_transaction t " +
+		        "WHERE EXISTS ( " +
+		        "    SELECT 1 FROM criminal_initial_results c " +
+		        "    WHERE c.transaction_number = t.transaction_number " +
+		        ") " +
+		        "AND archived = false " +
+		        "AND available_for_subscription_start_date < '" + 
+		        comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
 		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
 		assertTrue(rs.next());
 		

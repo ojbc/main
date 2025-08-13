@@ -34,8 +34,8 @@ import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
@@ -95,9 +95,9 @@ public class RapbackDAOImpl implements RapbackDAO {
     
 	@Override
 	public Integer saveSubject(final Subject subject) {
-        log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
+        log.debug("Inserting row into rapback_datastore.identification_subject table : " + subject);
         
-        final String SUBJECT_INSERT="INSERT into IDENTIFICATION_SUBJECT "
+        final String SUBJECT_INSERT="INSERT into rapback_datastore.identification_subject "
         		+ "(UCN, CRIMINAL_SID, CIVIL_SID, FIRST_NAME, LAST_NAME, MIDDLE_INITIAL, DOB, SEX_CODE) "
         		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -125,7 +125,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public Subject getSubject(Integer id) {
-		final String SUBJECT_SELECT="SELECT * FROM IDENTIFICATION_SUBJECT WHERE SUBJECT_ID = ?";
+		final String SUBJECT_SELECT="SELECT * FROM rapback_datastore.identification_subject WHERE SUBJECT_ID = ?";
 		
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
 		return DataAccessUtils.singleResult(subjects);
@@ -161,7 +161,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			IdentificationTransaction identificationTransaction) {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
         
-        final String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
+        final String IDENTIFICATION_TRANSACTION_INSERT="INSERT into rapback_datastore.identification_TRANSACTION "
         		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) "
         		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -187,7 +187,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         		Calendar.getInstance().getTime()); 
 	}
 	
-	final String IDENTIFICATION_TRANSACTION_UPDATE="UPDATE IDENTIFICATION_TRANSACTION SET "
+	final String IDENTIFICATION_TRANSACTION_UPDATE="UPDATE rapback_datastore.identification_TRANSACTION SET "
 			+ "otn = :otn, "
 			+ "OWNER_ORI = :owner_ori, "
 			+ "OWNER_PROGRAM_OCA = :ownerProgramOca, "
@@ -200,7 +200,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Transactional
 	public void updateIdentificationTransaction(
 			IdentificationTransaction identificationTransaction) {
-		log.debug("Update IDENTIFICATION_TRANSACTION row with : " + identificationTransaction.toString());
+		log.debug("Update rapback_datastore.identification_TRANSACTION row with : " + identificationTransaction.toString());
 
 		if ( identificationTransaction.getSubject() == null){
 			throw new IllegalArgumentException("The subject should not be null when saving Identification Transaction :" + 
@@ -295,7 +295,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			final CivilInitialResults civilInitialResults) {
         log.debug("Inserting row into CIVIL_INITIAL_RESULTS table : " + civilInitialResults.toString());
 
-        final String CIVIL_INITIAL_RESULTS_INSERT="insert into CIVIL_INITIAL_RESULTS "
+        final String CIVIL_INITIAL_RESULTS_INSERT="insert into rapback_datastore.CIVIL_INITIAL_RESULTS "
         		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
         		+ " RESULTS_SENDER_ID) "
         		+ "values (?, ?, ?)";
@@ -323,7 +323,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			final CriminalInitialResults criminalInitialResults) {
         log.debug("Inserting row into CRIMINAL_INITIAL_RESULTS table : " + criminalInitialResults.toString());
 
-        final String CRIMINAL_INITIAL_RESULTS_INSERT="insert into CRIMINAL_INITIAL_RESULTS "
+        final String CRIMINAL_INITIAL_RESULTS_INSERT="insert into rapback_datastore.CRIMINAL_INITIAL_RESULTS "
         		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, RESULTS_SENDER_ID) "
         		+ "values (?, ?, ?)";
         
@@ -376,8 +376,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public IdentificationTransaction getIdentificationTransaction(
 			String transactionNumber) {
 		final String ID_TRANSACTION_SELECT_BY_TRANSACTION_NUMBER = 
-				" SELECT * FROM identification_transaction i "
-						+ "LEFT JOIN identification_subject s ON s.subject_id = i.subject_id "
+				" SELECT * FROM rapback_datastore.identification_transaction i "
+						+ "LEFT JOIN rapback_datastore.identification_subject s ON s.subject_id = i.subject_id "
 						+ "WHERE transaction_number = ?";
 
 		List<IdentificationTransaction> transactions = 
@@ -487,7 +487,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
-	final String SUBJECT_UPDATE="UPDATE identification_subject SET "
+	final String SUBJECT_UPDATE="UPDATE rapback_datastore.identification_subject SET "
 			+ "ucn = :ucn, "
 			+ "criminal_sid = :criminalSid, "
 			+ "civil_sid = :civilSid, "
@@ -519,9 +519,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
 		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
-				+ "FROM civil_initial_results c "
-				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "FROM rapback_datastore.civil_initial_results c "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.subject_id = t.subject_id "
 				+ "WHERE t.owner_ori = ?";
 		
 		List<CivilInitialResults> civilIntialResults = 
@@ -564,7 +564,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public Integer getCivilIntialResultsId(String transactionNumber,
 			ResultSender resultSender) {
 		final String CIVIL_INITIAL_RESULTS_ID_SELECT = "SELECT t.civiL_INITIAL_RESULT_ID  "
-				+ "FROM CIVIL_INITIAL_RESULTS t "
+				+ "FROM rapback_datastore.CIVIL_INITIAL_RESULTS t "
 				+ "WHERE t.TRANSACTION_NUMBER  = ? AND RESULTS_SENDER_ID = ?";
 		
 		List<Integer> ids = jdbcTemplate.queryForList(CIVIL_INITIAL_RESULTS_ID_SELECT, 
@@ -578,36 +578,58 @@ public class RapbackDAOImpl implements RapbackDAO {
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
-				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
-				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
-				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = t.transaction_number) as having_subsequent_result, "
-				+ "(select count(*) > 0 from NSOR_FIVE_YEAR_CHECK nsor5year where nsor5year.transaction_number = t.transaction_number) as having_nsor_5_year_check, "
-				+ "ln.latestNotificationDate "
-				+ "FROM identification_transaction t "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-				+ "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id "
-				+ "LEFT OUTER JOIN (select max(subsq.report_timestamp) as latestNotificationDate , subsq.transaction_number "
-			    + "		FROM subsequent_results subsq WHERE notification_indicator=true GROUP BY subsq.transaction_number) ln "
-			    + "		ON ln.transaction_Number = t.transaction_number "
-				+ "WHERE (select count(*)>0 from "
-				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
-				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
-				+ "	AND (:otn is null OR t.otn = :otn ) "
-				+ "	AND (:sid is null OR upper(s.civil_sid) = upper(:sid) ) "
-				+ "	AND (:ucn is null OR upper(s.ucn) = upper(:ucn) ) "
-				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
-				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
-				+ "	AND (:notificationStartDate is null OR ln.latestNotificationDate >= :notificationStartDate ) "
-				+ "	AND (:notificationEndDate is null OR ln.latestNotificationDate <= :notificationEndDate ) "
-				+ "	AND (:excludeArchived = false OR t.archived != true ) "
-				+ "	AND (:excludeSubscribedState = false OR (t.archived = true OR (sub.id is null OR sub.id <= 0 OR sub.active = false ) OR "
-				+ " (sub.id is not null and sub.id > 0 and sub.active != false and fbi_sub.fbi_subscription_id is not null))) "
-				+ "	AND (:excludeSubscribedStateFBI = false OR (t.archived = true OR fbi_sub.fbi_subscription_id is null )) "
-				+ "	AND (:excludeAvailableForSubscription  = false OR (t.archived = true OR (sub.id > 0 AND sub.active = true))) "
-				+ "	AND ( ( :identificationReasonCodeJoined ) is null OR t.identification_category in ( :identificationReasonCode )) ");
+		sb.append("SELECT " +
+		                "    t.transaction_number, " +
+		                "    t.identification_category, " +
+		                "    t.creation_timestamp, " +
+		                "    t.FBI_SUBSCRIPTION_STATUS, " +
+		                "    t.report_timestamp, " +
+		                "    t.otn, " +
+		                "    t.owner_ori, " +
+		                "    t.owner_program_oca, " +
+		                "    t.archived, " +
+		                "    t.available_for_subscription_start_date, " +
+		                "    s.*, " +
+		                "    sub.*, " +
+		                "    fbi_sub.fbi_subscription_id, " +
+		                "    (SELECT COUNT(*) > 0 FROM rapback_datastore.subsequent_results subsq WHERE subsq.transaction_number = t.transaction_number) AS having_subsequent_result, " +
+		                "    (SELECT COUNT(*) > 0 FROM NSOR_FIVE_YEAR_CHECK nsor5year WHERE nsor5year.transaction_number = t.transaction_number) AS having_nsor_5_year_check, " +
+		                "    ln.latestNotificationDate " +
+		                "FROM rapback_datastore.identification_transaction t " +
+		                "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.subject_id = t.subject_id " +
+		                "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id " +
+		                "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id " +
+		                "LEFT OUTER JOIN ( " +
+		                "    SELECT MAX(subsq.report_timestamp) AS latestNotificationDate, subsq.transaction_number " +
+		                "    FROM rapback_datastore.subsequent_results subsq " +
+		                "    WHERE notification_indicator = true " +
+		                "    GROUP BY subsq.transaction_number " +
+		                ") ln ON ln.transaction_number = t.transaction_number " +
+		                "WHERE EXISTS ( " +
+		                "    SELECT 1 FROM rapback_datastore.civil_initial_results c WHERE c.transaction_number = t.transaction_number " +
+		                ") " +
+		                "AND (:firstName IS NULL OR UPPER(s.first_name) LIKE CONCAT(UPPER(:firstName), '%')) " +
+		                "AND (:lastName IS NULL OR UPPER(s.last_name) LIKE CONCAT(UPPER(:lastName), '%')) " +
+		                "AND (:otn IS NULL OR t.otn = :otn) " +
+		                "AND (:sid IS NULL OR UPPER(s.civil_sid) = UPPER(:sid)) " +
+		                "AND (:ucn IS NULL OR UPPER(s.ucn) = UPPER(:ucn)) " +
+		                "AND (:startDate IS NULL OR t.report_timestamp >= :startDate) " +
+		                "AND (:endDate IS NULL OR t.report_timestamp <= :endDate) " +
+		                "AND (:notificationStartDate IS NULL OR ln.latestNotificationDate >= :notificationStartDate) " +
+		                "AND (:notificationEndDate IS NULL OR ln.latestNotificationDate <= :notificationEndDate) " +
+		                "AND (:excludeArchived = false OR t.archived != true) " +
+		                "AND (:excludeSubscribedState = false OR ( " +
+		                "        t.archived = true OR " +
+		                "        sub.id IS NULL OR sub.id <= 0 OR sub.active = false OR " +
+		                "        (sub.id IS NOT NULL AND sub.id > 0 AND sub.active != false AND fbi_sub.fbi_subscription_id IS NOT NULL) " +
+		                ")) " +
+		                "AND (:excludeSubscribedStateFBI = false OR ( " +
+		                "        t.archived = true OR fbi_sub.fbi_subscription_id IS NULL " +
+		                ")) " +
+		                "AND (:excludeAvailableForSubscription = false OR ( " +
+		                "        t.archived = true OR (sub.id > 0 AND sub.active = true) " +
+		                ")) " +
+		                "AND ((:identificationReasonCodeJoined) IS NULL OR t.identification_category IN (:identificationReasonCode))");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		paramMap.put("firstName", searchRequest.getFirstName() );
@@ -712,7 +734,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	public List<String> getViewableIdentificationCategories(
 		SAMLTokenPrincipal token, String identificationCategoryType) {
-		final String sql = "select i.identification_category_code from identification_category i "
+		final String sql = "select i.identification_category_code from rapback_datastore.identification_category i "
 				+ "left join job_title_privilege j on j.identification_category_id = i.identification_category_id "
 				+ "left join job_title t on t.job_title_id = j.job_title_id "
 				+ "left join department d on d.department_id = t.department_id "
@@ -738,8 +760,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.* "
-				+ "FROM identification_transaction t "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
+				+ "FROM rapback_datastore.identification_transaction t "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.subject_id = t.subject_id ");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("firstName", searchRequest.getFirstName());
@@ -779,7 +801,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			}
 		}
 		
-		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
+		sqlStringBuilder.append(" (select count(*)>0 from rapback_datastore.criminal_initial_results c where c.transaction_number = t.transaction_number) ");
 		sqlStringBuilder.append(
 				  " AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
 				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
@@ -801,12 +823,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(
 			String transactionNumber) {
 		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.*, a.AGENCY_NAME, sub.*, fbi_sub.fbi_subscription_id, "
-				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = i.transaction_number) as having_subsequent_result, "
+				+ "(select count(*) > 0 from rapback_datastore.subsequent_results subsq where subsq.transaction_number = i.transaction_number) as having_subsequent_result, "
 				+ "(select count(*) > 0 from NSOR_FIVE_YEAR_CHECK nsor5year where nsor5year.transaction_number = i.transaction_number) as having_nsor_5_year_check, "
-				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.transaction_number = i.transaction_number and notification_indicator=true) as latestNotificationDate "
-				+ "FROM civil_initial_results c "
-				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = c.transaction_number "
-				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
+				+ "(select max(subsq.report_timestamp) from rapback_datastore.subsequent_results subsq where subsq.transaction_number = i.transaction_number and notification_indicator=true) as latestNotificationDate "
+				+ "FROM rapback_datastore.civil_initial_results c "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_TRANSACTION i ON i.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.SUBJECT_ID = i.SUBJECT_ID "
 				+ "LEFT OUTER JOIN AGENCY_PROFILE a ON a.AGENCY_ORI = i.OWNER_ORI "
 				+ "LEFT OUTER JOIN SUBSCRIPTION sub ON sub.id = i.subscription_id "
 				+ "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id "
@@ -882,7 +904,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	public void consolidateSidFederal(String currentSid, String newSid) {
-		final String SID_CONSOLIDATION = "UPDATE identification_subject "
+		final String SID_CONSOLIDATION = "UPDATE rapback_datastore.identification_subject "
 				+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
 				+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
 		
@@ -896,13 +918,13 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	@Transactional
 	public void consolidateUcnFederal(String currentUcn, String newUcn) {
-		final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
+		final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE rapback_datastore.fbi_rap_back_subscription "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";
-		final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE identification_subject "
+		final String IDENTIFICATION_SUBJECT_UCN_CONSOLIDATION = "UPDATE rapback_datastore.identification_subject "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";
-		final String SUBSEQUENT_RESULTS_UCN_CONSOLIDATION = "UPDATE subsequent_results "
+		final String SUBSEQUENT_RESULTS_UCN_CONSOLIDATION = "UPDATE rapback_datastore.subsequent_results "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";
 		
@@ -988,9 +1010,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public int archiveCivilIdentifications() {
 		log.info("Archiving records that have been available "
 				+ "for subscription for over " + civilIdlePeriod + " days.");
-		final String sql = "UPDATE identification_transaction t "
+		final String sql = "UPDATE rapback_datastore.identification_transaction t "
 				+ "SET t.archived = true "
-				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "WHERE (select count(*)>0 FROM rapback_datastore.civil_initial_results c where c.transaction_number = t.transaction_number) "
 				+ "	AND t.archived = false  AND t.available_for_subscription_start_date < ?";
 		
 		DateTime currentDate = new DateTime(); 
@@ -1004,27 +1026,34 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public int archiveCriminalIdentifications() {
-		log.info("Archiving records that have been available "
-				+ "for subscription for over " + criminalIdlePeriod + " days.");
-		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = true "
-				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "AND t.archived = false  AND t.available_for_subscription_start_date < ?";
-		
-		DateTime currentDate = new DateTime(); 
-		DateTime comparableDate = currentDate.minusDays(criminalIdlePeriod);
-		log.info("Comparable Date:" + comparableDate);
-		
-		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
-		log.info("Archived " + updatedRows + " rows that have been idle for over " + criminalIdlePeriod + " days ");
-		return updatedRows;
+	    log.info("Archiving records that have been available for subscription for over " + criminalIdlePeriod + " days.");
+
+	    final String sql =
+	        "UPDATE rapback_datastore.identification_transaction " +
+	        "SET archived = true " +
+	        "WHERE EXISTS ( " +
+	        "    SELECT 1 FROM rapback_datastore.criminal_initial_results c " +
+	        "    WHERE c.transaction_number = rapback_datastore.identification_transaction.transaction_number " +
+	        ") " +
+	        "AND archived = false " +
+	        "AND available_for_subscription_start_date < ?";
+
+	    DateTime currentDate = new DateTime();
+	    DateTime comparableDate = currentDate.minusDays(criminalIdlePeriod);
+	    log.info("Comparable Date: " + comparableDate);
+
+	    int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
+
+	    log.info("Archived " + updatedRows + " rows that have been idle for over " + criminalIdlePeriod + " days.");
+	    return updatedRows;
 	}
+
 
 	@Override
 	public int archiveIdentificationResult(String transactionNumber) {
 		log.info("Archiving record with transaction number " + transactionNumber);
 		
-		final String sql = "UPDATE identification_transaction t "
+		final String sql = "UPDATE rapback_datastore.identification_transaction t "
 				+ "SET t.archived = true "
 				+ "WHERE t.transaction_number = ?";
 		int result = jdbcTemplate.update(sql, transactionNumber);
@@ -1035,7 +1064,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public int unarchiveIdentificationResult(String transactionNumber) {
 		log.info("Unarchiving record with transaction number " + transactionNumber);
 		
-		final String sql = "UPDATE identification_transaction t "
+		final String sql = "UPDATE rapback_datastore.identification_transaction t "
 				+ "SET t.archived = false "
 				+ "WHERE t.transaction_number = ?";
 		int result = jdbcTemplate.update(sql, transactionNumber);
@@ -1048,9 +1077,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		List<SubsequentResults> resultsSet = new ArrayList<SubsequentResults>();
 		
-		final String sql ="SELECT subs.* FROM subsequent_results subs "
-				+ "LEFT JOIN identification_subject s ON s.ucn = subs.ucn "
-				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
+		final String sql ="SELECT subs.* FROM rapback_datastore.subsequent_results subs "
+				+ "LEFT JOIN rapback_datastore.identification_subject s ON s.ucn = subs.ucn "
+				+ "LEFT JOIN rapback_datastore.identification_transaction t ON t.subject_id = s.subject_id "
 				+ "WHERE t.transaction_number = ? "
 				+ " and subs.RESULTS_SENDER_ID=1 "
 				+ " order by REPORT_TIMESTAMP desc";
@@ -1063,9 +1092,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 			resultsSet.add(subsequentResults.get(0));
 		}	
 		
-		final String sqlCivilSid ="SELECT subs.* FROM subsequent_results subs "
-				+ "LEFT JOIN identification_subject s ON s.civil_sid = subs.civil_sid "
-				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
+		final String sqlCivilSid ="SELECT subs.* FROM rapback_datastore.subsequent_results subs "
+				+ "LEFT JOIN rapback_datastore.identification_subject s ON s.civil_sid = subs.civil_sid "
+				+ "LEFT JOIN rapback_datastore.identification_transaction t ON t.subject_id = s.subject_id "
 				+ "WHERE t.transaction_number = ? "
 				+ " and subs.RESULTS_SENDER_ID=2 "
 				+ " order by REPORT_TIMESTAMP desc";
@@ -1100,7 +1129,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn) {
 		log.info("Retreiving subsequent results by FBI ID " + ucn);
 		
-		final String sql ="SELECT subs.* FROM subsequent_results subs "
+		final String sql ="SELECT subs.* FROM rapback_datastore.subsequent_results subs "
 				+ "WHERE subs.ucn = ?";
 		
 		List<SubsequentResults> subsequentResults = 
@@ -1114,9 +1143,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Retrieving criminal initial results by transaction number : " + transactionNumber);
 		
 		final String sql = "SELECT t.*, i.*, s.*, a.AGENCY_NAME "
-				+ "FROM criminal_initial_results t "
-				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = t.transaction_number "
-				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
+				+ "FROM rapback_datastore.criminal_initial_results t "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_TRANSACTION i ON i.transaction_number = t.transaction_number "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.SUBJECT_ID = i.SUBJECT_ID "
 				+ "LEFT OUTER JOIN AGENCY_PROFILE a ON a.AGENCY_ORI = i.OWNER_ORI "
 				+ "WHERE t.transaction_number = ?";
 		List<CriminalInitialResults> criminalIntialResults = 
@@ -1159,8 +1188,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public String getIdentificationCategoryType(String transactionNumber) {
 		log.info("Retrieving identification category by transaction number : " + transactionNumber);
 		
-		final String sql = "SELECT identification_category_type FROM identification_transaction t "
-				+ "LEFT JOIN identification_category c ON c.identification_category_code = t.identification_category "
+		final String sql = "SELECT identification_category_type FROM rapback_datastore.identification_transaction t "
+				+ "LEFT JOIN rapback_datastore.identification_category c ON c.identification_category_code = t.identification_category "
 				+ "WHERE t.transaction_number = ?"; 
 		
 		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
@@ -1189,7 +1218,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		if (StringUtils.isBlank(transactionNumber)) return false; 
 		
-		final String sql = "SELECT count(*)>0 FROM identification_transaction t WHERE t.transaction_number = ?";
+		final String sql = "SELECT count(*)>0 FROM rapback_datastore.identification_transaction t WHERE t.transaction_number = ?";
 		
 		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
 		return existing;
@@ -1211,9 +1240,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 			String transactionNumber, ResultSender resultSender) {
 		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
-				+ "FROM civil_initial_results c "
-				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "FROM rapback_datastore.civil_initial_results c "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN rapback_datastore.identification_subject s ON s.subject_id = t.subject_id "
 				+ "WHERE c.TRANSACTION_NUMBER  = ? AND c.RESULTS_SENDER_ID = ?";
 		
 		List<CivilInitialResults> civilIntialResults = 
@@ -1234,7 +1263,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public void updateIdentificationCategory(String transactionNumber,
 			String identificationCategory) {
-		final String sql = "UPDATE identification_transaction "
+		final String sql = "UPDATE rapback_datastore.identification_transaction "
 				+ "SET identification_category = ? "
 				+ "WHERE transaction_number  = ? ";
 		jdbcTemplate.update(sql, identificationCategory, transactionNumber);
@@ -1246,8 +1275,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		String sql = "SELECT t.subscription_id,t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, " +
 				" t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, t.subscription_id," + 
 				" s.*  " +
-				" FROM identification_transaction t " +
-				" LEFT OUTER JOIN identification_subject s ON t.subject_id=s.subject_id " +
+				" FROM rapback_datastore.identification_transaction t " +
+				" LEFT OUTER JOIN rapback_datastore.identification_subject s ON t.subject_id=s.subject_id " +
 				" where t.subject_id=s.subject_id  " +
 				" and t.otn=? " +
 				" and s.civil_sid=? ";
@@ -1273,7 +1302,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		StringBuffer sql = new StringBuffer(); 
 				
-		sql.append("UPDATE identification_subject SET ");
+		sql.append("UPDATE rapback_datastore.identification_subject SET ");
 		
 		if (StringUtils.isNotBlank(firstName))
 		{	
@@ -1399,7 +1428,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
     public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
     {
-    	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
+    	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE rapback_datastore.identification_transaction "
     			+ "SET FBI_SUBSCRIPTION_STATUS=? WHERE subscription_id = ? ";
     	
     	this.jdbcTemplate.update(UPDATE_FBI_SUBSCRIPTION_STATUS, status, subscriptionId);
@@ -1479,11 +1508,11 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 	}
 
-	final String CIVIL_INITIAL_RESULTS_DELETE="delete from CIVIL_INITIAL_RESULTS "
+	final String CIVIL_INITIAL_RESULTS_DELETE="delete from rapback_datastore.CIVIL_INITIAL_RESULTS "
 			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
 	final String CIVIL_ININTIAL_RAP_SHEET_DELETE = "delete from CIVIL_INITIAL_RAP_SHEET "
 			+ "where CIVIL_INITIAL_RESULT_ID = "
-			+ "		(select CIVIL_INITIAL_RESULT_ID from CIVIL_INITIAL_RESULTS " 
+			+ "		(select CIVIL_INITIAL_RESULT_ID from rapback_datastore.CIVIL_INITIAL_RESULTS " 
 			+ "			where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ) ";
 	@Override
 	public Integer deleteCivilInitialResults(String transactionNumber, ResultSender resultSender) {
@@ -1495,7 +1524,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return rowsDeleted;
 	}
 
-	final String CRIMINAL_INITIAL_RESULTS_DELETE="delete from CRIMINAL_INITIAL_RESULTS "
+	final String CRIMINAL_INITIAL_RESULTS_DELETE="delete from rapback_datastore.CRIMINAL_INITIAL_RESULTS "
 			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
 	@Override
 	public Integer deleteCriminalInitialResults(String transactionNumber, ResultSender resultSender) {

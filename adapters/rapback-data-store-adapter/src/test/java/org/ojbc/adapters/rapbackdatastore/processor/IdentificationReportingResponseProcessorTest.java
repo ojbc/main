@@ -20,10 +20,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.Consts;
 import org.custommonkey.xmlunit.Diff;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +46,8 @@ import org.xml.sax.SAXException;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"})
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"})
 public class IdentificationReportingResponseProcessorTest {
 	
 	@Autowired
@@ -72,7 +73,7 @@ public class IdentificationReportingResponseProcessorTest {
 	public static void assertAsExpected(String documentString, String expectedFileLocation) throws IOException,
 			SAXException {
 		File expectedReponseFile = new File(expectedFileLocation);
-        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Consts.UTF_8);
+        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, StandardCharsets.UTF_8);
         
         //Use XML Unit to compare these files
         Diff myDiff = new Diff(documentString, expectedResponseAsString);

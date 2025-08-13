@@ -17,10 +17,10 @@
 package org.ojbc.adapters.rapbackdatastore.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -32,11 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
@@ -53,16 +52,20 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.test.util.SAMLTokenTestUtils;
+import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
@@ -88,6 +91,9 @@ public class RapbackDAOImplGetMethodsTest {
 	
     @Resource  
     private DataSource dataSource;  
+    
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -310,14 +316,23 @@ public class RapbackDAOImplGetMethodsTest {
 		assertThat(subject.getSexCode(), equalTo("F"));
 	}
 	
+	final String CRIMINAL_INITIAL_RESULTS_UPDATE = "update rapback_datastore.CRIMINAL_INITIAL_RESULTS "
+	        + "set SEARCH_RESULT_FILE = ? where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ?";
+	
 	@Test
 	public void testGetCriminalInitialResults() throws Exception {
+	    byte[] fbiCriminalResults = ZipUtils.zip("FBICriminalHistory".getBytes());
+        jdbcTemplate.update(CRIMINAL_INITIAL_RESULTS_UPDATE, fbiCriminalResults, "000001820140729014008339994", 1);
+	    
+        byte[] stateCriminalResults = ZipUtils.zip("StateCriminalHistory".getBytes());
+        jdbcTemplate.update(CRIMINAL_INITIAL_RESULTS_UPDATE, stateCriminalResults, "000001820140729014008339994", 2);
+        
 		List<CriminalInitialResults> criminalInitialResults= 
 				rapbackDAO.getIdentificationCriminalInitialResults("000001820140729014008339994");
 		log.info("Criminal Initial Results count: " + criminalInitialResults.size());
 		assertEquals(2, criminalInitialResults.size());
 		log.info("Search result doc content: " + new String(criminalInitialResults.get(0).getSearchResultFile()));
-		assertEquals(1832, criminalInitialResults.get(0).getSearchResultFile().length);
+		assertEquals(18, criminalInitialResults.get(0).getSearchResultFile().length);
 		
 		assertNotNull(criminalInitialResults.get(0).getIdentificationTransaction());
 		assertNotNull(criminalInitialResults.get(1).getIdentificationTransaction());
@@ -338,9 +353,16 @@ public class RapbackDAOImplGetMethodsTest {
 
 	}
 	
+	final String RAPBACK_DATA_STORE_UPDATE = "update rapback_datastore.subsequent_results "
+	        + "SET RAP_SHEET = ? where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ?";
+	
 	@Test
 	public void testGetSubsequentResults() throws Exception {
-		
+		byte[] fbiSubResults = ZipUtils.zip("FBI Subsequent results.".getBytes());
+		jdbcTemplate.update(RAPBACK_DATA_STORE_UPDATE, fbiSubResults, "000001820140729014008339995", 1);
+		byte[] stateSubResults = ZipUtils.zip("State Subsequent results.".getBytes());
+		jdbcTemplate.update(RAPBACK_DATA_STORE_UPDATE, stateSubResults, "000001820140729014008339995", 2);
+	    
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
 		assertEquals(2, subsequentResults.size());
 		SubsequentResults result1 = subsequentResults.get(0);

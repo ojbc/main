@@ -17,26 +17,25 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- FYI to connect to an in-memory H2 database remotely, use a URL like:  jdbc:h2:tcp:localhost:49093/mem:rapback-datastore -->
-	<bean id="rapbackDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
-        <constructor-arg>
-            <bean class="org.h2.jdbcx.JdbcDataSource">
-                <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:rapback-datastore"/>
-                <property name="user" value="sa"/>
-             </bean>
-        </constructor-arg>
-    </bean>
-    
-    <jdbc:initialize-database data-source="rapbackDataSource" ignore-failures="ALL">
-        <jdbc:script location="classpath:sql-rapback-datastore/h2-schema.sql"/>
-        <jdbc:script location="classpath:sql-rapback-datastore/h2-test-data.sql"/>
-	</jdbc:initialize-database>
-	
+  <!-- FYI to connect to an in-memory H2 database remotely, use a URL like: jdbc:h2:tcp:localhost:49093/mem:rapback-datastore -->
+  <bean id="rapbackDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose" primary="true">
+    <constructor-arg>
+      <bean class="org.h2.jdbcx.JdbcDataSource">
+        <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:rapback-datastore" />
+        <property name="user" value="sa" />
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <jdbc:initialize-database data-source="rapbackDataSource" ignore-failures="ALL">
+    <jdbc:script location="classpath:sql-rapback-datastore/h2-schema.sql" />
+    <jdbc:script location="classpath:sql-rapback-datastore/h2-test-data.sql" />
+  </jdbc:initialize-database>
+
 </beans>

@@ -20,13 +20,12 @@ import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstant
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 
-import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -37,6 +36,8 @@ import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 public class AbstractSearchQueryProcessor {
 	

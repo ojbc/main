@@ -19,7 +19,7 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
