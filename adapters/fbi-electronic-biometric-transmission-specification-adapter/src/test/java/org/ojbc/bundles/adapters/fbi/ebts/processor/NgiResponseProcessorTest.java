@@ -17,9 +17,9 @@
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.http.Consts;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -51,7 +51,7 @@ public class NgiResponseProcessorTest {
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/NgiVoidResponse.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, voidResponse);		
 		

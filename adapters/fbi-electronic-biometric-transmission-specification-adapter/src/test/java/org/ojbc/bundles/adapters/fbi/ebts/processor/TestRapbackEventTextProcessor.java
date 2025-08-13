@@ -16,16 +16,17 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
+
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.Consts;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.w3c.dom.Document;
@@ -37,7 +38,7 @@ public class TestRapbackEventTextProcessor {
 	{
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/input/FBI_RBN_UCN_Consolidation.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 		Document fbiRBNucnConsolidation = OJBUtils.loadXMLFromString(inputStr);
 		
@@ -58,7 +59,7 @@ public class TestRapbackEventTextProcessor {
 	{
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/input/FBI_RBN_UCN_Restoration.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 		Document fbiRBNucnConsolidation = OJBUtils.loadXMLFromString(inputStr);
 		
@@ -79,7 +80,7 @@ public class TestRapbackEventTextProcessor {
 	{
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/input/FBI_RBN_UCN_Deletion.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 		Document fbiRBNucnConsolidation = OJBUtils.loadXMLFromString(inputStr);
 		
@@ -100,7 +101,7 @@ public class TestRapbackEventTextProcessor {
 	{
 	    //Read the criminal history update file from the file system
 	    File inputFile = new File("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
 		Document fbiRBNucnConsolidation = OJBUtils.loadXMLFromString(inputStr);
 		

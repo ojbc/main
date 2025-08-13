@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;

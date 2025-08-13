@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -38,6 +36,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)

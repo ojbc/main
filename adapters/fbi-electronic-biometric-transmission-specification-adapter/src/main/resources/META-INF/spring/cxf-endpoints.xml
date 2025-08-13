@@ -19,7 +19,7 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
     xmlns:policy="http://cxf.apache.org/policy"
     xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
     xmlns:util="http://www.springframework.org/schema/util"
@@ -32,8 +32,8 @@
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
     http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-    http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+    http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
     http://cxf.apache.org/transports/http-jetty/configuration https://cxf.apache.org/schemas/configuration/http-jetty.xsd
     http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -192,14 +192,13 @@
 				password="{{fbiEbtsAdapter.fbi.keystorePassword}}" />
 		</camel:keyManagers>
 	</camel:sslContextParameters>
-	
-    <bean id="https4" class="org.apache.camel.component.http.HttpComponent">
-      <property name="sslContextParameters" ref="sslContextParameters"/>
-      <property name="x509HostnameVerifier">
-        <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
-      </property>
-    </bean>	 
-	
+
+  <bean id="https4" class="org.apache.camel.component.http.HttpComponent">
+    <property name="sslContextParameters" ref="sslContextParameters" />
+    <property name="x509HostnameVerifier">
+      <bean class="org.apache.cxf.transport.https.AllowAllHostnameVerifier" />
+    </property>
+  </bean> 
 	
     <!-- The Jetty server context will optionally provide a unique port for the FBI.  If the spring profile jetty-server is not active, it is ignore -->
     

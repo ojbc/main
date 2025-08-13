@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.util.xml.XmlUtils;

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Consts;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -73,7 +73,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"), 
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
@@ -93,7 +93,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-FBI_Identity_History_Summary_Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
@@ -114,7 +114,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
@@ -135,7 +135,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-NDI.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}	
@@ -156,7 +156,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-SRC.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
@@ -177,7 +177,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -198,7 +198,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Cancel-Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -220,7 +220,7 @@ public class EbtsTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/RapBackSubscriptionCreationReport.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -241,7 +241,7 @@ public class EbtsTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/Subscription_Response_Error.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}	
@@ -262,7 +262,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/RapbackSubscriptionUpdateReport.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -283,7 +283,7 @@ public class EbtsTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/CriminalHistory-Error-Report.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
@@ -308,7 +308,7 @@ public class EbtsTransformTest {
 		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/Federal_Rapback_CH_Report.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
@@ -332,7 +332,7 @@ public class EbtsTransformTest {
 		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/CriminalHistory-Consolidation-Report.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
@@ -356,7 +356,7 @@ public class EbtsTransformTest {
 		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/CriminalHistory-Deletion-Report.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
@@ -380,7 +380,7 @@ public class EbtsTransformTest {
 		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/CriminalHistory-Restoration-Report.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 

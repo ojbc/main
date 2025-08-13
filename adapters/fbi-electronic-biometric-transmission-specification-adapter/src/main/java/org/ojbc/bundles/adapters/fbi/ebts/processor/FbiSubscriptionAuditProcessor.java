@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.bundles.adapters.fbi.ebts.util.FBIEbtsUtils;

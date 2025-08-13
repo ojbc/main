@@ -18,11 +18,11 @@ package org.ojbc.bundles.adapters.fbi.ebts;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,7 +43,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
-import org.apache.http.Consts;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -60,6 +59,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import jakarta.annotation.Resource;
 
 
 @UseAdviceWith
@@ -106,7 +107,7 @@ public class CamelContextTest {
     	});
     	
     	AdviceWith.adviceWith(context, "processOperationRoute", route -> {
-    		route.interceptSendToEndpoint("https4:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");
+    		route.interceptSendToEndpoint("https:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");
     	});
     	
     	context.start();	
@@ -159,7 +160,7 @@ public class CamelContextTest {
 		Exchange senderExchange = new DefaultExchange(context);
 
 	    File inputFile = new File(fileName);
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    Assert.assertNotNull(inputStr);
 	    
@@ -195,7 +196,7 @@ public class CamelContextTest {
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		
@@ -212,7 +213,7 @@ public class CamelContextTest {
     	Exchange senderExchange = new DefaultExchange(context);
 
 	    File inputFile = new File("src/test/resources/input/OJBC_Subscription_Modify_Document.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    Assert.assertNotNull(inputStr);
 	    
@@ -243,7 +244,7 @@ public class CamelContextTest {
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"),
-				Consts.UTF_8);
+				StandardCharsets.UTF_8);
 							
 		Diff diff = XMLUnit.compareXML(expectedXmlString, transformedReturnMessage);		
 		
