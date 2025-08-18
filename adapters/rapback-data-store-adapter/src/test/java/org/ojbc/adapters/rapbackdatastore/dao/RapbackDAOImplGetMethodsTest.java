@@ -286,14 +286,59 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals(1, transactionsForSuperUser.size());
 	}
 	
+	final String CIVIL_FINGER_PRINTS_UPDATE = "update rapback_datastore.CIVIL_FINGER_PRINTS "
+            + "set FINGER_PRINTS_FILE = ? where TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID = ?";
+    
+    final String CIVIL_INITIAL_RESULTS_UPDATE = "update rapback_datastore.CIVIL_INITIAL_RESULTS "
+            + "set SEARCH_RESULT_FILE = ? where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ?";
+    
+    final String CIVIL_RAPSHEET_UPDATE = "update rapback_datastore.CIVIL_INITIAL_RAP_SHEET "
+            + "set RAP_SHEET = ? where CIVIL_INITIAL_RESULT_ID = ?";
+
+    final String NSOR_DEMOGRAPHICS_UPDATE = "update rapback_datastore.NSOR_DEMOGRAPHICS "
+            + "set DEMOGRAPHICS_FILE = ? where TRANSACTION_NUMBER = ? and NSOR_DEMOGRAPHICS_ID = ?";
+    
+    final String NSOR_SEARCH_RESULTS_UPDATE = "update rapback_datastore.NSOR_SEARCH_RESULT "
+            + "set SEARCH_RESULT_FILE = ? where TRANSACTION_NUMBER = ? and NSOR_SEARCH_RESULT_ID = ?";
+	
 	@Test
 	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
+	    byte[] fbiCivilFingerprints = ZipUtils.zip("FBICivilFingerprints".getBytes());
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, fbiCivilFingerprints, "000001820140729014008339990", 1);
+        
+        byte[] stateCivilFingerprints = ZipUtils.zip("StateCivilFingerprints".getBytes());
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, stateCivilFingerprints, "000001820140729014008339990", 2);
+        
+        byte[] fbiCivilResults = ZipUtils.zip("FBICivilInitialResults".getBytes());
+        jdbcTemplate.update(CIVIL_INITIAL_RESULTS_UPDATE, fbiCivilResults, "000001820140729014008339990", 1);
+        
+        byte[] stateCivilResults = ZipUtils.zip("StateCivilInitialResults".getBytes());
+        jdbcTemplate.update(CIVIL_INITIAL_RESULTS_UPDATE, stateCivilResults, "000001820140729014008339990", 2);
+        
+        byte[] civilRapSheet = ZipUtils.zip("CivilInitialResultsRapsheet1".getBytes());
+        jdbcTemplate.update(CIVIL_RAPSHEET_UPDATE, civilRapSheet, 1);
+        
+        byte[] civilRapSheet2 = ZipUtils.zip("CivilInitialResultsRapsheet2".getBytes());
+        jdbcTemplate.update(CIVIL_RAPSHEET_UPDATE, civilRapSheet2, 2);
+        
+        byte[] nsorDemo = ZipUtils.zip("NsorDemographics".getBytes());
+        jdbcTemplate.update(NSOR_DEMOGRAPHICS_UPDATE, nsorDemo, "000001820140729014008339990", 1);
+        
+        byte[] nsorDemo1 = ZipUtils.zip("NsorDemographics1".getBytes());
+        jdbcTemplate.update(NSOR_DEMOGRAPHICS_UPDATE, nsorDemo1, "000001820140729014008339990", 2);
+        
+        byte[] nsorSearch = ZipUtils.zip("NsorSearchResults".getBytes());
+        jdbcTemplate.update(NSOR_SEARCH_RESULTS_UPDATE, nsorSearch, "000001820140729014008339990", 1);
+        
+        byte[] nsorSearch1 = ZipUtils.zip("NsorSearchResults1".getBytes());
+        jdbcTemplate.update(NSOR_SEARCH_RESULTS_UPDATE, nsorSearch1, "000001820140729014008339990", 2);
+        
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
 		log.info("Civil Initial Results count: " + civilInitialResults.size());
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(2110, civilInitialResults.get(0).getSearchResultFile().length);
+		assertEquals(22, civilInitialResults.get(0).getSearchResultFile().length);
 		
 		assertNotNull(civilInitialResults.get(0).getIdentificationTransaction());
 		assertNotNull(civilInitialResults.get(1).getIdentificationTransaction());

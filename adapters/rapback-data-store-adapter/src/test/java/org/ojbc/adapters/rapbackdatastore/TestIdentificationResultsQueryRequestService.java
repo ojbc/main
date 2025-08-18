@@ -98,6 +98,10 @@ public class TestIdentificationResultsQueryRequestService {
     		route.weaveByToUri("identificationResultsQueryResponseServiceEndpoint").replace().to("mock:cxf:bean:identificationResultsQueryResponseService");
     	});
     	
+    	AdviceWith.adviceWith(context, "identificationSubsequentResultsQueryResponseRoute", route -> {
+            route.weaveByToUri("identificationResultsQueryResponseServiceEndpoint").replace() .to("mock:cxf:bean:identificationResultsQueryResponseService");
+        });
+    	
         context.start();
     }
     
@@ -200,11 +204,19 @@ public class TestIdentificationResultsQueryRequestService {
 //        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/CriminalIdentificationInitialResultsQueryResults.xml");
 
     }
+    
+    final String SUBSEQUENT_RESULTS_UPDATE = "update rapback_datastore.subsequent_results "
+            + "set RAP_SHEET = ? where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ?";
 
     @Test
     @DirtiesContext
     public void testSubsequentResultsRoute() throws Exception {
-    	
+        byte[] fbiSubsequentResults = ZipUtils.zip("FBISubsequentResults".getBytes());
+        jdbcTemplate.update(SUBSEQUENT_RESULTS_UPDATE, fbiSubsequentResults, "000001820140729014008339995", 1);
+        
+        byte[] stateSubsequentResults = ZipUtils.zip("StateSubsequentResults".getBytes());
+        jdbcTemplate.update(SUBSEQUENT_RESULTS_UPDATE, stateSubsequentResults, "000001820140729014008339995", 2);
+        
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationSubsequentResultsQueryRequest.xml");
 		

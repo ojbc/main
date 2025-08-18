@@ -235,8 +235,8 @@ public class SubscriptionSearchQueryDAO {
     
     public List<String> returnAgencyProfileEmailForSubscription(String subscriptionId, String subscriptionCategory)
     {
-		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
-				+ " AGENCY_EMAIL_CATEGORY aec "
+		String sql = "select ace.AGENCY_EMAIL from rapback_datastore.subscription s, rapback_datastore.subscription_owner so, rapback_datastore.agency_profile ap, rapback_datastore.agency_contact_email ace, rapback_datastore.AGENCY_CONTACT_EMAIL_JOINER acej,"
+				+ " rapback_datastore.AGENCY_EMAIL_CATEGORY aec "
 				+ " where s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID"
 				+ " and so.AGENCY_ID = ap.AGENCY_ID"
 				+ " and ap.AGENCY_ID = ace.AGENCY_ID"
