@@ -18,8 +18,6 @@ package org.ojbc.intermediaries.sn;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.codec.binary.Base64;
@@ -33,6 +31,8 @@ import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import jakarta.annotation.Resource;
 
 
 

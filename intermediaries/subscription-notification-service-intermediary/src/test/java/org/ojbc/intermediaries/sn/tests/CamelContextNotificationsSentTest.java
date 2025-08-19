@@ -20,8 +20,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
@@ -36,6 +34,8 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.notification.NotificationsSentStrategy;
+
+import jakarta.annotation.Resource;
 
 public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotificationTest {
 

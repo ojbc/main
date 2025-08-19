@@ -16,10 +16,10 @@
  */
 package org.ojbc.intermediaries.sn;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
+
+import jakarta.annotation.Resource;
 
 @Component
 public class EmailEncryptionService extends RouteBuilder{

@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
@@ -50,6 +49,8 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
@@ -134,7 +135,8 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	@Test
 	public void subscribeRapbackWithFbiData() throws Exception {
 		
-		String response = invokeRequest("Civil_Subscription_SoapRequest_Document.xml", notificationBrokerUrl);
+		@SuppressWarnings("unused")
+        String response = invokeRequest("Civil_Subscription_SoapRequest_Document.xml", notificationBrokerUrl);
 		
 //		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));    
 //		

@@ -24,18 +24,10 @@ import java.io.FileInputStream;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
@@ -47,7 +39,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ojbc.util.helper.HttpUtils;
 import org.springframework.beans.factory.annotation.Value;
+
+import jakarta.annotation.Resource;
 
 public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionNotificationTest {
 	
@@ -93,7 +88,7 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
 	    
 	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
 	    
-		String response = callServiceViaHttp(subscriptionBody);
+		String response = HttpUtils.post(subscriptionBody, subscriptionManagerUrl);
 		
 		//System.out.println(response);
 		assertThat(response, containsString(UNSUBSCRIBE_RESPONSE_ELEMENT_STRING));
@@ -124,13 +119,4 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
         return filteredTable;
 	}
 
-	private String callServiceViaHttp(String msgBody) throws Exception {
-		HttpClient client = HttpClientBuilder.create().build();
-		
-		HttpPost post = new HttpPost(subscriptionManagerUrl);
-		post.setEntity(new StringEntity(msgBody));
-		HttpResponse response = client.execute(post);
-		HttpEntity reply = response.getEntity();
-		return IOUtils.readStringFromStream(reply.getContent());
-	}
 }

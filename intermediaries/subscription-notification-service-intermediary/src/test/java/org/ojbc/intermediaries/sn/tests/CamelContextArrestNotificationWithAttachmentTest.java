@@ -17,7 +17,6 @@
 package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertNotNull;
-
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -27,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -61,6 +59,8 @@ import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSubscriptionNotificationTest {
 

@@ -29,8 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -52,8 +50,11 @@ import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.WiserMessage;
 
+import jakarta.annotation.Resource;
+
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
+    @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(SubscriptionNotificationIntegrationTest.class);
     
     @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
@@ -203,7 +204,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 				"SID: A9999999", 2);
 		
 		// there should be three messages:  one to the "to", one to the "cc", and one to the "bcc"
-		for (WiserMessage email : emails) {
+		for (@SuppressWarnings("unused") WiserMessage email : emails) {
 		    
 		//	String emailMessage = dumpEmail(email);
 		//	assertThat(emailMessage.replaceAll("[\r\n\t]", ""), containsString("ARREST CHARGES:<br/>Description: KEEP PISTOL Severity: FB, ARN: 14-377370<br/>Description: ELECTRIC GUNS Severity: MD, ARN: 14-377371<br/><br/><br/>Positively identified by fingerprint in demostate."));

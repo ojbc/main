@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
@@ -65,6 +64,8 @@ import org.subethamail.wiser.WiserMessage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+
+import jakarta.annotation.Resource;
 
 public abstract class AbstractSubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationTest {
     @SuppressWarnings("unused")
