@@ -28,7 +28,8 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
  *
  */
 public class HttpUtils {
-	
+    
+    private static final CloseableHttpClient CLIENT = HttpClients.createDefault();
 	/**
 	 * Send the specified payload to the specified http endpoint via POST.
 	 * @param payload
@@ -36,18 +37,10 @@ public class HttpUtils {
 	 * @return the http response
 	 * @throws Exception
 	 */
-	public static String post(String payload, String url) throws Exception {
-		
-		CloseableHttpClient client = HttpClients.createDefault();
-		
-		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(payload, ContentType.DEFAULT_TEXT));
-		BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-		String response = client.execute(post, responseHandler);
-		
-		client.close();
-		
-		return response;
-	}
+    public static String post(String payload, String url) throws Exception {
+        HttpPost post = new HttpPost(url);
+        post.setEntity(new StringEntity(payload, ContentType.APPLICATION_JSON));
+        return CLIENT.execute(post, new BasicHttpClientResponseHandler());
+    }
 
 }
