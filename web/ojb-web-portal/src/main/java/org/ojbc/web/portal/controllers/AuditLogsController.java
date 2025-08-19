@@ -174,7 +174,7 @@ public class AuditLogsController {
 	}
 	
 	@GetMapping("searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm) {
@@ -186,7 +186,7 @@ public class AuditLogsController {
 	}
 	
 	@RequestMapping(value = "personSearchLogsSearchForm", method = RequestMethod.GET)
-	public String personSearchLogsSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String personSearchLogsSearchForm(@RequestParam(required = false) boolean resetForm,
 			Map<String, Object> model) {
 		
 		if (resetForm) {
@@ -198,7 +198,7 @@ public class AuditLogsController {
 	}
 	
 	@RequestMapping(value="/userLoginSearch", method=RequestMethod.POST)
-	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
+	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute("userAuthenticationSearchRequest") UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");
@@ -214,7 +214,7 @@ public class AuditLogsController {
 	}
 
 	@RequestMapping(value="/personSearchLogs", method=RequestMethod.POST)
-	public String getPersonSearchRequestLogs(HttpServletRequest request, @Valid @ModelAttribute AuditPersonSearchRequest auditPersonSearchRequest, BindingResult bindingResult, 
+	public String getPersonSearchRequestLogs(HttpServletRequest request, @Valid @ModelAttribute("auditPersonSearchRequest") AuditPersonSearchRequest auditPersonSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");
@@ -345,7 +345,7 @@ public class AuditLogsController {
 	
 	@RequestMapping("/personSearchResults" )
 	public String getPersonSearchResults(HttpServletRequest request, 
-			@RequestParam("personSearchRequestId") Integer personSearchRequestId, 
+			@RequestParam Integer personSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getPersonSearchResults");
 		List<PersonSearchResult> personSearchResults = restEnhancedAuditClient.retrievePersonSearchResults(personSearchRequestId);
@@ -357,7 +357,7 @@ public class AuditLogsController {
 	
 	@RequestMapping("/firearmSearchResults" )
 	public String getFirearmSearchResults(HttpServletRequest request, 
-			@RequestParam("firearmSearchRequestId") Integer firearmSearchRequestId, 
+			@RequestParam Integer firearmSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getFirearmSearchResults");
 		List<FirearmSearchResult> firearmSearchResults = restEnhancedAuditClient.retrieveFirearmSearchResults(firearmSearchRequestId);
@@ -369,7 +369,7 @@ public class AuditLogsController {
 	
 	@RequestMapping("/vehicleSearchResults" )
 	public String getVehicleSearchResults(HttpServletRequest request, 
-			@RequestParam("vehicleSearchRequestId") Integer vehicleSearchRequestId, 
+			@RequestParam Integer vehicleSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getVehicleSearchResults");
 		List<VehicleSearchResult> vehicleSearchResults = restEnhancedAuditClient.retrieveVehicleSearchResults(vehicleSearchRequestId);
@@ -381,7 +381,7 @@ public class AuditLogsController {
 	
 	@RequestMapping("/incidentSearchResults" )
 	public String getIncidentSearchResults(HttpServletRequest request, 
-			@RequestParam("incidentSearchRequestId") Integer incidentSearchRequestId, 
+			@RequestParam Integer incidentSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getIncidentSearchResults");
 		List<IncidentSearchResult> incidentSearchResults = restEnhancedAuditClient.retrieveIncidentSearchResults(incidentSearchRequestId);
@@ -428,8 +428,8 @@ public class AuditLogsController {
 	
 	@RequestMapping(value="/personQueryResponse", method=RequestMethod.POST )
 	public String getPersonQueryResponse(HttpServletRequest request, 
-			@RequestParam("queryRequestId") Integer queryRequestId, 
-			@RequestParam("systemName") String systemName,
+			@RequestParam Integer queryRequestId, 
+			@RequestParam String systemName,
 			Map<String, Object> model) throws Throwable {
 		log.info("in getQueryRequests");
 		

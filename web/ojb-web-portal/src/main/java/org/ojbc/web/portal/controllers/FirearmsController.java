@@ -105,7 +105,7 @@ public class FirearmsController extends AbstractBaseController {
 	}
 
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm || userSession.getMostRecentFirearmSearch() == null) {

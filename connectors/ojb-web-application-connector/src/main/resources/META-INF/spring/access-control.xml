@@ -77,6 +77,7 @@
 			<property name="operationName"><value>SubmitIdentityBasedAccessControlRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>accessControlRequestService</value></property>
+			<property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 			
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="accessControlRequestResponseMap"/>

@@ -14,58 +14,55 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-drop schema if exists publish_subscribe;
-CREATE schema publish_subscribe;
-USE publish_subscribe;
+DROP SCHEMA IF EXISTS publish_subscribe CASCADE;
+CREATE SCHEMA publish_subscribe;
+SET SCHEMA publish_subscribe;
 
---
--- Create tables for subscription notification processor
---
-CREATE TABLE `subscription` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  topic varchar(100) NOT NULL,
-  startDate date NOT NULL,
-  endDate date DEFAULT NULL,
-  lastValidationDate date DEFAULT NULL,
-  subscribingSystemIdentifier varchar(100) NOT NULL,
-  subscriptionOwner varchar(100) NOT NULL,
-  subjectName varchar(100) NOT NULL,
-  active tinyint(4) NOT NULL,
+CREATE TABLE subscription (
+  id IDENTITY PRIMARY KEY,
+  topic VARCHAR(100) NOT NULL,
+  startDate DATE NOT NULL,
+  endDate DATE DEFAULT NULL,
+  lastValidationDate DATE DEFAULT NULL,
+  subscribingSystemIdentifier VARCHAR(100) NOT NULL,
+  subscriptionOwner VARCHAR(100) NOT NULL,
+  subjectName VARCHAR(100) NOT NULL,
+  active BOOLEAN NOT NULL,
   agency_case_number VARCHAR(100),
-  subscription_category_code VARCHAR(2), 
-  timestamp TIMESTAMP AS CURRENT_TIMESTAMP() 
+  subscription_category_code VARCHAR(2),
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE `notification_mechanism` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  subscriptionId int(11) NOT NULL,
-  notificationMechanismType varchar(20) NOT NULL,
-  notificationAddress varchar(256) NOT NULL,
-  UNIQUE KEY (`subscriptionId`, `notificationAddress`),
-  FOREIGN KEY (subscriptionId)
-  	REFERENCES subscription (id)
-  	ON DELETE CASCADE
+CREATE TABLE notification_mechanism (
+  id IDENTITY PRIMARY KEY,
+  subscriptionId INT NOT NULL,
+  notificationMechanismType VARCHAR(20) NOT NULL,
+  notificationAddress VARCHAR(256) NOT NULL,
+  UNIQUE (subscriptionId, notificationAddress),
+  FOREIGN KEY (subscriptionId) REFERENCES subscription(id) ON DELETE CASCADE
 );
 
-CREATE TABLE `subscription_subject_identifier` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  subscriptionId int(11) NOT NULL,
-  identifierName varchar(100) NOT NULL,
-  identifierValue varchar(256) NOT NULL,
-  
-  FOREIGN KEY (`subscriptionId`)
-  	REFERENCES `subscription` (`id`)
-  	ON DELETE CASCADE
-) ;
-
-CREATE TABLE `notifications_sent` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  notificationId varchar(100) NOT NULL,
-  notificationSubjectIdentifier varchar(100) NOT NULL,
-  notifyingSystem varchar(100) NOT NULL
+CREATE TABLE subscription_subject_identifier (
+  id IDENTITY PRIMARY KEY,
+  subscriptionId INT NOT NULL,
+  identifierName VARCHAR(100) NOT NULL,
+  identifierValue VARCHAR(256) NOT NULL,
+  FOREIGN KEY (subscriptionId) REFERENCES subscription(id) ON DELETE CASCADE
 );
 
-CREATE TABLE SUBSCRIPTION_CATEGORY (SUBSCRIPTION_CATEGORY_CODE VARCHAR(2) NOT NULL, SUBSCRIPTION_CATEGORY_DESCRIPTION VARCHAR(100) NOT NULL);
+CREATE TABLE notifications_sent (
+  id IDENTITY PRIMARY KEY,
+  notificationId VARCHAR(100) NOT NULL,
+  notificationSubjectIdentifier VARCHAR(100) NOT NULL,
+  notifyingSystem VARCHAR(100) NOT NULL
+);
 
-ALTER TABLE SUBSCRIPTION_CATEGORY ADD CONSTRAINT SUBSCRIPTION_CATEGORY_CODE PRIMARY KEY (SUBSCRIPTION_CATEGORY_CODE);
-ALTER TABLE SUBSCRIPTION ADD CONSTRAINT SUBSCRIPTION_CATEGORY_SUBSCRIPTION_fk FOREIGN KEY (SUBSCRIPTION_CATEGORY_CODE) REFERENCES SUBSCRIPTION_CATEGORY (SUBSCRIPTION_CATEGORY_CODE);
+CREATE TABLE subscription_category (
+  subscription_category_code VARCHAR(2) PRIMARY KEY,
+  subscription_category_description VARCHAR(100) NOT NULL
+);
+
+ALTER TABLE subscription
+  ADD CONSTRAINT subscription_category_subscription_fk
+  FOREIGN KEY (subscription_category_code)
+  REFERENCES subscription_category (subscription_category_code);

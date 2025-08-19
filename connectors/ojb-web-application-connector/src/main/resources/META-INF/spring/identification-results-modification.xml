@@ -80,6 +80,7 @@
 		<property name="operationName"><value>SubmitIdentificationResultsArchiveRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>identificationResultsModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="identificationResultsModificationRequestResponseMap"/>

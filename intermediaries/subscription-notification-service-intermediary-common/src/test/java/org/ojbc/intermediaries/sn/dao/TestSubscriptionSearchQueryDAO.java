@@ -111,16 +111,21 @@ public class TestSubscriptionSearchQueryDAO {
 	private ValidationDueDateStrategy springConfiguredStrategy;
 
     //This is used to update database to achieve desired state for test
-    @SuppressWarnings("unused")
+    @Resource 
 	private JdbcTemplate jdbcTemplate;
 	
 	@BeforeEach
 	public void setUp() {
-		
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		
 		springConfiguredStrategy = subscriptionSearchQueryDAO
 				.getValidationDueDateStrategy();
+		
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.SUBSCRIPTION_OWNER ALTER COLUMN SUBSCRIPTION_OWNER_ID RESTART WITH "
+                + " (select max (SUBSCRIPTION_OWNER_ID) + 1 from RAPBACK_DATASTORE.SUBSCRIPTION_OWNER ) ");
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.AGENCY_PROFILE ALTER COLUMN AGENCY_ID RESTART WITH "
+                + " (select max (AGENCY_ID) + 1 from RAPBACK_DATASTORE.AGENCY_PROFILE ) ");
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.SUBSCRIPTION ALTER COLUMN ID RESTART WITH "
+                + " (select max (ID) + 1 from RAPBACK_DATASTORE.SUBSCRIPTION ) ");
+
 	}
 
 	@AfterEach

@@ -153,6 +153,7 @@
 			<property name="operationName"><value>SubmitJuvenileCasePlanHistoryQuery</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0</value></property>
 			<property name="destinationEndpoint"><value>juvenileCasePlanHistoryRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 
 	    <!-- Juvenile Hearing Beans -->
@@ -170,6 +171,7 @@
 			<property name="operationName"><value>SubmitJuvenileHearingHistoryQuery</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/HearingRequest/1.0</value></property>
 			<property name="destinationEndpoint"><value>juvenileHearingHistoryRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 
 	    <!-- Juvenile Intake Beans -->
@@ -187,6 +189,7 @@
 			<property name="operationName"><value>SubmitJuvenileIntakeHistoryQuery</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/IntakeRequest/1.0</value></property>
 			<property name="destinationEndpoint"><value>juvenileIntakeHistoryRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 
 	    <!-- Juvenile Offense Beans -->
@@ -199,54 +202,79 @@
 	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
 	   </bean>
-	  
-		<bean id="juvenileQueryOffenseHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-			<property name="operationName"><value>SubmitJuvenileOffenseHistoryQuery</value></property>
-			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/OffenseRequest/1.0</value></property>
-			<property name="destinationEndpoint"><value>juvenileOffenseHistoryRequestService</value></property>
-		</bean>
 
-	    <!-- Juvenile Placement Beans -->
-	   <bean id="juvenilePlacementHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.placementHistoryRequestReplyToEndpoint.endpoint}</value></property>
-	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryPlacementHistoryMessageProcessor"/>
-	   		<property name="requestResponseMap" ref="juvenileQueryPlacementHistoryRequestResponseMap"/>
-	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
-	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
-	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
-	   </bean>
-	  
-		<bean id="juvenileQueryPlacementHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-			<property name="operationName"><value>SubmitJuvenilePlacementHistoryQuery</value></property>
-			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/PlacementRequest/1.0</value></property>
-			<property name="destinationEndpoint"><value>juvenilePlacementHistoryRequestService</value></property>
-		</bean>
+  <bean id="juvenileQueryOffenseHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+    <property name="operationName">
+      <value>SubmitJuvenileOffenseHistoryQuery</value>
+    </property>
+    <property name="operationNamespace">
+      <value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/OffenseRequest/1.0</value>
+    </property>
+    <property name="destinationEndpoint">
+      <value>juvenileOffenseHistoryRequestService</value>
+    </property>
+    <property name="producerTemplate" ref="producerTemplate"/>
+  </bean>
 
-	    <!-- Juvenile Referral Beans -->
-	   <bean id="juvenileReferralHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.referralHistoryRequestReplyToEndpoint.endpoint}</value></property>
-	   		<property name="juvenileQueryMessageProcessor" ref="juvenileQueryReferralHistoryMessageProcessor"/>
-	   		<property name="requestResponseMap" ref="juvenileQueryReferralHistoryRequestResponseMap"/>
-	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
-	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
-	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
-	   </bean>
-	  
-		<bean id="juvenileQueryReferralHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-			<property name="operationName"><value>SubmitJuvenileReferralHistoryQuery</value></property>
-			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/ReferralRequest/1.0</value></property>
-			<property name="destinationEndpoint"><value>juvenileReferralHistoryRequestService</value></property>
-		</bean>
+  <!-- Juvenile Placement Beans -->
+  <bean id="juvenilePlacementHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+    <property name="replyToAddress">
+      <value>${webapplication.placementHistoryRequestReplyToEndpoint.endpoint}</value>
+    </property>
+    <property name="juvenileQueryMessageProcessor" ref="juvenileQueryPlacementHistoryMessageProcessor" />
+    <property name="requestResponseMap" ref="juvenileQueryPlacementHistoryRequestResponseMap" />
+    <property name="maxPolls" value="${webapplication.maxPolls}" />
+    <property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}" />
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+    <property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}" />
+  </bean>
 
-					
-		<!-- Juvenile Query History Request Response Maps -->			
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryCasePlanHistoryRequestResponseMap"/>
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryHearingHistoryRequestResponseMap"/>
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryIntakeHistoryRequestResponseMap"/>
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryOffenseHistoryRequestResponseMap"/>
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryPlacementHistoryRequestResponseMap"/>
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryReferralHistoryRequestResponseMap"/>
+  <bean id="juvenileQueryPlacementHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+    <property name="operationName">
+      <value>SubmitJuvenilePlacementHistoryQuery</value>
+    </property>
+    <property name="operationNamespace">
+      <value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/PlacementRequest/1.0</value>
+    </property>
+    <property name="destinationEndpoint">
+      <value>juvenilePlacementHistoryRequestService</value>
+    </property>
+    <property name="producerTemplate" ref="producerTemplate"/>
+  </bean>
+
+  <!-- Juvenile Referral Beans -->
+  <bean id="juvenileReferralHistoryRequestProcessor" class="org.ojbc.processor.person.query.JuvenileQueryRequestProcessor">
+    <property name="replyToAddress">
+      <value>${webapplication.referralHistoryRequestReplyToEndpoint.endpoint}</value>
+    </property>
+    <property name="juvenileQueryMessageProcessor" ref="juvenileQueryReferralHistoryMessageProcessor" />
+    <property name="requestResponseMap" ref="juvenileQueryReferralHistoryRequestResponseMap" />
+    <property name="maxPolls" value="${webapplication.maxPolls}" />
+    <property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}" />
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+    <property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}" />
+  </bean>
+
+  <bean id="juvenileQueryReferralHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+    <property name="operationName">
+      <value>SubmitJuvenileReferralHistoryQuery</value>
+    </property>
+    <property name="operationNamespace">
+      <value>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/ReferralRequest/1.0</value>
+    </property>
+    <property name="destinationEndpoint">
+      <value>juvenileReferralHistoryRequestService</value>
+    </property>
+    <property name="producerTemplate" ref="producerTemplate"/>
+  </bean>
+
+
+  <!-- Juvenile Query History Request Response Maps -->
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryCasePlanHistoryRequestResponseMap" />
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryHearingHistoryRequestResponseMap" />
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryIntakeHistoryRequestResponseMap" />
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryOffenseHistoryRequestResponseMap" />
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryPlacementHistoryRequestResponseMap" />
+  <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="juvenileQueryReferralHistoryRequestResponseMap" />
 
 </beans>

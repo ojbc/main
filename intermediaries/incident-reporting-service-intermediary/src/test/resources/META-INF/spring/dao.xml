@@ -39,5 +39,4 @@
 	<bean id="arrestReportProcessor" class="org.ojbc.incidentReporting.dao.ArrestReportProcessor">
 		<property name="incidentReportingDao" ref="incidentReportingDao" />
 	</bean>
-
 </beans>

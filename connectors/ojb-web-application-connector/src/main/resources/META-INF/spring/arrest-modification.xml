@@ -174,60 +174,71 @@
 		<property name="operationName"><value>ModifyArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<bean id="arrestHideMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>HideArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="arrestUnhideMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>UnhideArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="arrestFinalizeMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>FinalizeArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="chargeDeclineMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>DeclineChargeRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="chargeReferralMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ReferChargeRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="arrestReferralMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ReferArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 	<bean id="expungeRequestMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ExpungeRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<bean id="daArrestReferMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ReferArrestToDistrictAttorneyRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<bean id="muniArrestReferMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ReferArrestToMunicipalProsecutorRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<bean id="deleteDispositionMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>DeleteDispositionRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="arrestModifyRequestResponseMap"/>

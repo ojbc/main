@@ -74,14 +74,15 @@
 
                     $(this).parent().toggleClass('show');
                     // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
-                    $.post(context + "portal/leftBar", function(data) {
-                                                    
+                    $.get(context + "portal/leftBar", function(data) {
+                        console.log("get left bar");  
+                        console.log("data: " + data); 
                         $('#filterColumn').html(data);   
                         $("#demogFilterInfo").hide();
                         $('#filterColumn').removeClass('d-none');                                    
                         
-                         $.get(context + "people/searchForm", function(data) {      
-                              $('#portalContent').html(data);
+                        $.get(context + "people/searchForm", function(data) {      
+                            $('#portalContent').html(data);
                         }).fail(ojbc.displayFailMessage);                                                           
                         
                     }).fail(ojbc.displayFailMessage);               
@@ -91,7 +92,7 @@
                 
                 $('body').off('click','.incidentSearchLink').on('click', '.incidentSearchLink',function() {
                     $(this).parent().toggleClass('show');
-                    $.post(context + 'portal/leftBar', function(data) {
+                    $.get(context + 'portal/leftBar', function(data) {
                                                     
                         $('#filterColumn').html(data);   
                         $("#demogFilterInfo").hide();
@@ -104,7 +105,7 @@
              
                 $('body').off('click','.concealedCarrySearchLink').on('click', '.concealedCarrySearchLink',function() {
                     $(this).parent().toggleClass('show');
-                    $.post(context + 'portal/leftBar', function(data) {
+                    $.get(context + 'portal/leftBar', function(data) {
                                                     
                         $('#filterColumn').html(data);   
                         $("#demogFilterInfo").hide();
@@ -117,7 +118,7 @@
              
                 $('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
                     $(this).parent().toggleClass('show');
-                    $.post(context + 'portal/leftBar', function(data) {
+                    $.get(context + 'portal/leftBar', function(data) {
                         //console.log("vehicle left bar: " + data); 
                         $('#filterColumn').html(data);   
                         $('#filterColumn').removeClass('d-none');    
@@ -127,7 +128,7 @@
              
                 $('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
                     $(this).parent().toggleClass('show');
-                    $.post(context + 'portal/leftBar', function(data) {
+                    $.get(context + 'portal/leftBar', function(data) {
                         //console.log("firearm left bar: " + data); 
                         $('#filterColumn').html(data);   
                         $('#filterColumn').removeClass('d-none');    
@@ -275,7 +276,7 @@
                     ojbc.populatePortalContentFromUrl(context
                             + "portal/landingPage");
                 } else if (homePage === "query") {
-                    $.post(context + "portal/leftBar", function(data) {
+                    $.get(context + "portal/leftBar", function(data) {
                         $('#filterColumn').html(data);
                         $("#demogFilterInfo").hide();
                         $('#filterColumn').removeClass('d-none');

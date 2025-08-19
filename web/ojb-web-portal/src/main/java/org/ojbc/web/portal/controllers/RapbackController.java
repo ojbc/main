@@ -247,7 +247,8 @@ public class RapbackController {
 	public void auditInitialResultsPrint(HttpServletRequest request,
 			@RequestParam String messageId,
 			@RequestParam String activeTab,
-			@ModelAttribute("identificationResultsQueryResponse") IdentificationResultsQueryResponse identificationResultsQueryResponse,
+			@ModelAttribute("identificationResultsQueryResponse") 
+	            IdentificationResultsQueryResponse identificationResultsQueryResponse,
 			@ModelAttribute("userLogonInfo") UserLogonInfo userLogonInfo,
 	        Map<String, Object> model) throws Exception {
 
@@ -393,7 +394,7 @@ public class RapbackController {
 	}
 
 	@GetMapping(value = "searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm) {
@@ -406,7 +407,7 @@ public class RapbackController {
 	}
 
 	@GetMapping(value = "criminalIdentificationSearchForm")
-	public String criminalIdentificationSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String criminalIdentificationSearchForm(@RequestParam(required = false) boolean resetForm,
 			Map<String, Object> model) {
 		
 		if (resetForm) {
@@ -454,8 +455,8 @@ public class RapbackController {
 
 	@GetMapping(value = "initialResults/{sid}/{transactionNumber}")
 	public String initialResults(HttpServletRequest request, 
-			@PathVariable("sid") String sid,
-			@PathVariable("transactionNumber") String transactionNumber,
+			@PathVariable String sid,
+			@PathVariable String transactionNumber,
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, sid, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
@@ -468,7 +469,7 @@ public class RapbackController {
 	
 	@GetMapping(value = "nsorCheckResults/{transactionNumber}")
 	public String nsorCheckResults(HttpServletRequest request, 
-			@PathVariable("transactionNumber") String transactionNumber,
+			@PathVariable String transactionNumber,
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.NSORCheckResults, model);
@@ -481,7 +482,7 @@ public class RapbackController {
 	
 	@GetMapping(value = "initialResults/{transactionNumber}")
 	public String initialCriminalResults(HttpServletRequest request, 
-			@PathVariable("transactionNumber") String transactionNumber,
+			@PathVariable String transactionNumber,
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
@@ -494,9 +495,9 @@ public class RapbackController {
 	
 	@GetMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiRapsheet}")
 	public String getStateRapsheet(HttpServletRequest request, 
-			@PathVariable("sid") String sid,
-			@PathVariable("transactionNumber") String transactionNumber,
-			@PathVariable("hasFbiRapsheet") Boolean hasFbiRapsheet,
+			@PathVariable String sid,
+			@PathVariable String transactionNumber,
+			@PathVariable Boolean hasFbiRapsheet,
 			Map<String, Object> model) {
 		RapSheetQueryRequest rapsheetQueryRequest = new RapSheetQueryRequest(sid, transactionNumber, hasFbiRapsheet); 
 		model.put("rapsheetQueryRequest", rapsheetQueryRequest);
@@ -513,7 +514,7 @@ public class RapbackController {
 	@GetMapping(value = "fbiRapsheet/{transactionNumber}")
 	@ResponseBody
 	public String getFbiRapsheet(HttpServletRequest request, 
-			@PathVariable("transactionNumber") String transactionNumber,
+			@PathVariable String transactionNumber,
 			Map<String, Object> model) {
 		
 		try {

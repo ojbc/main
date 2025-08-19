@@ -62,6 +62,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -73,6 +74,9 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	@Resource
 	protected ModelCamelContext context;
 	
+    @Resource  
+    private JdbcTemplate jdbcTemplate;
+    
     @Resource  
     private DataSource dataSource;  
     
@@ -95,6 +99,8 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 				});
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
         context.start();
 	}
 	

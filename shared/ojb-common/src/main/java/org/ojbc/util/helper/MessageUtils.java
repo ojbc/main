@@ -14,7 +14,6 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
 package org.ojbc.util.helper;
 
 import java.io.ByteArrayOutputStream;

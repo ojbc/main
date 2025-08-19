@@ -62,6 +62,7 @@
         <xs:attribute ref="structures:metadata"/>
         <xs:attribute ref="structures:relationshipMetadata"/>
         <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
+        
     </xs:complexType>
 
     <xs:element name="AssociationAugmentationPoint" abstract="true">

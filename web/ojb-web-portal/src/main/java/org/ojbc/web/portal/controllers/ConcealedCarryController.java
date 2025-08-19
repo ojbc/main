@@ -71,7 +71,7 @@ public class ConcealedCarryController {
     AppProperties appProperties;
 
 	@GetMapping(value = "searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		ConcealedCarrySearchRequest mostRecentConcealedCarrySearch = (ConcealedCarrySearchRequest) model.get("mostRecentConcealedCarrySearch"); 
 		

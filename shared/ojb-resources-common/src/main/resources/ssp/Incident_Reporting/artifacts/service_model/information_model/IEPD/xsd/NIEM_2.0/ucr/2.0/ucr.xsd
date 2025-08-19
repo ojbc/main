@@ -104,6 +104,16 @@
           <xsd:documentation>Fraud Offenses-Wire Fraud</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+      <xsd:enumeration value="26F">
+        <xsd:annotation>
+            <xsd:documentation>Fraud Offenses-Identity Theft</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="26G">
+        <xsd:annotation>
+            <xsd:documentation>Fraud Offenses-Hacking-Computer Invasion</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
       <xsd:enumeration value="90A">
         <xsd:annotation>
           <xsd:documentation>Bad Checks</xsd:documentation>
@@ -289,9 +299,19 @@
           <xsd:documentation>Prostitution Offenses-Assisting or Promoting Prostitution</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+      <xsd:enumeration value="40C">
+        <xsd:annotation>
+            <xsd:documentation>Prostitution Offenses-Purchasing Prostitution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
       <xsd:enumeration value="520">
         <xsd:annotation>
           <xsd:documentation>Weapon Law Violations</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="720">
+        <xsd:annotation>
+            <xsd:documentation>Animal Cruelty</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="90D">

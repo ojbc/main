@@ -18,231 +18,503 @@
 
 -->
 <pdr-report-doc:ProsecutionDecisionRecordingReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0 ../xsd/ProsecutionDecisionRecordingReport-exchange.xsd"
-	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
-	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<nc:Case structures:id="CASE001">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>ID3456</nc:IdentificationID>
-		</nc:ActivityIdentification>
-		<nc:ActivityCategoryText>A</nc:ActivityCategoryText>
-		<nc:ActivityDisposition>
-			<nc:DispositionDate>
-				<nc:Date>2013-05-15</nc:Date>
-			</nc:DispositionDate>
-			<nc:DispositionDescriptionText>CHG</nc:DispositionDescriptionText>
-		</nc:ActivityDisposition>
-		<nc:CaseDocketID>20250512-0012</nc:CaseDocketID>
-		<nc:CaseFiling>
-			<nc:DocumentFiledDate>
-				<nc:Date>2013-05-15</nc:Date>
-			</nc:DocumentFiledDate>
-		</nc:CaseFiling>
-		<j:CaseAugmentation>
-			<j:CaseCharge structures:ref="CRG001"> </j:CaseCharge>
-			<j:CaseCourt>
-				<j:OrganizationAugmentation>
-					<j:OrganizationORIIdentification>
-						<nc:IdentificationID>ORI34565</nc:IdentificationID>
-					</j:OrganizationORIIdentification>
-				</j:OrganizationAugmentation>
-				<j:CourtName>Court</j:CourtName>
-			</j:CaseCourt>
-		</j:CaseAugmentation>
-	</nc:Case>
-	<j:CaseProsecutionAttorney>
-		<pdr-report-ext:ProsecutionAttorneyOrganization structures:id="ORG001">
-			<nc:OrganizationLocation>
-				<nc:Address>
-					<nc:LocationStreet>
-						<nc:StreetFullText>123 Main Street</nc:StreetFullText>
-					</nc:LocationStreet>
-					<nc:LocationCityName>Smithtown</nc:LocationCityName>
-					<nc:LocationStateName>MI</nc:LocationStateName>
-					<nc:LocationPostalCode>12345</nc:LocationPostalCode>
-				</nc:Address>
-			</nc:OrganizationLocation>
-			<nc:OrganizationName>ACME Prosecutor</nc:OrganizationName>
-			<nc:OrganizationPrimaryContactInformation>
-				<nc:ContactTelephoneNumber>
-					<nc:FullTelephoneNumber>
-						<nc:TelephoneNumberFullID>222-222-2222</nc:TelephoneNumberFullID>
-					</nc:FullTelephoneNumber>
-				</nc:ContactTelephoneNumber>
-			</nc:OrganizationPrimaryContactInformation>
-			<j:OrganizationAugmentation>
-				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>ORI7878</nc:IdentificationID>
-				</j:OrganizationORIIdentification>
-			</j:OrganizationAugmentation>
-		</pdr-report-ext:ProsecutionAttorneyOrganization>
-	</j:CaseProsecutionAttorney>
-	<j:Arrest structures:id="ARR001">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>123456</nc:IdentificationID>
-		</nc:ActivityIdentification>
-		<nc:ActivityDate>
-			<nc:Date>2013-04-18</nc:Date>
-		</nc:ActivityDate>
-		<j:ArrestAgency>
-			<nc:OrganizationIdentification>
-				<nc:IdentificationID>123PD</nc:IdentificationID>
-			</nc:OrganizationIdentification>
-			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
-			<j:OrganizationAugmentation>
-				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>ORI99999</nc:IdentificationID>
-				</j:OrganizationORIIdentification>
-			</j:OrganizationAugmentation>
-		</j:ArrestAgency>
-		<j:ArrestCharge>
-			<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
-			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
-			<j:ChargeEnhancingFactor>
-				<j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
-			</j:ChargeEnhancingFactor>
-			<j:ChargeSequenceID>1</j:ChargeSequenceID>
-			<j:ChargeSeverityLevel>
-				<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
-			</j:ChargeSeverityLevel>
-			<j:ChargeStatute>
-				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</j:StatuteCodeIdentification>
-				<j:StatuteCodeSectionIdentification>
-					<nc:IdentificationID>12345(1)</nc:IdentificationID>
-				</j:StatuteCodeSectionIdentification>
-			</j:ChargeStatute>
-			<j:ChargeSubject>
-				<nc:RoleOfPerson structures:ref="PER001"/>
-			</j:ChargeSubject>
-			<j:ChargeTrackingIdentification>
-				<nc:IdentificationID>CTID1234</nc:IdentificationID>
-			</j:ChargeTrackingIdentification>
-		</j:ArrestCharge>
-	</j:Arrest>
-	<j:Charge structures:id="CRG001">
-		<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
-		<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-		<j:ChargeDegreeText>1</j:ChargeDegreeText>
-		<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
-		<j:ChargeSequenceID>1</j:ChargeSequenceID>
-		<j:ChargeSeverityLevel>
-			<j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
-		</j:ChargeSeverityLevel>
-		<j:ChargeStatute>
-			<j:StatuteCodeIdentification>
-				<nc:IdentificationID>12345</nc:IdentificationID>
-			</j:StatuteCodeIdentification>
-			<j:StatuteCodeSectionIdentification>
-				<nc:IdentificationID>12345(1)</nc:IdentificationID>
-			</j:StatuteCodeSectionIdentification>
-		</j:ChargeStatute>
-		<j:ChargeSubject>
-			<nc:RoleOfPerson structures:ref="PER001"/>
-			<j:SubjectSupervision>
-				<nc:SupervisionCustodyStatus>
-					<nc:StatusDescriptionText>Not in Custody</nc:StatusDescriptionText>
-				</nc:SupervisionCustodyStatus>
-			</j:SubjectSupervision>
-		</j:ChargeSubject>
-		<j:ChargeTrackingIdentification>
-			<nc:IdentificationID>CTID1234</nc:IdentificationID>
-		</j:ChargeTrackingIdentification>
-		<j:ChargeStatus>
-			<nc:StatusDescriptionText>REFERRED</nc:StatusDescriptionText>
-		</j:ChargeStatus>
-		<pdr-report-ext:ChargeToCourtIndicator>false</pdr-report-ext:ChargeToCourtIndicator>
-		<pdr-report-ext:CriminalTrackingIdentification>
-			<nc:IdentificationID>CRIM12345</nc:IdentificationID>
-		</pdr-report-ext:CriminalTrackingIdentification>
-		<pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
-	</j:Charge>
-	<j:Subject>
-		<nc:RoleOfPerson structures:ref="PER001"/>
-	</j:Subject>
-	<j:Victim>
-		<nc:RoleOfPerson structures:ref="PER002"/>
-	</j:Victim>
-	<nc:Person structures:id="PER001">
-		<nc:PersonBirthDate>
-			<nc:Date>1991-01-01</nc:Date>
-		</nc:PersonBirthDate>
-		<j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
-		<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
-		<nc:PersonHeightMeasure>
-			<nc:MeasureValueText>6-1</nc:MeasureValueText>
-			<nc:MeasureUnitText>ft-in</nc:MeasureUnitText>
-		</nc:PersonHeightMeasure>
-		<nc:PersonName>
-			<nc:PersonGivenName>First</nc:PersonGivenName>
-			<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
-			<nc:PersonSurName>Last</nc:PersonSurName>
-			<nc:PersonFullName>First Mid Last</nc:PersonFullName>
-		</nc:PersonName>
-		<nc:PersonOtherIdentification>
-			<nc:IdentificationID>other</nc:IdentificationID>
-		</nc:PersonOtherIdentification>
-		<nc:PersonResidentText>Y</nc:PersonResidentText>
-		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>999-99-9999</nc:IdentificationID>
-		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
-		<nc:PersonWeightMeasure>
-			<nc:MeasureValueText>180</nc:MeasureValueText>
-			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
-		</nc:PersonWeightMeasure>
-		<j:PersonAugmentation>
-			<j:PersonFBIIdentification>
-				<nc:IdentificationID>12345678</nc:IdentificationID>
-			</j:PersonFBIIdentification>
-			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>1234567FP</nc:IdentificationID>
-			</j:PersonStateFingerprintIdentification>
-			<cyfs:SeriousHabitualOffenderIndicator>true</cyfs:SeriousHabitualOffenderIndicator>
-			<cyfs:MentalHealthHistoryDescriptionText>true</cyfs:MentalHealthHistoryDescriptionText>
-			<j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
-			<j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
-			<j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
-			
-		</j:PersonAugmentation>
-		<pdr-report-ext:PersonTrackingIdentification>
-			<nc:IdentificationID>PTI1234</nc:IdentificationID>
-		</pdr-report-ext:PersonTrackingIdentification>
-	</nc:Person>
-	<nc:Person structures:id="PER002">
-		<nc:PersonBirthDate>
-			<nc:Date>1991-01-01</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonDescriptionText>STRANGER</nc:PersonDescriptionText>
-		<nc:PersonName>
-			<nc:PersonGivenName>Firstvictim</nc:PersonGivenName>
-			<nc:PersonMiddleName>middlevictim</nc:PersonMiddleName>
-			<nc:PersonSurName>Lastvictim</nc:PersonSurName>
-			<nc:PersonFullName>Full Name Victim</nc:PersonFullName>
-		</nc:PersonName>
-		<j:PersonRaceCode>W</j:PersonRaceCode>
-		<nc:PersonResidentText>R</nc:PersonResidentText>
-		<j:PersonSexCode>M</j:PersonSexCode>		
-		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
-	</nc:Person>
-	<nc:Identity structures:id="ALIAS001">
-		<nc:IdentityPersonRepresentation>
-			<nc:PersonName>
-				<nc:PersonSurName>Alias Surname</nc:PersonSurName>
-				<nc:PersonFullName>Alias Full Name</nc:PersonFullName>
-			</nc:PersonName>
-		</nc:IdentityPersonRepresentation>
-	</nc:Identity>
-	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="PER001"/>
-		<nc:Identity structures:ref="ALIAS001"/>
-	</nc:PersonAliasIdentityAssociation>
+  xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0 ../xsd/ProsecutionDecisionRecordingReport-exchange.xsd"
+  xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+  xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
+  xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+  xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+  xmlns:nc-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <pdr-report-ext:CycleTrackingIdentification>
+  	<nc:IdentificationID>987654</nc:IdentificationID>
+  </pdr-report-ext:CycleTrackingIdentification>
+  <pdr-report-ext:OriginatingAgencyCaseNumber>
+	<nc:IdentificationID>1234567</nc:IdentificationID>
+  </pdr-report-ext:OriginatingAgencyCaseNumber>
+  <nc:Case structures:id="CASE001">
+    <nc:ActivityIdentification>
+      <nc:IdentificationID>ID3456</nc:IdentificationID>
+    </nc:ActivityIdentification>
+    <nc:ActivityCategoryText>A</nc:ActivityCategoryText>
+    <nc:ActivityDisposition>
+      <nc:DispositionDate>
+        <nc:Date>2013-05-15</nc:Date>
+      </nc:DispositionDate>
+      <nc:DispositionDescriptionText>CHG</nc:DispositionDescriptionText>
+    </nc:ActivityDisposition>
+    <nc:CaseDocketID>20250512-0012</nc:CaseDocketID>
+    <nc:CaseFiling>
+      <nc:DocumentFiledDate>
+        <nc:Date>2013-05-15</nc:Date>
+      </nc:DocumentFiledDate>
+    </nc:CaseFiling>
+    <j:CaseAugmentation>
+      <j:CaseCharge structures:ref="CRG001">
+      </j:CaseCharge>
+      <j:CaseCourt>
+        <j:OrganizationAugmentation>
+          <j:OrganizationORIIdentification>
+            <nc:IdentificationID>ORI34565</nc:IdentificationID>
+          </j:OrganizationORIIdentification>
+        </j:OrganizationAugmentation>
+        <j:CourtName>Court</j:CourtName>
+      </j:CaseCourt>
+      <j:CaseOtherIdentification>
+        <nc:IdentificationID>2222</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </j:CaseOtherIdentification>
+      <j:CaseTerminationCategoryText/>
+      <j:CaseSeverityText>MISDEMEANOR</j:CaseSeverityText>
+    </j:CaseAugmentation>
+  </nc:Case>
+  <j:CaseProsecutionAttorney>
+    <nc:RoleOfPerson structures:ref="idAttorneyPER001"></nc:RoleOfPerson>
+    <pdr-report-ext:ProsecutionAttorneyOrganization structures:id="ORG001">
+      <nc:OrganizationLocation>
+        <nc:Address>
+          <nc:LocationStreet>
+            <nc:StreetFullText>123 Main Street</nc:StreetFullText>
+          </nc:LocationStreet>
+          <nc:LocationCityName>Smithtown</nc:LocationCityName>
+          <nc:LocationStateName>MI</nc:LocationStateName>
+          <nc:LocationPostalCode>12345</nc:LocationPostalCode>
+        </nc:Address>
+      </nc:OrganizationLocation>
+      <nc:OrganizationName>ACME Prosecutor</nc:OrganizationName>
+      <nc:OrganizationPrimaryContactInformation>
+        <nc:ContactTelephoneNumber>
+          <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>222-222-2222</nc:TelephoneNumberFullID>
+          </nc:FullTelephoneNumber>
+        </nc:ContactTelephoneNumber>
+      </nc:OrganizationPrimaryContactInformation>
+      <j:OrganizationAugmentation>
+        <j:OrganizationORIIdentification>
+          <nc:IdentificationID>ORI7878</nc:IdentificationID>
+        </j:OrganizationORIIdentification>
+      </j:OrganizationAugmentation>
+    </pdr-report-ext:ProsecutionAttorneyOrganization>
+    <j:CaseOfficialStartDate>
+      <nc:Date>2013-07-01</nc:Date>
+    </j:CaseOfficialStartDate>
+  </j:CaseProsecutionAttorney>
+  <j:Arrest structures:id="ARR001">
+    <nc:ActivityIdentification>
+      <nc:IdentificationID>123456</nc:IdentificationID>
+    </nc:ActivityIdentification>
+    <nc:ActivityDate>
+      <nc:Date>2013-04-18</nc:Date>
+    </nc:ActivityDate>
+    <j:ArrestAgency>
+      <nc:OrganizationIdentification>
+        <nc:IdentificationID>123PD</nc:IdentificationID>
+      </nc:OrganizationIdentification>
+      <nc:OrganizationName>Arrest Agency</nc:OrganizationName>
+      <j:OrganizationAugmentation>
+        <j:OrganizationORIIdentification>
+          <nc:IdentificationID>ORI99999</nc:IdentificationID>
+        </j:OrganizationORIIdentification>
+      </j:OrganizationAugmentation>
+    </j:ArrestAgency>
+    <j:ArrestCharge>
+      <j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+      <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+      <j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+      <j:ChargeDisposition>
+        <nc:DispositionDate>
+          <nc:Date>2013-05-15</nc:Date>
+        </nc:DispositionDate>
+        <nc:DispositionDescriptionText>Pled Guilty As Charged</nc:DispositionDescriptionText>
+        <nc:DispositionText>DPGPAC</nc:DispositionText>
+      </j:ChargeDisposition>
+      <j:ChargeIdentification>
+        <nc:IdentificationID>3837</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </j:ChargeIdentification>
+      <j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+      <j:ChargeEnhancingFactor>
+        <j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
+      </j:ChargeEnhancingFactor>
+      <j:ChargeSequenceID>1</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <nc:IdentificationID>12345</nc:IdentificationID>
+        </j:StatuteCodeIdentification>
+        <j:StatuteCodeSectionIdentification>
+          <nc:IdentificationID>12345(1)</nc:IdentificationID>
+        </j:StatuteCodeSectionIdentification>
+      </j:ChargeStatute>
+      <j:ChargeSubject>
+        <nc:RoleOfPerson structures:ref="PER001" />
+      </j:ChargeSubject>
+      <j:ChargeTrackingIdentification>
+        <nc:IdentificationID>CTID1234</nc:IdentificationID>
+      </j:ChargeTrackingIdentification>
+    </j:ArrestCharge>
+    <pdr-report-ext:ArrestTrackingNumberIdentification>
+      <nc:IdentificationID>1143299</nc:IdentificationID>
+    </pdr-report-ext:ArrestTrackingNumberIdentification>
+  </j:Arrest>
+  <j:Offense structures:id="idOFF001">
+    <nc:ActivityIdentification>
+      <nc:IdentificationID>1234567</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:ActivityIdentification>
+    <nc:ActivityDate>
+      <nc:DateTime>2010-12-23T12:35:00</nc:DateTime>
+    </nc:ActivityDate>
+    <j:OffenseViolatedStatute>
+      <j:StatuteCodeSectionIdentification>
+        <nc:IdentificationID>13A-8-41</nc:IdentificationID>
+        <nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+      </j:StatuteCodeSectionIdentification>
+      <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate felony; penalty</j:StatuteDescriptionText>
+      <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
+    </j:OffenseViolatedStatute>
+  </j:Offense>
+  <j:Charge structures:id="CRG001">
+    <j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+    <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+    <j:ChargeDegreeText>1</j:ChargeDegreeText>
+    <j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+    <j:ChargeDisposition>
+      <nc:DispositionDate>
+        <nc:Date>2013-05-15</nc:Date>
+      </nc:DispositionDate>
+      <nc:DispositionDescriptionText>Pled Guilty As Charged</nc:DispositionDescriptionText>
+      <nc:DispositionText>DPGPAC</nc:DispositionText>
+    </j:ChargeDisposition>
+    <j:ChargeSequenceID>1</j:ChargeSequenceID>
+    <j:ChargeSeverityLevel>
+      <j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+    </j:ChargeSeverityLevel>
+    <j:ChargeStatute>
+      <j:StatuteCodeIdentification>
+        <nc:IdentificationID>12345</nc:IdentificationID>
+      </j:StatuteCodeIdentification>
+      <j:StatuteCodeSectionIdentification>
+        <nc:IdentificationID>12345(1)</nc:IdentificationID>
+      </j:StatuteCodeSectionIdentification>
+      <j:StatuteDescriptionText>Accomplice to Attempted Murder in the First Degree</j:StatuteDescriptionText>
+      <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
+    </j:ChargeStatute>
+    <j:ChargeSubject>
+      <nc:RoleOfPerson structures:ref="PER001" />
+      <j:SubjectSupervision>
+        <nc:SupervisionCustodyStatus>
+          <nc:StatusDescriptionText>Not in Custody</nc:StatusDescriptionText>
+        </nc:SupervisionCustodyStatus>
+      </j:SubjectSupervision>
+    </j:ChargeSubject>
+    <j:ChargeTrackingIdentification>
+      <nc:IdentificationID>CTID1234</nc:IdentificationID>
+    </j:ChargeTrackingIdentification>
+    <j:ChargeStatus>
+      <nc:StatusDescriptionText>REFERRED</nc:StatusDescriptionText>
+    </j:ChargeStatus>
+    <pdr-report-ext:ChargeToCourtIndicator>false</pdr-report-ext:ChargeToCourtIndicator>
+    <pdr-report-ext:CriminalTrackingIdentification>
+      <nc:IdentificationID>CRIM12345</nc:IdentificationID>
+    </pdr-report-ext:CriminalTrackingIdentification>
+    <pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+  </j:Charge>
+  <j:Subject>
+    <nc:RoleOfPerson structures:ref="PER001" />
+  </j:Subject>
+  <j:Victim>
+    <nc:RoleOfPerson structures:ref="PER002" />
+  </j:Victim>
+  <nc:Person structures:id="PER001">
+    <nc:PersonAlternateName>
+      <nc:PersonGivenName>FirstAlias</nc:PersonGivenName>
+      <nc:PersonMiddleName>MiddleAlias</nc:PersonMiddleName>
+      <nc:PersonSurName>SurAlias</nc:PersonSurName>
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <nc:AliasIdentification>
+        <nc:IdentificationID>100</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </nc:AliasIdentification>
+    </nc:PersonAlternateName>
+    <nc:PersonBirthDate>
+      <nc:Date>2009-01-01</nc:Date>
+    </nc:PersonBirthDate>
+    <nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
+    <nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
+    <j:PersonEyeColorCode>GRN</j:PersonEyeColorCode>
+    <nc:PersonEyeColorText>GREEN</nc:PersonEyeColorText>
+    <j:PersonHairColorCode>BLK</j:PersonHairColorCode>
+    <nc:PersonHairColorText>BLACK</nc:PersonHairColorText>
+    <nc:PersonHeightMeasure>
+      <nc:MeasureValueText>6-1</nc:MeasureValueText>
+      <nc:MeasureUnitText>ft-in</nc:MeasureUnitText>
+    </nc:PersonHeightMeasure>
+    <nc:PersonName>
+      <nc:PersonGivenName>First</nc:PersonGivenName>
+      <nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+      <nc:PersonSurName>Last</nc:PersonSurName>
+      <nc:PersonFullName>First Mid Last</nc:PersonFullName>
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>AGY123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+    <nc:PersonPhysicalFeature>
+      <nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
+      <nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+      <nc:PhysicalFeatureCategoryText>TAT HAND</nc:PhysicalFeatureCategoryText>
+      <nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
+      <nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
+      <nc:PhysicalFeatureIdentification>
+        <nc:IdentificationID>200</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </nc:PhysicalFeatureIdentification>
+      
+    </nc:PersonPhysicalFeature>
+    <j:PersonRaceCode>W</j:PersonRaceCode>
+    <nc:PersonRaceText>WHITE</nc:PersonRaceText>
+    <nc:PersonResidentText>Y</nc:PersonResidentText>
+    <j:PersonSexCode>M</j:PersonSexCode>
+    <nc:PersonSexText>MALE</nc:PersonSexText>
+    <nc:PersonSSNIdentification>
+      <nc:IdentificationID>999-99-9999</nc:IdentificationID>
+    </nc:PersonSSNIdentification>
+    <nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
+    <nc:PersonWeightMeasure>
+      <nc:MeasureValueText>180</nc:MeasureValueText>
+      <nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+    </nc:PersonWeightMeasure>
+    <j:PersonAugmentation>
+      <j:PersonFBIIdentification>
+        <nc:IdentificationID>12345678</nc:IdentificationID>
+      </j:PersonFBIIdentification>
+      <j:PersonStateFingerprintIdentification>
+        <nc:IdentificationID>1234567FP</nc:IdentificationID>
+      </j:PersonStateFingerprintIdentification>
+      <cyfs:SeriousHabitualOffenderIndicator>true</cyfs:SeriousHabitualOffenderIndicator>
+      <cyfs:MentalHealthHistoryDescriptionText>true</cyfs:MentalHealthHistoryDescriptionText>
+      <j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
+      <j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
+      <j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
+
+    </j:PersonAugmentation>
+    <pdr-report-ext:PersonTrackingIdentification>
+      <nc:IdentificationID>PTI1234</nc:IdentificationID>
+    </pdr-report-ext:PersonTrackingIdentification>
+  </nc:Person>
+  <nc:Person structures:id="PER002">
+    <nc:PersonBirthDate>
+      <nc:Date>1991-01-01</nc:Date>
+    </nc:PersonBirthDate>
+    <nc:PersonDescriptionText>STRANGER</nc:PersonDescriptionText>
+    <nc:PersonName>
+      <nc:PersonGivenName>Firstvictim</nc:PersonGivenName>
+      <nc:PersonMiddleName>middlevictim</nc:PersonMiddleName>
+      <nc:PersonSurName>Lastvictim</nc:PersonSurName>
+      <nc:PersonFullName>Full Name Victim</nc:PersonFullName>
+    </nc:PersonName>
+    <j:PersonRaceCode>W</j:PersonRaceCode>
+    <nc:PersonResidentText>R</nc:PersonResidentText>
+    <j:PersonSexCode>M</j:PersonSexCode>
+    <nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
+  </nc:Person>
+  <nc:Person structures:id="idPER003">
+    <nc:PersonDescriptionText>FATHER</nc:PersonDescriptionText>
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT523456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+  </nc:Person>
+  <nc:Person structures:id="idPER004">
+    <nc:PersonDescriptionText>COUSIN</nc:PersonDescriptionText>
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT123333389</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+  </nc:Person>
+  <nc:Person structures:id="idAttorneyPER001">
+    <nc:PersonDescriptionText>Prosecuting Attorney</nc:PersonDescriptionText>
+    <nc:PersonName>
+      <nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+      <nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+      <nc:PersonSurName>LASTNAME</nc:PersonSurName>
+      <nc:PersonNameSuffixText/>
+      <nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+    </nc:PersonName>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>INT123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>AGY123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>STF123456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>STAFFID</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+  </nc:Person>
+  <nc:ContactInformation structures:id="idCONT001">
+    <nc:ContactWebsiteURI/>
+    <nc:ContactTelephoneNumber/>
+    <nc:ContactMobileTelephoneNumber structures:id="idPHN001">
+      <nc:FullTelephoneNumber>
+        <nc:TelephoneNumberFullID>8081234567</nc:TelephoneNumberFullID>
+        <nc:TelephoneSuffixID xsi:nil="true"/>
+      </nc:FullTelephoneNumber>
+    </nc:ContactMobileTelephoneNumber>
+    <nc:ContactEntityDescriptionText>JUVENILE CONTACT INFO</nc:ContactEntityDescriptionText>
+  </nc:ContactInformation>
+  <nc:Identity structures:id="ALIAS001">
+    <nc:IdentityPersonRepresentation>
+      <nc:PersonName>
+        <nc:PersonSurName>Alias Surname</nc:PersonSurName>
+        <nc:PersonFullName>Alias Full Name</nc:PersonFullName>
+      </nc:PersonName>
+    </nc:IdentityPersonRepresentation>
+  </nc:Identity>
+  <nc:Location structures:id="idLOC001">
+    <nc:Address>
+        <nc:LocationStreet>
+          <nc:StreetFullText>123 TEST DR</nc:StreetFullText>
+        </nc:LocationStreet>
+        <nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
+        <nc:LocationCityName>HILO</nc:LocationCityName>
+        <nc:LocationStateName>HI</nc:LocationStateName>
+        <nc:LocationPostalCode>96768</nc:LocationPostalCode>
+        <nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
+    </nc:Address>
+    <nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
+    <nc:LocationContactInformation structures:id="idCONT005">
+      <nc:ContactTelephoneNumber structures:id="idPHN003">
+        <nc:FullTelephoneNumber>
+          <nc:TelephoneNumberFullID>808-555-1212</nc:TelephoneNumberFullID>
+          <nc:TelephoneSuffixID xsi:nil="true"/>
+        </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntityDescriptionText>PARENT'S HOME</nc:ContactEntityDescriptionText>
+    </nc:LocationContactInformation>
+    <nc:LocationDescriptionText/>
+    <nc:LocationIdentification>
+      <nc:IdentificationID>12345</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      <nc:IdentificationEffectiveDate>
+        <nc:Date>2000-01-01</nc:Date>
+      </nc:IdentificationEffectiveDate>
+    </nc:LocationIdentification>
+  </nc:Location>
+  <nc:Organization structures:id="idORG001">
+    <nc:OrganizationAbbreviationText>HiloHigh</nc:OrganizationAbbreviationText>
+    <nc:OrganizationCategoryText>SCHOOL</nc:OrganizationCategoryText>
+    <nc:OrganizationIdentification>
+      <nc:IdentificationID>355</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>Hilo High
+        School</nc:IdentificationCategoryDescriptionText>
+    </nc:OrganizationIdentification>
+    <nc:OrganizationLocation structures:id="idLOC002">
+      <nc:Address>
+          <nc:LocationStreet>
+            <nc:StreetFullText>111 Street Ave</nc:StreetFullText>
+          </nc:LocationStreet>
+          <nc:AddressSecondaryUnitText/>
+          <nc:LocationCityName>HILO</nc:LocationCityName>
+          <nc:LocationStateName>HI</nc:LocationStateName>
+          <nc:LocationPostalCode>12345</nc:LocationPostalCode>
+          <nc:LocationPostalExtensionCode/>
+      </nc:Address>
+      <nc:LocationCategoryText>SCHOOL</nc:LocationCategoryText>
+      <nc:LocationContactInformation structures:id="idCONT009">
+        <nc:ContactTelephoneNumber structures:id="idPHN005">
+          <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>111 222-22222</nc:TelephoneNumberFullID>
+            <nc:TelephoneSuffixID xsi:nil="true"/>
+          </nc:FullTelephoneNumber>
+        </nc:ContactTelephoneNumber>
+        <nc:ContactEntityDescriptionText/>
+      </nc:LocationContactInformation>
+      <nc:LocationIdentification>
+        <nc:IdentificationID>355</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+      </nc:LocationIdentification>
+    </nc:OrganizationLocation>
+    <nc:OrganizationName>HILO HIGH SCHOOL</nc:OrganizationName>
+  </nc:Organization>
+  <nc:PersonContactInformationAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="PER001"/>
+    <nc:ContactInformation structures:ref="idCONT001"/>
+    <nc:ContactInformationIsPrimaryIndicator>true</nc:ContactInformationIsPrimaryIndicator>
+    <nc:ContactInformationIsHomeIndicator>false</nc:ContactInformationIsHomeIndicator>
+    <nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
+  </nc:PersonContactInformationAssociation>
+  <nc:PersonOrganizationAssociation>
+    <nc:Person structures:ref="PER001"/>
+    <nc:Organization structures:ref="idORG001"/>
+  </nc:PersonOrganizationAssociation>
+  <nc:CohabitantAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2020-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="idPER004"/>
+    <nc:Person structures:ref="PER001"/>
+  </nc:CohabitantAssociation>
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- - - - - - - Immediate family associations - OPTIONAL- - - - - - - - - - - -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <nc:ImmediateFamilyAssociation>
+    <nc:Parent structures:ref="idPER003"/>
+    <nc:Child structures:ref="PER001"/>
+    <nc:FamilyKinshipText>FATHER</nc:FamilyKinshipText>
+  </nc:ImmediateFamilyAssociation>
+  <j:OffenseChargeAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <j:Charge structures:ref="CRG001"/>
+  </j:OffenseChargeAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <nc:Location structures:ref="idLOC001"/>
+  </j:OffenseLocationAssociation>
+  <j:OffenseSubjectAssociation>
+    <j:Offense structures:ref="idOFF001" />
+    <j:Subject>
+      <nc:RoleOfPerson structures:ref="PER001" />
+    </j:Subject>
+    <j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+    <j:OffenseUnderInfluenceIndicator xsi:nil="true"/>
+  </j:OffenseSubjectAssociation>
+  <nc:PersonResidenceAssociation>
+    <nc:AssociationDateRange>
+      <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>
+      <nc:EndDate xsi:nil="true"></nc:EndDate>
+    </nc:AssociationDateRange>
+    <nc:Person structures:ref="PER001"/>
+    <nc:Location structures:ref="idLOC001"/>
+  </nc:PersonResidenceAssociation>
+  <nc:PersonAliasIdentityAssociation>
+    <nc:Person structures:ref="PER001" />
+    <nc:Identity structures:ref="ALIAS001" />
+  </nc:PersonAliasIdentityAssociation>
 </pdr-report-doc:ProsecutionDecisionRecordingReport>

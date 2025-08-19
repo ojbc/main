@@ -104,7 +104,7 @@ public class IncidentsController {
 	}
 
 	@GetMapping(value = "searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm || userSession.getMostRecentIncidentSearch() == null) {
@@ -120,7 +120,7 @@ public class IncidentsController {
 	}
 	
 	@PostMapping(value = "advanceSearch")
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("incidentSearchCommand") IncidentSearchCommand incidentSearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute IncidentSearchCommand incidentSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentIncidentSearch(incidentSearchCommand);
 

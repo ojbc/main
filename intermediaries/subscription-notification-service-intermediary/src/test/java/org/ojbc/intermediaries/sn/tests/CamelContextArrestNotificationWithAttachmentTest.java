@@ -58,6 +58,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -78,6 +79,9 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
     protected MockEndpoint arrestNotificationAttachmentProcessorMock;
     @EndpointInject(value = "mock:bean:arrestNotificationProcessor")
     protected MockEndpoint arrestNotificationProcessorMock;
+    
+    @Resource  
+    private JdbcTemplate jdbcTemplate;
     
     @Resource  
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;  
@@ -103,7 +107,8 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
 	
     @Test
     public void testFbiArrestNotification() throws Exception {
-    
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
     	arrestNotificationAttachmentProcessorMock.setExpectedMessageCount(1);
     	arrestNotificationProcessorMock.setExpectedMessageCount(2);
     	//Create a new exchange

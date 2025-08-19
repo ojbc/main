@@ -25,29 +25,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-@RunWith(SpringRunner.class)
 @SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
 	classes = OjbcWebPortalApplication.class)
 @ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class SIDExtractorTest {
 
 	@Autowired
 	SIDExtractor unit;
 	private PersonSearchRequest personSearchRequest;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		personSearchRequest = new PersonSearchRequest();
 	}
