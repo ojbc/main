@@ -25,10 +25,10 @@ import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.camel.test.junit5.params.Test;
 import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.springframework.test.annotation.DirtiesContext;
