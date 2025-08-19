@@ -119,7 +119,7 @@ public class FaultMessageProcessor {
 	    
 	    detail.appendChild(detail.getOwnerDocument().importNode(detailPayload.getDocumentElement(), true));
 	    
-		outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, new Integer(500));
+		outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, 500);
 		outMessage.setBody(fault);
 	}
 	
