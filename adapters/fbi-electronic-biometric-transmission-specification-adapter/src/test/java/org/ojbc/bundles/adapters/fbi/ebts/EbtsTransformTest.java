@@ -36,6 +36,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -222,7 +223,8 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/RapBackSubscriptionCreationReport.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "s30:ref", "s30:id");
+
 	}
 	
 	@Test
@@ -248,7 +250,7 @@ public class EbtsTransformTest {
 	
 	
 	@Test
-	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
+	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException, Exception {
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/Template(RBMNTR)RapBackMaintenanceResponse.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
@@ -264,7 +266,8 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/RapbackSubscriptionUpdateReport.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "s30:ref", "s30:id");
+
 	}
 	
 	

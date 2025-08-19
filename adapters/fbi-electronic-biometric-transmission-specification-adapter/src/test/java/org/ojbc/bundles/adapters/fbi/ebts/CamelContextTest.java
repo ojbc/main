@@ -81,6 +81,9 @@ public class CamelContextTest {
     @EndpointInject(value = "mock:ngiUserServiceRequestEndpoint")
     protected MockEndpoint fbiEbtsSubscriptionManagerService;
     
+    @EndpointInject(value = "mock:criminalHistoryUpdateReportingServiceEndpoint")
+    protected MockEndpoint criminalHistoryUpdateReportingServiceEndpoint;
+    
     @BeforeEach
     public void setup() throws Exception{
     	
@@ -94,20 +97,20 @@ public class CamelContextTest {
     		route.replaceFromWith("direct:fbiEbtsInputEndpoint");
     	});
     	
-    	AdviceWith.adviceWith(context, "fbiEbtsProcessingRoute", route -> {
-    		route.mockEndpointsAndSkip("cxf:bean:ngiUserService*");
-    	});
+//    	AdviceWith.adviceWith(context, "fbiEbtsProcessingRoute", route -> {
+//        route.mockEndpointsAndSkip("cxf:bean:ngiUserService*");
+//    	});
     	
-    	AdviceWith.adviceWith(context, "ngiResponseServiceRoute", route -> {
-    		route.mockEndpointsAndSkip("cxf:bean:ngiResponseService*");
+    	AdviceWith.adviceWith(context, "fbiNgiResponseWebServiceRoute", route -> {
+    	    route.replaceFromWith("direct:ngiResponseServiceEndpoint");
     	});
     	
     	AdviceWith.adviceWith(context, "federalRapbackNotificationRoute", route -> {
-    		route.mockEndpointsAndSkip("cxf:bean:arrestReportingService*"); 
+    		route.weaveByToUri("criminalHistoryUpdateReportingServiceEndpoint").replace().to("mock:criminalHistoryUpdateReportingServiceEndpoint"); 
     	});
     	
     	AdviceWith.adviceWith(context, "processOperationRoute", route -> {
-    		route.interceptSendToEndpoint("https:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");
+    		route.weaveByToUri("ngiUserServiceRequestEndpoint").replace().to("mock:ngiUserServiceRequestEndpoint");
     	});
     	
     	context.start();	
