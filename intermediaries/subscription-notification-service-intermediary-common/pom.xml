@@ -44,7 +44,7 @@
     <maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
     <maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
     <slf4j-version>2.0.17</slf4j-version>
-    <log4j-version>2.25.0</log4j-version>
+    <log4j-version>2.25.1</log4j-version>
     <velocity-version>2.4.1</velocity-version>
     <httpcomponents.version>5.5</httpcomponents.version>
     <wiser.version>3.1.7</wiser.version>
