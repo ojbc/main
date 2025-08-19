@@ -61,6 +61,7 @@ import org.junit.jupiter.api.Test;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 
@@ -74,6 +75,9 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
     @Resource  
     private DataSource dataSource;  
     
+    @Resource  
+    private JdbcTemplate jdbcTemplate;  
+    
     @Value("${publishSubscribe.subscriptionManagerEndpoint}")
     private String subscriptionManagerUrl;
     
@@ -86,14 +90,16 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
 	@BeforeEach
 	public void setUp() throws Exception {
     	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
-	    	route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-	    	route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+	    	route.weaveByToUri("fbiEbtsSubscriptionRequestServiceEndpoint").replace().to("mock:cxf:bean:fbiEbtsSubscriptionRequestService");
+	    	route.weaveByToUri("fbiEbtsSubscriptionManagerEndpoint").remove();
     	});
 
     	context.start();
     	
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 62731");
+
 	}
 	
 	@AfterEach

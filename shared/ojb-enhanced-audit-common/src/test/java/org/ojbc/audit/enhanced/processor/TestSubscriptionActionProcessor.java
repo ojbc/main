@@ -25,7 +25,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.apache.camel.test.junit5.params.Test;
+import org.junit.jupiter.api.Test;
+
 import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

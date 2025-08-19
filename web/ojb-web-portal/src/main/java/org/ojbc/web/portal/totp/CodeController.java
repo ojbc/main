@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -119,25 +120,25 @@ public class CodeController {
 	}
 	
     @PostMapping("/validate/key")
-    public String validateKey(HttpServletRequest request, 
+    public String validateKey(HttpServletRequest request, HttpServletResponse response,
     		@ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
     		Map<String, Object> model) throws Exception{
 		String oneTimePassword = otpFormCommand.getOtpRequest().getOneTimePassword();
 		log.info("otpFormCommand:" + oneTimePassword); 
     	Element samlAssertion = samlService.getSamlAssertion(request);;
 		String userEmail = SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText); 
-		if (gAuth.authorizeUser(userEmail, Integer.valueOf(oneTimePassword)))
-		{
+		if (gAuth.authorizeUser(userEmail, Integer.valueOf(oneTimePassword))){
 			otpService.confirmOTP(userEmail, oneTimePassword);
 			log.info("OTP confirmed for: " + userEmail);
 			return "redirect:/";
-		}	
-		else
-		{
+		}
+		else {
 			log.warn("OTP Denied for: " + userEmail);
 			model.put("otpInfoMessageError", "Your One-Time Password was invalid.  Please try again or wait for the new One-Time Password.");
+			model.put("otpFormCommand", new OTPFormCommand());
 			return "otp/totpInputForm";	
 		}
 
-    }    
+    }  
+    
 }

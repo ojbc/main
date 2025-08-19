@@ -28,7 +28,7 @@
     xmlns:http="http://cxf.apache.org/transports/http/configuration"
     xmlns:camel="http://camel.apache.org/schema/spring"
     xsi:schemaLocation="
-    http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
+    http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.0.xsd
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
     http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
@@ -41,274 +41,229 @@
 
 
     <!-- needed cxf imports -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
 
-    <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>    
-	<camel:endpoint id="notificationBrokerServiceSecureEndpoint" uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
-	
-	<!-- Hosted by s/n intermediary -->
-	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
-	
-	
-	<camel:endpoint id="subscriptionManagerServiceSecureEndpoint" uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>                        
+  <camel:endpoint id="notificationBrokerServiceEndpoint"
+    uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}" />
+  <camel:endpoint id="notificationBrokerServiceSecureEndpoint"
+    uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}" />
 
-	<!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
-    <camel:endpoint id="subscriptionSearchRequestServiceEndpoint"
-        uri="cxf:bean:subscriptionSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
-
-	<!-- Query Endpoints, the results endpoints are inline in the route to support camel testing -->
-    <camel:endpoint id="subscriptionQueryRequestServiceEndpoint"
-        uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
-        
-    <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
-		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
-
-	<!-- hosted by fbi ebts adapter for Unsubscribe/Modify operations -->
-	<camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint" 
-		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
-
-	<camel:endpoint id="subscriptionManagerAdapterServiceSecureEndpoint" 
-		uri="cxf:bean:subscriptionManagerAdapterServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
-
-	<camel:endpoint id="notificationBrokerServiceAdapterSecureEndpoint" 
-		uri="cxf:bean:notificationBrokerServiceAdapterSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
-		
-	<!-- OJB Notification Broker Service -->
-	<cxf:cxfEndpoint id="notificationBrokerService"
-		address="${publishSubscribe.notificationBrokerEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
-		serviceName="ojb-nb:NotificationBrokerServiceService" 
-		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
-        <cxf:properties>
-        	<entry key="mtom-enabled" value="true"/>
-        	<entry key="dataFormat" value="PAYLOAD"/>
-        </cxf:properties>
-	</cxf:cxfEndpoint>
-
-	<!-- OJB Notification Broker Secure Service -->
-    <cxf:cxfEndpoint 
-        id="notificationBrokerServiceSecure"
-        address="${publishSubscribe.notificationBrokerSecureEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl"
-		serviceName="ojbc:SecureNotificationBrokerServiceService" 
-		endpointName="ojbc:SecureNotificationBrokerService"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-        
-    <!-- FBI EBTS Adapter endpoint, called by this intermediary  -->
-     <cxf:cxfEndpoint 
-        id="fbiEbtsSubscriptionRequestService"
-        address="${publishSubscribe.fbiEbtsSubscriptionRequestSecureEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
-		serviceName="ojbc:NotificationBrokerServiceService" 
-		endpointName="ojbc:NotificationBrokerService"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
-    </cxf:cxfEndpoint>
-
-	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify/Validate, called by this s/n intermediary -->
-	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
-		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
-		serviceName="ojb-sm:SubscriptionManagerServiceService"
-		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
-	</cxf:cxfEndpoint>     
+  <!-- Hosted by s/n intermediary -->
+  <camel:endpoint id="subscriptionManagerServiceEndpoint"
+    uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
 
 
-	<!-- OJB Subscription Manager Service -->
-	<cxf:cxfEndpoint id="subscriptionManagerService"
-		address="${publishSubscribe.subscriptionManagerEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
-		serviceName="ojb-sm:SubscriptionManagerServiceService"
-		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
-	</cxf:cxfEndpoint>
+  <camel:endpoint id="subscriptionManagerServiceSecureEndpoint"
+    uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}" />
 
-	<!-- OJB Subscription Manager Secure Service -->
-    <cxf:cxfEndpoint 
-        id="subscriptionManagerServiceSecure"
-        address="${publishSubscribe.subscriptionManagerSecureEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
-		serviceName="ojbc:SecureSubscriptionManagerServiceService" 
-		endpointName="ojbc:SecureSubscriptionManager"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-    
-	<!-- OJB Subscription Manager Secure Service Adapter -->
-    <cxf:cxfEndpoint 
-        id="subscriptionManagerAdapterServiceSecure"
-        address="${publishSubscribe.subscriptionManagerSecureAdapterEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
-		serviceName="ojbc:SecureSubscriptionManagerServiceService" 
-		endpointName="ojbc:SecureSubscriptionManager"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>    
-    
-	<!-- OJB Notification Broker Secure Service Adapter -->
-    <cxf:cxfEndpoint 
-        id="notificationBrokerServiceAdapterSecure"
-        address="${publishSubscribe.notificationBrokerSecureAdapterEndpoint}" 
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl"
-		serviceName="ojbc:SecureNotificationBrokerServiceService" 
-		endpointName="ojbc:SecureNotificationBrokerService"
-		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>    
+  <!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
+  <camel:endpoint id="subscriptionSearchRequestServiceEndpoint"
+    uri="cxf:bean:subscriptionSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-    <!-- 
-    	Subscription Search Request Service 
-    -->
-    <cxf:cxfEndpoint 
-        id="subscriptionSearchRequestService"
-        address="${subscriptionSearchQuery.subscriptionSearchRequestEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Search_Request/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
-		serviceName="ojbc:Subscription_Search_Request_Service_Service" 
-		endpointName="ojbc:Subscription_Search_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-    
-    
-    <!-- 
-    	Subscription Search Results handler Service 
-    --> 
-    <cxf:cxfEndpoint 
-        id="subscriptionSearchResultsHandlerService"
-		address="${subscriptionSearchQuery.subscriptionSearchResultsEndpoint}"
-        wsdlURL="classpath:ssp/Subscription_Search_Results/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
-        serviceName="ojbc:Subscription_Search_Results_Service_Service"
-        endpointName="ojbc:Subscription_Search_Results_Secure_Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0"
-        >
-        <cxf:features>
-            <policy:policies>
-                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-                    <wsam:Addressing>
-                        <wsp:Policy/>
-                    </wsam:Addressing>
-                </wsp:Policy>
-            </policy:policies>
-        </cxf:features>
-    </cxf:cxfEndpoint>
+  <!-- Query Endpoints, the results endpoints are inline in the route to support camel testing -->
+  <camel:endpoint id="subscriptionQueryRequestServiceEndpoint"
+    uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-    <!-- 
-    	Subscription Query Request Service 
-    -->
-    <cxf:cxfEndpoint 
-        id="subscriptionQueryRequestService"
-        address="${subscriptionSearchQuery.subscriptionQueryRequestEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Query_Request/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
-		serviceName="ojbc:Subscription_Query_Request_Service_Service" 
-		endpointName="ojbc:Subscription_Query_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-    
-    
-    <!-- 
-    	Subscription Query Results handler Service 
-    --> 
-    <cxf:cxfEndpoint 
-        id="subscriptionQueryResultsHandlerService"
-		address="${subscriptionSearchQuery.subscriptionQueryResultsEndpoint}"
-        wsdlURL="classpath:ssp/Subscription_Query_Results/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
-		serviceName="ojbc:Subscription_Query_Results_Service_Service" 
-		endpointName="ojbc:Subscription_Query_Results_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0">
-        <cxf:features>
-            <policy:policies>
-                <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-                    <wsam:Addressing>
-                        <wsp:Policy/>
-                    </wsam:Addressing>
-                </wsp:Policy>
-            </policy:policies>
-        </cxf:features>
-    </cxf:cxfEndpoint>
+  <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"
+    uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+  <!-- hosted by fbi ebts adapter for Unsubscribe/Modify operations -->
+  <camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint"
+    uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${subscriptionSearchQuery.keystoreCertificateAlias}" value="${subscriptionSearchQuery.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
+  <camel:endpoint id="subscriptionManagerAdapterServiceSecureEndpoint"
+    uri="cxf:bean:subscriptionManagerAdapterServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>	
+  <camel:endpoint id="notificationBrokerServiceAdapterSecureEndpoint"
+    uri="cxf:bean:notificationBrokerServiceAdapterSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+  <!-- OJB Notification Broker Service -->
+  <cxf:cxfEndpoint id="notificationBrokerService" address="${publishSubscribe.notificationBrokerEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl" serviceName="ojb-nb:NotificationBrokerServiceService"
+    xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+    <cxf:properties>
+      <entry key="mtom-enabled" value="true" />
+      <entry key="dataFormat" value="PAYLOAD" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	
-	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>	 
+  <!-- OJB Notification Broker Secure Service -->
+  <cxf:cxfEndpoint id="notificationBrokerServiceSecure" address="${publishSubscribe.notificationBrokerSecureEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl" serviceName="ojbc:SecureNotificationBrokerServiceService"
+    endpointName="ojbc:SecureNotificationBrokerService" xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<util:properties id= "subscriptionSearchQueryKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${subscriptionSearchQuery.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${subscriptionSearchQuery.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${subscriptionSearchQuery.keystoreLocation}</prop>
-	</util:properties>	
-      
-	<!-- 
-		Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection 
-	-->
-	<http:conduit
-		name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${subscriptionSearchQuery.keyPassword}">
-	        	<sec:keyStore type="jks" password="${subscriptionSearchQuery.keystorePassword}" url="${subscriptionSearchQuery.keystoreLocation}" />
-	    	</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${subscriptionSearchQuery.truststorePassword}"
-					url="${subscriptionSearchQuery.truststoreLocation}" />
-			</sec:trustManagers>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>
+  <!-- FBI EBTS Adapter endpoint, called by this intermediary -->
+  <cxf:cxfEndpoint id="fbiEbtsSubscriptionRequestService" address="${publishSubscribe.fbiEbtsSubscriptionRequestSecureEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl" serviceName="ojbc:NotificationBrokerServiceService"
+    endpointName="ojbc:NotificationBrokerService" xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+  </cxf:cxfEndpoint>
+
+  <!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify/Validate, called by this s/n intermediary -->
+  <cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService" address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl" serviceName="ojb-sm:SubscriptionManagerServiceService"
+    xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+  </cxf:cxfEndpoint>
+
+
+  <!-- OJB Subscription Manager Service -->
+  <cxf:cxfEndpoint id="subscriptionManagerService" address="${publishSubscribe.subscriptionManagerEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl" serviceName="ojb-sm:SubscriptionManagerServiceService"
+    xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+  </cxf:cxfEndpoint>
+
+  <!-- OJB Subscription Manager Secure Service -->
+  <cxf:cxfEndpoint id="subscriptionManagerServiceSecure" address="${publishSubscribe.subscriptionManagerSecureEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+    serviceName="ojbc:SecureSubscriptionManagerServiceService" endpointName="ojbc:SecureSubscriptionManager"
+    xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- OJB Subscription Manager Secure Service Adapter -->
+  <cxf:cxfEndpoint id="subscriptionManagerAdapterServiceSecure" address="${publishSubscribe.subscriptionManagerSecureAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+    serviceName="ojbc:SecureSubscriptionManagerServiceService" endpointName="ojbc:SecureSubscriptionManager"
+    xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- OJB Notification Broker Secure Service Adapter -->
+  <cxf:cxfEndpoint id="notificationBrokerServiceAdapterSecure" address="${publishSubscribe.notificationBrokerSecureAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl" serviceName="ojbc:SecureNotificationBrokerServiceService"
+    endpointName="ojbc:SecureNotificationBrokerService" xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- Subscription Search Request Service -->
+  <cxf:cxfEndpoint id="subscriptionSearchRequestService" address="${subscriptionSearchQuery.subscriptionSearchRequestEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Search_Request/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
+    serviceName="ojbc:Subscription_Search_Request_Service_Service" endpointName="ojbc:Subscription_Search_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+
+  <!-- Subscription Search Results handler Service -->
+  <cxf:cxfEndpoint id="subscriptionSearchResultsHandlerService" address="${subscriptionSearchQuery.subscriptionSearchResultsEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Search_Results/schema/SIP_WS_1.2/Subscription_Search_Results_Service.wsdl"
+    serviceName="ojbc:Subscription_Search_Results_Service_Service" endpointName="ojbc:Subscription_Search_Results_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0">
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Subscription Query Request Service -->
+  <cxf:cxfEndpoint id="subscriptionQueryRequestService" address="${subscriptionSearchQuery.subscriptionQueryRequestEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Query_Request/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
+    serviceName="ojbc:Subscription_Query_Request_Service_Service" endpointName="ojbc:Subscription_Query_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+
+  <!-- Subscription Query Results handler Service -->
+  <cxf:cxfEndpoint id="subscriptionQueryResultsHandlerService" address="${subscriptionSearchQuery.subscriptionQueryResultsEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Query_Results/schema/SIP_WS_1.2/Subscription_Query_Results_Service.wsdl"
+    serviceName="ojbc:Subscription_Query_Results_Service_Service" endpointName="ojbc:Subscription_Query_Results_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0">
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${subscriptionSearchQuery.keystoreCertificateAlias}" value="${subscriptionSearchQuery.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <!-- Used to retrieve and persist SAML tokens -->
+  <bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+  </bean>
+
+  <bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+
+  <bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+  </bean>
+
+  <bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy" />
+
+  <util:properties id="subscriptionSearchQueryKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${subscriptionSearchQuery.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${subscriptionSearchQuery.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${subscriptionSearchQuery.keystoreLocation}</prop>
+  </util:properties>
+
+  <!-- Used for OUTBOUND SSL/TLS Connection. No CCA, just SSL. Client side SSL connection -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${subscriptionSearchQuery.keyPassword}">
+        <sec:keyStore type="jks" password="${subscriptionSearchQuery.keystorePassword}" url="${subscriptionSearchQuery.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${subscriptionSearchQuery.truststorePassword}"
+          url="${subscriptionSearchQuery.truststoreLocation}" />
+      </sec:trustManagers>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" />
+  </http:conduit>
 
 
 </beans>

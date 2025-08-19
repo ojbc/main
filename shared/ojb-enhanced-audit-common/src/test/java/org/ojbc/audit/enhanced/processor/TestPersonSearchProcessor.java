@@ -138,8 +138,8 @@ public class TestPersonSearchProcessor {
 		assertEquals("FBI12345", personAuditSearchRequests.get(0).getFbiNumber());
 		assertEquals("M", personAuditSearchRequests.get(0).getGenderCode());
 		assertEquals("BLK", personAuditSearchRequests.get(0).getHairCode());
-		assertEquals(new Integer(50), personAuditSearchRequests.get(0).getHeightMin());
-		assertEquals(new Integer(75), personAuditSearchRequests.get(0).getHeightMax());
+		assertEquals(50, personAuditSearchRequests.get(0).getHeightMin());
+		assertEquals(75, personAuditSearchRequests.get(0).getHeightMax());
 		assertEquals("Smith", personAuditSearchRequests.get(0).getLastName());
 		assertEquals("123456", personAuditSearchRequests.get(0).getMessageId());
 		assertEquals("f", personAuditSearchRequests.get(0).getMiddleName());

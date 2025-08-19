@@ -17,7 +17,7 @@
 
 -->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <title>OJBC Portal</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
@@ -65,12 +65,13 @@
 	        $('#otpForm').attr('action', context + "code/validate/key").submit();
         });
             
-        $('#otpForm').on('keypress', 'input', function(e){
+        $('#otpForm').off('keypress', 'input').on('keypress', 'input', function(e){
           if (e.keyCode == 13) {
             $('#otpForm').attr('action', context + "code/validate/key").submit();
           } 
         });
       });
+      
     </script>
   </body>
 </html>

@@ -77,6 +77,7 @@
 			<property name="operationName"><value>SubmitVehicleCrashQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0</value></property>
 			<property name="destinationEndpoint"><value>personQueryRequestVehicleCrashService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 					
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="vehicleCrashRequestResponseMap"/>

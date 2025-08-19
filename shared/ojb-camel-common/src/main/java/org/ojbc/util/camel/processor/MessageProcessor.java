@@ -40,6 +40,7 @@ public class MessageProcessor {
 	private String operationNamespace;
 	private String destinationEndpoint;
 	
+	private ProducerTemplate producerTemplate;
 	/**
 	 * By Default, the MessageProcessor will assume an asynchronous service
 	 */
@@ -125,12 +126,13 @@ public class MessageProcessor {
 		
         senderExchange.getIn().setBody(exchange.getIn().getBody());
         
-	    ProducerTemplate template = context.createProducerTemplate();
-
 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAME, getOperationName());
 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, getOperationNamespace());
 	    
-		Exchange returnExchange = template.send("cxf:bean:" + destinationEndpoint + "?dataFormat=PAYLOAD",
+	    if (getProducerTemplate() == null) {
+	        producerTemplate = context.createProducerTemplate();
+	    }
+		Exchange returnExchange = getProducerTemplate().send("cxf:bean:" + destinationEndpoint + "?dataFormat=PAYLOAD",
 				senderExchange);
 		
 		if (returnExchange.getException() != null)
@@ -239,5 +241,11 @@ public class MessageProcessor {
 	public void setCallServiceSynchronous(boolean callServiceSynchronous) {
 		this.callServiceSynchronous = callServiceSynchronous;
 	}
+    public ProducerTemplate getProducerTemplate() {
+        return producerTemplate;
+    }
+    public void setProducerTemplate(ProducerTemplate producerTemplate) {
+        this.producerTemplate = producerTemplate;
+    }
 
 }

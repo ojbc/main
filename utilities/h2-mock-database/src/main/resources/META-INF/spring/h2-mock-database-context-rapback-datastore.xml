@@ -28,7 +28,7 @@
     <constructor-arg>
       <bean class="org.h2.jdbcx.JdbcDataSource">
         <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:rapback-datastore" />
-        <property name="user" value="sa" />
+        <property name="user" value="sa"/>
       </bean>
     </constructor-arg>
   </bean>

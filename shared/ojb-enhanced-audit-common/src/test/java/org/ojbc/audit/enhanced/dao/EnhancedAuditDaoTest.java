@@ -151,7 +151,7 @@ public class EnhancedAuditDaoTest {
 		
 		log.info(firearmSearchResult.get(0).toString());
 		
-		assertEquals(new Integer(5), firearmSearchResult.get(0).getSearchResultsCount());
+		assertEquals(5, firearmSearchResult.get(0).getSearchResultsCount());
 		assertEquals("system1", firearmSearchResult.get(0).getSystemName());
 		assertEquals("{system1}URI", firearmSearchResult.get(0).getSystemURI());
 		assertEquals("search results error text", firearmSearchResult.get(0).getSearchResultsErrorText());
@@ -258,7 +258,7 @@ public class EnhancedAuditDaoTest {
 		
 		log.info(personSearchResults.get(0).toString());
 		
-		assertEquals(new Integer(5), personSearchResults.get(0).getSearchResultsCount());
+		assertEquals(5, personSearchResults.get(0).getSearchResultsCount());
 		assertEquals("system1", personSearchResults.get(0).getSystemName());
 		assertEquals("{system1}URI", personSearchResults.get(0).getSystemURI());
 		assertEquals("search results error text", personSearchResults.get(0).getSearchResultsErrorText());
@@ -737,7 +737,7 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(queryRequests);
 		assertEquals(1, queryRequests.size());
-		assertEquals(new Integer(1), queryRequests.get(0).getQueryRequestId());
+		assertEquals(1, queryRequests.get(0).getQueryRequestId());
 		assertEquals("123", queryRequests.get(0).getIdentificationId());
 		assertEquals("Source", queryRequests.get(0).getIdentificationSourceText());
 		assertEquals("123456", queryRequests.get(0).getMessageId());
@@ -1040,7 +1040,7 @@ public class EnhancedAuditDaoTest {
 		
 		log.info(vehicleSearchResults.get(0).toString());
 		
-		assertEquals(new Integer(5), vehicleSearchResults.get(0).getSearchResultsCount());
+		assertEquals(5, vehicleSearchResults.get(0).getSearchResultsCount());
 		assertEquals("system1", vehicleSearchResults.get(0).getSystemName());
 		assertEquals("{system1}URI", vehicleSearchResults.get(0).getSystemURI());
 		assertEquals("search results error text", vehicleSearchResults.get(0).getSearchResultsErrorText());
@@ -1099,7 +1099,7 @@ public class EnhancedAuditDaoTest {
 		
 		log.info(incidentSearchResult.get(0).toString());
 		
-		assertEquals(new Integer(5), incidentSearchResult.get(0).getSearchResultsCount());
+		assertEquals(5, incidentSearchResult.get(0).getSearchResultsCount());
 		assertEquals("system1", incidentSearchResult.get(0).getSystemName());
 		assertEquals("{system1}URI", incidentSearchResult.get(0).getSystemURI());
 		assertEquals("search results error text", incidentSearchResult.get(0).getSearchResultsErrorText());
@@ -1151,7 +1151,7 @@ public class EnhancedAuditDaoTest {
 		
 		NotificationSent notificationSent = notificationsSent.get(0);
 		
-		assertEquals(new Integer(3), notificationSent.getNotificationSentId());
+		assertEquals(3, notificationSent.getNotificationSentId());
 		assertEquals("{http://ojbc.org/wsn/topics}:person/rapback", notificationSent.getTopic());
 		assertEquals("62725", notificationSent.getSubscriptionIdentifier());
 		assertEquals("test3@email.com", notificationSent.getSubscriptionOwnerEmailAddress());

@@ -99,7 +99,8 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
     	//Confirm that we get no notifications, two matching notifications are filtered
         notifyAndAssertBasics("notificationSoapRequest_A5008305.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 "SID: A5008305", 0);
-        
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
+
         //Add/update a subscription, it will be valid for 365 days
 		String response = invokeRequest("subscribeSoapRequest.xml", notificationBrokerUrl);
 		
@@ -111,6 +112,7 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
 		
     }
     
+    @SuppressWarnings("unused")
     @Test
     public void notificationArrest_staticValidationDateTestingWithMultipleRecipientsOnToLine() throws Exception {
     

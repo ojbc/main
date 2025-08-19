@@ -16,7 +16,10 @@
  */
 package org.ojbc.intermediaries.sn;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -24,4 +27,8 @@ public class JavaBeansConfig {
     @Autowired 
     SubscriptionNotificationServiceProperties appProperties; 
     
+    @Bean
+    ProducerTemplate producerTemplate(CamelContext camelContext) {
+        return camelContext.createProducerTemplate();
+    }
 }

@@ -77,7 +77,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion", 
-	"requestHeaders", "incidentSystemsToQuery"})
+	"requestHeaders", "incidentSystemsToQuery", "personFilterCommand"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource
@@ -271,7 +271,7 @@ public class PortalController implements ApplicationContextAware {
 
     @PostMapping(value="/portal/subscriptionsLeftBar")
     public String subscriptionsLeftBar(HttpServletRequest request, 
-    		@ModelAttribute SubscriptionFilterCommand subscriptionFilterCommand, 
+    		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
     		Map<String, Object> model){   
     	
     	return "common/_subscriptionsLeftBar";
@@ -287,8 +287,8 @@ public class PortalController implements ApplicationContextAware {
     	return "common/_criminalIdentificationLeftBar";
     }
     
-    @PostMapping(value="/portal/leftBar")
-       public String leftBar(HttpServletRequest request, @ModelAttribute PersonFilterCommand personFilterCommand, 
+    @GetMapping(value="/portal/leftBar")
+    public String leftBar(HttpServletRequest request,
 			Map<String, Object> model){
     	model.put("showReasonsForSearch", showReasonsForSearch);
     	model.put("showDemographicsFilter", showDemographicsFilter);

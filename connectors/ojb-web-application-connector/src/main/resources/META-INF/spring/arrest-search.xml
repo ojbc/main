@@ -77,6 +77,7 @@
 		<property name="operationName"><value>SubmitMunicipalChargesSearchRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestSearchRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
   	<!-- Arrest Detail Search Request and Response Endpoints -->
@@ -93,6 +94,7 @@
 		<property name="operationName"><value>SubmitArrestDetailSearchRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestSearchRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
 	</bean>
 
 	<bean id="dispositionService" class="org.ojbc.processor.disposition.DispositionServiceImpl" >

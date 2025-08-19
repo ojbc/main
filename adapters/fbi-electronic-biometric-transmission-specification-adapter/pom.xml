@@ -327,7 +327,6 @@
 					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 

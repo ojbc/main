@@ -77,6 +77,7 @@
     <property name="operationName"><value>SubmitAuditLogSearchRequest</value></property>
     <property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/AuditLogSearchRequestService/1.0</value></property>
     <property name="destinationEndpoint"><value>auditSearchRequestService</value></property>
+    <property name="producerTemplate" ref="producerTemplate"/>
   </bean>
 
   <util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="auditSearchRequestResponseMap"/>

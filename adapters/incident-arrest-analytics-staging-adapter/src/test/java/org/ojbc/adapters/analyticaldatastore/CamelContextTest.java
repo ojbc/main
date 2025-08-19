@@ -281,6 +281,17 @@ public class CamelContextTest {
 		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
 		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
 		
+
+		incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
+		
+		assertEquals(2, incidentOffenses.size());
+
+		assertEquals("Violation of a Court Order",incidentOffenses.get(0).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE SUSPENDED",incidentOffenses.get(0).getIncidentOffenseText() );
+
+		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
+		
 		log.debug("Person ID of arrestee: " + arrest.getPersonID());
 		
 		Person person = analyticalDatastoreDAOImpl.getPerson(arrest.getPersonID());

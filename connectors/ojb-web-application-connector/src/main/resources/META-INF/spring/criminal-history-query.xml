@@ -87,13 +87,15 @@
 			<property name="operationName"><value>SubmitCriminalHistoryQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</value></property>
 			<property name="destinationEndpoint"><value>personQueryRequestCriminalHistoryService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 					
 		<bean id="fbiCriminalHistoryMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 			<property name="operationName"><value>SubmitFBICriminalHistoryQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</value></property>
 			<property name="destinationEndpoint"><value>personQueryRequestCriminalHistoryService</value></property>
-		</bean>
+	    <property name="producerTemplate" ref="producerTemplate"/>
+  	</bean>
 					
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="criminalHistoryRequestResponseMap"/>
 

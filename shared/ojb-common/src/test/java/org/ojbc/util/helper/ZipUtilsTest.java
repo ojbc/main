@@ -19,16 +19,17 @@ package org.ojbc.util.helper;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.DataFormatException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
 public class ZipUtilsTest {
 //	private static final Log log = LogFactory.getLog( ZipUtilsTest.class );
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 	}
 
@@ -86,7 +87,8 @@ public class ZipUtilsTest {
 	
 	private void printCompressedHexString(String originalData) throws IOException {
 		byte[] compressedData = ZipUtils.zip(originalData.getBytes());
-		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
+//		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
+		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(new String(compressedData, StandardCharsets.UTF_8)));
 	}
 
 	@SuppressWarnings("unused")

@@ -35,7 +35,8 @@ public class IgnoreNamedElementsDifferenceListener implements DifferenceListener
 
     public int differenceFound(Difference difference) {
         if (difference.getId() == DifferenceConstants.TEXT_VALUE_ID) {
-            if (blackList.contains(difference.getControlNodeDetail().getNode().getParentNode().getNodeName())) {
+            if (blackList.contains(difference.getControlNodeDetail().getNode().getNodeName())
+                    || blackList.contains(difference.getControlNodeDetail().getXpathLocation())) {
                 return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
             }
         }

@@ -40,22 +40,22 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-boot-version>2.5.15</spring-boot-version>
-		<camel-version>3.11.7</camel-version>
-		<cxf-version>3.4.4</cxf-version>
+		<spring-boot-version>2.7.18</spring-boot-version>
+		<camel-version>3.14.10</camel-version>
+		<cxf-version>3.4.10</cxf-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>2.20.0</log4j-version>
-		<spring-version>5.3.27</spring-version>
+		<log4j-version>2.24.3</log4j-version>
+		<spring-version>5.3.37</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
+		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
 		<junit-version>4.8.1</junit-version>
-		<ojb-enhanced-audit-common-version>[3.0.6,)</ojb-enhanced-audit-common-version>
-		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
+		<ojb-enhanced-audit-common-version>[3.0.8, 4.0.0)</ojb-enhanced-audit-common-version>
+		<h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
 		<java-version>1.8</java-version>
-		<sn-intermediary-common-version>[3.0.0,)</sn-intermediary-common-version>
+		<sn-intermediary-common-version>[3.0.0, 4.0.0)</sn-intermediary-common-version>
 	</properties>
 
 	<dependencyManagement>
@@ -265,12 +265,10 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

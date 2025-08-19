@@ -38,14 +38,12 @@
     <cxf.version>4.1.2</cxf.version>
     <spring-version>6.1.2</spring-version>
     <spring-boot-version>3.5.3</spring-boot-version>
-    <junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
-    <junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
     <h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
     <ojb-common-version>[6.0.0,)</ojb-common-version>
     <java-version>24</java-version>
     <log4j-version>2.24.3</log4j-version>
     <osgi-core-version>8.0.0</osgi-core-version>
-    <h2database-version>1.4.200</h2database-version>
+    <h2database-version>2.1.214</h2database-version>
 
     <!-- Plugin versions -->
     <surefire.version>2.22.2</surefire.version>

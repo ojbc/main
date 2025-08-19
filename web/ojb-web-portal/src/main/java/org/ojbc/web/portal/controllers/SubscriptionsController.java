@@ -275,7 +275,7 @@ public class SubscriptionsController {
 	}
 	
 	@GetMapping("searchForm")
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the search Form");
 		if (resetForm) {

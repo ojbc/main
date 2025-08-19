@@ -62,12 +62,14 @@
 			<property name="operationName"><value>SubmitIncidentPersonSearchRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>incidentSearchRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>
 	
 		<bean id="vehicleToIncidentMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 			<property name="operationName"><value>SubmitIncidentVehicleSearchRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0</value></property>
 			<property name="destinationEndpoint"><value>incidentSearchRequestService</value></property>
+      <property name="producerTemplate" ref="producerTemplate"/>
 		</bean>		
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="personVehicleToIncidentRequestResponseMap"/>
 

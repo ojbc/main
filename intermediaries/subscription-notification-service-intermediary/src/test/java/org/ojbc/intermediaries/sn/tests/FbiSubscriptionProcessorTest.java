@@ -32,7 +32,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
+import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
 
 public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificationIntegrationTest {
@@ -42,7 +44,8 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     
     @Resource
     FbiSubscriptionProcessor fbiSubscriptionProcessor;
-    
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Test
     public void testRouteToProcessFbiSubscriptionRoute() throws Exception
@@ -53,11 +56,15 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     	assertTrue(fbiSubscriptionProcessor.routeToProcessFbiSubscriptionRoute(civilSubscriptionDocument));
     	
     }
+    final String CIVIL_FINGER_PRINTS_UPDATE="update CIVIL_FINGER_PRINTS "
+            + "SET FINGER_PRINTS_FILE = ?  where TRANSACTION_NUMBER = ? ";
     
     @Test
     public void testProcessSubscription() throws Exception
     {
     	
+        byte[] civilFingerPrints = ZipUtils.zip("StateCivilFingerPrints".getBytes()); 
+        jdbcTemplate.update(CIVIL_FINGER_PRINTS_UPDATE, civilFingerPrints, "000001820140729014008339990");
     	Document civilSubscriptionDocument = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/OJBC_Civil_Subscription_Request_Document.xml"));
     	Exchange exchange = new DefaultExchange(context);
 

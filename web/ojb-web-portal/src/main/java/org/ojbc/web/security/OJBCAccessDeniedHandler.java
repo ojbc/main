@@ -75,6 +75,7 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
     	log.info("Current granted authorities: " + existingGrantedAuthorities);
     	
     	boolean otpRoleGranted = existingGrantedAuthorities.stream().anyMatch(item->item.getAuthority().equalsIgnoreCase(Authorities.AUTHZ_PORTAL_OTP.name())); 
+    	boolean portalRoleGranted = existingGrantedAuthorities.stream().anyMatch(item->item.getAuthority().equalsIgnoreCase(Authorities.AUTHZ_PORTAL.name())); 
     	log.info("requireOtpAuthentication:" + BooleanUtils.isTrue(requireOtpAuthentication));
 
     	if (BooleanUtils.isTrue(requireOtpAuthentication) && !otpRoleGranted)
@@ -112,8 +113,7 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			return;
 
 		}	
-		
-		if (!request.isUserInRole(Authorities.AUTHZ_PORTAL.name()))
+		if (!portalRoleGranted)
 		{
 			log.info("User doesn't have portal role.");
 			request.getRequestDispatcher("/403").forward(request, response);

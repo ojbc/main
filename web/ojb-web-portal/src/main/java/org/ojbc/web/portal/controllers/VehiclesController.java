@@ -85,7 +85,7 @@ public class VehiclesController {
 	SamlService samlService;
 	
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	public String searchForm(@RequestParam(required = false) boolean resetForm,
 	        Map<String, Object> model) {
 
 		if (resetForm || userSession.getMostRecentVehicleSearch() == null) {
@@ -100,7 +100,8 @@ public class VehiclesController {
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("vehicleSearchCommand") VehicleSearchCommand vehicleSearchCommand,
+	public String advanceSearch(HttpServletRequest request, 
+	        @ModelAttribute("vehicleSearchCommand") VehicleSearchCommand vehicleSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentVehicleSearch(vehicleSearchCommand);
 

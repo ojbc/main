@@ -14,58 +14,53 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-DROP schema IF EXISTS policy_acknowledgement; 
-DROP table IF EXISTS user_policy_acknowledgement; 
-DROP table IF EXISTS ojbc_user;
-DROP table IF EXISTS policy; 
-DROP table IF EXISTS policy_ori; 
-DROP table IF EXISTS ori; 
-CREATE schema policy_acknowledgement;
+DROP SCHEMA IF EXISTS policy_acknowledgement CASCADE;
+
+CREATE SCHEMA policy_acknowledgement;
+SET SCHEMA policy_acknowledgement;
 
 --
 -- Create tables for Users with federation ID
 --
-CREATE TABLE `ojbc_user` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  federation_id varchar(100) NOT NULL,
-  create_date timestamp AS CURRENT_TIMESTAMP()
+CREATE TABLE ojbc_user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  federation_id VARCHAR(100) NOT NULL,
+  create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE UNIQUE INDEX ON ojbc_user(federation_id); 
+CREATE UNIQUE INDEX idx_user_federation_id ON ojbc_user(federation_id);
 
-CREATE TABLE `policy` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  policy_uri varchar(512) NOT NULL,
-  policy_location varchar(512) NOT NULL,
-  active boolean,
-  update_date timestamp NOT NULL
+CREATE TABLE policy (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  policy_uri VARCHAR(512) NOT NULL,
+  policy_location VARCHAR(512) NOT NULL,
+  active BOOLEAN,
+  update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE UNIQUE INDEX ON policy(policy_uri); 
 
-CREATE TABLE `ori` (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  ori varchar(50) NOT NULL,
-  civil_ori_indicator boolean NOT NULL
+CREATE UNIQUE INDEX idx_policy_uri ON policy(policy_uri);
+
+CREATE TABLE ori (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ori VARCHAR(50) NOT NULL,
+  civil_ori_indicator BOOLEAN NOT NULL
 );
-CREATE UNIQUE INDEX ON ori(ori); 
 
-CREATE TABLE `policy_ori` (
-  ori_id int(11) NOT NULL,
-  policy_id int(11) NOT NULL, 
+CREATE UNIQUE INDEX idx_ori ON ori(ori);
+
+CREATE TABLE policy_ori (
+  ori_id INT NOT NULL,
+  policy_id INT NOT NULL,
   
-  FOREIGN KEY (`ori_id`)
-  	REFERENCES `ori` (`id`), 
-  FOREIGN KEY (`policy_id`)
-  	REFERENCES `policy` (`id`) 
+  FOREIGN KEY (ori_id) REFERENCES ori(id),
+  FOREIGN KEY (policy_id) REFERENCES policy(id)
 );
 
-CREATE TABLE `user_policy_acknowledgement` (
-  user_id int(11) NOT NULL,
-  policy_id int(11) NOT NULL, 
-  acknowledge_date timestamp NOT NULL,
-  
-  FOREIGN KEY (`user_id`)
-  	REFERENCES `ojbc_user` (`id`), 
-  FOREIGN KEY (`policy_id`)
-  	REFERENCES `policy` (`id`) 
-) ;
+CREATE TABLE user_policy_acknowledgement (
+  user_id INT NOT NULL,
+  policy_id INT NOT NULL,
+  acknowledge_date TIMESTAMP NOT NULL,
+
+  FOREIGN KEY (user_id) REFERENCES ojbc_user(id),
+  FOREIGN KEY (policy_id) REFERENCES policy(id)
+);
