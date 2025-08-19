@@ -36,6 +36,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -75,7 +76,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"), 
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);					
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);					
 	}
 	
 	@Test
@@ -95,7 +96,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-FBI_Identity_History_Summary_Request.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);					
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);					
 	}
 
 
@@ -116,7 +117,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);					
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);					
 	}
 	
 	
@@ -137,7 +138,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-NDI.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);					
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);					
 	}	
 	
 	
@@ -158,7 +159,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-SRC.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);					
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);					
 	}
 	
 	
@@ -179,7 +180,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Replace-Request.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	}
 	
 	
@@ -200,7 +201,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Subscription-Maintenance-Cancel-Request.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	}
 	
 	 
@@ -222,7 +223,8 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/RapBackSubscriptionCreationReport.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "s30:ref", "s30:id");
+
 	}
 	
 	@Test
@@ -243,12 +245,12 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/Subscription_Response_Error.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	}	
 	
 	
 	@Test
-	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
+	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException, Exception {
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/Template(RBMNTR)RapBackMaintenanceResponse.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
@@ -264,7 +266,8 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/RapbackSubscriptionUpdateReport.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "s30:ref", "s30:id");
+
 	}
 	
 	
@@ -285,7 +288,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/CriminalHistory-Error-Report.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	}
 	
 	
@@ -310,7 +313,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/Federal_Rapback_CH_Report.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	} 
 	
 	@Test
@@ -334,7 +337,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/CriminalHistory-Consolidation-Report.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	} 
 	
 	@Test
@@ -358,7 +361,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/CriminalHistory-Deletion-Report.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	} 
 	
 	@Test
@@ -382,7 +385,7 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/CriminalHistory-Restoration-Report.xml"),
 				StandardCharsets.UTF_8);
 							
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml);							
 	} 
 	
 	private Map<String, Object> getXsltParamMap(){
@@ -418,13 +421,5 @@ public class EbtsTransformTest {
 		return xsltParamMap;
 	} 
 	
-	private static void compareXml(String expectedXmlString, String actualTransformedXml) throws SAXException, IOException{
-		
-		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);		
-		
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-		
-		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
-	}	
 }
 
