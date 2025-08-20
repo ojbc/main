@@ -17,278 +17,279 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0" 
-	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:sqr-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" 
-	xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0"	
-	xsi:schemaLocation="
-	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+  xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:camel="http://camel.apache.org/schema/spring"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+  xmlns:sqr-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+    http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<!-- Subscription Search flow -->
-	<routeContext id="searchQueryRoutes" xmlns="http://camel.apache.org/schema/spring">		
-		<camel:route id="subscriptionSearchRoute">
-		
-			<camel:from	uri="subscriptionSearchRequestServiceEndpoint" />
-			
-			<!--  Perform some generic message processing --> 
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
-			<camel:to uri="direct:logRoute"/>	
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-					
-						<camel:log message="Enhanced audit logging of subscription request."/>
-						
-						<camel:to uri="bean:subscriptionSearchRequestSQLProcessor?method=auditSubscriptionSearchRequest"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>			
-			
-			<camel:choice>
-				<camel:when>
-					<camel:method ref="accessControlProcessor" method="authorize" />
-					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:otherwise>
-			</camel:choice>
-			
-			<camel:doTry>
-				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
-				
-				<camel:to uri="direct:processSubscriptionSearch"/>
+  <!-- Subscription Search flow -->
+  <routeContext id="searchQueryRoutes" xmlns="http://camel.apache.org/schema/spring">
+    <camel:route id="subscriptionSearchRoute">
 
-				<camel:doCatch >
-					<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
-					<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-					<camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchAccessDenied"/>
-				</camel:doCatch>
-				<camel:doCatch>
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-					<camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchError"/>
-				</camel:doCatch>
-			</camel:doTry>	
+      <camel:from uri="subscriptionSearchRequestServiceEndpoint" />
 
-			<camel:to uri="direct:logRoute"/>
+      <!-- Perform some generic message processing -->
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:subscriptionSearchResponseSQLProcessor?method=auditSubscriptionSearchResponse"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			<camel:setHeader name="CamelDestinationOverrideUrl">
-				<simple>${in.headers.WSAddressingReplyTo}</simple>
-			</camel:setHeader>	
+      <camel:to uri="direct:logRoute" />
 
-			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-						 							
-			<camel:setHeader name="operationName">
-	            <constant>ReportSubscriptionSearchResults</constant>
-	        </camel:setHeader>
-	        
-	        <camel:setHeader name="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0</constant>
-	        </camel:setHeader>
-			
-			<camel:to uri="cxf:bean:subscriptionSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
-			
-			<camel:log message="Called Subscription Search Response Handler"/>
-			
-		</camel:route>
-		
-		<camel:route id="processSubscriptionSearchRoute">
-			<camel:from uri="direct:processSubscriptionSearch"/>
-			<camel:log message="processing subscription search" />
-			<camel:to uri="direct:processSubscriptionSearchRequest"/>
-		</camel:route>
-		 
-		<camel:route id="processSubscriptionSearchRequest">			
-			<camel:from uri="direct:processSubscriptionSearchRequest"/>
-			<camel:log message="Process Subscription Search Request: ${body}"/>
-			
-			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest"/>
-			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
-		</camel:route>		
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
 
-		<camel:route id="subscriptionQueryRoute">
-		
-			<camel:from	uri="subscriptionQueryRequestServiceEndpoint" />
-			
-			<!--  Perform some generic message processing --> 
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>			
+          <camel:doTry>
 
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>			
-			
-			<camel:choice>
-				<camel:when>
-					<camel:method ref="accessControlProcessor" method="authorize" />
-					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:otherwise>
-			</camel:choice>
-			
-			<camel:doTry>
-				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
-				
-				<camel:setHeader name="subscriptionQueryId"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:SubscriptionIdentification/nc:IdentificationID/text()</xpath></camel:setHeader>
-				<camel:setHeader name="adminQuery"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath></camel:setHeader>
-				<camel:log message="adminQuery: ${in.headers.adminQuery}"/>
-				
-				<camel:to uri="direct:processSubscriptionQuery"/>
+            <camel:log message="Enhanced audit logging of subscription request." />
 
-				<camel:doCatch >
-					<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
-					<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-					<camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchAccessDenied"/> 
-				</camel:doCatch>
-				<camel:doCatch>
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
- 					<camel:to uri="bean:subscriptionQueryErrorProcessor?method=returnSubscriptionQueryError"/> 
-				</camel:doCatch>
-			</camel:doTry>	
+            <camel:to uri="bean:subscriptionSearchRequestSQLProcessor?method=auditSubscriptionSearchRequest" />
 
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:subscriptionQueryResponseSQLLoggingProcessor?method=auditSubscriptionQueryResponse"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>			
-			
-			<camel:setHeader name="CamelDestinationOverrideUrl">
-				<simple>${in.headers.WSAddressingReplyTo}</simple>
-			</camel:setHeader>	
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
 
-			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-						 							
-			<camel:setHeader name="operationName">
-	            <constant>ReportSubscriptionQueryResults</constant>
-	        </camel:setHeader>
-	        
-	        <camel:setHeader name="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0</constant>
-	        </camel:setHeader>
-			
-			<camel:to uri="cxf:bean:subscriptionQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
-			
-			<camel:log message="Called Subscription Query Response Handler"/>
-			
-		</camel:route>
-		
-		<camel:route id="processSubscriptionQueryRoute">
-			<camel:from uri="direct:processSubscriptionQuery"/>
-			<camel:log message="processing subscription query" />
-			
-			<camel:to uri="bean:subscriptionSearchQueryDAO?method=queryForSubscription"/>	
-			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=buildSubscriptionQueryResponseDoc"/>
-			
-			
-			<camel:log message="This is the subscription query response: ${body}" loggingLevel="DEBUG"/>
-		
-		</camel:route>		
-		
-		<camel:route id="logExchange">
-			<camel:from uri="direct:logRoute"/>
-		
-			<camel:choice>
-				<camel:when>
-					<camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.stacktrace}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>				
-		
-		</camel:route>
-		
-	</routeContext>
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+      <camel:choice>
+        <camel:when>
+          <camel:method ref="accessControlProcessor" method="authorize" />
+          <camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:otherwise>
+      </camel:choice>
+
+      <camel:doTry>
+        <camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />
+
+        <camel:to uri="direct:processSubscriptionSearch" />
+
+        <camel:doCatch>
+          <camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+          <camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchAccessDenied" />
+        </camel:doCatch>
+        <camel:doCatch>
+          <camel:exception>java.lang.Exception</camel:exception>
+          <camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchError" />
+        </camel:doCatch>
+      </camel:doTry>
+
+      <camel:to uri="direct:logRoute" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:subscriptionSearchResponseSQLProcessor?method=auditSubscriptionSearchResponse" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:setHeader name="CamelDestinationOverrideUrl">
+        <simple>${in.headers.WSAddressingReplyTo}</simple>
+      </camel:setHeader>
+
+      <!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+      <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+      <camel:setHeader name="operationName">
+        <constant>ReportSubscriptionSearchResults</constant>
+      </camel:setHeader>
+
+      <camel:setHeader name="operationNamespace">
+        <constant>http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0</constant>
+      </camel:setHeader>
+
+      <camel:to
+        uri="cxf:bean:subscriptionSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
+
+      <camel:log message="Called Subscription Search Response Handler" />
+
+    </camel:route>
+
+    <camel:route id="processSubscriptionSearchRoute">
+      <camel:from uri="direct:processSubscriptionSearch" />
+      <camel:log message="processing subscription search" />
+      <camel:to uri="direct:processSubscriptionSearchRequest" />
+    </camel:route>
+
+    <camel:route id="processSubscriptionSearchRequest">
+      <camel:from uri="direct:processSubscriptionSearchRequest" />
+      <camel:log message="Process Subscription Search Request: ${body}" />
+
+      <camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest" />
+      <camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG" />
+    </camel:route>
+
+    <camel:route id="subscriptionQueryRoute">
+
+      <camel:from uri="subscriptionQueryRequestServiceEndpoint" />
+
+      <!-- Perform some generic message processing -->
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:choice>
+        <camel:when>
+          <camel:method ref="accessControlProcessor" method="authorize" />
+          <camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:otherwise>
+      </camel:choice>
+
+      <camel:doTry>
+        <camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />
+
+        <camel:setHeader name="subscriptionQueryId">
+          <xpath>/sqr:SubscriptionQueryRequest/sqr-ext:SubscriptionIdentification/nc:IdentificationID/text()</xpath>
+        </camel:setHeader>
+        <camel:setHeader name="adminQuery">
+          <xpath>/sqr:SubscriptionQueryRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath>
+        </camel:setHeader>
+        <camel:log message="adminQuery: ${in.headers.adminQuery}" />
+
+        <camel:to uri="direct:processSubscriptionQuery" />
+
+        <camel:doCatch>
+          <camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+          <camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnSubscriptionSearchAccessDenied" />
+        </camel:doCatch>
+        <camel:doCatch>
+          <camel:exception>java.lang.Exception</camel:exception>
+          <camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:subscriptionQueryErrorProcessor?method=returnSubscriptionQueryError" />
+        </camel:doCatch>
+      </camel:doTry>
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:subscriptionQueryResponseSQLLoggingProcessor?method=auditSubscriptionQueryResponse" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:setHeader name="CamelDestinationOverrideUrl">
+        <simple>${in.headers.WSAddressingReplyTo}</simple>
+      </camel:setHeader>
+
+      <!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+      <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+      <camel:setHeader name="operationName">
+        <constant>ReportSubscriptionQueryResults</constant>
+      </camel:setHeader>
+
+      <camel:setHeader name="operationNamespace">
+        <constant>http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0</constant>
+      </camel:setHeader>
+
+      <camel:to
+        uri="cxf:bean:subscriptionQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
+
+      <camel:log message="Called Subscription Query Response Handler" />
+
+    </camel:route>
+
+    <camel:route id="processSubscriptionQueryRoute">
+      <camel:from uri="direct:processSubscriptionQuery" />
+      <camel:log message="processing subscription query" />
+
+      <camel:to uri="bean:subscriptionSearchQueryDAO?method=queryForSubscription" />
+      <camel:to uri="bean:subscriptionSearchQueryProcessor?method=buildSubscriptionQueryResponseDoc" />
+
+
+      <camel:log message="This is the subscription query response: ${body}" loggingLevel="DEBUG" />
+
+    </camel:route>
+
+    <camel:route id="logExchange">
+      <camel:from uri="direct:logRoute" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.stacktrace}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+    </camel:route>
+
+  </routeContext>
+
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
     <property name="producerTemplate" ref="producerTemplate"></property>
   </bean>
-	<bean id="subscriptionSAMLTokenProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSAMLTokenProcessor" />
-	
-	<bean id="subscriptionSearchErrorProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchErrorProcessor" />	
+  <bean id="subscriptionSAMLTokenProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSAMLTokenProcessor" />
 
-	<bean id="subscriptionQueryErrorProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionQueryErrorProcessor" />
-	
+  <bean id="subscriptionSearchErrorProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchErrorProcessor" />
+
+  <bean id="subscriptionQueryErrorProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionQueryErrorProcessor" />
+
 </beans>
 

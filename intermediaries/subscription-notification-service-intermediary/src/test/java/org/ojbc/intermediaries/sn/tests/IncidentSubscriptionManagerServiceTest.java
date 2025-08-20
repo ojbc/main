@@ -21,21 +21,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
@@ -47,7 +39,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ojbc.util.helper.HttpUtils;
 import org.springframework.beans.factory.annotation.Value;
+
+import jakarta.annotation.Resource;
 
 public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptionNotificationTest {
 	
@@ -88,9 +83,9 @@ public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptio
 	@Test
 	public void unsubscribe() throws Exception {
 	    File subscriptionInputFile = new File("src/test/resources/xmlInstances/unSubscribeSoapRequest-incident.xml");
-	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Consts.UTF_8);
+	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, StandardCharsets.UTF_8);
 	    
-		String response = callServiceViaHttp(subscriptionBody);
+		String response = HttpUtils.post(subscriptionBody, subscriptionManagerUrl);
 		
 		//System.out.println(response);
 		assertThat(response, containsString(UNSUBSCRIBE_RESPONSE_ELEMENT_STRING));
@@ -121,13 +116,4 @@ public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptio
         return filteredTable;
 	}
 
-	private String callServiceViaHttp(String msgBody) throws Exception {
-		HttpClient client = HttpClientBuilder.create().build();
-		
-		HttpPost post = new HttpPost(subscriptionManagerUrl);
-		post.setEntity(new StringEntity(msgBody));
-		HttpResponse response = client.execute(post);
-		HttpEntity reply = response.getEntity();
-		return IOUtils.readStringFromStream(reply.getContent());
-	}
 }

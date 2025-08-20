@@ -30,7 +30,6 @@ import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
@@ -39,13 +38,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -61,10 +53,13 @@ import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ojbc.util.helper.HttpUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.annotation.Resource;
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
 @DirtiesContext
@@ -197,19 +192,10 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     	throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
 		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
-		String response = callServiceViaHttp(subscriptionBody, url);
+		String response = HttpUtils.post(subscriptionBody, url);
 		return response;
 	}
 		
-	private String callServiceViaHttp(String msgBody, String url) throws Exception {
-		HttpClient client = HttpClientBuilder.create().build();
-		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(msgBody));
-		HttpResponse response = client.execute(post);
-		HttpEntity reply = response.getEntity();
-		return IOUtils.readStringFromStream(reply.getContent());
-	}
-	
 	@Test
 	@Ignore
     public void getDTDFile() throws Exception

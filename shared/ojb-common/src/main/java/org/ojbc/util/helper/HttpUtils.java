@@ -16,11 +16,12 @@
  */
 package org.ojbc.util.helper;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 /**
@@ -28,7 +29,8 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
  *
  */
 public class HttpUtils {
-	
+    
+    private static final CloseableHttpClient CLIENT = HttpClients.createDefault();
 	/**
 	 * Send the specified payload to the specified http endpoint via POST.
 	 * @param payload
@@ -36,18 +38,10 @@ public class HttpUtils {
 	 * @return the http response
 	 * @throws Exception
 	 */
-	public static String post(String payload, String url) throws Exception {
-		
-		CloseableHttpClient client = HttpClients.createDefault();
-		
-		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(payload, ContentType.DEFAULT_TEXT));
-		BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-		String response = client.execute(post, responseHandler);
-		
-		client.close();
-		
-		return response;
-	}
+    public static String post(String payload, String url) throws Exception {
+        HttpPost post = new HttpPost(url);
+        post.setEntity(new StringEntity(payload, StandardCharsets.UTF_8));
+        return CLIENT.execute(post, new BasicHttpClientResponseHandler());
+    }
 
 }

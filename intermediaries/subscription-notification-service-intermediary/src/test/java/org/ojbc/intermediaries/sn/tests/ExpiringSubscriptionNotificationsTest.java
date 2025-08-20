@@ -19,7 +19,6 @@ package org.ojbc.intermediaries.sn.tests;
 import java.io.FileInputStream;
 import java.sql.Connection;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
@@ -38,6 +37,8 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import jakarta.annotation.Resource;
 
 public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionNotificationTest {
 
@@ -101,7 +102,8 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
     @Test
     public void testNotifyOfExpiringSubscriptionsRoute() throws Exception {
     
-    	NotifyBuilder notify = new NotifyBuilder(context).whenReceivedSatisfied(smtpEndpointMock).create();
+    	@SuppressWarnings("unused")
+        NotifyBuilder notify = new NotifyBuilder(context).whenReceivedSatisfied(smtpEndpointMock).create();
     	
     	//On this initial run, an alert will be sent because no notifications have been sent
 		

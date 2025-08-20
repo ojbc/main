@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -67,6 +66,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import jakarta.annotation.Resource;
 
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificationTest {

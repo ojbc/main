@@ -17,83 +17,91 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xsi:schemaLocation="
-	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-		
-	<routeContext id="fbiRoutes" xmlns="http://camel.apache.org/schema/spring">		
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring"
+  xsi:schemaLocation="
+	  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+    http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-		<route id="processPotentialFbiSubscription_Route">
-			<from uri="direct:processPotentialFbiSubscription"/>
-			<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
-			
-			<camel:to uri="direct:sentToFbiEbtsAdapter" />
-		
-		</route> 
-		
-		<route id="sendToFbiEbtsAdapter">
-			<from uri="direct:sentToFbiEbtsAdapter"/>								
-			<log message="\n Operation Name: ${header.operationName} \n"/>
-			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
-			
-			<convertBodyTo type="java.lang.String"/>
-			<camel:log message="Request to send to FBI: ${body}"/>
-			<camel:choice>
-				<when>
-					<simple>${header.operationName} == 'Subscribe' </simple>
-					
-					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
-					
-					<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
-				</when>
-				<camel:when>
-					<simple>${header.operationName} == 'Modify'</simple>
-					
-					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
-					
-					<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+  <routeContext id="fbiRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-					<to uri="fbiEbtsSubscriptionManagerEndpoint" />
-				</camel:when>
-				<otherwise>
-					<log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
-				</otherwise>								
-			</camel:choice>
-		</route>
-						
-		<camel:route id="processFbiUnsubscribeRoute">
-		
-			<from uri="direct:processFbiUnsubscription"/>								
-			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
-			
-			<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
-			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
-			
-			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
+    <route id="processPotentialFbiSubscription_Route">
+      <from uri="direct:processPotentialFbiSubscription" />
+      <camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription" />
 
-		</camel:route>		
-		<camel:route id="processFbiValidationUpdate">
-		
-			<from uri="direct:processFbiValidationUpdate"/>								
-			<to uri="bean:fbiSubscriptionProcessor?method=buildValidationModifyMessage"/>
-			
-			<camel:log message="\nCalling fbi ebts service to modify the FBI subscription from FBI... \n"/>
-			
-			<camel:removeHeaders pattern="*"/>
-			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-			<camel:setHeader name="operationName"><constant>Modify</constant></camel:setHeader>
-			
-			<camel:to uri="direct:sentToFbiEbtsAdapter" />														
+      <camel:to uri="direct:sentToFbiEbtsAdapter" />
 
-		</camel:route>		
-	</routeContext>
-		
+    </route>
+
+    <route id="sendToFbiEbtsAdapter">
+      <from uri="direct:sentToFbiEbtsAdapter" />
+      <log message="\n Operation Name: ${header.operationName} \n" />
+      <camel:setHeader name="operationNamespace">
+        <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
+      </camel:setHeader>
+
+      <convertBodyTo type="java.lang.String" />
+      <camel:log message="Request to send to FBI: ${body}" />
+      <camel:choice>
+        <when>
+          <simple>${header.operationName} == 'Subscribe' </simple>
+
+          <camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace" />
+
+          <camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />
+        </when>
+        <camel:when>
+          <simple>${header.operationName} == 'Modify'</simple>
+
+          <camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace" />
+
+          <camel:setHeader name="operationNamespace">
+            <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
+          </camel:setHeader>
+
+          <to uri="fbiEbtsSubscriptionManagerEndpoint" />
+        </camel:when>
+        <otherwise>
+          <log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
+        </otherwise>
+      </camel:choice>
+    </route>
+
+    <camel:route id="processFbiUnsubscribeRoute">
+
+      <from uri="direct:processFbiUnsubscription" />
+      <camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n" />
+
+      <camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace" />
+      <camel:setHeader name="operationNamespace">
+        <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
+      </camel:setHeader>
+
+      <camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />
+
+    </camel:route>
+    <camel:route id="processFbiValidationUpdate">
+
+      <from uri="direct:processFbiValidationUpdate" />
+      <to uri="bean:fbiSubscriptionProcessor?method=buildValidationModifyMessage" />
+
+      <camel:log message="\nCalling fbi ebts service to modify the FBI subscription from FBI... \n" />
+
+      <camel:removeHeaders pattern="*" />
+      <camel:setHeader name="operationNamespace">
+        <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
+      </camel:setHeader>
+      <camel:setHeader name="operationName">
+        <constant>Modify</constant>
+      </camel:setHeader>
+
+      <camel:to uri="direct:sentToFbiEbtsAdapter" />
+
+    </camel:route>
+  </routeContext>
+
 </beans>
 

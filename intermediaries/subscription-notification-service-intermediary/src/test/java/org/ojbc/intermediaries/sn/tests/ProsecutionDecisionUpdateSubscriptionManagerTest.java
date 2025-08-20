@@ -23,22 +23,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -52,9 +44,12 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.ojbc.util.helper.HttpUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+
+import jakarta.annotation.Resource;
 
 @DirtiesContext
 public class ProsecutionDecisionUpdateSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
@@ -146,18 +141,9 @@ public class ProsecutionDecisionUpdateSubscriptionManagerTest extends AbstractSu
     private String invokeRequest(String fileName, String url)
     	throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
-		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Consts.UTF_8);
-		String response = callServiceViaHttp(subscriptionBody, url);
+		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, StandardCharsets.UTF_8);
+		String response = HttpUtils.post(subscriptionBody, url);
 		return response;
 	}
 		
-	private String callServiceViaHttp(String msgBody, String url) throws Exception {
-		HttpClient client = HttpClients.createDefault();
-		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(msgBody));
-		HttpResponse response = client.execute(post);
-		HttpEntity reply = response.getEntity();
-		return IOUtils.readStringFromStream(reply.getContent());
-	}
-	
 }

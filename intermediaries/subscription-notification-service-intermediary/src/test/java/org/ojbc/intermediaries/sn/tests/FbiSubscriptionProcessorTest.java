@@ -23,8 +23,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.codec.binary.Base64;
@@ -36,6 +34,8 @@ import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificationIntegrationTest {
     
