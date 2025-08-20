@@ -54,13 +54,13 @@
 
 	<bean id="subscriptionCategoryValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy"/>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
 		<property name="url" value="jdbc:h2:mem:rapback-datastore" />
 		<property name="username" value="sa" />
 	</bean>
 
-    <bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
 		<property name="username" value="sa" />
