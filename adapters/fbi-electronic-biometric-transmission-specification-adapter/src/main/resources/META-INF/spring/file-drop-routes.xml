@@ -16,149 +16,141 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
-	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
-	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
-	xmlns:fqr-doc="http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd"
+  xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+  xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:fqr-doc="http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 
-		#########################################################################################
-				File system Directories		
-		#########################################################################################
-	-->
-	<!-- alternative endpoint for testing: file system message input directory -->
-	<camel:endpoint id="inputMessageDirEndpoint" 
-		uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />			
+  <!-- ######################################################################################### File system Directories ######################################################################################### -->
+  <!-- alternative endpoint for testing: file system message input directory -->
+  <camel:endpoint id="inputMessageDirEndpoint"
+    uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
 
-	<camel:endpoint id="fbiEbtsSubscriptionManagementDirEndpoint" 
-		uri="file://{{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/error&amp;move=processed/" />			
+  <camel:endpoint id="fbiEbtsSubscriptionManagementDirEndpoint"
+    uri="file://{{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/error&amp;move=processed/" />
 
-	<!-- Test sending in sample fbi ngi response messages -->
-	<camel:endpoint id="ngiResponseTestInputDirEndpoint" 
-		uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
-				
-	<!-- Our directory to store synchronous FBI responses with 'control number' information -->
-	<camel:endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
+  <!-- Test sending in sample fbi ngi response messages -->
+  <camel:endpoint id="ngiResponseTestInputDirEndpoint"
+    uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
 
-	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
-	   
-	    <camel:route id="fileDropTimerRoute">
-	    
-	      <camel:from uri="quartz://generateSubscriptionReport?cron={{fbiEbtsAdapter.cronExpression}}" />
-	      
-	      <camel:setHeader name="subscriptionReportFilePath">
-               <camel:simple>{{fbiEbtsAdapter.staticSubscriptionReportRequest}}</camel:simple>
-           </camel:setHeader>
-           
-	      <camel:setHeader name="inputMessageFilePath">
-	           <camel:simple>{{fbiEbtsAdapter.messageDirectory}}</camel:simple>
-	       </camel:setHeader>
-	       
-	       <camel:to uri="bean:subscriptionReportFileProcessor?method=copyFileToInputDirectory" />
-	       
-	       <camel:log message="File name: ${file:name}" />
-	       
-	    </camel:route>
+  <!-- Our directory to store synchronous FBI responses with 'control number' information -->
+  <camel:endpoint id="ngiControlNumberSynchResponseDir"
+    uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse" />
 
-		<camel:route id="fbiEbtsSubscriptionManagementEndpointRoute">
-			<camel:from uri="fbiEbtsSubscriptionManagementDirEndpoint"/>
-			
-			<camel:log message="\n\n FBI EBTS Adapter received File-Drop FBI Subscription/Unsubscription inbound message \n\n" />
-			
-			<camel:to uri="xslt:xsl/SOAPWrapper.xsl"/>
-					
-			<camel:to uri="ngiUserServiceRequestEndpoint"/>
-						
-			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response: ${body} \n\n\n"/>					
-		
-		</camel:route>
+  <routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-		<!--  for testing Subscribe, Criminal History Request by dropping message into adapter input directory -->
-		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
-		
-			<camel:from uri="inputMessageDirEndpoint"/>
-			
-			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
-			
-			<camel:setHeader name="operationName">
-				<constant>Subscribe</constant>
-			</camel:setHeader>		
-		
-			<camel:choice>
-				<camel:when>
-					<camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
-				
-					<camel:setHeader name="operationName">
-						<constant>SubmitFBICriminalHistoryQueryRequest</constant>
-					</camel:setHeader>		
-					
-					<setHeader name="federatedQueryRequestGUID">
-						<simple>${bean:uuidGenerator?method=generateUUID}</simple>
-					</setHeader>
-				
-					<camel:to uri="direct:processPersonQueryRequestCriminalHistory"/>
-				</camel:when>
-				
-				<!-- This is using the FBI service spec so no transform is required. TODO: Develop OJB SSP and transform accordingly -->
-				<camel:when>
-					<camel:xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode = 'RBRPT'</camel:xpath>
-				
-					<camel:log message="Message is Report Subscription List, RBRPT"/>
-				
-					<camel:setHeader name="operationName">
-						<constant>ReportSubscriptionList</constant>
-					</camel:setHeader>		
-					
-					<camel:to uri="direct:processFbiEbtsRequest"/>
-				</camel:when>				
-				
-				<camel:otherwise>
-					<camel:to uri="direct:processFbiEbtsRequest"/>
-				</camel:otherwise>
-			</camel:choice>
-			
-			<camel:convertBodyTo type="java.lang.String"/>
-			
-			<camel:log message="FBI Response message in file drop: ${body}"/>
-		
-			<!-- Save the fbi synchronous response(control number) to a file -->
-			<camel:setHeader name="CamelFileName">
-				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
-			</camel:setHeader>
-			
-			<camel:setHeader name="fbiResponseControlNumber">
-				<camel:xpath resultType="java.lang.String">/ngi-core:NGIControlNumber</camel:xpath>												
-			</camel:setHeader>
-			
-			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
-			
-			<camel:to uri="ngiControlNumberSynchResponseDir"/>
-		</camel:route>
+    <camel:route id="fileDropTimerRoute">
 
-				
-		<route id="fbiNgiResponseTestInputRoute">
-				 
-		  <from uri="ngiResponseTestInputDirEndpoint"/>
-		  
-		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
-		  		  
-			<multicast parallelProcessing="false" >
-				<to uri="direct:processFbiNgiResponse"/>				
-				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
-			</multicast>				
-		</route>
+      <camel:from uri="quartz://generateSubscriptionReport?cron={{fbiEbtsAdapter.cronExpression}}" />
 
-	</routeContext>
-		
+      <camel:setHeader name="subscriptionReportFilePath">
+        <camel:simple>{{fbiEbtsAdapter.staticSubscriptionReportRequest}}</camel:simple>
+      </camel:setHeader>
+
+      <camel:setHeader name="inputMessageFilePath">
+        <camel:simple>{{fbiEbtsAdapter.messageDirectory}}</camel:simple>
+      </camel:setHeader>
+
+      <camel:to uri="bean:subscriptionReportFileProcessor?method=copyFileToInputDirectory" />
+
+      <camel:log message="File name: ${file:name}" />
+
+    </camel:route>
+
+    <camel:route id="fbiEbtsSubscriptionManagementEndpointRoute">
+      <camel:from uri="fbiEbtsSubscriptionManagementDirEndpoint" />
+
+      <camel:log message="\n\n FBI EBTS Adapter received File-Drop FBI Subscription/Unsubscription inbound message \n\n" />
+
+      <camel:to uri="xslt:xsl/SOAPWrapper.xsl" />
+
+      <camel:to uri="ngiUserServiceRequestEndpoint" />
+
+      <camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response: ${body} \n\n\n" />
+
+    </camel:route>
+
+    <!-- for testing Subscribe, Criminal History Request by dropping message into adapter input directory -->
+    <camel:route id="fbiEbtsInputFileSubscribeDropRoute">
+
+      <camel:from uri="inputMessageDirEndpoint" />
+
+      <camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
+
+      <camel:setHeader name="operationName">
+        <constant>Subscribe</constant>
+      </camel:setHeader>
+
+      <camel:choice>
+        <camel:when>
+          <camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
+
+          <camel:setHeader name="operationName">
+            <constant>SubmitFBICriminalHistoryQueryRequest</constant>
+          </camel:setHeader>
+
+          <setHeader name="federatedQueryRequestGUID">
+            <simple>${bean:uuidGenerator?method=generateUUID}</simple>
+          </setHeader>
+
+          <camel:to uri="direct:processPersonQueryRequestCriminalHistory" />
+        </camel:when>
+
+        <!-- This is using the FBI service spec so no transform is required. TODO: Develop OJB SSP and transform accordingly -->
+        <camel:when>
+          <camel:xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode = 'RBRPT'</camel:xpath>
+
+          <camel:log message="Message is Report Subscription List, RBRPT" />
+
+          <camel:setHeader name="operationName">
+            <constant>ReportSubscriptionList</constant>
+          </camel:setHeader>
+
+          <camel:to uri="direct:processFbiEbtsRequest" />
+        </camel:when>
+
+        <camel:otherwise>
+          <camel:to uri="direct:processFbiEbtsRequest" />
+        </camel:otherwise>
+      </camel:choice>
+
+      <camel:convertBodyTo type="java.lang.String" />
+
+      <camel:log message="FBI Response message in file drop: ${body}" />
+
+      <!-- Save the fbi synchronous response(control number) to a file -->
+      <camel:setHeader name="CamelFileName">
+        <camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
+      </camel:setHeader>
+
+      <camel:setHeader name="fbiResponseControlNumber">
+        <camel:xpath resultType="java.lang.String">/ngi-core:NGIControlNumber</camel:xpath>
+      </camel:setHeader>
+
+      <camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n" />
+
+      <camel:to uri="ngiControlNumberSynchResponseDir" />
+    </camel:route>
+
+
+    <route id="fbiNgiResponseTestInputRoute">
+
+      <from uri="ngiResponseTestInputDirEndpoint" />
+
+      <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO" />
+
+      <multicast parallelProcessing="false">
+        <to uri="direct:processFbiNgiResponse" />
+        <to uri="bean:ngiResponseProcessor?method=sendVoidResponse" />
+      </multicast>
+    </route>
+
+  </routeContext>
+
 </beans>

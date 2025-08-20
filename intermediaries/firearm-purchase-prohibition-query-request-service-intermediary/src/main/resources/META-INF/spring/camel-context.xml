@@ -19,225 +19,228 @@
 -->
 <!-- Configures the Camel Context-->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:camel="http://camel.apache.org/schema/spring"
-       xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-       xmlns:ctx="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-       xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-    <!-- needed cxf imports -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+  <!-- needed cxf imports -->
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Firearm_Purchase_Prohibition_Query_Request_Service_Intermediary" streamCache="true">
-	
-		<endpoint id="firearmsPurchaseProhibitionQueryServiceEndpoint"
-			uri="cxf:bean:firearmsPurchaseProhibitionQueryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
+  <camel:camelContext xmlns="http://camel.apache.org/schema/spring"
+    id="Firearm_Purchase_Prohibition_Query_Request_Service_Intermediary" streamCache="true">
 
-		<endpoint id="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"
-			uri="cxf:bean:firearmsPurchaseProhibitionQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
+    <endpoint id="firearmsPurchaseProhibitionQueryServiceEndpoint"
+      uri="cxf:bean:firearmsPurchaseProhibitionQueryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
 
-	    <endpoint id="firearmsPurchaseProhibitionQueryServiceAdapterEndpoint" 
-	    	uri="cxf:bean:firearmsPurchaseProhibitionQueryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false"/>
-	
-		<endpoint id="presentFirearmsPurchaseProhibitionQueryResultsEndpoint" 
-			uri="cxf:bean:presentFirearmsPurchaseProhibitionQueryResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false"/>                        
+    <endpoint id="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"
+      uri="cxf:bean:firearmsPurchaseProhibitionQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
+
+    <endpoint id="firearmsPurchaseProhibitionQueryServiceAdapterEndpoint"
+      uri="cxf:bean:firearmsPurchaseProhibitionQueryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
+
+    <endpoint id="presentFirearmsPurchaseProhibitionQueryResultsEndpoint"
+      uri="cxf:bean:presentFirearmsPurchaseProhibitionQueryResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmsPurchaseProhibitionQuery.cxflogging}&amp;allowStreaming=false" />
 
 
-		<!-- Federated Search Request Handler-->
-		<camel:route id="firearmsPurchaseProhibitionQueryServiceRoute">
-			<camel:from uri="firearmsPurchaseProhibitionQueryServiceEndpoint" />
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:firearmsPurchaseProhibitionQuery.dbAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:method ref="accessControlProcessor" method="authorize" />
-					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:otherwise>
-			</camel:choice>			
-			
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+    <!-- Federated Search Request Handler -->
+    <camel:route id="firearmsPurchaseProhibitionQueryServiceRoute">
+      <camel:from uri="firearmsPurchaseProhibitionQueryServiceEndpoint" />
 
-			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
-			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:firearmsPurchaseProhibitionQuery.dbAuditLog} == 'true'</camel:simple>
 
-			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
-			<!-- Change this XPath to match what you need -->
-			<camel:setHeader name="federatedQueryEndpointsNodeList">
-				<camel:xpath>//nc:SystemName</camel:xpath>
-			</camel:setHeader>
-			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
-									
-			<camel:setHeader name="operationName"><constant>SubmitFirearmPurchaseProhibitionQueryRequest</constant></camel:setHeader>
-			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0</constant></camel:setHeader>
-									
-			<!-- Since this is a query, we only call one endpoint -->						
-			<camel:setHeader name="adapterURI">
-				<camel:xpath resultType="java.lang.String">//nc:SystemName</camel:xpath>
-			</camel:setHeader>
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
 
-			<!-- Add the reply to address to the map using the federated query guid as the key -->
-			<camel:to 
-				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
-									
-			<!-- Call method to populate federated query map -->
-			<camel:to
-				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
-			
-			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader name="requestMessageBody">
-				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
 
-			</camel:setHeader>
+      <camel:choice>
+        <camel:when>
+          <camel:method ref="accessControlProcessor" method="authorize" />
+          <camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:otherwise>
+      </camel:choice>
 
-			<!-- This wiretap will start the message timer. -->
-			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
+      <!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:log message="Timer started"/>
+      <!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+      <camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage" />
 
-			<camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>//nc:SystemName</camel:xpath>
-				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
-				
-				<camel:recipientList>
-					<camel:header>webServiceEndpointToCall</camel:header>
-				</camel:recipientList>
-				
-			</camel:split>
+      <!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+      <!-- Change this XPath to match what you need -->
+      <camel:setHeader name="federatedQueryEndpointsNodeList">
+        <camel:xpath>//nc:SystemName</camel:xpath>
+      </camel:setHeader>
+      <camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 
-		</camel:route>			
-				      
-		<camel:route>
-			<from uri="direct:startFederatedQueryTimer"/>
-			<setBody>
-				<constant>START_QUERY_TIMER</constant>
-			</setBody>
-			<camel:to uri="direct:aggregateFederatedQuery" />		
-		</camel:route>
-	
-		<!--  Results Handler Route -->
-		<camel:route>
-			<camel:from uri="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"/>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:firearmsPurchaseProhibitionQuery.dbAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			<camel:log message="Entering Person Query Results Handler Firearms Prohibition"></camel:log>
-			<camel:setHeader name="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0}Firearm-Purchase-Prohibition-Query-Results</constant>
-			</camel:setHeader>
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
-			<camel:log message="Calling Aggregator" />
-			<camel:to uri="direct:aggregateFederatedQuery" />
-		</camel:route>
-	
-	    <camel:route>
-	      <from uri="direct:aggregateFederatedQuery" />
-			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate aggregationStrategy="groupedExchangeAggregationStrategy"  eagerCheckCompletion="true">
-				<correlationExpression>
-					<camel:header>federatedQueryRequestGUID</camel:header>
-				</correlationExpression>
-				<completionTimeoutExpression>
-					<camel:simple>${properties:firearmsPurchaseProhibitionQuery.federatedQueryTimeout}</camel:simple>
-				</completionTimeoutExpression>
-				<completionSizeExpression>
-					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSizeExpression>
-				<log
-					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{firearmsPurchaseProhibitionQuery.federatedQueryTimeout}}"></log>
-				<to
-					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+      <camel:setHeader name="operationName">
+        <constant>SubmitFirearmPurchaseProhibitionQueryRequest</constant>
+      </camel:setHeader>
+      <camel:setHeader name="operationNamespace">
+        <constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0</constant>
+      </camel:setHeader>
 
-				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
-				
-				<camel:to uri="direct:processFederatedResponse"/>
+      <!-- Since this is a query, we only call one endpoint -->
+      <camel:setHeader name="adapterURI">
+        <camel:xpath resultType="java.lang.String">//nc:SystemName</camel:xpath>
+      </camel:setHeader>
 
-			</aggregate>
-	      
-	    </camel:route>
-	    
-	    <!-- Process aggregated federated responses here -->
-		<camel:route>
-			<camel:from uri="direct:processFederatedResponse"/>
-				
-			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
-			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
-			
-			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+      <!-- Add the reply to address to the map using the federated query guid as the key -->
+      <camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress" />
 
-			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
-			
-			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
-				
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
-			
-			        <camel:setHeader name="operationName">
-			            <constant>SubmitFirearmPurchaseProhibitionQueryResults</constant>
-			        </camel:setHeader>
-			        <camel:setHeader name="operationNamespace">
-			            <constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0</constant>
-			        </camel:setHeader>
-					
-					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-					
-					<camel:log message="About to send firearms prohibition query response message to ${in.headers.recipientListReplyToEndpoint}" />			
-								
-					<camel:recipientList>
-						<camel:header>recipientListReplyToEndpoint</camel:header>
-					</camel:recipientList>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
-				</camel:otherwise>		
-			</camel:choice>	
+      <!-- Call method to populate federated query map -->
+      <camel:to uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 
-		</camel:route>
-	    
-	    
-	</camel:camelContext>
-  
-	<!-- Spring Beans -->
-	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+      <!-- Set search request as message body header. We will split on the source system name and will need the original request -->
+      <camel:setHeader name="requestMessageBody">
+        <camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 
-	
+      </camel:setHeader>
+
+      <!-- This wiretap will start the message timer. -->
+      <camel:wireTap uri="direct:startFederatedQueryTimer" />
+
+      <camel:log message="Timer started" />
+
+      <camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
+        <camel:xpath>//nc:SystemName</camel:xpath>
+        <camel:log
+          message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"
+          loggingLevel="DEBUG" />
+
+        <camel:recipientList>
+          <camel:header>webServiceEndpointToCall</camel:header>
+        </camel:recipientList>
+
+      </camel:split>
+
+    </camel:route>
+
+    <camel:route>
+      <from uri="direct:startFederatedQueryTimer" />
+      <setBody>
+        <constant>START_QUERY_TIMER</constant>
+      </setBody>
+      <camel:to uri="direct:aggregateFederatedQuery" />
+    </camel:route>
+
+    <!-- Results Handler Route -->
+    <camel:route>
+      <camel:from uri="firearmsPurchaseProhibitionQueryResultsServiceEndpoint" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:firearmsPurchaseProhibitionQuery.dbAuditLog} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:log message="Entering Person Query Results Handler Firearms Prohibition"></camel:log>
+      <camel:setHeader name="searchProfile">
+        <constant>{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0}Firearm-Purchase-Prohibition-Query-Results</constant>
+      </camel:setHeader>
+      <camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+      <camel:log message="Calling Aggregator" />
+      <camel:to uri="direct:aggregateFederatedQuery" />
+    </camel:route>
+
+    <camel:route>
+      <from uri="direct:aggregateFederatedQuery" />
+      <log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}" />
+      <aggregate aggregationStrategy="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
+        <correlationExpression>
+          <camel:header>federatedQueryRequestGUID</camel:header>
+        </correlationExpression>
+        <completionTimeoutExpression>
+          <camel:simple>${properties:firearmsPurchaseProhibitionQuery.federatedQueryTimeout}</camel:simple>
+        </completionTimeoutExpression>
+        <completionSizeExpression>
+          <header>federatedQueryNumberOfEndpointsRequested</header>
+        </completionSizeExpression>
+        <log
+          message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{firearmsPurchaseProhibitionQuery.federatedQueryTimeout}}"></log>
+        <to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+
+        <log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG" />
+
+        <camel:to uri="direct:processFederatedResponse" />
+
+      </aggregate>
+
+    </camel:route>
+
+    <!-- Process aggregated federated responses here -->
+    <camel:route>
+      <camel:from uri="direct:processFederatedResponse" />
+
+      <!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+      <camel:setBody>
+        <xpath>/OJBAggregateResponseWrapper/*[1]</xpath>
+      </camel:setBody>
+
+      <camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress" />
+
+      <camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress" />
+
+      <camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple>
+
+          <camel:setHeader name="operationName">
+            <constant>SubmitFirearmPurchaseProhibitionQueryResults</constant>
+          </camel:setHeader>
+          <camel:setHeader name="operationNamespace">
+            <constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0</constant>
+          </camel:setHeader>
+
+          <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+          <camel:log message="About to send firearms prohibition query response message to ${in.headers.recipientListReplyToEndpoint}" />
+
+          <camel:recipientList>
+            <camel:header>recipientListReplyToEndpoint</camel:header>
+          </camel:recipientList>
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}" />
+        </camel:otherwise>
+      </camel:choice>
+
+    </camel:route>
+
+
+  </camel:camelContext>
+
+  <!-- Spring Beans -->
+  <util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+
+
 </beans>

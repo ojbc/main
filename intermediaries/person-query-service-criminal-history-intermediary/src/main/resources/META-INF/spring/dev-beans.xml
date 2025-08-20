@@ -17,15 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xmlns:camel="http://camel.apache.org/schema/spring"
-    xmlns:policy="http://cxf.apache.org/policy"
-	xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:policy="http://cxf.apache.org/policy"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
@@ -34,69 +30,78 @@
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        "
-       profile="dev">
-       
-            <camel:endpoint id="presentPersonQueryResultsCchCriminalHistoryServiceEndpoint" 
-            uri="cxf:bean:presentPersonQueryResultsCchCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
-       
-		    <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically-->
-		    <cxf:cxfEndpoint id="presentPersonQueryResultsCchCriminalHistoryService"
-		        address="${federatedQuery.criminalHistory.presentPersonQueryCchResultsEndpoint}"
-		        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
-		        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
-		        endpointName="ojbc:Criminal-History-Query-Results-Service"
-		        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
-		     >
-		        <cxf:features>
-		          <policy:policies>
-		            <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-		              <wsam:Addressing>
-		                <wsp:Policy/>
-		              </wsam:Addressing>
-		            </wsp:Policy>
-		           </policy:policies>
-		        </cxf:features>
-		    </cxf:cxfEndpoint>
+  profile="dev">
 
-	
-			<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-	
-			<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
-				<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
-			</bean>		
+  <camel:endpoint id="presentPersonQueryResultsCchCriminalHistoryServiceEndpoint"
+    uri="cxf:bean:presentPersonQueryResultsCchCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
-			<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
+  <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically -->
+  <cxf:cxfEndpoint id="presentPersonQueryResultsCchCriminalHistoryService"
+    address="${federatedQuery.criminalHistory.presentPersonQueryCchResultsEndpoint}"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-Results-ServiceService" endpointName="ojbc:Criminal-History-Query-Results-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0">
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
 
-			<bean id="personQueryCriminalHistoryResponseSQLProcessor" class="org.ojbc.audit.enhanced.processor.PersonQueryCriminalHistoryResponseNullObjectProcessor"/>
 
-			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
-				<property name="username" value="sa" />
-			</bean>
-	
-			<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
-		        <entry key="${federatedQuery.criminalHistory.presentPersonQueryResultsEndpoint}" value="presentPersonQueryResultsCriminalHistoryServiceEndpoint"/>
-		        <entry key="${federatedQuery.criminalHistory.presentPersonQueryCchResultsEndpoint}" value="presentPersonQueryResultsCchCriminalHistoryServiceEndpoint"/>
-		  	</util:map>
-	
-			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
-				<property name="federatedQueryEndpointMap">
-					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History" value="personQueryRequestCriminalHistoryServiceAdapterEndpoint" />
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---CCH-Criminal-History" value="personQueryRequestCriminalHistoryServiceAdapterEndpoint" />
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History" value="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" />
-					</util:map>	
-				</property>
+  <bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 
-				<property name="adapterURItoAddressMap">
-					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History" value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---CCH-Criminal-History" value="${federatedQuery.criminalHistory.personQueryCchCriminalHistoryEndpoint}" />
-						
-						<!-- TODO: update static mock to provide a system to system endpoint -->
-						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History" value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
-					</util:map>	
-				</property>
-		  	</bean>
+  <bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+    <property name="userInfoProcessor" ref="userInfoNullObjectProcessor" />
+  </bean>
+
+  <bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor" />
+
+  <bean id="personQueryCriminalHistoryResponseSQLProcessor"
+    class="org.ojbc.audit.enhanced.processor.PersonQueryCriminalHistoryResponseNullObjectProcessor" />
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+    <property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
+    <property name="username" value="sa" />
+  </bean>
+
+  <util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
+    <entry key="${federatedQuery.criminalHistory.presentPersonQueryResultsEndpoint}"
+      value="presentPersonQueryResultsCriminalHistoryServiceEndpoint" />
+    <entry key="${federatedQuery.criminalHistory.presentPersonQueryCchResultsEndpoint}"
+      value="presentPersonQueryResultsCchCriminalHistoryServiceEndpoint" />
+  </util:map>
+
+  <bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+    <property name="federatedQueryEndpointMap">
+      <util:map>
+        <entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History"
+          value="personQueryRequestCriminalHistoryServiceAdapterEndpoint" />
+        <entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---CCH-Criminal-History"
+          value="personQueryRequestCriminalHistoryServiceAdapterEndpoint" />
+        <entry
+          key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History"
+          value="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" />
+      </util:map>
+    </property>
+
+    <property name="adapterURItoAddressMap">
+      <util:map>
+        <entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History"
+          value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---CCH-Criminal-History"
+          value="${federatedQuery.criminalHistory.personQueryCchCriminalHistoryEndpoint}" />
+
+        <!-- TODO: update static mock to provide a system to system endpoint -->
+        <entry
+          key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History"
+          value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
+      </util:map>
+    </property>
+  </bean>
 </beans>

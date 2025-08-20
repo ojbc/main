@@ -33,236 +33,242 @@
   <!-- needed cxf imports -->
   <import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Incident_Report_Request_Service_Intermediary" streamCache="true">
-	
-		<endpoint id="incidentReportRequestFederatedServiceEndpoint"
-			uri="cxf:bean:incidentReportRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}" />
+  <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Incident_Report_Request_Service_Intermediary"
+    streamCache="true">
 
-		<endpoint id="incidentReportResultsFederatedServiceEndpoint"
-			uri="cxf:bean:incidentReportResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+    <endpoint id="incidentReportRequestFederatedServiceEndpoint"
+      uri="cxf:bean:incidentReportRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}" />
 
-	    <endpoint id="incidentReportRequestFederatedServiceAdapterEndpoint" 
-			uri="cxf:bean:incidentReportRequestFederatedServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}" />
-	
-		<endpoint id="presentIncidentReportResultsServiceEndpoint" 
-			uri="cxf:bean:presentIncidentReportResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+    <endpoint id="incidentReportResultsFederatedServiceEndpoint"
+      uri="cxf:bean:incidentReportResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
+
+    <endpoint id="incidentReportRequestFederatedServiceAdapterEndpoint"
+      uri="cxf:bean:incidentReportRequestFederatedServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}" />
+
+    <endpoint id="presentIncidentReportResultsServiceEndpoint"
+      uri="cxf:bean:presentIncidentReportResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.incidentReport.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 
-		<!-- Federated Search Request Handler-->
-		<camel:route>
-			<camel:from uri="incidentReportRequestFederatedServiceEndpoint" />
-			
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>			
-			
-			<camel:choice>
-				<camel:when>
-					<camel:method ref="accessControlProcessor" method="authorize" />
-					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
-				</camel:otherwise>
-			</camel:choice>			
-			
-			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
-			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+    <!-- Federated Search Request Handler -->
+    <camel:route>
+      <camel:from uri="incidentReportRequestFederatedServiceEndpoint" />
 
-			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
-			<!-- Change this XPath to match what you need -->
-			<camel:setHeader name="federatedQueryEndpointsNodeList">
-				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
-			</camel:setHeader>
-			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
-									
-			<camel:setHeader name="operationName"><constant>SubmitIncidentIdentiferIncidentReportRequest</constant></camel:setHeader>
-			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0</constant></camel:setHeader>
-									
-			<!-- Since this is a query, we only call one endpoint -->						
-			<camel:setHeader name="adapterURI">
-				<camel:xpath resultType="java.lang.String">//ext:SourceSystemNameText</camel:xpath>
-			</camel:setHeader>
+      <!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<!-- Add the reply to address to the map using the federated query guid as the key -->
-			<camel:to 
-				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
 
-			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list)-->
-			<camel:to
-				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
-				
-			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader name="requestMessageBody">
-				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
 
-			</camel:setHeader>
-			
-			<!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
-			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
 
-			<camel:log message="Timer started"/>
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
 
-			<camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
-				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
-				
-				<camel:recipientList>
-					<camel:header>webServiceEndpointToCall</camel:header>
-				</camel:recipientList>
-				
-			</camel:split>
+          <camel:doTry>
+            <camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest" />
 
-		</camel:route>			
-				      
-		<camel:route>
-			<from uri="direct:startFederatedQueryTimer"/>
-			<setBody>
-				<constant>START_QUERY_TIMER</constant>
-			</setBody>
-			<camel:to uri="direct:aggregateFederatedQuery" />		
-		</camel:route>
-		
-		<!-- Incident Results Handler Route -->
-		<camel:route>
-			<camel:from	uri="incidentReportResultsFederatedServiceEndpoint" />
-			
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
-				
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:incidentReportQueryResponseSQLProcessor?method=auditIncidentReportQueryResponseResponse"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>		
-							
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			<camel:log message="Entering Incident Report Results Handler"></camel:log>
-			<camel:setHeader name="searchProfile">
-					<camel:constant>{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS</camel:constant>
-			</camel:setHeader>
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
-			<camel:log message="Calling Aggregator" />
-			<camel:to uri="direct:aggregateFederatedQuery" />
-		</camel:route>
-		<camel:route>
-			<from uri="direct:aggregateFederatedQuery" />
-			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate aggregationStrategy="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
-				<correlationExpression>
-					<camel:header>federatedQueryRequestGUID</camel:header>
-				</correlationExpression>
-				<completionTimeoutExpression>
-					<camel:simple>${properties:personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
-				</completionTimeoutExpression>
-				<completionSizeExpression>
-					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSizeExpression>
-				<log
-					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}}"></log>
-				<to
-					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
 
-				<log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG"/>
-				
-				<camel:to uri="direct:processFederatedResponse"/>
+      <camel:choice>
+        <camel:when>
+          <camel:method ref="accessControlProcessor" method="authorize" />
+          <camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}" />
+        </camel:otherwise>
+      </camel:choice>
 
-			</aggregate>
-	      
-	    </camel:route>
-	    
-	    <!-- Process aggregated federated responses here -->
-		<camel:route>
-			<camel:from uri="direct:processFederatedResponse"/>
-				
-			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
-			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
-			
-			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+      <!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+      <camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage" />
 
-			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
-			
-			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
-				
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
-					
-					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-					
-			        <camel:setHeader name="operationName">
-			            <constant>ReportIncident</constant>
-			        </camel:setHeader>
-			        <camel:setHeader name="operationNamespace">
-			            <constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
-			        </camel:setHeader>
+      <!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+      <!-- Change this XPath to match what you need -->
+      <camel:setHeader name="federatedQueryEndpointsNodeList">
+        <camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+      </camel:setHeader>
+      <camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 
-					<camel:log message="About to send incident report response message to ${in.headers.recipientListReplyToEndpoint}" />			
-								
-					<camel:recipientList>
-						<camel:header>recipientListReplyToEndpoint</camel:header>
-					</camel:recipientList>
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
-				</camel:otherwise>		
-			</camel:choice>				
-			
-		</camel:route>
-	</camel:camelContext>
-  
-	<!-- Spring Beans -->
-	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+      <camel:setHeader name="operationName">
+        <constant>SubmitIncidentIdentiferIncidentReportRequest</constant>
+      </camel:setHeader>
+      <camel:setHeader name="operationNamespace">
+        <constant>http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0</constant>
+      </camel:setHeader>
+
+      <!-- Since this is a query, we only call one endpoint -->
+      <camel:setHeader name="adapterURI">
+        <camel:xpath resultType="java.lang.String">//ext:SourceSystemNameText</camel:xpath>
+      </camel:setHeader>
+
+      <!-- Add the reply to address to the map using the federated query guid as the key -->
+      <camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress" />
+
+      <!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list) -->
+      <camel:to uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+
+      <!-- Set search request as message body header. We will split on the source system name and will need the original request -->
+      <camel:setHeader name="requestMessageBody">
+        <camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+
+      </camel:setHeader>
+
+      <!-- This wiretap will start the message timer. There were anamolies with having it as part of the Recipient List -->
+      <camel:wireTap uri="direct:startFederatedQueryTimer" />
+
+      <camel:log message="Timer started" />
+
+      <camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
+        <camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+        <camel:log
+          message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"
+          loggingLevel="DEBUG" />
+
+        <camel:recipientList>
+          <camel:header>webServiceEndpointToCall</camel:header>
+        </camel:recipientList>
+
+      </camel:split>
+
+    </camel:route>
+
+    <camel:route>
+      <from uri="direct:startFederatedQueryTimer" />
+      <setBody>
+        <constant>START_QUERY_TIMER</constant>
+      </setBody>
+      <camel:to uri="direct:aggregateFederatedQuery" />
+    </camel:route>
+
+    <!-- Incident Results Handler Route -->
+    <camel:route>
+      <camel:from uri="incidentReportResultsFederatedServiceEndpoint" />
+
+      <camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:incidentReportQueryResponseSQLProcessor?method=auditIncidentReportQueryResponseResponse" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>
+
+          <camel:doTry>
+            <camel:to uri="bean:sqlLoggingProcessor?method=logExchange" />
+
+            <doCatch>
+              <exception>java.lang.Exception</exception>
+              <camel:log message="logging returned exception, handling and continuing: ${exception.message}" />
+            </doCatch>
+          </camel:doTry>
+        </camel:when>
+      </camel:choice>
+
+      <camel:log message="Entering Incident Report Results Handler"></camel:log>
+      <camel:setHeader name="searchProfile">
+        <camel:constant>{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-DPS</camel:constant>
+      </camel:setHeader>
+      <camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+      <camel:log message="Calling Aggregator" />
+      <camel:to uri="direct:aggregateFederatedQuery" />
+    </camel:route>
+    <camel:route>
+      <from uri="direct:aggregateFederatedQuery" />
+      <log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}" />
+      <aggregate aggregationStrategy="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
+        <correlationExpression>
+          <camel:header>federatedQueryRequestGUID</camel:header>
+        </correlationExpression>
+        <completionTimeoutExpression>
+          <camel:simple>${properties:personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
+        </completionTimeoutExpression>
+        <completionSizeExpression>
+          <header>federatedQueryNumberOfEndpointsRequested</header>
+        </completionSizeExpression>
+        <log
+          message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.incidentReport.personQueryIntermediaryFederatedQueryTimeout}}"></log>
+        <to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+
+        <log message="This is the completed aggregated body: ${body}" loggingLevel="DEBUG" />
+
+        <camel:to uri="direct:processFederatedResponse" />
+
+      </aggregate>
+
+    </camel:route>
+
+    <!-- Process aggregated federated responses here -->
+    <camel:route>
+      <camel:from uri="direct:processFederatedResponse" />
+
+      <!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+      <camel:setBody>
+        <xpath>/OJBAggregateResponseWrapper/*[1]</xpath>
+      </camel:setBody>
+
+      <camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress" />
+
+      <camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress" />
+
+      <camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple>
+
+          <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+          <camel:setHeader name="operationName">
+            <constant>ReportIncident</constant>
+          </camel:setHeader>
+          <camel:setHeader name="operationNamespace">
+            <constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+          </camel:setHeader>
+
+          <camel:log message="About to send incident report response message to ${in.headers.recipientListReplyToEndpoint}" />
+
+          <camel:recipientList>
+            <camel:header>recipientListReplyToEndpoint</camel:header>
+          </camel:recipientList>
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}" />
+        </camel:otherwise>
+      </camel:choice>
+
+    </camel:route>
+  </camel:camelContext>
+
+  <!-- Spring Beans -->
+  <util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
 </beans>

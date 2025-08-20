@@ -19,38 +19,35 @@
 -->
 <!-- Configures the DAO beans-->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" init-method="createDataSource">
-		<property name="driverClassName" value="${fbiEbtsAdapter.dataSource.driverClass}" />
-		<property name="url" value="${fbiEbtsAdapter.dataSource.jdbcUrl}" />
-		<property name="username" value="${fbiEbtsAdapter.dataSource.user}" />
-		<property name="password" value="${fbiEbtsAdapter.dataSource.password}" />
-		<property name="initialSize" value="${fbiEbtsAdapter.dataSource.minPoolSize}" />
-		<property name="maxTotal" value="${fbiEbtsAdapter.dataSource.maxPoolSize}" />
-		<property name="validationQuery" value="select 1" />
-		<property name="testOnBorrow" value="true" />
-	</bean>
-		
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
-	<bean id="namedParameterJdbcTemplate" 
-      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
+  <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" init-method="createDataSource">
+    <property name="driverClassName" value="${fbiEbtsAdapter.dataSource.driverClass}" />
+    <property name="url" value="${fbiEbtsAdapter.dataSource.jdbcUrl}" />
+    <property name="username" value="${fbiEbtsAdapter.dataSource.user}" />
+    <property name="password" value="${fbiEbtsAdapter.dataSource.password}" />
+    <property name="initialSize" value="${fbiEbtsAdapter.dataSource.minPoolSize}" />
+    <property name="maxTotal" value="${fbiEbtsAdapter.dataSource.maxPoolSize}" />
+    <property name="validationQuery" value="select 1" />
+    <property name="testOnBorrow" value="true" />
+  </bean>
 
-	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
-		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
-	</bean>
-	
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <constructor-arg ref="dataSource" />
+  </bean>
+
+  <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+    <constructor-arg ref="dataSource" />
+  </bean>
+
+  <bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
+    <property name="jdbcTemplate" ref="jdbcTemplate" />
+    <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate" />
+  </bean>
+
 </beans>

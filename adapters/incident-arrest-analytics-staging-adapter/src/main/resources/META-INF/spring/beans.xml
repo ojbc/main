@@ -17,51 +17,49 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	   
-	   <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedPersonIdentifierStrategy"  destroy-method="destroy">
-		<constructor-arg name="indexDirectoryPath" value="${analyticsAdapter.luceneDirectory}"/>
-		<constructor-arg name="indexBackupRoot" value="${analyticsAdapter.luceneBackupDirectory}"/>
-	</bean>
-	
-	<bean id ="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>
 
-	<bean id ="dispositionReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.DispositionReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>
-		
-	<bean id ="pretrialEnrollmentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>	
-	
-	<bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-	</bean>
-	<bean id="codeTableDAO" class="org.ojbc.adapters.analyticaldatastore.dao.CodeTableDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-	</bean>
-	
-	<bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService">
-		<constructor-arg ref="codeTableDAO"></constructor-arg>
-	</bean>
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+  <bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedPersonIdentifierStrategy"
+    destroy-method="destroy">
+    <constructor-arg name="indexDirectoryPath" value="${analyticsAdapter.luceneDirectory}" />
+    <constructor-arg name="indexBackupRoot" value="${analyticsAdapter.luceneBackupDirectory}" />
+  </bean>
+
+  <bean id="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">
+    <property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy" />
+    <property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl" />
+    <property name="descriptionCodeLookupService" ref="descriptionCodeLookupService" />
+  </bean>
+
+  <bean id="dispositionReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.DispositionReportProcessor">
+    <property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy" />
+    <property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl" />
+    <property name="descriptionCodeLookupService" ref="descriptionCodeLookupService" />
+  </bean>
+
+  <bean id="pretrialEnrollmentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor">
+    <property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy" />
+    <property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl" />
+    <property name="descriptionCodeLookupService" ref="descriptionCodeLookupService" />
+  </bean>
+
+  <bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  <bean id="codeTableDAO" class="org.ojbc.adapters.analyticaldatastore.dao.CodeTableDAOImpl">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService">
+    <constructor-arg ref="codeTableDAO"></constructor-arg>
+  </bean>
 </beans>

@@ -17,16 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-    xmlns:policy="http://cxf.apache.org/policy"
-    xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-    xmlns:sec="http://cxf.apache.org/configuration/security"
-    xmlns:http="http://cxf.apache.org/transports/http/configuration"
-    xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+  xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xsi:schemaLocation="
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
     http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
@@ -38,57 +33,52 @@
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
 
-	<cxf:cxfEndpoint id="pretrialEnrollmentRequestAdapter"
-		address="${analyticsAdapter.pretrialEnrollmentRequestAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Pretrial_Service_Enrollment_Reporting/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
-		serviceName="ojbc:Pretrial-Service-Enrollment-Reporting-ServiceService" endpointName="ojbc:Pretrial-Service-Enrollment-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
-		</cxf:properties> 
-	</cxf:cxfEndpoint>
+  <cxf:cxfEndpoint id="pretrialEnrollmentRequestAdapter" address="${analyticsAdapter.pretrialEnrollmentRequestAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Pretrial_Service_Enrollment_Reporting/schemas/SIP_WS_1.3/Pretrial_Service_Enrollment_Reporting_Service.wsdl"
+    serviceName="ojbc:Pretrial-Service-Enrollment-Reporting-ServiceService" endpointName="ojbc:Pretrial-Service-Enrollment-Reporting-Secure-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/PretrialServiceEnrollmentReportingService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<cxf:cxfEndpoint id="dispositionReportingServiceAdapter"
-		address="${analyticsAdapter.dispositionServiceAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Disposition_Reporting/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
-		serviceName="ojbc:Disposition-Reporting-ServiceService" 
-		endpointName="ojbc:Disposition-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	<cxf:cxfEndpoint id="incidentReportingServiceAdapter"
-		address="${incidentReportingService.incidentReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
- 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
-		</cxf:properties> 
-	</cxf:cxfEndpoint>	
+  <cxf:cxfEndpoint id="dispositionReportingServiceAdapter" address="${analyticsAdapter.dispositionServiceAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Disposition_Reporting/schemas/SIP_WS_1.3/Disposition_Reporting_Service.wsdl"
+    serviceName="ojbc:Disposition-Reporting-ServiceService" endpointName="ojbc:Disposition-Reporting-Secure-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${analyticsAdapter.keystoreCertificateAlias}" value="${analyticsAdapter.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
-   
-	<util:properties id="analyticsAdapterKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${analyticsAdapter.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${analyticsAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${analyticsAdapter.keystoreLocation}</prop>
-	</util:properties>	
+  <cxf:cxfEndpoint id="incidentReportingServiceAdapter" address="${incidentReportingService.incidentReportingServiceEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="analyticsAdapterKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${analyticsAdapter.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${analyticsAdapter.keystoreCertificateAlias}" value="${analyticsAdapter.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <util:properties id="analyticsAdapterKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${analyticsAdapter.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${analyticsAdapter.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${analyticsAdapter.keystoreLocation}</prop>
+  </util:properties>	
       
 </beans>

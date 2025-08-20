@@ -19,28 +19,24 @@
 -->
 <!-- Configures the Camel Context -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" 
-	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
-	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
-	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
-	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"	
-	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
-	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
-	xmlns:chrestoration-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
-	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
-	xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
-	xmlns:cdrs-update-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+  xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+  xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+  xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+  xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+  xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+  xmlns:chrestoration-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
+  xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
+  xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
+  xmlns:cdrs-update-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd">
-       
-	<!-- needed cxf imports -->
+
+  <!-- needed cxf imports -->
   <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 
     <camel:endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
@@ -305,7 +301,7 @@
     </camel:route>
 
   </camel:camelContext>
-		
+
 </beans>
 
 

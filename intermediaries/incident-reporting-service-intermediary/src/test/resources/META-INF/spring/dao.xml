@@ -17,26 +17,25 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        ">
 
-	<!-- DAO beans -->
-	<bean id="incidentReportingDao" class="org.ojbc.incidentReporting.dao.IncidentReportingDaoImpl">
-		<property name="dataSource" ref="incidentReportingStateCacheDataSource" />
-	</bean>
+  <!-- DAO beans -->
+  <bean id="incidentReportingDao" class="org.ojbc.incidentReporting.dao.IncidentReportingDaoImpl">
+    <property name="dataSource" ref="incidentReportingStateCacheDataSource" />
+  </bean>
 
-	<bean id="incidentReportPersonInvolvementProcessor" class="org.ojbc.incidentReporting.dao.IncidentReportPersonInvolvementProcessor">
-		<property name="incidentReportingDao" ref="incidentReportingDao" />
-	</bean>
+  <bean id="incidentReportPersonInvolvementProcessor" class="org.ojbc.incidentReporting.dao.IncidentReportPersonInvolvementProcessor">
+    <property name="incidentReportingDao" ref="incidentReportingDao" />
+  </bean>
 
-	<bean id="arrestReportProcessor" class="org.ojbc.incidentReporting.dao.ArrestReportProcessor">
-		<property name="incidentReportingDao" ref="incidentReportingDao" />
-	</bean>
+  <bean id="arrestReportProcessor" class="org.ojbc.incidentReporting.dao.ArrestReportProcessor">
+    <property name="incidentReportingDao" ref="incidentReportingDao" />
+  </bean>
 </beans>

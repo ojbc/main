@@ -212,5 +212,5 @@
       </sec:cipherSuitesFilter>
     </http:tlsClientParameters>
     <http:client AutoRedirect="true" Connection="Keep-Alive" AllowChunking="false" />
-  </http:conduit>	
+  </http:conduit>
 </beans>
