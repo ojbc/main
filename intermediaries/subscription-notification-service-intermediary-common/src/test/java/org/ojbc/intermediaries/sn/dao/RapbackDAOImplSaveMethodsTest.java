@@ -86,7 +86,7 @@ public class RapbackDAOImplSaveMethodsTest {
 		assertEquals("rapsheet", rapsheetContent);
 		
 		Integer rowsDeleted = rapbackDao.deleteSubsequentResults(subsequentResults);
-		assertEquals(new Integer(1), rowsDeleted);
+		assertEquals(1, rowsDeleted);
 	}
 
 }

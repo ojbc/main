@@ -202,7 +202,7 @@ public class SubscriptionSearchQueryDAO {
         parameters.addValue("subscriptionOwner", subscriptionOwner);
         parameters.addValue("civilSubscriptionCategoryCodes", SubscriptionCategoryCode.getCivilCodes());
 
-        String sqlQuery = BASE_QUERY_STRING + " and so.FEDERATION_ID=:subscriptionOwner and s.active =1 "
+        String sqlQuery = BASE_QUERY_STRING + " and so.FEDERATION_ID=:subscriptionOwner and s.active = true "
         		+ "and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
 
         List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
@@ -223,10 +223,10 @@ public class SubscriptionSearchQueryDAO {
     	
     	//TODO: Make query by state
     	if(useLastMatchDate) {
-    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and (IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1 or DATEDIFF(s.last_match_date, NOW()) < -30)";
+    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active = true and (IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1 or DATEDIFF(s.last_match_date, NOW()) < -30)";
     	}
     	else {
-    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active=1 and IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1";
+    		 sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.state = :state and s.active = true and IFNULL(DATEDIFF(s.last_match_date, NOW()), 1)=1";
     	}
     	List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
     	
@@ -261,7 +261,7 @@ public class SubscriptionSearchQueryDAO {
 
         String sqlQuery = "select count(*) from rapback_datastore.subscription s, "
         		+ "rapback_datastore.subscription_owner so "
-        		+ "where so.federation_id= :subscriptionOwner and active =1 "
+        		+ "where so.federation_id= :subscriptionOwner and active = true "
         		+ " and s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID "
         		+ " and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
 
@@ -314,7 +314,7 @@ public class SubscriptionSearchQueryDAO {
                 + " FROM subscription s, notification_mechanism nm, rapback_datastore.subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
                 + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id "
-                + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ? and s.active=1";
+                + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ? and s.active=true";
 		
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);
         
@@ -405,7 +405,7 @@ public class SubscriptionSearchQueryDAO {
             DATE_FORMATTER_YYYY_MM_DD.print(eventDate), notificationCompareDateString, notificationCompareDateString, notificationCompareDateString, notificationRequest.getTopic()
         };
 
-        String queryString = BASE_QUERY_STRING + " and s.startDate <=? and ((s.startDate <=? and s.endDate >?) or (s.startDate <=? and s.endDate is null)) and s.topic=? and active=1 and ";
+        String queryString = BASE_QUERY_STRING + " and s.startDate <=? and ((s.startDate <=? and s.endDate >?) or (s.startDate <=? and s.endDate is null)) and s.topic=? and active = true and ";
         queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierValue='*') "
         		+ "and s.id in (select subscriptionId from rapback_datastore.subscription_properties where propertyName='OffenderID'))");
 
@@ -697,7 +697,7 @@ public class SubscriptionSearchQueryDAO {
 			java.util.Date lastValidationDate, String fullyQualifiedTopic,
 			long subscriptionID, Integer subscriptionOwnerFk) {
 		this.jdbcTemplate.update("update rapback_datastore.subscription "
-				+ "set validationDueDate=?, topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? "
+				+ "set validationDueDate=?, topic=?, startDate=?, endDate=?, subjectName=?, active = true, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? "
 				+ "where id=?", new Object[] {
 				validationDueDate, fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), lastValidationDate, subscriptionOwnerFk, subscriptionID
 		});
@@ -1010,7 +1010,7 @@ public class SubscriptionSearchQueryDAO {
             Object[] criteriaArray = new Object[] {
                 fullyQualifiedTopic, subscriptionSystemId
             };
-            String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.id=? and s.active != 0";
+            String queryString = "update rapback_datastore.subscription s set s.active=false where s.topic=? and s.id=? and s.active != false";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
 
             log.debug("fbiSubscriptionMember? " + BooleanUtils.toStringTrueFalse(fbiSubscriptionMember));
@@ -1028,7 +1028,7 @@ public class SubscriptionSearchQueryDAO {
                 fullyQualifiedTopic, systemName
             };
             criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIds));
-            String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and"
+            String queryString = "update rapback_datastore.subscription s set s.active=false where s.topic=? and s.active != false and s.subscribingSystemIdentifier=? and"
                     + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIds.size());
 
             log.debug("Query String: " + queryString);

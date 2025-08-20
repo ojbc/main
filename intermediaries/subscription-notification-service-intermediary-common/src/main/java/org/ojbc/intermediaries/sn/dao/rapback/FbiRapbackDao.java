@@ -56,7 +56,7 @@ public class FbiRapbackDao {
 		+ "left join identification_subject idsubj on idsubj.subject_id = idtrx.subject_id " 
 		+ "inner join subscription sub on sub.id = idtrx.subscription_id " 	
 		+ "inner join fbi_rap_back_subscription fbisub on fbisub.ucn = idsubj.ucn " 
-		+ "where sub.active = 1" 
+		+ "where sub.active = true " 
 		+ "and idsubj.ucn=?" 
 		+ "and fbisub.rap_back_category_code=?;";
 		
@@ -66,7 +66,7 @@ public class FbiRapbackDao {
 		+ "left join identification_subject idsubj on idsubj.subject_id = idtrx.subject_id " 
 		+ "inner join subscription sub on sub.id = idtrx.subscription_id " 	
 		+ "inner join fbi_rap_back_subscription fbisub on fbisub.ucn = idsubj.ucn " 
-		+ "where sub.active = 1 " 
+		+ "where sub.active = true " 
 		+ "and idsubj.ucn=? " 
 		+ "and fbisub.rap_back_category_code=?;";	
 	
@@ -311,7 +311,7 @@ public class FbiRapbackDao {
 		final String FBI_ID_BY_CIVIL_SID = "SELECT s.ucn FROM identification_subject s "
 				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
 				+ "LEFT JOIN subscription  r on r.id = t.subscription_id "
-				+ "WHERE r.active = 1 AND s.civil_sid = ? ;";	
+				+ "WHERE r.active = true AND s.civil_sid = ? ;";	
 		List<String> fbiSubscriptionIds = jdbcTemplate.queryForList(FBI_ID_BY_CIVIL_SID, String.class, civilSid); 
 		return fbiSubscriptionIds;
 	}

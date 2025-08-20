@@ -85,7 +85,6 @@ public class FbiSubModDocBuilderTest {
 		Diff diff = new Diff(expectedSubModDoc, fbiSubModDoc);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);		
-		@SuppressWarnings("unchecked")
 		List<Difference> diffList =  detailedDiff.getAllDifferences();		
 		int diffCount = diffList == null ? 0 : diffList.size();
 		

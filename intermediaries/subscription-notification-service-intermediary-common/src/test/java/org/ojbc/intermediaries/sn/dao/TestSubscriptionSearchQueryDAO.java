@@ -47,7 +47,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.junit.jupiter.api.Test;
 import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,6 +68,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -208,7 +208,7 @@ public class TestSubscriptionSearchQueryDAO {
 		loadManualTestData();
 		
 		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("1234567890");
-		assertEquals(new Integer(1), agencyPk);
+		assertEquals(1, agencyPk);
 		
 		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "1234567890", "Bill Employer Agency Name");
 		
@@ -669,7 +669,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement s = dataSource.getConnection().createStatement();
 
 		ResultSet rs = s
-				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from rapback_datastore.subscription s, rapback_datastore.subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active=1");
+				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from rapback_datastore.subscription s, rapback_datastore.subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active = true");
 
 		assertTrue(rs.next());
 		int id = rs.getInt("id");

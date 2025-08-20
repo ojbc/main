@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.apache.camel.test.spring.junit5.CamelSpringTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor;
@@ -38,6 +39,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -58,7 +60,17 @@ public class TestSubscriptionMigrationProcessor {
 	
 	@Autowired
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
+    @BeforeEach
+    public void setUp() throws Exception {
+        assertNotNull(subscriptionSearchQueryDAO);
+        jdbcTemplate.execute("ALTER TABLE rapback_datastore.AGENCY_PROFILE "
+                + "ALTER COLUMN AGENCY_ID RESTART WITH "
+                + " (select max (AGENCY_ID) + 1 from rapback_datastore.AGENCY_PROFILE) ");
+    }
     @Test
     public void testProcessAgencyProfileORIEntry() throws Exception {
     

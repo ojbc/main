@@ -29,14 +29,13 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.junit.jupiter.api.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.IEPDResourceResolver;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.util.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
