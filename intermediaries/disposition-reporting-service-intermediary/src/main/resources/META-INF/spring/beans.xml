@@ -17,32 +17,30 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-       
-       	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
-	<!-- FILE ATTACHMENT PROCESSOR -->
-	<bean id="fileAttachmentProcessor" class="org.ojbc.util.camel.processor.FileAttachmentProcessor" />
-	<bean id="fileAttachmentPropertyProcessor"
-		class="org.ojbc.util.camel.processor.FileAttachmentPropertyProcessor" />
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
-	<!-- ERROR HANDLING/DEAD-LETTER QUEUE -->
-	<bean id="chriDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
-		<property name="deadLetterUri" value="deadFolderEndpoint" />
-		<property name="redeliveryPolicy" ref="chriRedeliveryPolicyConfig" />
-	</bean>
+  <!-- FILE ATTACHMENT PROCESSOR -->
+  <bean id="fileAttachmentProcessor" class="org.ojbc.util.camel.processor.FileAttachmentProcessor" />
+  <bean id="fileAttachmentPropertyProcessor" class="org.ojbc.util.camel.processor.FileAttachmentPropertyProcessor" />
 
-	<!-- RETRY POLICY -->
-	<bean id="chriRedeliveryPolicyConfig" class="org.apache.camel.model.RedeliveryPolicyDefinition">
-		<property name="maximumRedeliveries" value="${maximumRedeliveries}" />
-		<property name="redeliveryDelay" value="${redeliveryDelay}" />
-	</bean>
-	
+  <!-- ERROR HANDLING/DEAD-LETTER QUEUE -->
+  <bean id="chriDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
+    <property name="deadLetterUri" value="deadFolderEndpoint" />
+    <property name="redeliveryPolicy" ref="chriRedeliveryPolicyConfig" />
+  </bean>
+
+  <!-- RETRY POLICY -->
+  <bean id="chriRedeliveryPolicyConfig" class="org.apache.camel.model.RedeliveryPolicyDefinition">
+    <property name="maximumRedeliveries" value="${maximumRedeliveries}" />
+    <property name="redeliveryDelay" value="${redeliveryDelay}" />
+  </bean>
+
 </beans>

@@ -19,17 +19,12 @@
 -->
 <!-- Configures the CXF beans-->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" 
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:sec="http://cxf.apache.org/configuration/security" 
-	xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-	xmlns:policy="http://cxf.apache.org/policy" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration" xmlns:policy="http://cxf.apache.org/policy"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
@@ -41,202 +36,185 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        ">
-       
-	<!-- OJB Incident Reporting Service, hosted by this intermediary -->
-	<cxf:cxfEndpoint id="incidentReportingService"
-		address="${incidentReportingService.incidentReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
- 		<cxf:properties>
- 			<entry key="ws-security.timestamp.futureTimeToLive" value="900"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
-			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>
-		</cxf:properties> 
-	</cxf:cxfEndpoint>
-	
-	<!-- Analytical Data Store Persistence Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="analyticalDataStorePersistenceService"
-		address="${incidentReportingService.analyticalDataStorePersistenceAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
- 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>	
-	
-	<!-- Analytical Data Store Persistence Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="incidentReportingPeerService"
-		address="${incidentReportingService.incidentReportingServicePeerEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
- 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>		
 
-	<!-- OJB NDEx Submission Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="N-DexSubmissionServiceFacade"
-		address="${NDExSubmission.N-DexSubmissionServiceEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
- 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>              
-	
-	<!-- OJB Charge Referral Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="ChargeReferralService"
-		address="${incidentReportingService.chargeReferralServiceEndpoint}"
-		wsdlURL="classpath:ssp/Charge_Referral/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
-	    serviceName="ojbc:Charge-Referral-ServiceService"
-	    endpointName="ojbc:Charge-Referral-Service"
-	    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
- 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
-			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>	
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	
-	<cxf:cxfEndpoint id="ChargeReferralReportingService"
-		address="${incidentReportingService.chargeReferralReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
-		serviceName="ojbc:Charge-Referral-Reporting-ServiceService" 
-		endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
-        <cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />    
-			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>	    	
-        </cxf:properties>
-	</cxf:cxfEndpoint>
-		
-	
-	<!-- Arrest Reporting Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="arrestReportingService"
-		address="${incidentReportingService.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
-		serviceName="ojbc:Arrest-Reporting-ServiceService" endpointName="ojbc:Arrest-Reporting-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
-		 <cxf:features> 
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>      		 
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
-	</cxf:cxfEndpoint>		
-              
-	<!-- OJB Notification Broker Service, invoked by intermediary -->
-	<cxf:cxfEndpoint id="notificationBrokerService"
-		address="${incidentReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
-		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
-		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-                <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
-            </bean>             
-		</cxf:features>		
-	</cxf:cxfEndpoint>
-              
-	<!-- Conduit for http clients -->
-	<http:conduit
-		name="*.http-conduit">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${incidentReportingService.intermediaryKeyPassword}">
-	        	<sec:keyStore type="jks" password="${incidentReportingService.intermediaryKeystorePassword}" url="${incidentReportingService.intermediaryKeystoreLocation}" />
-	    	</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${incidentReportingService.truststorePassword}"
-					url="${incidentReportingService.truststoreLocation}" />
-			</sec:trustManagers>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>
+  <!-- OJB Incident Reporting Service, hosted by this intermediary -->
+  <cxf:cxfEndpoint id="incidentReportingService" address="${incidentReportingService.incidentReportingServiceEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.timestamp.futureTimeToLive" value="900" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+      <entry key="org.apache.cxf.stax.maxTextLength" value="2147483647" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${incidentReportingService.intermediarykeystoreCertificateAlias}" value="${incidentReportingService.intermediaryKeyPassword}"/>
-            </map>
-        </property>
-	</bean>
+  <!-- Analytical Data Store Persistence Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="analyticalDataStorePersistenceService"
+    address="${incidentReportingService.analyticalDataStorePersistenceAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
-		WSS4j Crypto implementation. This crypto config is used for signature creation 
-		and validation. -->
-	<util:properties id="incidentReportingKeystoreProperties">
-		<!-- Defines the implementation class. -->
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<!-- The password for the keystore file. -->
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentReportingService.intermediaryKeystorePassword}
-		</prop>
-		<!-- The password for the keystore file. -->
-		<prop key="org.apache.wss4j.crypto.merlin.file">${incidentReportingService.intermediaryKeystoreLocation}
-		</prop>
-	</util:properties>
+  <!-- Analytical Data Store Persistence Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="incidentReportingPeerService" address="${incidentReportingService.incidentReportingServicePeerEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- OJB NDEx Submission Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="N-DexSubmissionServiceFacade" address="${NDExSubmission.N-DexSubmissionServiceEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- OJB Charge Referral Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="ChargeReferralService" address="${incidentReportingService.chargeReferralServiceEndpoint}"
+    wsdlURL="classpath:ssp/Charge_Referral/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl" serviceName="ojbc:Charge-Referral-ServiceService"
+    endpointName="ojbc:Charge-Referral-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+      <entry key="org.apache.cxf.stax.maxTextLength" value="2147483647" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+
+  <cxf:cxfEndpoint id="ChargeReferralReportingService" address="${incidentReportingService.chargeReferralReportingServiceEndpoint}"
+    wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
+    serviceName="ojbc:Charge-Referral-Reporting-ServiceService" endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+      <entry key="org.apache.cxf.stax.maxTextLength" value="2147483647" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+
+  <!-- Arrest Reporting Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="arrestReportingService" address="${incidentReportingService.arrestReportingServiceEndpoint}"
+    wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl" serviceName="ojbc:Arrest-Reporting-ServiceService"
+    endpointName="ojbc:Arrest-Reporting-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- OJB Notification Broker Service, invoked by intermediary -->
+  <cxf:cxfEndpoint id="notificationBrokerService" address="${incidentReportingService.notificationBrokerEndpoint}"
+    wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl" serviceName="ojb-nb:NotificationBrokerServiceService"
+    endpointName="ojb-nb:NotificationBrokerService" xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+        <property name="verbose" value="${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+      </bean>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Conduit for http clients -->
+  <http:conduit name="*.http-conduit">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${incidentReportingService.intermediaryKeyPassword}">
+        <sec:keyStore type="jks" password="${incidentReportingService.intermediaryKeystorePassword}"
+          url="${incidentReportingService.intermediaryKeystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${incidentReportingService.truststorePassword}"
+          url="${incidentReportingService.truststoreLocation}" />
+      </sec:trustManagers>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" />
+  </http:conduit>
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${incidentReportingService.intermediarykeystoreCertificateAlias}"
+          value="${incidentReportingService.intermediaryKeyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin WSS4j Crypto implementation. This 
+    crypto config is used for signature creation and validation. -->
+  <util:properties id="incidentReportingKeystoreProperties">
+    <!-- Defines the implementation class. -->
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <!-- The password for the keystore file. -->
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentReportingService.intermediaryKeystorePassword}
+    </prop>
+    <!-- The password for the keystore file. -->
+    <prop key="org.apache.wss4j.crypto.merlin.file">${incidentReportingService.intermediaryKeystoreLocation}
+    </prop>
+  </util:properties>
 
 
 </beans>

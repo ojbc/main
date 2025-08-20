@@ -19,146 +19,147 @@
 -->
 <!-- This file defines endpoints and beans to handle failed delivery and 
 	email notification of the failures -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        ">
 
-		<camel:endpoint id="deadLetterDirNDEx"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+  <camel:endpoint id="deadLetterDirNDEx"
+    uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
-		<camel:endpoint id="deadLetterDirNDExArchive"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/archive" />
+  <camel:endpoint id="deadLetterDirNDExArchive" uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/archive" />
 
-		<camel:endpoint id="deadLetterFatalError"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/dead" />
+  <camel:endpoint id="deadLetterFatalError" uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterNDEx/dead" />
 
-		<camel:endpoint id="deadLetterMail"
-			uri="${smtpServerURI}" />
+  <camel:endpoint id="deadLetterMail" uri="${smtpServerURI}" />
 
-		<camel:endpoint id="deadLetterDirChargeReferral"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+  <camel:endpoint id="deadLetterDirChargeReferral"
+    uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
-		<camel:endpoint id="deadLetterDirChargeReferralReporting"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferralReporting/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+  <camel:endpoint id="deadLetterDirChargeReferralReporting"
+    uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferralReporting/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
-		<camel:endpoint id="deadLetterDirIncidentAnalytics"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterIncidentAnalytics/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+  <camel:endpoint id="deadLetterDirIncidentAnalytics"
+    uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterIncidentAnalytics/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
-		<camel:endpoint id="deadLetterDirChargeReferralArchive"
-			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/archive" />
+  <camel:endpoint id="deadLetterDirChargeReferralArchive"
+    uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/archive" />
 
-	    <!-- this is an included XML file where we only the the routeContext -->
-	    <routeContext id="errorHandlerRoutes" xmlns="http://camel.apache.org/schema/spring">
+  <!-- this is an included XML file where we only the the routeContext -->
+  <routeContext id="errorHandlerRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-			<!-- Copy failed messages to archive directories for e-mail processing 
-				and storage -->
-			<camel:route id="NDExDeliveryFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
-				<camel:from uri="deadLetterDirNDEx" />
-	
-				<camel:setHeader name="incidentID">
-					<camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
-				</camel:setHeader>
-				<camel:setHeader name="CamelFileName">
-					<camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
-				</camel:setHeader>
-				<camel:to uri="deadLetterDirNDExArchive" />
-				<camel:setHeader name="to">
-					<camel:simple>${bean:FailedNDExSubmissionNotificationEmailAddress.trim}</camel:simple>
-				</camel:setHeader>
-				<camel:setHeader name="subject">
-					<camel:simple>${bean:FailedNDExSubmissionNotificationEmailSubject.trim}</camel:simple>
-				</camel:setHeader>
-				<camel:setHeader name="dataItemID">
-					<camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
-				</camel:setHeader>
-				<camel:setBody>
-					<camel:simple>N-DEx submission message with Data Item ID of ${in.header.dataItemID} and Incident ID of ${in.header.incidentID} was not delivered.</camel:simple>
-				</camel:setBody>
-				<camel:to uri="deadLetterMail" />
-				<log
-					message="E-mail sent to ${bean:FailedNDExSubmissionNotificationEmailAddress.trim} to notify of N-DEx submission failure with Incident ID of ${in.header.incidentID}." />
-			</camel:route>
-	
-			<camel:route id="ChargeReferralFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
-				<camel:from uri="deadLetterDirChargeReferral" />
-				
-				<camel:setHeader name="incidentID">
-					<camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
-				</camel:setHeader>
-				<camel:setHeader name="CamelFileName">
-					<camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
-				</camel:setHeader>
-				<camel:to uri="deadLetterDirChargeReferralArchive" />
-				<camel:setHeader name="to">
-					<camel:simple>${bean:FailedChargeReferralNotificationEmailAddress.trim}</camel:simple>
-				</camel:setHeader>
-				<camel:setHeader name="subject">
-					<camel:simple>${bean:FailedChargeReferralNotificationEmailSubject.trim}</camel:simple>
-				</camel:setHeader>
-				<camel:setHeader name="dataItemID">
-					<camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
-				</camel:setHeader>
-				<camel:setBody>
-					<camel:simple>Charge Referral message with Data Item ID of ${in.header.dataItemID} and Incident ID of ${in.header.incidentID} was not delivered. </camel:simple>
-				</camel:setBody>
-				<camel:to uri="deadLetterMail" />
-				<log
-					message="E-mail sent to ${bean:FailedChargeReferralNotificationEmailAddress.trim} to notify of Charge Referral failure with Incident ID of ${in.header.incidentID}." />
-			</camel:route>
-	</routeContext>
+    <!-- Copy failed messages to archive directories for e-mail processing and storage -->
+    <camel:route id="NDExDeliveryFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
+      <camel:from uri="deadLetterDirNDEx" />
 
-	<bean id="FailedNDExSubmissionNotificationEmailAddress" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationRecipient}</value>
-		</constructor-arg>
-	</bean>
+      <camel:setHeader name="incidentID">
+        <camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
+      </camel:setHeader>
+      <camel:setHeader name="CamelFileName">
+        <camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+      </camel:setHeader>
+      <camel:to uri="deadLetterDirNDExArchive" />
+      <camel:setHeader name="to">
+        <camel:simple>${bean:FailedNDExSubmissionNotificationEmailAddress.trim}</camel:simple>
+      </camel:setHeader>
+      <camel:setHeader name="subject">
+        <camel:simple>${bean:FailedNDExSubmissionNotificationEmailSubject.trim}</camel:simple>
+      </camel:setHeader>
+      <camel:setHeader name="dataItemID">
+        <camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
+      </camel:setHeader>
+      <camel:setBody>
+        <camel:simple>N-DEx submission message with Data Item ID of ${in.header.dataItemID} and Incident ID of ${in.header.incidentID} was not delivered.</camel:simple>
+      </camel:setBody>
+      <camel:to uri="deadLetterMail" />
+      <log
+        message="E-mail sent to ${bean:FailedNDExSubmissionNotificationEmailAddress.trim} to notify of N-DEx submission failure with Incident ID of ${in.header.incidentID}." />
+    </camel:route>
 
-	<bean id="FailedChargeReferralNotificationEmailAddress" class="java.lang.String">
-		<constructor-arg>
-			<value>${incidentReportingService.emailNotificationRecipient}</value>
-		</constructor-arg>
-	</bean>
+    <camel:route id="ChargeReferralFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
+      <camel:from uri="deadLetterDirChargeReferral" />
 
-	<bean id="FailedNDExSubmissionNotificationEmailSubject" class="java.lang.String">
-		<constructor-arg>
-			<value>${NDExSubmission.emailNotificationSubject}</value>
-		</constructor-arg>
-	</bean>
+      <camel:setHeader name="incidentID">
+        <camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
+      </camel:setHeader>
+      <camel:setHeader name="CamelFileName">
+        <camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+      </camel:setHeader>
+      <camel:to uri="deadLetterDirChargeReferralArchive" />
+      <camel:setHeader name="to">
+        <camel:simple>${bean:FailedChargeReferralNotificationEmailAddress.trim}</camel:simple>
+      </camel:setHeader>
+      <camel:setHeader name="subject">
+        <camel:simple>${bean:FailedChargeReferralNotificationEmailSubject.trim}</camel:simple>
+      </camel:setHeader>
+      <camel:setHeader name="dataItemID">
+        <camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
+      </camel:setHeader>
+      <camel:setBody>
+        <camel:simple>Charge Referral message with Data Item ID of ${in.header.dataItemID} and Incident ID of ${in.header.incidentID} was not delivered. </camel:simple>
+      </camel:setBody>
+      <camel:to uri="deadLetterMail" />
+      <log
+        message="E-mail sent to ${bean:FailedChargeReferralNotificationEmailAddress.trim} to notify of Charge Referral failure with Incident ID of ${in.header.incidentID}." />
+    </camel:route>
+  </routeContext>
 
-	<bean id="FailedChargeReferralNotificationEmailSubject" class="java.lang.String">
-		<constructor-arg>
-			<value>${incidentReportingService.emailNotificationSubject}</value>
-		</constructor-arg>
-	</bean>
+  <bean id="FailedNDExSubmissionNotificationEmailAddress" class="java.lang.String">
+    <constructor-arg>
+      <value>${NDExSubmission.emailNotificationRecipient}</value>
+    </constructor-arg>
+  </bean>
 
-	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
-	<camel:errorHandler id="ndexDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirNDEx">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
-	</camel:errorHandler>
+  <bean id="FailedChargeReferralNotificationEmailAddress" class="java.lang.String">
+    <constructor-arg>
+      <value>${incidentReportingService.emailNotificationRecipient}</value>
+    </constructor-arg>
+  </bean>
 
-	<camel:errorHandler id="incidentAnalyticsDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirIncidentAnalytics">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
-	</camel:errorHandler>
+  <bean id="FailedNDExSubmissionNotificationEmailSubject" class="java.lang.String">
+    <constructor-arg>
+      <value>${NDExSubmission.emailNotificationSubject}</value>
+    </constructor-arg>
+  </bean>
 
-	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
-	<camel:errorHandler id="chargeReferralDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirChargeReferral">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
-	</camel:errorHandler>
-	
-	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
-	<camel:errorHandler id="chargeReferralReportingDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirChargeReferralReporting">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
-	</camel:errorHandler>	
-	
-	<!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->
-	<camel:errorHandler id="deadLetterChannelErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterFatalError">
-	    <camel:redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="0" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true" />
-	</camel:errorHandler>
-	
+  <bean id="FailedChargeReferralNotificationEmailSubject" class="java.lang.String">
+    <constructor-arg>
+      <value>${incidentReportingService.emailNotificationSubject}</value>
+    </constructor-arg>
+  </bean>
+
+  <!-- here we configure our DeadLetterChannel for incident report redelivery -->
+  <camel:errorHandler id="ndexDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirNDEx">
+    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true"
+      asyncDelayedRedelivery="true" logStackTrace="true" />
+  </camel:errorHandler>
+
+  <camel:errorHandler id="incidentAnalyticsDeadLetterErrorHandler" type="DeadLetterChannel"
+    deadLetterUri="deadLetterDirIncidentAnalytics">
+    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true"
+      asyncDelayedRedelivery="true" logStackTrace="true" />
+  </camel:errorHandler>
+
+  <!-- here we configure our DeadLetterChannel for incident report redelivery -->
+  <camel:errorHandler id="chargeReferralDeadLetterErrorHandler" type="DeadLetterChannel"
+    deadLetterUri="deadLetterDirChargeReferral">
+    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true"
+      asyncDelayedRedelivery="true" logStackTrace="true" />
+  </camel:errorHandler>
+
+  <!-- here we configure our DeadLetterChannel for incident report redelivery -->
+  <camel:errorHandler id="chargeReferralReportingDeadLetterErrorHandler" type="DeadLetterChannel"
+    deadLetterUri="deadLetterDirChargeReferralReporting">
+    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true"
+      asyncDelayedRedelivery="true" logStackTrace="true" />
+  </camel:errorHandler>
+
+  <!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->
+  <camel:errorHandler id="deadLetterChannelErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterFatalError">
+    <camel:redeliveryPolicy maximumRedeliveries="0" redeliveryDelay="0" logHandled="true" asyncDelayedRedelivery="true"
+      logStackTrace="true" />
+  </camel:errorHandler>
+
 </beans>

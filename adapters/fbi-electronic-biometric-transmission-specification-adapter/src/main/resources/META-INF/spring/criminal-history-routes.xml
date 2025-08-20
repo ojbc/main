@@ -16,122 +16,142 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
-	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
-	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd"
+  xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+  xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 
-		#########################################################################################
-				File system Directories		
-		#########################################################################################
-	-->
-	<!-- alternative endpoint for testing: file system message input directory -->
+  <!-- ######################################################################################### File system Directories ######################################################################################### -->
+  <!-- alternative endpoint for testing: file system message input directory -->
 
-	<routeContext id="ebtsCriminalHistoryRoutes" xmlns="http://camel.apache.org/schema/spring">
-		
-		<route id="personQueryRequestCriminalHistoryServiceRoute">
-			<from uri="personQueryRequestCriminalHistoryServiceEndpoint"/>
-			
-			<camel:log message="Received Criminal History Request: ${body}" />
-			
-			<to uri="bean:messageProcessor?method=processRequestPayload" />
-			
-			<to uri="direct:processPersonQueryRequestCriminalHistory"/>
-		</route>		
+  <routeContext id="ebtsCriminalHistoryRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-		<route id="personQueryRequestCriminalHistoryDirectRoute">
-			<from uri="direct:processPersonQueryRequestCriminalHistory"/>
-	
-			<setHeader name="controlID"><camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple></setHeader>	
-			<setHeader name="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
-			<setHeader name="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
-			<setHeader name="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
-			<setHeader name="domainVersion"><simple>{{fbiEbtsAdapter.domainVersion}}</simple></setHeader>
-			<setHeader name="domainName"><simple>{{fbiEbtsAdapter.domainName}}</simple></setHeader>
-			<setHeader name="transactionMajorVersion"><simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple></setHeader>
-			<setHeader name="transactionMinorVersion"><simple>{{fbiEbtsAdapter.transactionMinorVersion}}</simple></setHeader>
-			<setHeader name="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
-			<setHeader name="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
-			<setHeader name="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
-			<setHeader name="transactionContentSummaryContentRecordCount"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
-			<setHeader name="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
-			<setHeader name="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
-	
-			<camel:to uri="xslt:xsl/FBI_Identity_History_Summary_Request.xsl" />
-			
-			<camel:log message="transformed message: ${body}"/>
-			
-			<camel:convertBodyTo type="java.lang.String"/>							
-			
-			<camel:setHeader name="CamelFileName">
-				<camel:simple>FBI_Identity_History_Summary_Request_${in.headers.controlID}.xml</camel:simple>
-			</camel:setHeader>
-			
-			<camel:setHeader name="pathToRequestFile">
-				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/requests/$simple{in.headers.CamelFileName}</camel:simple>
-			</camel:setHeader>
-			
-			<camel:wireTap copy="true" uri="fbiIdentitySummaryRequestsDir"/>
-			
-			<camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryRequest"/>
-			
-			<camel:to uri="direct:processOperation"/>
-			
-		</route>
-			
-		<route>
-			<camel:from uri="direct:processRBIHSR"/>
-		
-			<camel:log message="RBIHSR message from the FBI"/>
+    <route id="personQueryRequestCriminalHistoryServiceRoute">
+      <from uri="personQueryRequestCriminalHistoryServiceEndpoint" />
 
-			<camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryResponse"/>
-			
-			<!-- Check for error here and create error response -->
+      <camel:log message="Received Criminal History Request: ${body}" />
 
-			<camel:setHeader name="federatedQueryRequestGUID">
-				<camel:simple>${in.headers.transactionControlReferenceIdentification}</camel:simple>				
-			</camel:setHeader>
-			
-			<camel:choice>
-				<when>
-					<simple>${in.headers.trxCatCode} == 'ERRI'</simple>
-				
-					<camel:to uri="xslt:xsl/RapBackErrorResponseToOJBQueryResultError.xsl"/>
-				</when>
-				<when>
-					<simple>${in.headers.trxCatCode} == 'RBIHSR'</simple>
-					
-					<camel:to uri="bean:criminalHistoryTextResponseProcessor?method=createCriminalHistoryTextResponse"/>	
-				</when>
-			</camel:choice>
+      <to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-			
-			<camel:setHeader name="operationName">
-				<camel:constant>SubmitCriminalHistoryTextDocument</camel:constant>
-			</camel:setHeader>
+      <to uri="direct:processPersonQueryRequestCriminalHistory" />
+    </route>
 
-			<camel:setHeader name="operationNamespace">
-				<camel:constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</camel:constant>
-			</camel:setHeader>
-			
-			<camel:log message="Criminal History Text Response: ${body}"/>
-			
-			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
-			
-		</route>	
+    <route id="personQueryRequestCriminalHistoryDirectRoute">
+      <from uri="direct:processPersonQueryRequestCriminalHistory" />
 
-	</routeContext>
-		
+      <setHeader name="controlID">
+        <camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple>
+      </setHeader>
+      <setHeader name="rapBackTransactionDate">
+        <simple>${date:now:yyyy-MM-dd}</simple>
+      </setHeader>
+      <setHeader name="destinationOrganizationORI">
+        <simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple>
+      </setHeader>
+      <setHeader name="originatorOrganizationORI">
+        <simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple>
+      </setHeader>
+      <setHeader name="domainVersion">
+        <simple>{{fbiEbtsAdapter.domainVersion}}</simple>
+      </setHeader>
+      <setHeader name="domainName">
+        <simple>{{fbiEbtsAdapter.domainName}}</simple>
+      </setHeader>
+      <setHeader name="transactionMajorVersion">
+        <simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple>
+      </setHeader>
+      <setHeader name="transactionMinorVersion">
+        <simple>{{fbiEbtsAdapter.transactionMinorVersion}}</simple>
+      </setHeader>
+      <setHeader name="rapBackRecipient">
+        <simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple>
+      </setHeader>
+      <setHeader name="controllingAgencyID">
+        <simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple>
+      </setHeader>
+      <setHeader name="transactionContentSummaryContentFirstRecordCategoryCode">
+        <simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple>
+      </setHeader>
+      <setHeader name="transactionContentSummaryContentRecordCount">
+        <simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple>
+      </setHeader>
+      <setHeader name="nativeScanningResolution">
+        <simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple>
+      </setHeader>
+      <setHeader name="nominalTransmittingResolution">
+        <simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple>
+      </setHeader>
+
+      <camel:to uri="xslt:xsl/FBI_Identity_History_Summary_Request.xsl" />
+
+      <camel:log message="transformed message: ${body}" />
+
+      <camel:convertBodyTo type="java.lang.String" />
+
+      <camel:setHeader name="CamelFileName">
+        <camel:simple>FBI_Identity_History_Summary_Request_${in.headers.controlID}.xml</camel:simple>
+      </camel:setHeader>
+
+      <camel:setHeader name="pathToRequestFile">
+        <camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/requests/$simple{in.headers.CamelFileName}</camel:simple>
+      </camel:setHeader>
+
+      <camel:wireTap copy="true" uri="fbiIdentitySummaryRequestsDir" />
+
+      <camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryRequest" />
+
+      <camel:to uri="direct:processOperation" />
+
+    </route>
+
+    <route>
+      <camel:from uri="direct:processRBIHSR" />
+
+      <camel:log message="RBIHSR message from the FBI" />
+
+      <camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryResponse" />
+
+      <!-- Check for error here and create error response -->
+
+      <camel:setHeader name="federatedQueryRequestGUID">
+        <camel:simple>${in.headers.transactionControlReferenceIdentification}</camel:simple>
+      </camel:setHeader>
+
+      <camel:choice>
+        <when>
+          <simple>${in.headers.trxCatCode} == 'ERRI'</simple>
+
+          <camel:to uri="xslt:xsl/RapBackErrorResponseToOJBQueryResultError.xsl" />
+        </when>
+        <when>
+          <simple>${in.headers.trxCatCode} == 'RBIHSR'</simple>
+
+          <camel:to uri="bean:criminalHistoryTextResponseProcessor?method=createCriminalHistoryTextResponse" />
+        </when>
+      </camel:choice>
+
+      <to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+      <camel:setHeader name="operationName">
+        <camel:constant>SubmitCriminalHistoryTextDocument</camel:constant>
+      </camel:setHeader>
+
+      <camel:setHeader name="operationNamespace">
+        <camel:constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</camel:constant>
+      </camel:setHeader>
+
+      <camel:log message="Criminal History Text Response: ${body}" />
+
+      <camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint" />
+
+    </route>
+
+  </routeContext>
+
 </beans>

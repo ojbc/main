@@ -17,196 +17,188 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf"
-	   xmlns:policy="http://cxf.apache.org/policy"
-	   xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-       xmlns:sec="http://cxf.apache.org/configuration/security"
-	   xmlns:util="http://www.springframework.org/schema/util"
-	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration" xmlns:sec="http://cxf.apache.org/configuration/security"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
        ">
-	
-	<!-- Incident Search Request Service, hosted by OJB -->
-	<cxf:cxfEndpoint id="incidentSearchRequestFederatedService"
-		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
-		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentSearchRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.incidentSearch.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
 
-	<!-- Called by Intermediary, Adapter -->
-	<cxf:cxfEndpoint id="incidentSearchRequestServiceAdapter"
-		wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
-		serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentSearchRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.incidentSearch.keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
+  <!-- Incident Search Request Service, hosted by OJB -->
+  <cxf:cxfEndpoint id="incidentSearchRequestFederatedService"
+    address="${federatedQuery.incidentSearch.incidentSearchIntermediaryEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+    serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentSearchRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.incidentSearch.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<!-- Hosted by Intermediary, Results Service -->
-	<cxf:cxfEndpoint id="incidentSearchResultsFederatedService"
-		address="${federatedQuery.incidentSearch.incidentSearchIntermediaryResultsEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
-		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
-		 <cxf:features> 
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-            </bean>             
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
-	</cxf:cxfEndpoint>
-	
-	<!-- Entity Resolution CXF endpoints -->
-    <!-- OJB Entity Resolution Request handler -->
-	<cxf:cxfEndpoint id="entityResolutionRequestService"
-		address="${federatedQuery.entityResolutionRequestEndpoint}"
-		wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
-		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
-		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
+  <!-- Called by Intermediary, Adapter -->
+  <cxf:cxfEndpoint id="incidentSearchRequestServiceAdapter"
+    wsdlURL="classpath:ssp/Incident_Search_Request/schema/SIP_WS_1.2/Incident_Search_Request_Service.wsdl"
+    serviceName="ojbc:Incident_Search_Request_Service_Service" endpointName="ojbc:Incident_Search_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentSearchRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.incidentSearch.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<!-- OJB Merge Notification Service handler -->
-	<cxf:cxfEndpoint id="mergeNotificationService"
-		address="${federatedQuery.mergeNotificationServiceEndpoint}"
-		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
-		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
-		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>	
-	
-	<!-- Incident Search Results Service, called by intermediary for Incident Person and Vehicle Results -->
-	<cxf:cxfEndpoint id="presentIncidentSearchResultsService"
-		address="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
-		serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
-		 <cxf:features> 
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-            </bean>             
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
-	</cxf:cxfEndpoint>
-	
-		<!-- Present Merge Notification Service Results -->
-	<cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
-		address="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}"
-		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
-		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
-		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
-	
-	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
-	    <!--  Set relayHeaders to false to drop all SOAP headers -->
-    	<property name="relayHeaders" value="false"/>
-	</bean>
+  <!-- Hosted by Intermediary, Results Service -->
+  <cxf:cxfEndpoint id="incidentSearchResultsFederatedService"
+    address="${federatedQuery.incidentSearch.incidentSearchIntermediaryResultsEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+    serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${federatedQuery.incidentSearch.keystoreCertificateAlias}" value="${federatedQuery.incidentSearch.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
-   
-   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+  <!-- Entity Resolution CXF endpoints -->
+  <!-- OJB Entity Resolution Request handler -->
+  <cxf:cxfEndpoint id="entityResolutionRequestService" address="${federatedQuery.entityResolutionRequestEndpoint}"
+    wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
+    serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
+    xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
 
-	<util:properties id="incidentSearchRequestKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.incidentSearch.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.incidentSearch.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.incidentSearch.keystoreLocation}</prop>
-	</util:properties>	
-	
-	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<http:conduit
-		name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${federatedQuery.incidentSearch.keyPassword}">
-	        	<sec:keyStore type="jks" password="${federatedQuery.incidentSearch.keystorePassword}" url="${federatedQuery.incidentSearch.keystoreLocation}" />
-	    	</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${federatedQuery.incidentSearch.truststorePassword}"
-					file="${federatedQuery.incidentSearch.truststoreLocation}" />
-			</sec:trustManagers>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>	
+  <!-- OJB Merge Notification Service handler -->
+  <cxf:cxfEndpoint id="mergeNotificationService" address="${federatedQuery.mergeNotificationServiceEndpoint}"
+    wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+    serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+    xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Incident Search Results Service, called by intermediary for Incident Person and Vehicle Results -->
+  <cxf:cxfEndpoint id="presentIncidentSearchResultsService"
+    address="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Search_Results/schema/SIP_WS_1.2/Incident_Search_Results_Service.wsdl"
+    serviceName="ojbc:Incident_Search_Results_Service_Service" endpointName="ojbc:Incident_Search_Results_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Present Merge Notification Service Results -->
+  <cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
+    address="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}"
+    wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+    serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+    xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.incidentSearch.incidentSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.transport.header.CxfHeaderFilterStrategy">
+    <!-- Set relayHeaders to false to drop all SOAP headers -->
+    <property name="relayHeaders" value="false" />
+  </bean>
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${federatedQuery.incidentSearch.keystoreCertificateAlias}" value="${federatedQuery.incidentSearch.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+  <util:properties id="incidentSearchRequestKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.incidentSearch.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.incidentSearch.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.incidentSearch.keystoreLocation}</prop>
+  </util:properties>
+
+  <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.incidentSearch.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.incidentSearch.keystorePassword}"
+          url="${federatedQuery.incidentSearch.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${federatedQuery.incidentSearch.truststorePassword}"
+          file="${federatedQuery.incidentSearch.truststoreLocation}" />
+      </sec:trustManagers>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" />
+  </http:conduit>
 </beans>

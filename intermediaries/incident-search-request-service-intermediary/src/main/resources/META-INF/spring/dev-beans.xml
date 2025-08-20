@@ -17,82 +17,99 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        "
-       profile="dev">
-	
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-	
-	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
-		<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
-	</bean>		
+  profile="dev">
 
-	<bean id="incidentSearchRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.IncidentSearchRequestNullObjectProcessor">	
-		<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
-	</bean>		
-	
-	<bean id="incidentSearchResponseSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.IncidentSearchResponseNullObjectProcessor"/>
+  <bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 
-	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
+  <bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+    <property name="userInfoProcessor" ref="userInfoNullObjectProcessor" />
+  </bean>
 
-	<util:map id="endpointReplyToMap">
-		<entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}" value="presentMergeNotificationServiceResultsEndpoint"/>
-		<entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}" value="presentIncidentSearchResultsServiceEndpoint"/>
-		<entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsContainerEndpoint}" value="presentMergeNotificationServiceResultsEndpoint"/>
-		<entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationContainerEndpoint}" value="presentIncidentSearchResultsServiceEndpoint"/>
-	</util:map>
-	
-    <bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
-	      <property name="uriToErrorMessageMap">
-	          <util:map>
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS timed out or had an error." />
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS timed out or had an error." />
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS timed out or had an error." />
-                <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="Citation timed out or had an error." />
-	          </util:map>             
-	      </property>
-	      <property name="uriToErrorSystemNameMap">
-	          <util:map>
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS" />
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS" />
-	              <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS" />
-                <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="Citation" />
-	          </util:map>             
-	      </property>
-	   <property name="parentElementName" value="IncidentSearchResults"/>
-	   <property name="parentElementNamespace" value="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"/>
-	</bean>
-	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
-		<property name="federatedQueryEndpointMap" ref="federatedQueryEndpointMap"/>
-		<property name="adapterURItoAddressMap">
-			<util:map>
-				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-				<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-			</util:map>				
-		</property>
-	</bean>
-    <util:map id="addressToAdapterURIMap" map-class="java.util.HashMap" >
-         <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-         <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-         <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-         <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
-    </util:map>
-    
-		  	
-	<util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap" >
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="incidentSearchRequestServiceAdapterEndpoint" />
-    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="incidentSearchRequestServiceAdapterEndpoint" />
-	</util:map>
+  <bean id="incidentSearchRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.IncidentSearchRequestNullObjectProcessor">
+    <property name="userInfoProcessor" ref="userInfoNullObjectProcessor" />
+  </bean>
+
+  <bean id="incidentSearchResponseSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.IncidentSearchResponseNullObjectProcessor" />
+
+  <bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor" />
+
+  <util:map id="endpointReplyToMap">
+    <entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}" value="presentMergeNotificationServiceResultsEndpoint" />
+    <entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}"
+      value="presentIncidentSearchResultsServiceEndpoint" />
+    <entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsContainerEndpoint}"
+      value="presentMergeNotificationServiceResultsEndpoint" />
+    <entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationContainerEndpoint}"
+      value="presentIncidentSearchResultsServiceEndpoint" />
+  </util:map>
+
+  <bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
+    <property name="uriToErrorMessageMap">
+      <util:map>
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS"
+          value="RMS timed out or had an error." />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+          value="RMS timed out or had an error." />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"
+          value="RMS timed out or had an error." />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation"
+          value="Citation timed out or had an error." />
+      </util:map>
+    </property>
+    <property name="uriToErrorSystemNameMap">
+      <util:map>
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation" value="Citation" />
+      </util:map>
+    </property>
+    <property name="parentElementName" value="IncidentSearchResults" />
+    <property name="parentElementNamespace" value="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0" />
+  </bean>
+
+  <bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+    <property name="federatedQueryEndpointMap" ref="federatedQueryEndpointMap" />
+    <property name="adapterURItoAddressMap">
+      <util:map>
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS"
+          value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+          value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"
+          value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+        <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation"
+          value="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+      </util:map>
+    </property>
+  </bean>
+  <util:map id="addressToAdapterURIMap" map-class="java.util.HashMap">
+    <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS"
+      key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+    <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+      key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+    <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"
+      key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+    <entry value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation"
+      key="${federatedQuery.incidentSearch.incidentSearchRequestRMSEndpoint}" />
+  </util:map>
+
+
+  <util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap">
+    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS"
+      value="incidentSearchRequestServiceAdapterEndpoint" />
+    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+      value="incidentSearchRequestServiceAdapterEndpoint" />
+    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"
+      value="incidentSearchRequestServiceAdapterEndpoint" />
+    <entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-Citation"
+      value="incidentSearchRequestServiceAdapterEndpoint" />
+  </util:map>
 </beans>

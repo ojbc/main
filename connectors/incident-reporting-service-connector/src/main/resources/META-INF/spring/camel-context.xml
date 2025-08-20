@@ -19,90 +19,87 @@
 -->
 <!-- Configures the Camel Context -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"	
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+  xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        ">
-	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="incident-reporting-service-connector" streamCache="true">
-		
-		<streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
-		<endpoint id="inputDir"
-			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 
-		<!-- Incident Reporting Service Handler -->
-		<camel:route id="IncidentReportingServiceHandlerRoute" errorHandlerRef="incidentReportingErrorHandler">
-		
-			<camel:from uri="inputDir" />
-			<camel:log
-				message="Received file for Incident Report Processing: ${file:name}" />
-			
-			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
-			
-			<camel:to uri="direct:derivedRoutes"/>	
+  <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="incident-reporting-service-connector" streamCache="true">
 
-			<camel:removeHeaders pattern="*"/>
+    <streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536"
+      spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
+    <endpoint id="inputDir"
+      uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 
-			<camel:filter>
-				<camel:xpath>/ir:IncidentReport</camel:xpath>
-				<camel:setHeader name="operationName">
-					<constant>ReportIncident</constant>
-				</camel:setHeader>
-			</camel:filter>
-			
-			<camel:filter>
-				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
-				<camel:setHeader name="operationName">
-					<constant>ReportIncidentUpdate</constant>
-				</camel:setHeader>
-			</camel:filter>	
-	                        		
-			<camel:setHeader name="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
-			</camel:setHeader>
-			
-			
-			<log message="\n\n\n operationName = ${in.headers.operationName} \n\n\n"/>
-			
-			<camel:throttle timePeriodMillis="1000">
-				<constant>1</constant>
-			</camel:throttle>
-			
-			<camel:to uri="IncidentReportingServiceEndpoint" />
-			
-			<camel:log message="Called intermediary" />
+    <!-- Incident Reporting Service Handler -->
+    <camel:route id="IncidentReportingServiceHandlerRoute" errorHandlerRef="incidentReportingErrorHandler">
 
-		</camel:route>
-		
-		
-		<camel:route id="IncidentReportingConnector_DerivedRoutes">
+      <camel:from uri="inputDir" />
+      <camel:log message="Received file for Incident Report Processing: ${file:name}" />
 
-			<camel:from uri="direct:derivedRoutes"/>
-		
-			<!-- Set up member specific endpoints -->
-			<camel:setHeader name="routingSlipDerivedRoutes">
-				<simple>{{incidentChargeReporting.camelEndpointsToCall}}</simple>
-			</camel:setHeader>
+      <camel:convertBodyTo type="java.lang.String" charset="UTF-8" />
 
-			<camel:log message=
-				"\n\n\n routingSlipDerivedRoutes: ${in.headers.routingSlipDerivedRoutes} \n\n\n"/>
+      <camel:to uri="direct:derivedRoutes" />
 
-			<camel:filter>
-				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
-				
-				<camel:recipientList>
-					<camel:header>routingSlipDerivedRoutes</camel:header>
-				</camel:recipientList>
-			</camel:filter>			
-		
-		</camel:route>		
-		
+      <camel:removeHeaders pattern="*" />
 
-	</camel:camelContext>
-	
+      <camel:filter>
+        <camel:xpath>/ir:IncidentReport</camel:xpath>
+        <camel:setHeader name="operationName">
+          <constant>ReportIncident</constant>
+        </camel:setHeader>
+      </camel:filter>
+
+      <camel:filter>
+        <camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
+        <camel:setHeader name="operationName">
+          <constant>ReportIncidentUpdate</constant>
+        </camel:setHeader>
+      </camel:filter>
+
+      <camel:setHeader name="operationNamespace">
+        <constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+      </camel:setHeader>
+
+
+      <log message="\n\n\n operationName = ${in.headers.operationName} \n\n\n" />
+
+      <camel:throttle timePeriodMillis="1000">
+        <constant>1</constant>
+      </camel:throttle>
+
+      <camel:to uri="IncidentReportingServiceEndpoint" />
+
+      <camel:log message="Called intermediary" />
+
+    </camel:route>
+
+
+    <camel:route id="IncidentReportingConnector_DerivedRoutes">
+
+      <camel:from uri="direct:derivedRoutes" />
+
+      <!-- Set up member specific endpoints -->
+      <camel:setHeader name="routingSlipDerivedRoutes">
+        <simple>{{incidentChargeReporting.camelEndpointsToCall}}</simple>
+      </camel:setHeader>
+
+      <camel:log message="\n\n\n routingSlipDerivedRoutes: ${in.headers.routingSlipDerivedRoutes} \n\n\n" />
+
+      <camel:filter>
+        <camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+
+        <camel:recipientList>
+          <camel:header>routingSlipDerivedRoutes</camel:header>
+        </camel:recipientList>
+      </camel:filter>
+
+    </camel:route>
+
+
+  </camel:camelContext>
+
 </beans>

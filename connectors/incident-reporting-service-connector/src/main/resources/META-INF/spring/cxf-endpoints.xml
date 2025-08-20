@@ -19,13 +19,12 @@
 -->
 <!-- Configures the CXF endpoints -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:http="http://cxf.apache.org/transports/http/configuration" xmlns:sec="http://cxf.apache.org/configuration/security"
+  xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 	   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -36,60 +35,56 @@
        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd  
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd">
 
-	<!-- endpoints -->
-	<camel:endpoint id="IncidentReportingServiceEndpoint"
-		uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentChargeReporting.incidentReportingServiceIntermediaryCxflogging}&amp;synchronous=true" />
+  <!-- endpoints -->
+  <camel:endpoint id="IncidentReportingServiceEndpoint"
+    uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentChargeReporting.incidentReportingServiceIntermediaryCxflogging}&amp;synchronous=true" />
 
-	<!-- OJB Incident Reporting Service, called by this intermediary -->
-	<cxf:cxfEndpoint id="IncidentReportingService"
-		address="${incidentChargeReporting.incidentReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
-		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
-			<entry key="ws-security.signature.username"
-				value="${incidentChargeReporting.keystoreCertificateAlias}" />
-			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>
-		</cxf:properties>
-	</cxf:cxfEndpoint>
+  <!-- OJB Incident Reporting Service, called by this intermediary -->
+  <cxf:cxfEndpoint id="IncidentReportingService" address="${incidentChargeReporting.incidentReportingServiceEndpoint}"
+    wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl" serviceName="ojbc:Incident-Reporting-ServiceService"
+    endpointName="ojbc:Incident-Reporting-Secure-Service" xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${incidentChargeReporting.keystoreCertificateAlias}" />
+      <entry key="org.apache.cxf.stax.maxTextLength" value="2147483647" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<util:properties id="incidentReportingKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentChargeReporting.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${incidentChargeReporting.keystoreCertificateAlias}
-		</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${incidentChargeReporting.keystoreLocation}</prop>
-	</util:properties>
+  <util:properties id="incidentReportingKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentChargeReporting.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${incidentChargeReporting.keystoreCertificateAlias}
+    </prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${incidentChargeReporting.keystoreLocation}</prop>
+  </util:properties>
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-		<property name="passwords">
-			<map>
-				<entry key="${incidentChargeReporting.keystoreCertificateAlias}"
-					value="${incidentChargeReporting.keyPassword}" />
-			</map>
-		</property>
-	</bean>
-	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<http:conduit name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${incidentChargeReporting.keyPassword}">
-	        	<sec:keyStore type="jks" password="${incidentChargeReporting.keystorePassword}" url="${incidentChargeReporting.keystoreLocation}" />
-	    	</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${incidentChargeReporting.truststorePassword}" url="${incidentChargeReporting.truststoreLocation}" />
-			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-			</sec:cipherSuitesFilter>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${incidentChargeReporting.keystoreCertificateAlias}" value="${incidentChargeReporting.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+  <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${incidentChargeReporting.keyPassword}">
+        <sec:keyStore type="jks" password="${incidentChargeReporting.keystorePassword}" url="${incidentChargeReporting.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${incidentChargeReporting.truststorePassword}"
+          url="${incidentChargeReporting.truststoreLocation}" />
+      </sec:trustManagers>
+      <sec:cipherSuitesFilter>
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+      </sec:cipherSuitesFilter>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" />
+  </http:conduit>
 
 </beans>

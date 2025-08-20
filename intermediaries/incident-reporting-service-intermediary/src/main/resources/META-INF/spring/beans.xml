@@ -19,39 +19,34 @@
 -->
 <!-- Configures the Camel Context -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:irsp="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-    xmlns:b="http://docs.oasis-open.org/wsn/b-2" 
-    xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-    xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
-    xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"  	
-    xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+  xmlns:irsp="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+  xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+  xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+  xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
+  xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        ">
-       <!-- bean that check to see if this is an authorized N-DEx or Charge Referral submission-->
-	<bean id="incidentReportProcessor" class="org.ojbc.intermediaries.incidentreporting.IncidentReportProcessor">
-		<constructor-arg type="java.lang.String">
-			<value>${ndexAuthorizedORIList}</value>
-		</constructor-arg>
-		<constructor-arg type="java.lang.String">
-			<value>${chargeReferralAuthorizedORIList}</value>
-		</constructor-arg>
-	</bean>
-	
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>	
-    
+  <!-- bean that check to see if this is an authorized N-DEx or Charge Referral submission -->
+  <bean id="incidentReportProcessor" class="org.ojbc.intermediaries.incidentreporting.IncidentReportProcessor">
+    <constructor-arg type="java.lang.String">
+      <value>${ndexAuthorizedORIList}</value>
+    </constructor-arg>
+    <constructor-arg type="java.lang.String">
+      <value>${chargeReferralAuthorizedORIList}</value>
+    </constructor-arg>
+  </bean>
+
+
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+  <!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+  <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+    <property name="name" value="default" />
+    <property name="queueSize" value="2048" />
+  </bean>
+
 </beans>

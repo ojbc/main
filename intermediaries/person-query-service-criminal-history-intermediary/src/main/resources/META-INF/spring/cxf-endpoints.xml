@@ -20,17 +20,12 @@
 <!-- Configures the Camel Context-->
 
 <!-- These are common endpoints which are used by all member implementations -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-       xmlns:wsa="http://cxf.apache.org/ws/addressing"
-       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-       xmlns:policy="http://cxf.apache.org/policy"
-       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-       xmlns:sec="http://cxf.apache.org/configuration/security"
-       xmlns:util="http://www.springframework.org/schema/util"        
-	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
-       xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:wsa="http://cxf.apache.org/ws/addressing" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:policy="http://cxf.apache.org/policy" xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+  xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
@@ -41,180 +36,162 @@
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        ">
-       
-    <!-- Criminal History Request Service, hosted by OJB -->
-    <cxf:cxfEndpoint 
-        id="personQueryRequestCriminalHistoryService"
-        address="${federatedQuery.criminalHistory.personQueryEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
-        endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
-    >
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-    
-    <!-- Criminal History Request Service,  hosted by OJB, No SAML token -->
-    <cxf:cxfEndpoint 
-        id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryService"
-        address="${federatedQuery.criminalHistory.personQuerySystemsToSystemIntermediaryEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
-        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
-    >
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>  
-    
-	  
-    <!-- Criminal History handler, hosted by broker, called by adapter, address is static  --> 
-    <cxf:cxfEndpoint 
-        id="personQueryResultsHandlerCriminalHistoryService"
-        address="${federatedQuery.criminalHistory.personQueryResultsHandlerCriminalHistoryEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
-		endpointName="ojbc:Criminal-History-Query-Results-Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
-    >
-     <cxf:features>
+
+  <!-- Criminal History Request Service, hosted by OJB -->
+  <cxf:cxfEndpoint id="personQueryRequestCriminalHistoryService" address="${federatedQuery.criminalHistory.personQueryEndpoint}"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-RequestServiceService" endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- Criminal History Request Service, hosted by OJB, No SAML token -->
+  <cxf:cxfEndpoint id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryService"
+    address="${federatedQuery.criminalHistory.personQuerySystemsToSystemIntermediaryEndpoint}"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-RequestServiceService" endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+
+  <!-- Criminal History handler, hosted by broker, called by adapter, address is static -->
+  <cxf:cxfEndpoint id="personQueryResultsHandlerCriminalHistoryService"
+    address="${federatedQuery.criminalHistory.personQueryResultsHandlerCriminalHistoryEndpoint}"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-Results-ServiceService" endpointName="ojbc:Criminal-History-Query-Results-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0">
+    <cxf:features>
       <policy:policies>
         <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
           <wsam:Addressing>
-            <wsp:Policy/>
+            <wsp:Policy />
           </wsam:Addressing>
         </wsp:Policy>
-       </policy:policies>
+      </policy:policies>
     </cxf:features>
-   </cxf:cxfEndpoint>      
-    
-    <!-- Criminal History Request Service,  hosted by adapter, called by broker, address set dynamically, No SAML token -->
-    <cxf:cxfEndpoint 
-        id="personQueryRequestCriminalHistorySystemToSystemAdapterService"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
-        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
-    >
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>    
+  </cxf:cxfEndpoint>
 
-                        
-    <!-- Criminal History Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
-	<cxf:cxfEndpoint id="personQueryRequestCriminalHistoryServiceAdapter"
-		wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
-		serviceName="ojbc:Criminal-History-Query-RequestServiceService"
-		endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0">
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
+  <!-- Criminal History Request Service, hosted by adapter, called by broker, address set dynamically, No SAML token -->
+  <cxf:cxfEndpoint id="personQueryRequestCriminalHistorySystemToSystemAdapterService"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-RequestServiceService" endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	
-    <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically-->
-    <cxf:cxfEndpoint id="presentPersonQueryResultsCriminalHistoryService"
-        address="${federatedQuery.criminalHistory.presentPersonQueryResultsEndpoint}"
-        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
-        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
-		endpointName="ojbc:Criminal-History-Query-Results-Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
-     >
-     	<cxf:features>
-	      <policy:policies>
-	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-	          <wsam:Addressing>
-	            <wsp:Policy/>
-	          </wsam:Addressing>
-	        </wsp:Policy>
-	       </policy:policies>
-	    </cxf:features>
-    </cxf:cxfEndpoint>
 
-	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<http:conduit
-		name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-	      <sec:keyManagers keyPassword="${federatedQuery.criminalHistory.keyPassword}">
-	        <sec:keyStore type="jks" password="${federatedQuery.criminalHistory.keystorePassword}" 
-	          url="${federatedQuery.criminalHistory.keystoreLocation}" />
-	      </sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${federatedQuery.criminalHistory.truststorePassword}"
-					url="${federatedQuery.criminalHistory.truststoreLocation}" />
-			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>			
-				    
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>				    
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				    
-			</sec:cipherSuitesFilter>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" AllowChunking="false"/>
-	</http:conduit>
-   
-   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${federatedQuery.criminalHistory.keystoreCertificateAlias}" value="${federatedQuery.criminalHistory.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
-   
-   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+  <!-- Criminal History Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
+  <cxf:cxfEndpoint id="personQueryRequestCriminalHistoryServiceAdapter"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-RequestServiceService" endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<util:properties id="criminalHistoryRequestKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.criminalHistory.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.criminalHistory.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.criminalHistory.keystoreLocation}</prop>
-	</util:properties>	
-      
+
+  <!-- Present Criminal History Query Results typically hosted by a Web App, called by broker, address set dynamically -->
+  <cxf:cxfEndpoint id="presentPersonQueryResultsCriminalHistoryService"
+    address="${federatedQuery.criminalHistory.presentPersonQueryResultsEndpoint}"
+    wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+    serviceName="ojbc:Criminal-History-Query-Results-ServiceService" endpointName="ojbc:Criminal-History-Query-Results-Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0">
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.criminalHistory.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.criminalHistory.keystorePassword}"
+          url="${federatedQuery.criminalHistory.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${federatedQuery.criminalHistory.truststorePassword}"
+          url="${federatedQuery.criminalHistory.truststoreLocation}" />
+      </sec:trustManagers>
+      <sec:cipherSuitesFilter>
+        <!-- these filters ensure that a strong ciphersuite will be used -->
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>
+
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>
+      </sec:cipherSuitesFilter>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" AllowChunking="false" />
+  </http:conduit>
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${federatedQuery.criminalHistory.keystoreCertificateAlias}" value="${federatedQuery.criminalHistory.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+  <util:properties id="criminalHistoryRequestKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.criminalHistory.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.criminalHistory.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.criminalHistory.keystoreLocation}</prop>
+  </util:properties>
+
 </beans>

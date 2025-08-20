@@ -19,62 +19,57 @@
 -->
 	<!-- Configures the Camel Context-->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-    xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-    xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:lexpd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"	
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:lexpd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-       
-       <import resource="classpath:META-INF/spring/dev-beans.xml"/>
-    <bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
 
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+  <import resource="classpath:META-INF/spring/dev-beans.xml" />
+  <bean id="federatedQueryResponseAggregator" class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
+    <property name="federatedQueryManager">
+      <ref bean="federatedQueryManager" />
+    </property>
+  </bean>
 
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
-	</bean>
-	
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
+  <!-- Used to retrieve and persist SAML tokens -->
+  <bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+  </bean>
+  <bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
 
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
+  <bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+    <property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy" />
+  </bean>
 
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
+  <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+    <property name="federatedQueryManager">
+      <ref bean="federatedQueryManager" />
+    </property>
+  </bean>
 
-   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
-	</bean>	
-	
-	<bean id="groupedExchangeAggregationStrategy" class="org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy" />	
-	
+  <bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+    <property name="OJBSamlMap" ref="ojbSamlMap" />
+  </bean>
+
+  <bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
+
+  <bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+    <property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor" />
+  </bean>
+
+  <bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+    <property name="endpointReplyToMap" ref="wsAddressReplyToEndpointMap" />
+  </bean>
+
+  <bean id="groupedExchangeAggregationStrategy" class="org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy" />
+
 </beans>

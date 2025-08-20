@@ -17,40 +17,38 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ctx="http://www.springframework.org/schema/context" xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        ">
 
-	<!-- DAO beans -->
-	<bean id="incidentReportingDao" class="org.ojbc.incidentReporting.dao.IncidentReportingDaoImpl">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+  <!-- DAO beans -->
+  <bean id="incidentReportingDao" class="org.ojbc.incidentReporting.dao.IncidentReportingDaoImpl">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
 
-	<!-- RDBMS datasource, this connection is pooled -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
-		destroy-method="close">
-		<property name="driverClassName" value="${incidentReportingService.dataSource.driverClass}" />
-		<property name="url" value="${incidentReportingService.dataSource.jdbcUrl}" />
-		<property name="username" value="${incidentReportingService.dataSource.user}" />
-		<property name="password" value="${incidentReportingService.dataSource.password}" />
-		<property name="initialSize" value="${incidentReportingService.dataSource.minPoolSize}" />
-		<property name="maxTotal" value="${incidentReportingService.dataSource.maxPoolSize}" />
-		<property name="validationQuery" value="select 1" />
-		<property name="testOnBorrow" value="true" />
-	</bean>	
-	
-	<bean id="incidentReportPersonInvolvementProcessor" class="org.ojbc.incidentReporting.dao.IncidentReportPersonInvolvementProcessor">
-		<property name="incidentReportingDao" ref="incidentReportingDao" />
-	</bean>
+  <!-- RDBMS datasource, this connection is pooled -->
+  <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${incidentReportingService.dataSource.driverClass}" />
+    <property name="url" value="${incidentReportingService.dataSource.jdbcUrl}" />
+    <property name="username" value="${incidentReportingService.dataSource.user}" />
+    <property name="password" value="${incidentReportingService.dataSource.password}" />
+    <property name="initialSize" value="${incidentReportingService.dataSource.minPoolSize}" />
+    <property name="maxTotal" value="${incidentReportingService.dataSource.maxPoolSize}" />
+    <property name="validationQuery" value="select 1" />
+    <property name="testOnBorrow" value="true" />
+  </bean>
 
-	<bean id="arrestReportProcessor" class="org.ojbc.incidentReporting.dao.ArrestReportProcessor">
-		<property name="incidentReportingDao" ref="incidentReportingDao" />
-	</bean>
+  <bean id="incidentReportPersonInvolvementProcessor" class="org.ojbc.incidentReporting.dao.IncidentReportPersonInvolvementProcessor">
+    <property name="incidentReportingDao" ref="incidentReportingDao" />
+  </bean>
+
+  <bean id="arrestReportProcessor" class="org.ojbc.incidentReporting.dao.ArrestReportProcessor">
+    <property name="incidentReportingDao" ref="incidentReportingDao" />
+  </bean>
 
 </beans>

@@ -17,52 +17,57 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	   
-	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
-	   <constructor-arg index="0" value="Operation Name is not supported."/>
-	</bean>
-	
-	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<bean id="abstractIdentificationResultsQueryProccessor" class="org.ojbc.adapters.rapbackdatastore.processor.AbstractIdentificationResultsQueryProcessor" />
-	
-	<bean id="abstractSearchQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.AbstractSearchQueryProcessor" />
-	
-	<bean id="archiveProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.ArchiveProcessor" />
-	
-	<bean id="criminalHistoryConsolidationNotification" class="org.ojbc.adapters.rapbackdatastore.processor.CriminalHistoryConsolidationNotification" />
-	
-	<bean id="criminalHistoryConsolidationProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.CriminalHistoryConsolidationProcessor" />
-	
-	<bean id="databaseConnectionMonitor" class="org.ojbc.adapters.rapbackdatastore.processor.DatabaseConnectionMonitor" />
-	
-	<bean id="identificationReportingResponseProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessor" />
-	
-	<bean id="identificationRequestReportProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor" />
-	
-	<bean id="identificationResultsReportProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationResultsReportProcessor" />
-	
-	<bean id="initialResultsQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.InitialResultsQueryProcessor" />
-	
-	<bean id="nsorFiveYearchCheckResultsQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.NsorFiveYearchCheckResultsQueryProcessor" />
-	
-	<bean id="rapbackSearchProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.RapbackSearchProcessor" />
-	
-	<bean id="subscriptionModificationXMLProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.SubscriptionModificationXMLProcessor" />
-	
-	<bean id="subscriptionNotificationReportingProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.SubscriptionNotificationReportingProcessor" />
-	
-	<bean id="subsequentResultsQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.SubsequentResultsQueryProcessor" />
-	
-	<bean id="civilEmailNotificationFilterProcessor" class="org.ojbc.intermediaries.sn.notification.CivilEmailNotificationFilterProcessor" />
-	
-	<bean id="enhancedRapbackDAO" class="org.ojbc.adapters.rapbackdatastore.dao.EnhancedAuditDAOImpl" />
-	
-	<bean id="criminalHistoryDemographicUpdateProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.demographics.CriminalHistoryDemographicUpdateProcessor" />
+
+  <bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
+    <constructor-arg index="0" value="Operation Name is not supported." />
+  </bean>
+
+  <bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils" />
+
+  <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+  <bean id="abstractIdentificationResultsQueryProccessor"
+    class="org.ojbc.adapters.rapbackdatastore.processor.AbstractIdentificationResultsQueryProcessor" />
+
+  <bean id="abstractSearchQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.AbstractSearchQueryProcessor" />
+
+  <bean id="archiveProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.ArchiveProcessor" />
+
+  <bean id="criminalHistoryConsolidationNotification"
+    class="org.ojbc.adapters.rapbackdatastore.processor.CriminalHistoryConsolidationNotification" />
+
+  <bean id="criminalHistoryConsolidationProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.CriminalHistoryConsolidationProcessor" />
+
+  <bean id="databaseConnectionMonitor" class="org.ojbc.adapters.rapbackdatastore.processor.DatabaseConnectionMonitor" />
+
+  <bean id="identificationReportingResponseProcessor"
+    class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessor" />
+
+  <bean id="identificationRequestReportProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor" />
+
+  <bean id="identificationResultsReportProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.IdentificationResultsReportProcessor" />
+
+  <bean id="initialResultsQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.InitialResultsQueryProcessor" />
+
+  <bean id="nsorFiveYearchCheckResultsQueryProcessor"
+    class="org.ojbc.adapters.rapbackdatastore.processor.NsorFiveYearchCheckResultsQueryProcessor" />
+
+  <bean id="rapbackSearchProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.RapbackSearchProcessor" />
+
+  <bean id="subscriptionModificationXMLProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.SubscriptionModificationXMLProcessor" />
+
+  <bean id="subscriptionNotificationReportingProcessor"
+    class="org.ojbc.adapters.rapbackdatastore.processor.SubscriptionNotificationReportingProcessor" />
+
+  <bean id="subsequentResultsQueryProcessor" class="org.ojbc.adapters.rapbackdatastore.processor.SubsequentResultsQueryProcessor" />
+
+  <bean id="civilEmailNotificationFilterProcessor" class="org.ojbc.intermediaries.sn.notification.CivilEmailNotificationFilterProcessor" />
+
+  <bean id="enhancedRapbackDAO" class="org.ojbc.adapters.rapbackdatastore.dao.EnhancedAuditDAOImpl" />
+
+  <bean id="criminalHistoryDemographicUpdateProcessor"
+    class="org.ojbc.adapters.rapbackdatastore.processor.demographics.CriminalHistoryDemographicUpdateProcessor" />
 </beans>
