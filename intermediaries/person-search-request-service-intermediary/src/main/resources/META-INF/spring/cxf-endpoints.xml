@@ -17,16 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
-	   xmlns:policy="http://cxf.apache.org/policy"
-	   xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
-       xmlns:sec="http://cxf.apache.org/configuration/security"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:http="http://cxf.apache.org/transports/http/configuration"
-       xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration" xmlns:sec="http://cxf.apache.org/configuration/security"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:http="http://cxf.apache.org/transports/http/configuration"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
@@ -36,191 +31,186 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
        ">
-	
-	<!-- Person Search Request Service, hosted by OJB  -->
-	<cxf:cxfEndpoint id="personSearchRequestFederatedService"
-		address="${federatedQuery.personSearch.personSearchEndpoint}"
-		wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
-		serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="personSearchRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.personSearch.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	<!-- Person Search Request Adapter, address will be set dynamically -->
-	<cxf:cxfEndpoint id="personSearchRequestServiceAdapter"
-		wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
-		serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="personSearchRequestKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${federatedQuery.personSearch.keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	<!-- Person Search Results Handler Service, hosted by OJB  -->
-	<cxf:cxfEndpoint id="personSearchResultsFederatedService"
-		address="${federatedQuery.personSearch.personSearchResultsEndpoint}"
-		wsdlURL="classpath:ssp/Person_Search_Results/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
-		serviceName="ojbc:Person_Search_Results_Service_Service" endpointName="ojbc:Person_Search_Results_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0">
-		 <cxf:features> 
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-            </bean>             
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
-	</cxf:cxfEndpoint>
-	
-	<!-- Entity Resolution CXF endpoints -->
-    <!-- OJB Entity Resolution Request handler -->
-	<cxf:cxfEndpoint id="entityResolutionRequestService"
-		address="${federatedQuery.entityResolutionRequestEndpoint}"
-		wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
-		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
-		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
 
-	<!-- OJB Merge Notification Service handler -->
-	<cxf:cxfEndpoint id="mergeNotificationService"
-		address="${federatedQuery.mergeNotificationServiceEndpoint}"
-		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
-		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
-		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
+  <!-- Person Search Request Service, hosted by OJB -->
+  <cxf:cxfEndpoint id="personSearchRequestFederatedService" address="${federatedQuery.personSearch.personSearchEndpoint}"
+    wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+    serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="personSearchRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.personSearch.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<!-- Present Merge Notification Service Results -->
-	<cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
-		address="${federatedQuery.personSearch.presentMergeNotificationResultsEndpoint}"
-		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
-		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
-		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
-		<cxf:features>
-            <bean class="org.apache.cxf.ext.logging.LoggingFeature">
-                <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-                <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
-            </bean>             
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
-	
-	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.transport.header.CxfHeaderFilterStrategy">
-	    <!--  Set relayHeaders to false to drop all SOAP headers -->
-    	<property name="relayHeaders" value="false"/>
-	</bean>
+  <!-- Person Search Request Adapter, address will be set dynamically -->
+  <cxf:cxfEndpoint id="personSearchRequestServiceAdapter"
+    wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+    serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="personSearchRequestKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${federatedQuery.personSearch.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${federatedQuery.personSearch.keystoreCertificateAlias}" value="${federatedQuery.personSearch.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
+  <!-- Person Search Results Handler Service, hosted by OJB -->
+  <cxf:cxfEndpoint id="personSearchResultsFederatedService" address="${federatedQuery.personSearch.personSearchResultsEndpoint}"
+    wsdlURL="classpath:ssp/Person_Search_Results/schema/SIP_WS_1.2/Person_Search_Results_Service.wsdl"
+    serviceName="ojbc:Person_Search_Results_Service_Service" endpointName="ojbc:Person_Search_Results_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
 
-   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+  <!-- Entity Resolution CXF endpoints -->
+  <!-- OJB Entity Resolution Request handler -->
+  <cxf:cxfEndpoint id="entityResolutionRequestService" address="${federatedQuery.entityResolutionRequestEndpoint}"
+    wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
+    serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
+    xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
 
-	<util:properties id="personSearchRequestKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.personSearch.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.personSearch.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.personSearch.keystoreLocation}</prop>
-	</util:properties>	
-	
-	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<http:conduit
-		name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${federatedQuery.personSearch.keyPassword}">
-			  <sec:keyStore type="jks" password="${federatedQuery.personSearch.keystorePassword}" url="${federatedQuery.personSearch.keystoreLocation}" />
-			</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${federatedQuery.personSearch.truststorePassword}"
-					url="${federatedQuery.personSearch.truststoreLocation}" />
-			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>			
-				    
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>				    
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				    
-			</sec:cipherSuitesFilter>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" AllowChunking="false"/>
-	</http:conduit>	
+  <!-- OJB Merge Notification Service handler -->
+  <cxf:cxfEndpoint id="mergeNotificationService" address="${federatedQuery.mergeNotificationServiceEndpoint}"
+    wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+    serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+    xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <!-- Present Merge Notification Service Results -->
+  <cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
+    address="${federatedQuery.personSearch.presentMergeNotificationResultsEndpoint}"
+    wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+    serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
+    xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
+    <cxf:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature">
+        <property name="prettyLogging" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+        <property name="verbose" value="${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+      </bean>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>
+
+  <bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.transport.header.CxfHeaderFilterStrategy">
+    <!-- Set relayHeaders to false to drop all SOAP headers -->
+    <property name="relayHeaders" value="false" />
+  </bean>
+
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${federatedQuery.personSearch.keystoreCertificateAlias}" value="${federatedQuery.personSearch.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+  <util:properties id="personSearchRequestKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${federatedQuery.personSearch.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${federatedQuery.personSearch.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${federatedQuery.personSearch.keystoreLocation}</prop>
+  </util:properties>
+
+  <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.personSearch.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.personSearch.keystorePassword}"
+          url="${federatedQuery.personSearch.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${federatedQuery.personSearch.truststorePassword}"
+          url="${federatedQuery.personSearch.truststoreLocation}" />
+      </sec:trustManagers>
+      <sec:cipherSuitesFilter>
+        <!-- these filters ensure that a strong ciphersuite will be used -->
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>
+
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</sec:include>
+        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
+        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256</sec:include>
+        <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
+        <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>
+      </sec:cipherSuitesFilter>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" AllowChunking="false" />
+  </http:conduit>	
 </beans>
