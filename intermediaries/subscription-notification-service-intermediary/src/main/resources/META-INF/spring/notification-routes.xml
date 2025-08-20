@@ -18,16 +18,16 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
   xmlns:camel="http://camel.apache.org/schema/spring" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
   xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
   xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
   xsi:schemaLocation="
-	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
+    http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
   <routeContext id="notificationRoutes" xmlns="http://camel.apache.org/schema/spring">
 

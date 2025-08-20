@@ -18,14 +18,14 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:ctx="http://www.springframework.org/schema/context"
   xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
   xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
   xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
   xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
   xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
