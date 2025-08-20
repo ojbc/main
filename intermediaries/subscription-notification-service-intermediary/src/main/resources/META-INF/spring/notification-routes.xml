@@ -17,372 +17,371 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-    xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+  xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+  xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-		
-	<routeContext id="notificationRoutes" xmlns="http://camel.apache.org/schema/spring">		
 
-		<camel:route id="processNotificationRoute">
+  <routeContext id="notificationRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-			<camel:from uri="direct:processNotification" />
-			
-			<camel:setHeader name="Content-Type">
-				<constant>text/html</constant>
-			</camel:setHeader>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
-					<camel:choice>
-						<camel:when>
-							<camel:xpath>normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject)!=''</camel:xpath>
-							<camel:setHeader name="base64BinaryData">
-								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
-							</camel:setHeader>
-							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processBase64BinaryObject"></camel:to>
-						</camel:when>
-					</camel:choice>
-					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
-					
-					<camel:choice>
-						<!-- This is an in state arrest notification -->
-						<camel:when>
-							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
+    <camel:route id="processNotificationRoute">
 
-							<camel:setHeader name="base64BinaryData">
-								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
-							</camel:setHeader>
-							
-							<camel:log message="In state arrest notification received for rapback topic"/>
-							
-							<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
-							
-							<!-- Look for matching notifications here -->
-							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=saveInstateRapsheet"></camel:to>
-							
-						</camel:when>
-						
-						<!-- This is a federal arrest notification -->
-						<camel:when>
-							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate</camel:xpath>
-							
-							<camel:log message="Federal notification received for rapback topic"/>
-							
-							<camel:to uri="bean:rapbackNotificationProcessor?method=findRapbackSubscriptionForNotification" />
-						</camel:when>
-						<camel:otherwise>
-							<camel:log message="No known notifying message was in the notification.  Stopping route"/>
-							<camel:stop/>
-						</camel:otherwise>		
-					</camel:choice>				
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
-					<camel:to uri="bean:incidentNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
-					<camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'courtDispositionUpdate'</camel:simple>
-					<camel:to uri="bean:courtDispositionUpdateNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
-					<camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
-					<camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
-					<camel:setHeader name="ori">
-						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
-					</camel:setHeader>
-					<camel:setHeader name="Content-Type">
-						<constant>text/plain</constant>
-					</camel:setHeader>
-					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
-					<camel:setHeader name="ori">
-						<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
-					</camel:setHeader>
-					<camel:setHeader name="Content-Type">
-						<constant>text/plain</constant>
-					</camel:setHeader>
-					<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
-					<camel:to uri="bean:srfNotificationProcessor?method=findSubscriptionsForNotification"/>
-				</camel:when>
+      <camel:from uri="direct:processNotification" />
 
-			</camel:choice>
+      <camel:setHeader name="Content-Type">
+        <constant>text/html</constant>
+      </camel:setHeader>
 
-			<camel:split>
-				
-				<!-- The body is a list of Email Notifications -->
-				<camel:simple>${body}</camel:simple>
-				
-				<camel:to uri="bean:notificationLoggingProcessor?method=logNotification"/>
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
+          <camel:choice>
+            <camel:when>
+              <camel:xpath>normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject)!=''</camel:xpath>
+              <camel:setHeader name="base64BinaryData">
+                <camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
+              </camel:setHeader>
+              <camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processBase64BinaryObject"></camel:to>
+            </camel:when>
+          </camel:choice>
+          <camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
 
-				<camel:choice>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
-						<camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
-						<camel:to uri="bean:rapbackNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
-						<camel:to uri="bean:incidentNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
-						<camel:to uri="bean:chCycleNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'courtDispositionUpdate'</camel:simple>
-						<camel:to uri="bean:courtDispositionUpdateNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
-						<camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
-						<camel:to uri="bean:vehicleCrashNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
-						<camel:to uri="bean:warrantFileNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
-						<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
-						<camel:to uri="bean:srfNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					
-				</camel:choice>
+          <camel:choice>
+            <!-- This is an in state arrest notification -->
+            <camel:when>
+              <camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
 
-                <camel:log message="emailBody: ${body}" />
+              <camel:setHeader name="base64BinaryData">
+                <camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
+              </camel:setHeader>
 
-				<camel:to uri="direct:encryptBody" />
-			
-				<camel:log message="in.header.to: ${in.header.to}" />
-				<camel:log message="in.header.blocked: ${in.header.blocked}" />
-				<camel:setHeader name="emailBody">
-					<camel:simple>${body}</camel:simple>
-				</camel:setHeader>
+              <camel:log message="In state arrest notification received for rapback topic" />
 
-				<camel:choice>
-					<camel:when>    			
-    				<!-- If this notification object has some blocked (non-whitelisted) email addresses -->
-						<camel:simple>${in.header.blocked.size} > 0</camel:simple>
-                        <camel:log message="blocked list is not empty"/> 
-            
-						<camel:split>
+              <camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
 
-							<camel:header>blocked</camel:header>
+              <!-- Look for matching notifications here -->
+              <camel:to uri="bean:arrestNotificationAttachmentProcessor?method=saveInstateRapsheet"></camel:to>
 
-							<camel:setHeader name="blockedAddress">
-								<camel:simple>${body}</camel:simple>
-							</camel:setHeader>
-							<camel:setBody>
-								<camel:simple>${header.emailBody}</camel:simple>
-							</camel:setBody>
+            </camel:when>
 
-							<camel:setHeader name="CamelFileName">
-								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
-							</camel:setHeader>
+            <!-- This is a federal arrest notification -->
+            <camel:when>
+              <camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate</camel:xpath>
 
-							<camel:log
-								message="The email address ${header.blockedAddress} is not in the white list and will be written to the file system with the name ${in.header.CamelFileName}"
-								logName="notificationLogger" />
-						
-						<!-- We throttle here in case multiple messages come in at the same time -->
-							<camel:throttle timePeriodMillis="1000" >
-								<camel:constant>1</camel:constant>
-							</camel:throttle>
-							<to uri="notificationNonwhitelistFileDrop" />
+              <camel:log message="Federal notification received for rapback topic" />
 
-						</camel:split>
+              <camel:to uri="bean:rapbackNotificationProcessor?method=findRapbackSubscriptionForNotification" />
+            </camel:when>
+            <camel:otherwise>
+              <camel:log message="No known notifying message was in the notification.  Stopping route" />
+              <camel:stop />
+            </camel:otherwise>
+          </camel:choice>
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
+          <camel:to uri="bean:incidentNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
+          <camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'courtDispositionUpdate'</camel:simple>
+          <camel:to uri="bean:courtDispositionUpdateNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
+          <camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
+          <camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
+          <camel:setHeader name="ori">
+            <camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
+          </camel:setHeader>
+          <camel:setHeader name="Content-Type">
+            <constant>text/plain</constant>
+          </camel:setHeader>
+          <camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
+          <camel:setHeader name="ori">
+            <camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/j:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID</camel:xpath>
+          </camel:setHeader>
+          <camel:setHeader name="Content-Type">
+            <constant>text/plain</constant>
+          </camel:setHeader>
+          <camel:to uri="bean:stateWarrantFileNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
+        <camel:when>
+          <camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
+          <camel:to uri="bean:srfNotificationProcessor?method=findSubscriptionsForNotification" />
+        </camel:when>
 
-					</camel:when>
+      </camel:choice>
 
-					<camel:when>
-				
-					<!-- When this notification object has a non-null "to" address (i.e., a valid email can be sent) -->
-						<camel:simple>${header.to} != null</camel:simple>
-					  <camel:log message="About to call direct:processEmailNotifications"/> 
-						<camel:log message="headers: ${in.headers}" />
-						<camel:log message="Email Address is in whitelist: TO=${in.header.to}" />
+      <camel:split>
 
-						<camel:to uri="direct:processEmailNotifications" />
+        <!-- The body is a list of Email Notifications -->
+        <camel:simple>${body}</camel:simple>
 
-					</camel:when>
+        <camel:to uri="bean:notificationLoggingProcessor?method=logNotification" />
 
-					<camel:otherwise>
+        <camel:choice>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
+            <camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
+            <camel:to uri="bean:rapbackNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
+            <camel:to uri="bean:incidentNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
+            <camel:to uri="bean:chCycleNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'courtDispositionUpdate'</camel:simple>
+            <camel:to uri="bean:courtDispositionUpdateNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
+            <camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
+            <camel:to uri="bean:vehicleCrashNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
+            <camel:to uri="bean:warrantFileNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
+            <camel:to uri="bean:stateWarrantFileNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
+          <camel:when>
+            <camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
+            <camel:to uri="bean:srfNotificationProcessor?method=createNotificationEmail" />
+          </camel:when>
 
-						<camel:log loggingLevel="WARN"
-							message="Invalid email notification, contained no to: address and no blocked (non-whitelisted) addresses. Header info follows:" />
-						<camel:log loggingLevel="WARN" message="headers: ${in.headers}" />
+        </camel:choice>
 
-					</camel:otherwise>
+        <camel:log message="emailBody: ${body}" />
 
-				</camel:choice>
+        <camel:to uri="direct:encryptBody" />
 
-			</camel:split>
+        <camel:log message="in.header.to: ${in.header.to}" />
+        <camel:log message="in.header.blocked: ${in.header.blocked}" />
+        <camel:setHeader name="emailBody">
+          <camel:simple>${body}</camel:simple>
+        </camel:setHeader>
 
-		</camel:route>
+        <camel:choice>
+          <camel:when>
+            <!-- If this notification object has some blocked (non-whitelisted) email addresses -->
+            <camel:simple>${in.header.blocked.size} > 0</camel:simple>
+            <camel:log message="blocked list is not empty" />
 
-		<camel:route>
-			<camel:from uri="direct:processEmailNotifications" />
-			<camel:log message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}.  Subscribing system identifer: ${in.header.subscribingSystemIdentifier}"
-				logName="notificationLogger" />
+            <camel:split>
 
-			<removeHeaders pattern="emailBody" />
-			<removeHeaders pattern="subscribingSystemIdentifier" />
+              <camel:header>blocked</camel:header>
 
-			<!-- Update last notification sent timestamp here -->
-			<camel:to uri="bean:notificationsSentStrategy?method=updateNotificationSentTimestamp" />
+              <camel:setHeader name="blockedAddress">
+                <camel:simple>${body}</camel:simple>
+              </camel:setHeader>
+              <camel:setBody>
+                <camel:simple>${header.emailBody}</camel:simple>
+              </camel:setBody>
 
-			<camel:choice>
-				<camel:when>
-					<method ref="sendEmailNotificationsByConfigurationProcessor" method="sendEmailNotificationsToRecipients" />
-					<camel:to uri="smtpEndpoint" />
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="No email will be sent, email property sendEmailNotifications set to false.  Email Body is: ${body}"></camel:log>
-				</camel:otherwise>
-			</camel:choice>
-		</camel:route>
+              <camel:setHeader name="CamelFileName">
+                <camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
+              </camel:setHeader>
 
-		<camel:route id="notifyOfExpiringSubscriptionsRoute" autoStartup="{{publishSubscribe.notifyOfExpiringSubscriptions}}">
-			<camel:from uri="quartz://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
-			
-			<camel:log message="Checking for expiring subscriptions"/>
-			
-            <camel:setHeader name="hostServer">
-                <constant>{{publishSubscribe.subject.hostServer}}</constant>
-            </camel:setHeader>
-			<camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiringNotificationEmails"/>
-			
-			<camel:split>
-				<!-- The body is a list of Expiring Subscription Emails -->
-				<camel:simple>${body}</camel:simple>
-				
-				<camel:log message="About to send email: ${body}"/>
-				<camel:to uri="bean:expiringSubscriptionsManager?method=createCamelEmail"/>
-			
-				<!-- Don't enable emails until we get the subscription owner field saved -->
-				<to uri="smtpEndpoint" />
-				
-			</camel:split>
+              <camel:log
+                message="The email address ${header.blockedAddress} is not in the white list and will be written to the file system with the name ${in.header.CamelFileName}"
+                logName="notificationLogger" />
 
-		</camel:route>
-		
-		<camel:route id="cancelExpiredInvalidSubscriptionsRoute" autoStartup="{{publishSubscribe.cancelExpiredInvalidSubscriptions}}">
-			<camel:from uri="quartz://subscriptionNotification/cancelExpiredInvalidSubscriptionsTimer?cron={{publishSubscribe.unsubscribeExpiringSubscriptionsCronTimer}}"/>			
-			
-			<camel:log message="Unsubscribe for expired/invalid subscriptions"/>
-			
-			<camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiredSubscriptionsToUnsubscribe"/>
-			
-			<camel:split>
-				<!-- The body is a list of unsubscriptions documents-->
-				<camel:simple>${body}</camel:simple>
-				
-				<camel:setHeader name="subscriptionId">
-					<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc20:IdentificationID</camel:xpath>
-				</camel:setHeader>
-				
-				<camel:log message="Unsubscription expired or invalid subscription with ID : ${in.headers.subscriptionId}"/>
-				
-				<camel:to uri="direct:processUnsubscription"/>
-				
-			</camel:split>
+              <!-- We throttle here in case multiple messages come in at the same time -->
+              <camel:throttle timePeriodMillis="1000">
+                <camel:constant>1</camel:constant>
+              </camel:throttle>
+              <to uri="notificationNonwhitelistFileDrop" />
 
-		</camel:route>
-		
-		<camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
-			<camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
-			
-			<camel:log message="Entering route to check when last notifications were sent" />
-			
-			<filter>
-				<method ref="notificationsSentStrategy" method="hasNotificationBeenSent" />
-				<camel:log message="Notification sent in defined interval, stop route" />
-				<camel:stop />
-			</filter>
-		
-			<!-- If we get here the route was not stopped by the filter -->
-		
-			<camel:setHeader name="to">
-				<constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
-			</camel:setHeader>
-		
-			<camel:setHeader name="subject">
-				<constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notifications not sent in defined interval</constant>
-			</camel:setHeader>
-		
-			<to uri="smtpEndpoint" />
-			
-		</camel:route>
-		
-		<camel:route id="checkLowNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotificationCount}}">
-            <camel:from uri="quartz://subscriptionNotification/lowNotificationsSentTimer?cron={{publishSubscribe.checkForLowNotificationsSentCronTimer}}"/>           
-            
-            <camel:log message="Entering route to check when last notifications were sent" />
-            
-            <filter>
-                <method ref="notificationsSentStrategy" method="hasNotifcationAmountBeenSent" />
-                <camel:log message="Enough notifications have been sent, stop route" />
-                <camel:stop />
-            </filter>
-        
-            <!-- If we get here the route was not stopped by the filter -->
-        
-            <camel:setHeader name="to">
-                <constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
-            </camel:setHeader>
-        
-            <camel:setHeader name="subject">
-                <constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notification count is low.</constant>
-            </camel:setHeader>
-        
-            <to uri="smtpEndpoint" />
-            
-        </camel:route>
-		
-	</routeContext>
-		
+            </camel:split>
+
+          </camel:when>
+
+          <camel:when>
+
+            <!-- When this notification object has a non-null "to" address (i.e., a valid email can be sent) -->
+            <camel:simple>${header.to} != null</camel:simple>
+            <camel:log message="About to call direct:processEmailNotifications" />
+            <camel:log message="headers: ${in.headers}" />
+            <camel:log message="Email Address is in whitelist: TO=${in.header.to}" />
+
+            <camel:to uri="direct:processEmailNotifications" />
+
+          </camel:when>
+
+          <camel:otherwise>
+
+            <camel:log loggingLevel="WARN"
+              message="Invalid email notification, contained no to: address and no blocked (non-whitelisted) addresses. Header info follows:" />
+            <camel:log loggingLevel="WARN" message="headers: ${in.headers}" />
+
+          </camel:otherwise>
+
+        </camel:choice>
+
+      </camel:split>
+
+    </camel:route>
+
+    <camel:route>
+      <camel:from uri="direct:processEmailNotifications" />
+      <camel:log
+        message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}.  Subscribing system identifer: ${in.header.subscribingSystemIdentifier}"
+        logName="notificationLogger" />
+
+      <removeHeaders pattern="emailBody" />
+      <removeHeaders pattern="subscribingSystemIdentifier" />
+
+      <!-- Update last notification sent timestamp here -->
+      <camel:to uri="bean:notificationsSentStrategy?method=updateNotificationSentTimestamp" />
+
+      <camel:choice>
+        <camel:when>
+          <method ref="sendEmailNotificationsByConfigurationProcessor" method="sendEmailNotificationsToRecipients" />
+          <camel:to uri="smtpEndpoint" />
+        </camel:when>
+        <camel:otherwise>
+          <camel:log message="No email will be sent, email property sendEmailNotifications set to false.  Email Body is: ${body}"></camel:log>
+        </camel:otherwise>
+      </camel:choice>
+    </camel:route>
+
+    <camel:route id="notifyOfExpiringSubscriptionsRoute" autoStartup="{{publishSubscribe.notifyOfExpiringSubscriptions}}">
+      <camel:from
+        uri="quartz://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}" />
+
+      <camel:log message="Checking for expiring subscriptions" />
+
+      <camel:setHeader name="hostServer">
+        <constant>{{publishSubscribe.subject.hostServer}}</constant>
+      </camel:setHeader>
+      <camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiringNotificationEmails" />
+
+      <camel:split>
+        <!-- The body is a list of Expiring Subscription Emails -->
+        <camel:simple>${body}</camel:simple>
+
+        <camel:log message="About to send email: ${body}" />
+        <camel:to uri="bean:expiringSubscriptionsManager?method=createCamelEmail" />
+
+        <!-- Don't enable emails until we get the subscription owner field saved -->
+        <to uri="smtpEndpoint" />
+
+      </camel:split>
+
+    </camel:route>
+
+    <camel:route id="cancelExpiredInvalidSubscriptionsRoute" autoStartup="{{publishSubscribe.cancelExpiredInvalidSubscriptions}}">
+      <camel:from
+        uri="quartz://subscriptionNotification/cancelExpiredInvalidSubscriptionsTimer?cron={{publishSubscribe.unsubscribeExpiringSubscriptionsCronTimer}}" />
+
+      <camel:log message="Unsubscribe for expired/invalid subscriptions" />
+
+      <camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiredSubscriptionsToUnsubscribe" />
+
+      <camel:split>
+        <!-- The body is a list of unsubscriptions documents -->
+        <camel:simple>${body}</camel:simple>
+
+        <camel:setHeader name="subscriptionId">
+          <camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc20:IdentificationID</camel:xpath>
+        </camel:setHeader>
+
+        <camel:log message="Unsubscription expired or invalid subscription with ID : ${in.headers.subscriptionId}" />
+
+        <camel:to uri="direct:processUnsubscription" />
+
+      </camel:split>
+
+    </camel:route>
+
+    <camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
+      <camel:from
+        uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}" />
+
+      <camel:log message="Entering route to check when last notifications were sent" />
+
+      <filter>
+        <method ref="notificationsSentStrategy" method="hasNotificationBeenSent" />
+        <camel:log message="Notification sent in defined interval, stop route" />
+        <camel:stop />
+      </filter>
+
+      <!-- If we get here the route was not stopped by the filter -->
+
+      <camel:setHeader name="to">
+        <constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
+      </camel:setHeader>
+
+      <camel:setHeader name="subject">
+        <constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notifications not sent in defined interval</constant>
+      </camel:setHeader>
+
+      <to uri="smtpEndpoint" />
+
+    </camel:route>
+
+    <camel:route id="checkLowNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotificationCount}}">
+      <camel:from
+        uri="quartz://subscriptionNotification/lowNotificationsSentTimer?cron={{publishSubscribe.checkForLowNotificationsSentCronTimer}}" />
+
+      <camel:log message="Entering route to check when last notifications were sent" />
+
+      <filter>
+        <method ref="notificationsSentStrategy" method="hasNotifcationAmountBeenSent" />
+        <camel:log message="Enough notifications have been sent, stop route" />
+        <camel:stop />
+      </filter>
+
+      <!-- If we get here the route was not stopped by the filter -->
+
+      <camel:setHeader name="to">
+        <constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
+      </camel:setHeader>
+
+      <camel:setHeader name="subject">
+        <constant>Check subscription notification intermediary on {{publishSubscribe.subject.hostServer}}.  Notification count is low.</constant>
+      </camel:setHeader>
+
+      <to uri="smtpEndpoint" />
+
+    </camel:route>
+
+  </routeContext>
+
 </beans>
 

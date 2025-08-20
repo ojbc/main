@@ -17,264 +17,273 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
-	xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
-	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+  xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+  xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-    
-		
-	<!-- Subscription Secure flow -->
-	<routeContext id="subscriptionSecureRouteContext" xmlns="http://camel.apache.org/schema/spring">		
-		<camel:route id="subscriptionSecureRoute">
-		
-			<camel:from	uri="notificationBrokerServiceSecureEndpoint" />
-			
-			<camel:log message="Entering Subscription Secure Route"/>
-			
-			<!--  Perform some generic message processing --> 
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-		
-			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
-			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
-			
-			<!-- perform auditing request here -->
-			<camel:setHeader name="subscriptionId">
-				<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
-			</camel:setHeader>
-			
-			<camel:doTry>
-			
-				<camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionRequest"/>
-				
-				<camel:doCatch>
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-				</camel:doCatch>			
-			</camel:doTry>
-			
-			<camel:doTry>
-				<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>
 
-				<camel:to uri="direct:processSubscription"/>
 
-				<camel:doCatch >
-					<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
-					<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-					<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
-				</camel:doCatch>
-				<camel:doCatch>
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-					<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
-				</camel:doCatch>
-			</camel:doTry>	
-			
-			<!-- perform auditing response here -->
-			<camel:doTry>
-			    <camel:log message="This is the subscription id to audit: ${in.headers.subscriptionId}"/>
-				<camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionResponse"/>
-				
-				<camel:doCatch>
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-				</camel:doCatch>			
-			</camel:doTry>
-			
-		</camel:route>
-		
-		<camel:route>
-			<camel:from uri="direct:setAndRetrieveSAMLHeaders"/>
-	
-			<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
+  <!-- Subscription Secure flow -->
+  <routeContext id="subscriptionSecureRouteContext" xmlns="http://camel.apache.org/schema/spring">
+    <camel:route id="subscriptionSecureRoute">
 
-			<!-- These headers are used when saving the subscription to the database -->
-			<camel:setHeader name="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
+      <camel:from uri="notificationBrokerServiceSecureEndpoint" />
 
-			<camel:setHeader name="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}"/>
-			
-			<camel:setHeader name="subscriptionOwnerFirstName"><simple>${in.headers.saml_FirstName}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner first name: ${in.headers.subscriptionOwnerFirstName}"/>
+      <camel:log message="Entering Subscription Secure Route" />
 
-			<camel:setHeader name="subscriptionOwnerLastName"><simple>${in.headers.saml_LastName}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner last name: ${in.headers.subscriptionOwnerLastName}"/>
+      <!-- Perform some generic message processing -->
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader name="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}"/>
+      <!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+      <camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage" />
 
-			<camel:setHeader name="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
-			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}"/>
-		</camel:route>
-		
-		
-		<camel:route id="subscriptionManagerServiceSecureRoute">
-		
-			<camel:from	uri="subscriptionManagerServiceSecureEndpoint" />
-			
-			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
-			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.header.operationName} == 'Unsubscribe'</camel:simple>	      	
+      <!-- perform auditing request here -->
+      <camel:setHeader name="subscriptionId">
+        <camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+      </camel:setHeader>
 
-					<camel:log message="Entering Unsubscription Secure Route"/>
-					
-					<camel:setHeader name="subscriptionId">
-						<camel:xpath resultType="java.lang.String">/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
-					</camel:setHeader>
-					
-					<!--  Perform some generic message processing --> 
-					<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-					
-					<!-- perform auditing request here in try catch block -->
-					<camel:doTry>
-					
-						<camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionRequest"/>
-						
-						<camel:doCatch>
-							<camel:exception>java.lang.Exception</camel:exception>
-							<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-						</camel:doCatch>			
-					</camel:doTry>					
-					
-					<camel:doTry>
-						<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>
-		
-						<camel:to uri="direct:processUnsubscription"/>
-		
-						<camel:doCatch >
-							<camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
-							<camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
-						</camel:doCatch>
-						<camel:doCatch>
-							<camel:exception>java.lang.Exception</camel:exception>
-							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR"/>
-							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
-						</camel:doCatch>
-					</camel:doTry>	
-					
-					<!-- perform auditing response here -->
-					<camel:doTry>
-					
-						<camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionResponse"/>
-						
-						<camel:doCatch>
-							<camel:exception>java.lang.Exception</camel:exception>
-							<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
-						</camel:doCatch>			
-					</camel:doTry>					
-					
-				</camel:when>
-				
-				<camel:when>
-					<camel:simple>${in.header.operationName} == 'Validate'</camel:simple>	      
-					
-					<camel:log message="Entering validate route"/>	
-					
-					<camel:setHeader name="subscriptionId">
-						<camel:xpath resultType="java.lang.String">//svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
-					</camel:setHeader>
-					
-					<camel:filter>
-						<camel:xpath>//svm:SubscriptionValidationMessage/submsg-ext:CivilSubscriptionReasonCode</camel:xpath>
-						
-						<camel:log message="This is a civil validation with SubscriptionId is ${in.header.subscriptionId}"/>
-						
-						<camel:setHeader name="validationType">
-							<camel:constant>civil</camel:constant>
-						</camel:setHeader>
-						
-					</camel:filter>	
+      <camel:doTry>
 
-					<camel:filter>
-						<camel:xpath>//svm:SubscriptionValidationMessage/submsg-ext:CriminalSubscriptionReasonCode</camel:xpath>
-						
-						<camel:log message="This is a criminal validation with SubscriptionId is ${in.header.subscriptionId}"/>
-						
-						<camel:setHeader name="validationType">
-							<camel:constant>criminal</camel:constant>
-						</camel:setHeader>
-						
-					</camel:filter>	
-						
-					<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>											
-						
-					<camel:doTry>
-					
-						<camel:setHeader name="subscription">
-							 <camel:method ref="subscriptionSearchQueryDAO" method="findSubscriptionWithFbiInfoBySubscriptionId" />   
-						</camel:setHeader>
-						<camel:setHeader name="validationDueDateString">
-							 <camel:method ref="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />   
-						</camel:setHeader>
-						<camel:log message="validationDueDateString is ${in.header.validationDueDateString}"/>
-						
-						<camel:choice>
-							<camel:when>
-								<camel:simple>${bean:fbiSubscriptionProcessor?method=hasFbiSubscription}</camel:simple>
+        <camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionRequest" />
 
-								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
-								
-							</camel:when>
-							<camel:otherwise>
-								<camel:log message="Will not send subscription validation to FBI, no matching FBI subscription"/>
-							</camel:otherwise>
-						</camel:choice>
-						
-						<camel:filter>
-							<camel:simple>${in.headers.validationType} == 'civil'</camel:simple>
-							
-							<filter>
-							    <method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter"/>
-							    
-							    <camel:log message="About to send to subscription adapter as per strategy"/>
-							    
-							    <camel:doTry>
-							    	<camel:wireTap uri="direct:sendMessageToSubscriptionAdapter"/>
-							    	
-							    	<camel:doCatch>
-										<camel:exception>java.lang.Exception</camel:exception>
-										<camel:log message="Validation from subscription adapter threw exception, known issue" loggingLevel="ERROR"/>
-									</camel:doCatch>
-							    </camel:doTry>
-							</filter>							
-						</camel:filter>						
-						
-						<!-- Auditing will be perform as part of the validation -->					
-						<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>
-						
-						<camel:doCatch>
-							<camel:exception>java.lang.Exception</camel:exception>
-							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR"/>
-							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
-						</camel:doCatch>
-					</camel:doTry>
-					
-				</camel:when>
-				
-				<camel:otherwise>
-					<camel:log message="Unsupported operation: ${in.header.operationName}"/>
-				</camel:otherwise>				
-			</camel:choice>
-			
-		</camel:route>
-	</routeContext>	
-		
+        <camel:doCatch>
+          <camel:exception>java.lang.Exception</camel:exception>
+          <camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+        </camel:doCatch>
+      </camel:doTry>
+
+      <camel:doTry>
+        <camel:to uri="direct:setAndRetrieveSAMLHeaders" />
+
+        <camel:to uri="direct:processSubscription" />
+
+        <camel:doCatch>
+          <camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+          <camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:genericFaultProcessor?method=createFault" />
+        </camel:doCatch>
+        <camel:doCatch>
+          <camel:exception>java.lang.Exception</camel:exception>
+          <camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+          <camel:to uri="bean:genericFaultProcessor?method=createFault" />
+        </camel:doCatch>
+      </camel:doTry>
+
+      <!-- perform auditing response here -->
+      <camel:doTry>
+        <camel:log message="This is the subscription id to audit: ${in.headers.subscriptionId}" />
+        <camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionResponse" />
+
+        <camel:doCatch>
+          <camel:exception>java.lang.Exception</camel:exception>
+          <camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+        </camel:doCatch>
+      </camel:doTry>
+
+    </camel:route>
+
+    <camel:route>
+      <camel:from uri="direct:setAndRetrieveSAMLHeaders" />
+
+      <camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />
+
+      <!-- These headers are used when saving the subscription to the database -->
+      <camel:setHeader name="subscriptionOwner">
+        <simple>${in.headers.saml_FederationID}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}" />
+
+      <camel:setHeader name="subscriptionOwnerEmailAddress">
+        <simple>${in.headers.saml_EmailAddress}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}" />
+
+      <camel:setHeader name="subscriptionOwnerFirstName">
+        <simple>${in.headers.saml_FirstName}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner first name: ${in.headers.subscriptionOwnerFirstName}" />
+
+      <camel:setHeader name="subscriptionOwnerLastName">
+        <simple>${in.headers.saml_LastName}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner last name: ${in.headers.subscriptionOwnerLastName}" />
+
+      <camel:setHeader name="subscriptionOwnerOri">
+        <simple>${in.headers.saml_EmployerOri}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}" />
+
+      <camel:setHeader name="subscriptionOwnerAgencyName">
+        <simple>${in.headers.saml_EmployerAgencyName}</simple>
+      </camel:setHeader>
+      <camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}" />
+    </camel:route>
+
+
+    <camel:route id="subscriptionManagerServiceSecureRoute">
+
+      <camel:from uri="subscriptionManagerServiceSecureEndpoint" />
+
+      <!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+      <camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${in.header.operationName} == 'Unsubscribe'</camel:simple>
+
+          <camel:log message="Entering Unsubscription Secure Route" />
+
+          <camel:setHeader name="subscriptionId">
+            <camel:xpath resultType="java.lang.String">/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+          </camel:setHeader>
+
+          <!-- Perform some generic message processing -->
+          <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+          <!-- perform auditing request here in try catch block -->
+          <camel:doTry>
+
+            <camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionRequest" />
+
+            <camel:doCatch>
+              <camel:exception>java.lang.Exception</camel:exception>
+              <camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}"
+                loggingLevel="INFO" />
+            </camel:doCatch>
+          </camel:doTry>
+
+          <camel:doTry>
+            <camel:to uri="direct:setAndRetrieveSAMLHeaders" />
+
+            <camel:to uri="direct:processUnsubscription" />
+
+            <camel:doCatch>
+              <camel:exception>org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException</camel:exception>
+              <camel:log message="An Invalid SAML Token exception was thrown: ${exception.stacktrace}" loggingLevel="INFO" />
+              <camel:to uri="bean:genericFaultProcessor?method=createFault" />
+            </camel:doCatch>
+            <camel:doCatch>
+              <camel:exception>java.lang.Exception</camel:exception>
+              <camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR" />
+              <camel:to uri="bean:genericFaultProcessor?method=createFault" />
+            </camel:doCatch>
+          </camel:doTry>
+
+          <!-- perform auditing response here -->
+          <camel:doTry>
+
+            <camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionResponse" />
+
+            <camel:doCatch>
+              <camel:exception>java.lang.Exception</camel:exception>
+              <camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}"
+                loggingLevel="INFO" />
+            </camel:doCatch>
+          </camel:doTry>
+
+        </camel:when>
+
+        <camel:when>
+          <camel:simple>${in.header.operationName} == 'Validate'</camel:simple>
+
+          <camel:log message="Entering validate route" />
+
+          <camel:setHeader name="subscriptionId">
+            <camel:xpath resultType="java.lang.String">//svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+          </camel:setHeader>
+
+          <camel:filter>
+            <camel:xpath>//svm:SubscriptionValidationMessage/submsg-ext:CivilSubscriptionReasonCode</camel:xpath>
+
+            <camel:log message="This is a civil validation with SubscriptionId is ${in.header.subscriptionId}" />
+
+            <camel:setHeader name="validationType">
+              <camel:constant>civil</camel:constant>
+            </camel:setHeader>
+
+          </camel:filter>
+
+          <camel:filter>
+            <camel:xpath>//svm:SubscriptionValidationMessage/submsg-ext:CriminalSubscriptionReasonCode</camel:xpath>
+
+            <camel:log message="This is a criminal validation with SubscriptionId is ${in.header.subscriptionId}" />
+
+            <camel:setHeader name="validationType">
+              <camel:constant>criminal</camel:constant>
+            </camel:setHeader>
+
+          </camel:filter>
+
+          <camel:to uri="direct:setAndRetrieveSAMLHeaders" />
+
+          <camel:doTry>
+
+            <camel:setHeader name="subscription">
+              <camel:method ref="subscriptionSearchQueryDAO" method="findSubscriptionWithFbiInfoBySubscriptionId" />
+            </camel:setHeader>
+            <camel:setHeader name="validationDueDateString">
+              <camel:method ref="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />
+            </camel:setHeader>
+            <camel:log message="validationDueDateString is ${in.header.validationDueDateString}" />
+
+            <camel:choice>
+              <camel:when>
+                <camel:simple>${bean:fbiSubscriptionProcessor?method=hasFbiSubscription}</camel:simple>
+
+                <camel:wireTap uri="direct:processFbiValidationUpdate" />
+
+              </camel:when>
+              <camel:otherwise>
+                <camel:log message="Will not send subscription validation to FBI, no matching FBI subscription" />
+              </camel:otherwise>
+            </camel:choice>
+
+            <camel:filter>
+              <camel:simple>${in.headers.validationType} == 'civil'</camel:simple>
+
+              <filter>
+                <method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter" />
+
+                <camel:log message="About to send to subscription adapter as per strategy" />
+
+                <camel:doTry>
+                  <camel:wireTap uri="direct:sendMessageToSubscriptionAdapter" />
+
+                  <camel:doCatch>
+                    <camel:exception>java.lang.Exception</camel:exception>
+                    <camel:log message="Validation from subscription adapter threw exception, known issue" loggingLevel="ERROR" />
+                  </camel:doCatch>
+                </camel:doTry>
+              </filter>
+            </camel:filter>
+
+            <!-- Auditing will be perform as part of the validation -->
+            <camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription" />
+
+            <camel:doCatch>
+              <camel:exception>java.lang.Exception</camel:exception>
+              <camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR" />
+              <camel:to uri="bean:genericFaultProcessor?method=createFault" />
+            </camel:doCatch>
+          </camel:doTry>
+
+        </camel:when>
+
+        <camel:otherwise>
+          <camel:log message="Unsupported operation: ${in.header.operationName}" />
+        </camel:otherwise>
+      </camel:choice>
+
+    </camel:route>
+  </routeContext>
+
 </beans>
 

@@ -17,78 +17,76 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf"
-	xmlns:ctx="http://www.springframework.org/schema/context" 
-	xmlns:camel="http://camel.apache.org/schema/spring"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:ctx="http://www.springframework.org/schema/context"
+  xmlns:camel="http://camel.apache.org/schema/spring"
+  xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.14.10.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-		
-	<routeContext id="subscriptionMigration" xmlns="http://camel.apache.org/schema/spring">		
 
-		<route id="processSubscriptionMigration_Route">
-			<from uri="subscriptionMigrationFileEndpoint"/>
+  <routeContext id="subscriptionMigration" xmlns="http://camel.apache.org/schema/spring">
 
-			<camel:log message="Input File received: ${in.headers.CamelFileName}"/>			
-		
-			<camel:split streaming="true">
-				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
-		
-				<camel:log message="Processing migration, CSV position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
-		
-				<camel:doTry>
-					<camel:to uri="bean:subscriptionMigrationProcessor?method=processSubscriptionCSVRecord"/>
-					
-					<doCatch>
-			            <exception>java.lang.Exception</exception>
-			            <camel:log message="Exception processing record: ${exception.stacktrace}"/>
-			        </doCatch>
-				</camel:doTry>	
-				
-			</camel:split>
-			
-			<camel:to uri="bean:subscriptionMigrationProcessor?method=getCompleteSubscriptions"/>
-			
-			<camel:split>
-				<camel:simple>${body}</camel:simple>
-			
-				<camel:log message="Processing subscriptions at position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
-				<camel:log message="This is the split body: ${body}"/>
-				
-				<camel:doTry>
-					<camel:to uri="bean:subscriptionMigrationProcessor?method=enrichMessageWithHeaders"/>
-				
-					<camel:to uri="direct:processSubscription"/>
-					
-					<doCatch>
-	            <exception>java.lang.Exception</exception>
-	            <camel:log message="Exception processing enriching and processing subscription: ${exception.stacktrace}"/>
-			    </doCatch>
-					
-				</camel:doTry>	
-				
-			</camel:split>
-		
-		</route> 
-		
-		<route id="processAgencyProfileSeeding_Route">
-			<from uri="agencyProfileSeedingFileEndpoint"/>
+    <route id="processSubscriptionMigration_Route">
+      <from uri="subscriptionMigrationFileEndpoint" />
 
-			<camel:log message="Input File received: ${in.headers.CamelFileName}"/>			
-		
-			<camel:split streaming="true">
-				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
-		
-				<camel:to uri="bean:subscriptionMigrationProcessor?method=processAgencyProfileORIEntry"/>	
-				
-			</camel:split>
-			
-		</route> 
-	</routeContext>
-		
+      <camel:log message="Input File received: ${in.headers.CamelFileName}" />
+
+      <camel:split streaming="true">
+        <tokenize token="\r\n|\n|\r" xml="false" trim="true" />
+
+        <camel:log message="Processing migration, CSV position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
+
+        <camel:doTry>
+          <camel:to uri="bean:subscriptionMigrationProcessor?method=processSubscriptionCSVRecord" />
+
+          <doCatch>
+            <exception>java.lang.Exception</exception>
+            <camel:log message="Exception processing record: ${exception.stacktrace}" />
+          </doCatch>
+        </camel:doTry>
+
+      </camel:split>
+
+      <camel:to uri="bean:subscriptionMigrationProcessor?method=getCompleteSubscriptions" />
+
+      <camel:split>
+        <camel:simple>${body}</camel:simple>
+
+        <camel:log message="Processing subscriptions at position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
+        <camel:log message="This is the split body: ${body}" />
+
+        <camel:doTry>
+          <camel:to uri="bean:subscriptionMigrationProcessor?method=enrichMessageWithHeaders" />
+
+          <camel:to uri="direct:processSubscription" />
+
+          <doCatch>
+            <exception>java.lang.Exception</exception>
+            <camel:log message="Exception processing enriching and processing subscription: ${exception.stacktrace}" />
+          </doCatch>
+
+        </camel:doTry>
+
+      </camel:split>
+
+    </route>
+
+    <route id="processAgencyProfileSeeding_Route">
+      <from uri="agencyProfileSeedingFileEndpoint" />
+
+      <camel:log message="Input File received: ${in.headers.CamelFileName}" />
+
+      <camel:split streaming="true">
+        <tokenize token="\r\n|\n|\r" xml="false" trim="true" />
+
+        <camel:to uri="bean:subscriptionMigrationProcessor?method=processAgencyProfileORIEntry" />
+
+      </camel:split>
+
+    </route>
+  </routeContext>
+
 </beans>
 

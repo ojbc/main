@@ -17,22 +17,20 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-    
-	<bean id="defaultRapbackEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Arrest Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[The FBI has reported an event involving an individual to whom you are subscribed:
+
+  <bean id="defaultRapbackEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Arrest Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[The FBI has reported an event involving an individual to whom you are subscribed:
 SID: $emailNotification.notificationRequest.subjectIdentifiers.get("SID")
 UCN: $emailNotification.notificationRequest.UCN
 #foreach ($rapbackTriggeringEvent in $emailNotification.notificationRequest.triggeringEvents)
@@ -42,15 +40,15 @@ Event Text: $rapbackTriggeringEvent.triggeringEventText
 
 #end
 For more information, please run a criminal history background on this individual.]]></value>
-		</property>
-	</bean>    
-    
-    <bean id="defaultArrestEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Arrest Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[Booking Name: $emailNotification.notificationRequest.personBookingName<br/>Name in $subscribingSystemDescriptor: $emailNotification.subjectName<br/>
+    </property>
+  </bean>
+
+  <bean id="defaultArrestEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Arrest Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[Booking Name: $emailNotification.notificationRequest.personBookingName<br/>Name in $subscribingSystemDescriptor: $emailNotification.subjectName<br/>
 SID: $emailNotification.notificationRequest.subjectIdentifiers.get("SID")<br/>
 DATE/TIME OF BOOKING: $emailNotification.notificationRequest.bookingDateTimeDisplay<br/>
 ARRESTING AGENCY: $emailNotification.notificationRequest.notifyingAgencyName<br/>
@@ -59,24 +57,24 @@ ARREST CHARGES:<br/>
 $chargeString<br/>
 #end
 <br/><br/>Positively identified by fingerprint in demostate.]]></value>
-		</property>
-	</bean>
-       
-    <bean id="defaultChCycleEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[$emailNotification.notificationRequest.notifyingAgencyName requested a demostate Arrest Tracking Number(ATN) for $emailNotification.notificationRequest.personFullName on $emailNotification.notificationRequest.eventDateTimeDisplay]]></value>
-		</property>
-	</bean>
-       
-    <bean id="defaultIncidentEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Incident Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented#if ($$emailNotification.notificationRequest.notifyingAgencyName && $$emailNotification.notificationRequest.notifyingAgencyName != "") by the following demostate law enforcement agency:<br/>
+    </property>
+  </bean>
+
+  <bean id="defaultChCycleEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[$emailNotification.notificationRequest.notifyingAgencyName requested a demostate Arrest Tracking Number(ATN) for $emailNotification.notificationRequest.personFullName on $emailNotification.notificationRequest.eventDateTimeDisplay]]></value>
+    </property>
+  </bean>
+
+  <bean id="defaultIncidentEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Incident Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented#if ($$emailNotification.notificationRequest.notifyingAgencyName && $$emailNotification.notificationRequest.notifyingAgencyName != "") by the following demostate law enforcement agency:<br/>
 $emailNotification.notificationRequest.notifyingAgencyName<br/>
 #else 
 :<br/>
@@ -96,15 +94,15 @@ $offenseString<br/>
 Officer: $officerNameString<br/>
 #end
 #if ($$emailNotification.notificationRequest.notifyingAgencyName && $$emailNotification.notificationRequest.notifyingAgencyName != "")To follow up on this incident, please call $emailNotification.notificationRequest.notifyingAgencyName.#end]]></value>
-		</property>
-	</bean>
-	
-    <bean id="defaultVehicleCrashEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Vehicle Crash Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[The following individual, to who, you are subscribed, was involved in a vehicle crash. Details outlined below :
+    </property>
+  </bean>
+
+  <bean id="defaultVehicleCrashEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Vehicle Crash Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[The following individual, to who, you are subscribed, was involved in a vehicle crash. Details outlined below :
 <br/>
 Crash Location: $emailNotification.notificationRequest.crashLocation<br/>
 Crash Date/Time: $emailNotification.notificationRequest.crashDateTimeDisplay<br/>
@@ -122,97 +120,100 @@ Officer: $officerNameString<br/>
 #end
 Citation #:$emailNotification.notificationRequest.notificationEventIdentifier <br/>
 If you require more information, please utilize the Federated Query Tool]]></value>
-		</property>
-	</bean>	
+    </property>
+  </bean>
 
-    <bean id="defaultCourtDispositionUpdateEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Court Disposition Update Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[Court Disposition Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
+  <bean id="defaultCourtDispositionUpdateEmailFormatter"
+    class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Court Disposition Update Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[Court Disposition Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
 The notification had an event ID of: $emailNotification.notificationRequest.notificationEventIdentifier]]></value>
-		</property>
-	</bean>
+    </property>
+  </bean>
 
-    <bean id="defaultProsecutionDecisionUpdateEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[Prosecution Decision Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
+  <bean id="defaultProsecutionDecisionUpdateEmailFormatter"
+    class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[Prosecution Decision Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
 The notification had an event ID of: $emailNotification.notificationRequest.notificationEventIdentifier]]></value>
-		</property>
-	</bean>
-	
-	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value><![CDATA[
+    </property>
+  </bean>
+
+  <bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value><![CDATA[
 			]]></value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[
 			]]></value>
-		</property>
-	</bean>
-	
-	<bean id="defaultStateWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value></value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[
+    </property>
+  </bean>
+
+  <bean id="defaultStateWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value></value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[
 	]]></value>
-		</property>
-	</bean>
-	
-	<bean id="defaultSRFEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value></value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value><![CDATA[]]></value>
-		</property>
-	</bean>
-	
-	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
-		<property name="subscriptionCategoryCode" value="default"/>
-		<property name="notifyingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
-	</bean>
-	
-	<bean id="inStateArrestNotificationFormatKeyCI" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-		<property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB"/>
-		<property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer"/>
-		<property name="subscriptionCategoryCode" value="CI"/>
-	</bean>
+    </property>
+  </bean>
 
-	<bean id="inStateArrestNotificationFormatKeyCS" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-		<property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB"/>
-		<property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer"/>
-		<property name="subscriptionCategoryCode" value="CS"/>
-	</bean>
-	
-	<bean id="rapbackNotificationFormatKeyCI" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-		<property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB"/>
-		<property name="notifyingSystemName" value="FBI EBTS"/>
-		<property name="subscriptionCategoryCode" value="CI"/>
-	</bean>	
+  <bean id="defaultSRFEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value></value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value><![CDATA[]]>
+      </value>
+    </property>
+  </bean>
 
-	<bean id="rapbackNotificationFormatKeyCS" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-		<property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB"/>
-		<property name="notifyingSystemName" value="FBI EBTS"/>
-		<property name="subscriptionCategoryCode" value="CS"/>
-	</bean>	
+  <bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+    <property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" />
+    <property name="subscriptionCategoryCode" value="default" />
+    <property name="notifyingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem" />
+  </bean>
+
+  <bean id="inStateArrestNotificationFormatKeyCI" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+    <property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" />
+    <property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer" />
+    <property name="subscriptionCategoryCode" value="CI" />
+  </bean>
+
+  <bean id="inStateArrestNotificationFormatKeyCS" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+    <property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" />
+    <property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer" />
+    <property name="subscriptionCategoryCode" value="CS" />
+  </bean>
+
+  <bean id="rapbackNotificationFormatKeyCI" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+    <property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" />
+    <property name="notifyingSystemName" value="FBI EBTS" />
+    <property name="subscriptionCategoryCode" value="CI" />
+  </bean>
+
+  <bean id="rapbackNotificationFormatKeyCS" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+    <property name="subscribingSystemName" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" />
+    <property name="notifyingSystemName" value="FBI EBTS" />
+    <property name="subscriptionCategoryCode" value="CS" />
+  </bean>
 
 
-	<bean id="defaultEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
-		<property name="emailSubjectTemplate">
-			<value>Default Notification [Subject $emailNotification.subjectName]</value>
-		</property>
-		<property name="emailBodyTemplate">
-			<value>An unknown event occurred for [Subject $emailNotification.subjectName]. Contact an administrator.</value>
-		</property>
-	</bean>
-       
+  <bean id="defaultEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+    <property name="emailSubjectTemplate">
+      <value>Default Notification [Subject $emailNotification.subjectName]</value>
+    </property>
+    <property name="emailBodyTemplate">
+      <value>An unknown event occurred for [Subject $emailNotification.subjectName]. Contact an administrator.</value>
+    </property>
+  </bean>
+
 </beans>
