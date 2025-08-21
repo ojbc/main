@@ -40,8 +40,11 @@
     <camel-version>4.12.0</camel-version>
     <log4j-version>2.25.0</log4j-version>
     <cxf-version>4.1.2</cxf-version>
+    <angus-mail-version>2.0.4</angus-mail-version>
+    <commons-lang-version>3.18.0</commons-lang-version>
+    <spring-version>6.2.10</spring-version>
     <entity-resolution-resources>1.0.2</entity-resolution-resources>
-    <spring-version>6.2.8</spring-version>
+    <spring-version>6.2.10</spring-version>
     <xmlunit-version>2.10.3</xmlunit-version>
     <maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
     <maven-surefire-plugin-version>3.5.3</maven-surefire-plugin-version>
@@ -61,6 +64,13 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-bom</artifactId>
         <version>${log4j-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${spring-version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -169,6 +179,12 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.angus</groupId>
+      <artifactId>angus-mail</artifactId>
+      <version>${angus-mail-version}</version>
     </dependency>
 
     <!-- OJB Shared Bundles -->
