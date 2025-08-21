@@ -66,7 +66,7 @@
 		<property name="username" value="sa" />
 	</bean>
     
-    <bean id="arrestNotificationProcessor"
+  <bean id="arrestNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="duplicateNotificationFilterStrategy"/>

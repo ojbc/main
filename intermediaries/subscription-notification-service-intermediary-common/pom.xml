@@ -34,7 +34,7 @@
   </parent>
 
   <properties>
-    <camel-version>4.12.0</camel-version>
+    <camel-version>4.14.0</camel-version>
     <xmlunit.version>2.10.3</xmlunit.version>
     <commons-lang3-version>3.17.0</commons-lang3-version>
     <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
@@ -50,8 +50,8 @@
     <wiser.version>3.1.7</wiser.version>
     <dbunit.version>3.0.0</dbunit.version>
     <commonsIo.version>2.19.0</commonsIo.version>
-    <spring-version>6.2.8</spring-version>
-    <spring-boot-version>3.5.3</spring-boot-version>
+    <spring-version>6.2.10</spring-version>
+    <spring-boot-version>3.5.4</spring-boot-version>
     <h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
     <ojb-test-common-version>[5.0.0,)</ojb-test-common-version>
     <java-version>24</java-version>
@@ -86,14 +86,9 @@
       <version>${spring-version}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-boot-version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>2.1.214</version>
+      <version>2.3.232</version>
       <scope>test</scope>
     </dependency>
     <dependency>
