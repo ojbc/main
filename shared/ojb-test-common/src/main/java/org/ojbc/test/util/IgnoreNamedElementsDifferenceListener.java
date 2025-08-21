@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.DifferenceConstants;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.w3c.dom.Node;
 
@@ -34,8 +33,9 @@ public class IgnoreNamedElementsDifferenceListener implements DifferenceListener
     }
 
     public int differenceFound(Difference difference) {
-        if (difference.getId() == DifferenceConstants.TEXT_VALUE_ID) {
-            if (blackList.contains(difference.getControlNodeDetail().getNode().getNodeName())
+        Node node = difference.getControlNodeDetail().getNode(); 
+        if (node != null && node.getNodeType() == Node.TEXT_NODE) {
+            if (blackList.contains(node.getParentNode().getNodeName())
                     || blackList.contains(difference.getControlNodeDetail().getXpathLocation())) {
                 return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
             }
