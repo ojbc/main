@@ -43,7 +43,7 @@
     <java-version>24</java-version>
     <log4j-version>2.24.3</log4j-version>
     <osgi-core-version>8.0.0</osgi-core-version>
-    <h2database-version>2.1.214</h2database-version>
+    <h2database-version>2.3.232</h2database-version>
 
     <!-- Plugin versions -->
     <surefire.version>2.22.2</surefire.version>

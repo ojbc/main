@@ -37,7 +37,7 @@
   </parent>
 
   <properties>
-    <h2database-version>2.1.214</h2database-version>
+    <h2database-version>2.3.232</h2database-version>
     <maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
     <spring-version>6.1.2</spring-version>
     <junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
