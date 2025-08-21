@@ -141,7 +141,7 @@ public abstract class SubscriptionProcessor {
 
         // If this is not a valid arrest topic, throw a fault and exit
         if (!getTopic().equals(request.getTopic())) {
-            outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, new Integer(500));
+            outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, 500);
             outMessage.setBody(FaultMessageBuilderUtil.createFault("ResourceUnknownFault", "http://docs.oasis-open.org/wsrf/bf-2"));
             return;
         }
