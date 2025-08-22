@@ -66,7 +66,6 @@
           <xsd:element ref="nc:ImmediateFamilyAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
-          <xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>

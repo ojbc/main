@@ -313,8 +313,6 @@
         <xs:sequence>
           <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:OffenseJuvenileIndicator" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:OffenseUnderInfluenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -436,6 +434,7 @@
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="1" maxOccurs="1" />
           <xs:element ref="j:SubjectSupervision" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="j:OffenseUnderInfluenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -686,19 +685,9 @@
         offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="OffenseJuvenileIndicator" type="niem-xs:boolean" nillable="true">
-    <xs:annotation>
-      <xs:documentation>True if the offense was committed by a juvenile; False otherwise.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="OffenseLocationAssociation" type="j:OffenseLocationAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A relationship between an offense and a location at which the offense occurred.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="OffenseSubjectAssociation" type="j:OffenseSubjectAssociationType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A relationship between an offense that was committed and the subject alleged to have committed that offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OffenseUnderInfluenceIndicator" type="niem-xs:boolean" nillable="true">
