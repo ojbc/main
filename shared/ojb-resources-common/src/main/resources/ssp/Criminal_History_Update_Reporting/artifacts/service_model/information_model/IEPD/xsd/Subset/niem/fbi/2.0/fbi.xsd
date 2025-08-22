@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -16,7 +17,6 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://niem.gov/niem/fbi/2.0" version="1" xmlns:s="http://release.niem.gov/niem/structures/3.0/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/">
   <xsd:annotation>
