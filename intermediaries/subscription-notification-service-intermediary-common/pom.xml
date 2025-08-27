@@ -36,7 +36,7 @@
   <properties>
     <camel-version>4.14.0</camel-version>
     <xmlunit.version>2.10.3</xmlunit.version>
-    <commons-lang3-version>3.17.0</commons-lang3-version>
+    <commons-lang3-version>3.18.0</commons-lang3-version>
     <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
     <ojb-common-version>[6.0.0,)</ojb-common-version>
     <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
@@ -51,7 +51,7 @@
     <dbunit.version>3.0.0</dbunit.version>
     <commonsIo.version>2.19.0</commonsIo.version>
     <spring-version>6.2.10</spring-version>
-    <spring-boot-version>3.5.4</spring-boot-version>
+    <spring-boot-version>3.5.5</spring-boot-version>
     <h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
     <ojb-test-common-version>[5.0.0,)</ojb-test-common-version>
     <java-version>24</java-version>
