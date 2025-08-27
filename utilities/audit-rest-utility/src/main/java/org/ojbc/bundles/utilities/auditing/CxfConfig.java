@@ -15,16 +15,57 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.utilities.auditing;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+import java.util.Collections;
+
+import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
+import org.apache.cxf.endpoint.Server;
+import org.apache.cxf.ext.logging.LoggingFeature;
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.ojbc.bundles.utilities.auditing.rest.AuditRestImpl;
+import org.ojbc.bundles.utilities.auditing.rest.TotpUserRestImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+
 @Configuration
 public class CxfConfig {
+    @Value("${auditRestUtility.auditRestEndpoint}")
+    private String auditServerAddress;
 
+    @Value("${auditRestUtility.totpRestEndpoint}")
+    private String totpUserServerAddress;
+    
+    @Autowired
+    private AuditRestImpl auditRestImpl; 
+    @Autowired
+    private TotpUserRestImpl totpUserRestImpl;
+    
     @Bean
     JacksonJsonProvider jacksonJsonProvider(ObjectMapper objectMapper) {
         return new JacksonJsonProvider(objectMapper);
     }
+
+    @Bean
+    CxfRsEndpoint auditServer(JacksonJsonProvider jacksonJsonProvider) {
+        CxfRsEndpoint endpoint = new CxfRsEndpoint();
+        endpoint.setAddress(auditServerAddress);
+        endpoint.setResourceClasses(AuditRestImpl.class);
+        endpoint.setServiceBeans(java.util.List.of(auditRestImpl));
+        endpoint.setProviders(java.util.List.of(jacksonJsonProvider));
+        return endpoint;
+    }
+    
+    @Bean
+    CxfRsEndpoint totpServer(JacksonJsonProvider jacksonJsonProvider) {
+        CxfRsEndpoint endpoint = new CxfRsEndpoint();
+        endpoint.setAddress(totpUserServerAddress);
+        endpoint.setResourceClasses(AuditRestImpl.class);
+        endpoint.setServiceBeans(java.util.List.of(totpUserRestImpl));
+        endpoint.setProviders(java.util.List.of(jacksonJsonProvider));
+        return endpoint;
+    }    
 }

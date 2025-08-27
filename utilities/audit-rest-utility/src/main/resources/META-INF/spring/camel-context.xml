@@ -28,8 +28,6 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 
-	<context:component-scan base-package="org.ojbc.bundles.utilities.auditing" />
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="audit_rest_utility_context">
 

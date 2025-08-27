@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +31,6 @@ import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
-import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -68,7 +68,6 @@ import org.springframework.web.client.RestTemplate;
 import jakarta.annotation.Resource;
 
 
-@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
 @CamelSpringBootTest
 @SpringBootTest(classes=AuditRestUtility.class)
 @ActiveProfiles("dev")
@@ -284,10 +283,13 @@ public class TestAuditRestImpl {
 		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackSubscriptionsByStateSubscriptionId";
 		
 		saveFederalRapbackSubscription("456", "text", "");
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
+	    HttpEntity<Void> entity = new HttpEntity<>(headers);
 		ResponseEntity<List<FederalRapbackSubscription>> fedSubscriptionsResponse =
 		        restTemplate.exchange(uri + "/456",
-		                    HttpMethod.GET, null, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {
+		                    HttpMethod.GET,  entity, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {
 		            });
 		List<FederalRapbackSubscription> fedSubscriptions = fedSubscriptionsResponse.getBody();
 		

@@ -59,7 +59,6 @@
 		<h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
 		<java-version>24</java-version>
     <sn-intermediary-common-version>[4.0.0,)</sn-intermediary-common-version>
-		<rs-version>3.1.0</rs-version>
 		<jws-version>3.0.0</jws-version>
 	</properties>
 

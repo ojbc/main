@@ -24,13 +24,21 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.bundles.utilities.auditing.totp.TotpUserDAO;
 import org.ojbc.util.model.TotpUser;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
-@Service
+@Path("/")
+@Component("totpUserRestImpl")
 public class TotpUserRestImpl implements TotpUserRestInterface {
 
 	@SuppressWarnings("unused")
@@ -41,45 +49,61 @@ public class TotpUserRestImpl implements TotpUserRestInterface {
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
 	
-	@Override
-	public Integer saveTotpUser(TotpUser totpUser) {
-		Integer pkId = totpUserDAO.saveTotpUser(totpUser); 
-		return pkId;
-	}
+    @POST
+    @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    public Integer saveTotpUser(TotpUser totpUser) {
+        Integer pkId = totpUserDAO.saveTotpUser(totpUser);
+        return pkId;
+    }
 
-	@Override
-	public TotpUser getTotpUserByUserName(String userName) {
-		TotpUser totpUser = totpUserDAO.getTotpUserByUserName(userName); 
-		return totpUser;
-	}
+    @POST
+    @Path("/userName")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public TotpUser getTotpUserByUserName(String userName) {
+        TotpUser totpUser = totpUserDAO.getTotpUserByUserName(userName);
+        return totpUser;
+    }
 
-	@Override
-	public Integer deleteTotpUserByUserName(String userName) {
-		Integer deleted = totpUserDAO.deleteTotpUserByUserName(userName); 
-		return deleted;
-	}
+    @DELETE
+    @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Integer deleteTotpUserByUserName(String userName) {
+        Integer deleted = totpUserDAO.deleteTotpUserByUserName(userName);
+        return deleted;
+    }
 
-	@Override
-	public Response returnTotpUsers() {
-		List<TotpUser> totpUsers = totpUserDAO.retrieveAllTotpUsers();
-		
-		return Response.status(Status.OK).entity(totpUsers).build();
-	}
+    @GET
+    @Path("/totpUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Response returnTotpUsers() {
+        List<TotpUser> totpUsers = totpUserDAO.retrieveAllTotpUsers();
 
-	@Override
-	public Boolean isGoogleAuthUser(String userName) {
-		Boolean useGoogleAuth = totpUserDAO.isGoogleAuthUser(userName); 
-		
-		if (useGoogleAuth == null) {
-			if (enhancedAuditDao.existsUserInfo(userName)) {
-				useGoogleAuth = Boolean.FALSE; 
-			}
-			else {
-				useGoogleAuth = Boolean.TRUE; 
-			}
-			totpUserDAO.saveTwoFactorUser(userName, useGoogleAuth); 
-		}
- 		return useGoogleAuth;
-	}
+        return Response.status(Status.OK).entity(totpUsers).build();
+    }
+
+    @POST
+    @Path("/user/isGoogleAuthUser")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Override
+    public Boolean isGoogleAuthUser(String userName) {
+        Boolean useGoogleAuth = totpUserDAO.isGoogleAuthUser(userName);
+
+        if (useGoogleAuth == null) {
+            if (enhancedAuditDao.existsUserInfo(userName)) {
+                useGoogleAuth = Boolean.FALSE;
+            } else {
+                useGoogleAuth = Boolean.TRUE;
+            }
+            totpUserDAO.saveTwoFactorUser(userName, useGoogleAuth);
+        }
+        return useGoogleAuth;
+    }
 
 }
