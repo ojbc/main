@@ -49,9 +49,9 @@ public class HashMapReplyToProcessor {
 		
 		if (requestContext != null)
 		{
-			AddressingProperties addressingProperties = (AddressingProperties)requestContext.get("javax.xml.ws.addressing.context");
+			AddressingProperties addressingProperties = (AddressingProperties)requestContext.get("jakarta.xml.ws.addressing.context");
 			
-			if (addressingProperties.getReplyTo().getAddress().getValue() != null)
+			if (addressingProperties != null && addressingProperties.getReplyTo().getAddress().getValue() != null)
 			{
 				String replyTo = addressingProperties.getReplyTo().getAddress().getValue();
 				
