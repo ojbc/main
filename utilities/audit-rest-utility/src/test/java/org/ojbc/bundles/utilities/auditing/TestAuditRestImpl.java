@@ -26,7 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
@@ -65,6 +64,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
+
+import jakarta.annotation.Resource;
 
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically

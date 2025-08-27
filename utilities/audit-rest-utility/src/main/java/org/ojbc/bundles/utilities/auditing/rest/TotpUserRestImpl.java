@@ -19,16 +19,16 @@ package org.ojbc.bundles.utilities.auditing.rest;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.bundles.utilities.auditing.totp.TotpUserDAO;
 import org.ojbc.util.model.TotpUser;
 import org.springframework.stereotype.Service;
+
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 @Service
 public class TotpUserRestImpl implements TotpUserRestInterface {

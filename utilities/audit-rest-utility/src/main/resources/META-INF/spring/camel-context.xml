@@ -24,12 +24,9 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-4.14.0.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-
-	<!-- needed cxf imports -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<context:component-scan base-package="org.ojbc.bundles.utilities.auditing" />
 
@@ -37,7 +34,7 @@
 		id="audit_rest_utility_context">
 
 		<route>
-			<from uri="cxfrs:bean:auditServer" />
+			<from uri="cxfrs://bean://auditServer" />
 			<log message="Entering audit REST route: Http method ${header.CamelHttpMethod}" />
 			<log message="REST path is ${header.CamelHttpPath}, operation name: ${header.operationName}" />
 			<choice>
@@ -213,7 +210,7 @@
 			</choice>
 		</route>
 		  <route>
-            <from uri="cxfrs:bean:totpServer" />
+            <from uri="cxfrs://bean://totpServer" />
             <log message="Entering TOTP User REST route: Http method ${header.CamelHttpMethod}" />
             <log message="REST path is ${header.CamelHttpPath}, operation name: ${header.operationName}" />
             <choice>

@@ -19,28 +19,36 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.14.0-spring.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
        ">
 	
-	<cxf:rsServer id="auditServer" address="${auditRestUtility.auditRestEndpoint}" loggingFeatureEnabled="true">
-	  <cxf:serviceBeans>
+	<jaxrs:server id="auditServer" address="${auditRestUtility.auditRestEndpoint}">
+	  <jaxrs:serviceBeans>
 	     <ref bean="auditRestImpl" />
-	  </cxf:serviceBeans>
-	  <cxf:providers>
-	     <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-	  </cxf:providers>
-	</cxf:rsServer>
+	  </jaxrs:serviceBeans>
+	  <jaxrs:providers>
+	     <ref bean="jacksonJsonProvider" />
+	  </jaxrs:providers>
+    <jaxrs:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature"/>
+    </jaxrs:features>
+	</jaxrs:server>
 	 
-	<cxf:rsServer id="totpServer" address="${auditRestUtility.totpRestEndpoint}" loggingFeatureEnabled="true">
-	  <cxf:serviceBeans>
+	<jaxrs:server id="totpServer" address="${auditRestUtility.totpRestEndpoint}">
+	  <jaxrs:serviceBeans>
 	     <ref bean="totpUserRestImpl" />
-	  </cxf:serviceBeans>
-	  <cxf:providers>
-	     <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-	  </cxf:providers>
-	</cxf:rsServer>
+	  </jaxrs:serviceBeans>
+	  <jaxrs:providers>
+       <ref bean="jacksonJsonProvider" />
+	  </jaxrs:providers>
+    <jaxrs:features>
+      <bean class="org.apache.cxf.ext.logging.LoggingFeature"/>
+    </jaxrs:features>
+	</jaxrs:server>
 	 
 </beans>

@@ -18,16 +18,6 @@ package org.ojbc.bundles.utilities.auditing.rest;
 
 import java.util.List;
 
-import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
@@ -63,220 +53,229 @@ import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
 
+import jakarta.jws.WebService;
+import jakarta.websocket.server.PathParam;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
+
 @Path("/audit")
 @WebService
 public interface AuditInterface {
  
    @POST
    @Path("/userAcknowledgement")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Response auditUserAcknowledgement(UserAcknowledgement userAcknowledgement);
 
 	
    @POST
    @Path("/printResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Response auditPrintResults(PrintResults printResults);
    
    @POST
    @Path("/userLogin")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Response auditUserLogin(UserInfo userInfo);
 
    @POST
    @Path("/userLogout")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Response auditUserLogout(UserInfo userInfo);
 
    @GET
    @Path("/searchForFederalRapbackSubscriptionsByStateSubscriptionId/{subscriptionId}")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(@PathParam("subscriptionId") String subscriptionId);
 
    @GET
    @Path("/subscriptions/{subscriptionId}/federalRapbackSubscriptionsDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public FederalRapbackSubscriptionDetail returnFederalRapbackSubscriptionDetail(@PathParam("subscriptionId") String subscriptionId);
    
    @POST
    @Path("/retrieveExpiringSubscriptions")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<Subscription> retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request );
    
    @POST
    @Path("/retrieveExpiredSubscriptions")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<Subscription> retrieveExpiredSubscriptions(ExpiringSubscriptionRequest request );
 
    @GET
    @Path("/agencies")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<AgencyProfile> retrieveAllAgencies();
 
    @POST
    @Path("/retrieveRapbackNotifications")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FederalRapbackNotification> retrieveRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange);
    
    @POST
    @Path("/retrieveNotificationsSent")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<NotificationSent> retrieveNotificationsSent(QueryRequestByDateRange queryRequestByDateRange);
 
    
    @GET
    @Path("/federalRapbackNotifications/{subscriptionId}")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FederalRapbackNotification> searchForFederalRapbackNotifications(@PathParam("subscriptionId") String subscriptionId);
 
    @GET
    @Path("/retrieveFederalRapbackSubscriptionErrors")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors();
    
    @POST
    @Path("/retrieveUserAuthentications")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(UserAuthenticationSearchRequest authenticationSearchRequest);
 
    @POST
    @Path("/retrieveUserPrintRequests")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
 
    @POST
    @Path("/retrievePersonSearchRequest")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrievePersonSearchRequestByPerson")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(AuditPersonSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrievePersonSearchResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);
 
    @POST
    @Path("/retrieveFirearmSearchRequest")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrieveFirearmSearchResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
 
    @POST
    @Path("/retrieveVehicleSearchRequest")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrieveVehicleSearchResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
    
    @POST
    @Path("/retrieveIncidentSearchRequest")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrieveIncidentSearchResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
    
    @POST
    @Path("/retrieveQueryRequest")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public List<QueryRequest> retrieveQueryRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
    @Path("/retrieveCriminalHistoryQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveIncidentReportQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public IncidentReportQueryResponse retrieveIncidentReportQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveFirearmQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveWarrantQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
    
    @POST
    @Path("/retrieveVehicleCrashQueryResultsDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveIdentificationResultsQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveSubscriptionQueryResults")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
 
    @POST
    @Path("/retrieveProfessionalLicensingQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveCannabisLicensingQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public CannabisLicensingQueryResponse retrieveCannabisLicensingQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveWildlifeQueryDetail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public WildlifeQueryResponse retrieveWildlifeQueryDetail(Integer queryRequestId);
    
 }

@@ -34,7 +34,7 @@
       class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
  	   <constructor-arg ref="dataSourceEnhancedAudit"/>
 	</bean>
-
+  
 	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>

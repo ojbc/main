@@ -15,45 +15,44 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.utilities.auditing.rest;
-import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.ojbc.util.model.TotpUser;
+
+import jakarta.jws.WebService;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
 
 @WebService
 public interface TotpUserRestInterface {
    
    @POST
    @Path("")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Integer saveTotpUser(TotpUser totpUser);
    
    @POST
    @Path("/userName")
-   @Produces(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
    public TotpUser getTotpUserByUserName(String userName);
    
    @DELETE
    @Path("")
-   @Produces(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
    public Integer deleteTotpUserByUserName(String userName);
    
    @GET
    @Path("/totpUsers")
-   @Produces(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
    public Response returnTotpUsers(); 
    
    @POST
    @Path("/user/isGoogleAuthUser")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces("application/json")
+   @Consumes("application/json")
    public Boolean isGoogleAuthUser(String userName); 
 }
