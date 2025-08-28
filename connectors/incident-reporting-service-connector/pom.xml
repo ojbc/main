@@ -41,7 +41,7 @@
     <log4j-version>2.25.0</log4j-version>
     <cxf-version>4.1.2</cxf-version>
     <commons-lang-version>3.18.0</commons-lang-version>
-    <spring-version>6.2.8</spring-version>
+    <spring-version>6.2.10</spring-version>
     <apache-commons-io-version>2.19.0</apache-commons-io-version>
     <ojb-camel-common-version>[5.0.0,)</ojb-camel-common-version>
     <ojb-common-version>[6.0.0,)</ojb-common-version>
