@@ -30,8 +30,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @ComponentScan({"org.ojbc.bundles.utilities.auditing"})
-@ImportResource(value = {"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
+@ImportResource(value = {"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/beans.xml"})
 public class AuditRestUtility{
 	public static void main(String[] args) {
