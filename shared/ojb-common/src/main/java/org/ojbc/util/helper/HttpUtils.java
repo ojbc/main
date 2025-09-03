@@ -21,8 +21,13 @@ import java.nio.charset.StandardCharsets;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.ojbc.util.helper.HttpUtils.ResponseWrapper;
 
 /**
  * A set of utilities for dealing with Http streams.
@@ -44,4 +49,59 @@ public class HttpUtils {
         return CLIENT.execute(post, new BasicHttpClientResponseHandler());
     }
 
+    /**
+     * Posts a SOAP payload to the given URL.
+     *
+     * @param payload SOAP XML as String
+     * @param url     endpoint URL
+     * @return ResponseWrapper containing HTTP status and response body
+     * @throws Exception
+     */
+    public static ResponseWrapper postSoap(String payload, String url) throws Exception {
+        HttpPost post = new HttpPost(url);
+        post.setEntity(new StringEntity(payload, ContentType.TEXT_XML.withCharset(StandardCharsets.UTF_8)));
+        post.setHeader("Accept", "text/xml");
+        post.setHeader("Content-Type", "text/xml; charset=UTF-8");
+
+        HttpClientResponseHandler<ResponseWrapper> handler = response -> {
+            int status = response.getCode();
+            String body = response.getEntity() != null
+                    ? org.apache.hc.core5.http.io.entity.EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8)
+                            : "";
+            return new ResponseWrapper(status, body);
+        };
+        return CLIENT.execute(post, handler);
+    }
+    
+
+    public static class ResponseWrapper {
+        private final int status;
+        private final String body;
+
+        public ResponseWrapper(int status, String body) {
+            this.status = status;
+            this.body = body;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public String getBody() {
+            return body;
+        }
+
+        public boolean isSoapFault() {
+            return body != null && body.contains("<soap:Fault>");
+        }
+
+        @Override
+        public String toString() {
+            return "ResponseWrapper{" +
+                    "status=" + status +
+                    ", body='" + body + '\'' +
+                    ", isSoapFault=" + isSoapFault() +
+                    '}';
+        }
+    }    
 }
