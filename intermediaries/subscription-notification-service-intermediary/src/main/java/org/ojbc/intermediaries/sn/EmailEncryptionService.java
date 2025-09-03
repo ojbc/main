@@ -32,7 +32,7 @@ public class EmailEncryptionService extends RouteBuilder{
         from("direct:encryptBody").routeId("encryptionRoute")
         .log("In encryption route.")
         .filter()
-           .simple(appProperties.getEncryptEmailBody() + "== 'true'")
+           .simple(appProperties.getEncryptEmailBody() + " == 'true'")
             	.marshal()
             	.pgp(appProperties.getPgpPublicKeyFileName(), appProperties.getPgpUserName())
             	.log("Email body encrypted and marshalled.");

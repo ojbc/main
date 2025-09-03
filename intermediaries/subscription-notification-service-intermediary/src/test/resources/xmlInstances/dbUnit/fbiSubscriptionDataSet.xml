@@ -18,8 +18,12 @@
 
 -->
 <dataset>
+  <subscription_category subscription_category_code="F" subscription_category_description="Firearms"/>	
+  <subscription_category subscription_category_code="I" subscription_category_description="Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing"/>	
+  <subscription_category subscription_category_code="J" subscription_category_description="Criminal Justice Employment"/>	
   <subscription_category subscription_category_code="CI" subscription_category_description="Criminal Justice Investigative"/>
   <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>	
+  <subscription_category subscription_category_code="S" subscription_category_description="Security Clearance Information Act"/>	
 
   <agency_profile AGENCY_ORI="123456789"  CIVIL_AGENCY_INDICATOR="false" AGENCY_ID="1" AGENCY_NAME="Island PD" FBI_SUBSCRIPTION_QUALIFICATION="false"/>
 

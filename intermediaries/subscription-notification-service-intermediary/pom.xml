@@ -33,8 +33,8 @@
   </parent>
 
   <properties>
-    <spring-boot-version>3.5.4</spring-boot-version>
-    <camel.version>4.12.0</camel.version>
+    <spring-boot-version>3.5.5</spring-boot-version>
+    <camel.version>4.14.0</camel.version>
     <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
     <ojb-common-version>[5.0.0,)</ojb-common-version>
     <ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
@@ -42,7 +42,7 @@
     <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
     <xmlunit.version>1.5</xmlunit.version>
     <sn-intermediary-common-version>[4.0.0,)</sn-intermediary-common-version>
-    <wiser.version>3.1.7</wiser.version>
+    <greenmail.version>2.1.5</greenmail.version>
     <dbunit.version>2.4.9</dbunit.version>
     <h2-mock-database-version>[5.0.0,)</h2-mock-database-version>
     <osgi-core-version>6.0.0</osgi-core-version>
@@ -74,6 +74,13 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-framework-bom</artifactId>
+          <version>6.2.10</version>
+          <type>pom</type>
+          <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring-boot-version}</version>
@@ -101,10 +108,6 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-undertow</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-actuator</artifactId>
     </dependency>
     <!-- Camel -->
@@ -123,6 +126,10 @@
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-stream-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-crypto-pgp</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -296,9 +303,9 @@
       <version>${h2-mock-database-version}</version>
     </dependency>
     <dependency>
-      <groupId>org.subethamail</groupId>
-      <artifactId>subethasmtp</artifactId>
-      <version>${wiser.version}</version>
+      <groupId>com.icegreen</groupId>
+      <artifactId>greenmail</artifactId>
+      <version>${greenmail.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

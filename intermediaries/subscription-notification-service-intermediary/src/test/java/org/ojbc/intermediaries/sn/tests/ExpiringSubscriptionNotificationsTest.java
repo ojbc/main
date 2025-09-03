@@ -45,7 +45,7 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( ExpiringSubscriptionNotificationsTest.class );
 	
-    @Resource
+    @Resource(name = "subscription-notification-service-intermediary")
     private ModelCamelContext context;
     
     @Produce
@@ -64,15 +64,17 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
 	public void setUp() throws Exception {
 		//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
     	AdviceWith.adviceWith(context, "notifyOfExpiringSubscriptionsRoute", route -> {
-    		route.replaceFromWith("quartz://testTimer?trigger.startDelay=0&trigger.repeatCount=0");
-    		route.weaveByToString("To[smtpEndpoint]").replace().to(smtpEndpointMock).stop(); 
+    		route.replaceFromWith("direct:trigger");
+    		route.weaveByToUri("smtpEndpoint").replace().to(smtpEndpointMock).stop(); 
     	});
     	
     	AdviceWith.adviceWith(context, "cancelExpiredInvalidSubscriptionsRoute", route -> {
-    		route.replaceFromWith("quartz://testTimer2?startDelayedSeconds=6&trigger.repeatCount=0");
-    		route.weaveByToString("To[direct:processUnsubscription]").replace().to(processUnsubscriptionMock).stop(); 
+    		route.replaceFromWith("direct:cancelExpiredInvalidSubscriptionsRoute");
+    		route.weaveByToUri("direct:processUnsubscription").replace().to(processUnsubscriptionMock).stop(); 
     	});
     	
+        context.start();
+
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
     	DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 		
@@ -91,11 +93,12 @@ public class ExpiringSubscriptionNotificationsTest extends AbstractSubscriptionN
     	smtpEndpointMock.expectedMessageCount(2);
     	processUnsubscriptionMock.reset(); 
     	processUnsubscriptionMock.expectedMessageCount(3);
-    	context.start();
-    	Thread.sleep(20000);
     	
+    	template.sendBody("direct:trigger", "manual trigger");
 		smtpEndpointMock.assertIsSatisfied();
-		processUnsubscriptionMock.assertIsSatisfied();
+		
+		template.sendBody("direct:cancelExpiredInvalidSubscriptionsRoute", "manual trigger");
+		processUnsubscriptionMock.assertIsSatisfied(10000);
 
 	}
 	

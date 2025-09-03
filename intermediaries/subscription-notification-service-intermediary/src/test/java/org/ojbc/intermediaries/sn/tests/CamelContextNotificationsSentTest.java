@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.notification.NotificationsSentStrategy;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import jakarta.annotation.Resource;
 
@@ -50,18 +51,27 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
     
     @EndpointInject(value = "mock:smtpEndpoint")
     protected MockEndpoint smtpEndpointMock;
+    
+    @Resource 
+    private JdbcTemplate jdbcTemplate;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
     	AdviceWith.adviceWith(context, "checkNotificationsSentRoute", route -> {
     		route.replaceFromWith("direct:checkNotificationsSent");
-    		route.weaveByToString("To[smtpEndpoint]").replace().to(smtpEndpointMock).stop(); 
+    		route.weaveByToUri("smtpEndpoint").replace().to(smtpEndpointMock).stop(); 
     	});
     	
 		context.start();
 		context.getRouteController().startRoute("checkNotificationsSentRoute");
-		
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.SUBSCRIPTION_OWNER ALTER COLUMN SUBSCRIPTION_OWNER_ID RESTART WITH "
+                + " (select max (SUBSCRIPTION_OWNER_ID) + 1 from RAPBACK_DATASTORE.SUBSCRIPTION_OWNER ) ");
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.AGENCY_PROFILE ALTER COLUMN AGENCY_ID RESTART WITH "
+                + " (select max (AGENCY_ID) + 1 from RAPBACK_DATASTORE.AGENCY_PROFILE ) ");
+        jdbcTemplate.execute("ALTER TABLE RAPBACK_DATASTORE.SUBSCRIPTION ALTER COLUMN ID RESTART WITH "
+                + " (select max (ID) + 1 from RAPBACK_DATASTORE.SUBSCRIPTION ) ");
+
 	}
 	
 	@Test

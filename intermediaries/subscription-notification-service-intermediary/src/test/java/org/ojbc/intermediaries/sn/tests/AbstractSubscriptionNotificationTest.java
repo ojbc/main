@@ -19,7 +19,6 @@ package org.ojbc.intermediaries.sn.tests;
 import java.io.FileInputStream;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
-import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationService;
@@ -27,18 +26,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=SubscriptionNotificationService.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@ContextConfiguration(locations={ //TODO see if we can remove this
+@SpringJUnitConfig(locations={
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
-@UseAdviceWith
 public abstract class AbstractSubscriptionNotificationTest {
 
 	protected static final String SUBSCRIPTION_REFERENCE_ELEMENT_STRING = "<b-2:SubscriptionReference>";
