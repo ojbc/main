@@ -54,15 +54,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.HttpUtils;
+import org.ojbc.util.helper.HttpUtils.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.annotation.Resource;
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@DirtiesContext
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("dev")
 public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
 	
@@ -89,19 +91,14 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		
 		AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", 
 				route -> {
-					route.interceptSendToEndpoint("cxf:bean:fbiEbtsSubscriptionRequestService*").skipSendToOriginalEndpoint().to(fbiEbtsSubscriptionMockEndpoint).stop(); 
-					route.mockEndpoints("cxf:bean:fbiEbtsSubscriptionManagerService*");
+					route.weaveByToUri("fbiEbtsSubscriptionRequestServiceEndpoint").replace().to(fbiEbtsSubscriptionMockEndpoint).stop(); 
+					route.weaveByToUri("fbiEbtsSubscriptionManagerEndpoint");
 				});
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
         jdbcTemplate.execute("ALTER TABLE rapback_datastore.subscription ALTER COLUMN id RESTART WITH 10");
 
         context.start();
-	}
-	
-	@AfterEach
-	public void tearDown() throws Exception {
-        //DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet());
 	}
 	
     private IDataSet getDataSet() throws Exception{  
@@ -134,7 +131,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	public void unsubscribe_noMatchingSID() throws Exception {
 		
 		//Unsubscribe record and confirm fault
-		String response = invokeRequest("unSubscribeSoapRequest_noMatchingSID.xml", subscriptionManagerUrl);
+		String response = invokeRequestSoap("unSubscribeSoapRequest_noMatchingSID.xml", subscriptionManagerUrl);
 		assertThat(response, containsString("<wsnt:UnableToDestroySubscriptionFault xmlns:wsrf-bf=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\">"));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet.xml");
@@ -144,7 +141,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	public void unsubscribe_noMatchingActivityID() throws Exception {
 		
 		//Unsubscribe record and confirm fault
-		String response = invokeRequest("unSubscribeSoapRequest_noMatchingActivityID.xml", subscriptionManagerUrl);
+		String response = invokeRequestSoap("unSubscribeSoapRequest_noMatchingActivityID.xml", subscriptionManagerUrl);
 		assertThat(response, containsString("<wsnt:UnableToDestroySubscriptionFault xmlns:wsrf-bf=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\">"));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet.xml");
@@ -154,7 +151,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	public void unsubscribe_noMatchingActivityIdOrSID() throws Exception {
 		
 		//Unsubscribe record and confirm fault
-		String response = invokeRequest("unSubscribeSoapRequest_noMatchingActivityIdOrSID.xml", subscriptionManagerUrl);
+		String response = invokeRequestSoap("unSubscribeSoapRequest_noMatchingActivityIdOrSID.xml", subscriptionManagerUrl);
 		assertThat(response, containsString("<wsnt:UnableToDestroySubscriptionFault xmlns:wsrf-bf=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\">"));
 		
 		compareDatabaseWithExpectedDataset("subscriptionDataSet.xml");
@@ -196,6 +193,14 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 		return response;
 	}
 		
+    private String invokeRequestSoap(String fileName, String url)
+            throws IOException, Exception {
+        File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
+        String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
+        ResponseWrapper response = HttpUtils.postSoap(subscriptionBody, url);
+        return response.getBody();
+    }
+    
 	@Test
 	@Ignore
     public void getDTDFile() throws Exception

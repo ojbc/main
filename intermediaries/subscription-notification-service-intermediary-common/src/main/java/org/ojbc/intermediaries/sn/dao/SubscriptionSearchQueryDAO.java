@@ -953,8 +953,14 @@ public class SubscriptionSearchQueryDAO {
     			+ "SET subscription_id = ?, available_for_subscription_start_date = ? WHERE transaction_number = ? ";
     	
     	DateTime endDate = XmlUtils.parseXmlDate(endDateString);
-    	endDate = endDate.plusDays(1);
-    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIBE, subscriptionId, endDate.toDate(), transactionNumber);
+    	
+    	if(endDate != null) {
+    	    endDate = endDate.plusDays(1);
+    	    this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIBE, subscriptionId, endDate.toDate(), transactionNumber);
+    	}
+    	else {
+    	    this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_SUBSCRIBE, subscriptionId, endDate, transactionNumber);
+    	}
     }
     
     private void validateIdentificationTransaction(Integer subscriptionId, String endDateString){

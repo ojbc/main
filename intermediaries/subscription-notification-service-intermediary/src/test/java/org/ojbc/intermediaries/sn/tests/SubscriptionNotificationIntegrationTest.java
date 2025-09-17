@@ -48,9 +48,11 @@ import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.subethamail.wiser.WiserMessage;
 
 import jakarta.annotation.Resource;
+import jakarta.mail.Address;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage.RecipientType;
 
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
@@ -178,7 +180,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
-		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
+		MimeMessage[] emails = notifyAndAssertBasics("notificationSoapRequest.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
 				"SID: A9999999", 3);
 		
 		verifyNotificationForSubscribeSoapRequest(emails);
@@ -200,11 +202,11 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
-		List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest_MultipleCharges.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
+		MimeMessage[] emails = notifyAndAssertBasics("notificationSoapRequest_MultipleCharges.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
 				"SID: A9999999", 2);
 		
 		// there should be three messages:  one to the "to", one to the "cc", and one to the "bcc"
-		for (@SuppressWarnings("unused") WiserMessage email : emails) {
+		for (@SuppressWarnings("unused") MimeMessage email : emails) {
 		    
 		//	String emailMessage = dumpEmail(email);
 		//	assertThat(emailMessage.replaceAll("[\r\n\t]", ""), containsString("ARREST CHARGES:<br/>Description: KEEP PISTOL Severity: FB, ARN: 14-377370<br/>Description: ELECTRIC GUNS Severity: MD, ARN: 14-377371<br/><br/><br/>Positively identified by fingerprint in demostate."));
@@ -241,7 +243,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
     @Test
     @Disabled
     public void notificationArrest_multipleEmailsOneSubscription() throws Exception {        
-        List<WiserMessage> emails = notifyAndAssertBasics("notificationSoapRequest_A5008306.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
+        MimeMessage[] emails = notifyAndAssertBasics("notificationSoapRequest_A5008306.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 "SID: A5008306", 6);
         
         boolean toPo4Found = false;
@@ -249,22 +251,24 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
         int ccFoundCount = 0;
         int bccFoundCount = 0;
         
-        for (WiserMessage email : emails) {
+        for (MimeMessage email : emails) {
             
             //dumpEmail(email);
             
-            assertEquals("sup@localhost", email.getMimeMessage().getHeader("Cc", ","));
-            
-            if ("testToStatic@localhost".equals(email.getEnvelopeReceiver())) {
+            assertEquals("sup@localhost", email.getHeader("Cc", ","));
+            Address[] toRecipients = email.getRecipients(RecipientType.TO);
+            Address[] ccRecipients = email.getRecipients(RecipientType.CC);
+            Address[] bccRecipients = email.getRecipients(RecipientType.BCC);
+            // now test what the address was that actually received them
+            if (exists(toRecipients, "testToStatic@localhost")) {
                 toPo4Found = true;
-            } else if ("testToStatic@localhost".equals(email.getEnvelopeReceiver())) {
                 toPo5Found = true;
-            } else if ("sup@localhost".equals(email.getEnvelopeReceiver())) {
-                ccFoundCount++;
-            } else if ("testbcc@localhost".equals(email.getEnvelopeReceiver())) {
+            } else if (exists(ccRecipients, "sup@localhost")) {
+                ccFoundCount ++;
+            } else if (exists(bccRecipients, "testbcc@localhost")) {
                 bccFoundCount++;
             }
-            
+                    
         }
         
         assertTrue(toPo4Found);

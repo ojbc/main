@@ -29,17 +29,15 @@ import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.mail.MessagingException;
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,20 +51,39 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationService;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.HttpUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.subethamail.wiser.Wiser;
-import org.subethamail.wiser.WiserMessage;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import jakarta.annotation.Resource;
+import com.icegreen.greenmail.store.FolderException;
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetupTest;
 
+import jakarta.annotation.Resource;
+import jakarta.mail.Address;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage.RecipientType;
+
+@CamelSpringBootTest
+@SpringBootTest(classes=SubscriptionNotificationService.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class AbstractSubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationTest {
     @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractSubscriptionNotificationIntegrationTest.class);
@@ -91,6 +108,24 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 	@Value("${publishSubscribe.smtpServerPort}")
 	private Integer mailPort;
 	
+	private static GreenMail greenMail;
+	
+    @BeforeAll
+    static void startMailServer() {
+        greenMail = new GreenMail(ServerSetupTest.SMTP);
+        greenMail.start();
+    }
+    
+    @BeforeEach
+    void resetGreenMail() throws FolderException {
+        greenMail.purgeEmailFromAllMailboxes(); // clears all received emails
+    }
+
+    @AfterAll
+    static void stopMailServer() {
+        greenMail.stop();
+    }
+
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
@@ -113,14 +148,15 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 		return new FlatXmlDataSetBuilder().build(new FileInputStream(fileName));
 	}
 
-	protected List<WiserMessage> notifyAndAssertBasics(String notificationFileName, String activityDateTimeXpath, String expectedEmailContainsString,
+	protected MimeMessage[] notifyAndAssertBasics(String notificationFileName, String activityDateTimeXpath, String expectedEmailContainsString,
 			int expectedMessageCount) throws Exception {
 
-		List<WiserMessage> messages = notify(notificationFileName, activityDateTimeXpath);
-		assertEquals(expectedMessageCount, messages.size());
-		for (WiserMessage message : messages) {
-			String emailBodyString = message.getMimeMessage().getContent().toString();
-			emailBodyString = emailBodyString.replaceAll("\r\n", "\n");
+	    MimeMessage[] messages = notify(notificationFileName, activityDateTimeXpath);
+		assertEquals(expectedMessageCount, messages.length);
+		for (MimeMessage message : messages) {
+			String emailBodyString = message.getContent().toString();
+			emailBodyString = emailBodyString.replaceAll("\\R", "");
+			expectedEmailContainsString = expectedEmailContainsString.replaceAll("\\R", "");
 			assertThat(emailBodyString, containsString(expectedEmailContainsString));
 		}
 
@@ -128,7 +164,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 
 	}
 
-	protected List<WiserMessage> notify(String notificationFileName, String activityDateTimeXpath) throws ParserConfigurationException, SAXException,
+	protected MimeMessage[] notify(String notificationFileName, String activityDateTimeXpath) throws ParserConfigurationException, SAXException,
 			IOException, Exception {
 		File inputFile = new File("src/test/resources/xmlInstances/" + notificationFileName);
 
@@ -141,25 +177,13 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 		dateTimeNode.setTextContent(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		String notificationBody = OJBUtils.getStringFromDocument(notificationDom);
 
-		Wiser wiser = new Wiser();
-		wiser.setPort(mailPort);
-		wiser.setHostname(mailServerName);
-		wiser.start();
+		HttpUtils.post(notificationBody, notificationBrokerUrl);
+		Thread.sleep(MAIL_READ_DELAY);
 
-		List<WiserMessage> messages = new ArrayList<WiserMessage>();
-
-		try {
-
-			HttpUtils.post(notificationBody, notificationBrokerUrl);
-			Thread.sleep(MAIL_READ_DELAY);
-
-			messages = wiser.getMessages();
-
-		} finally {
-			wiser.stop();
-		}
+		MimeMessage[] messages = greenMail.getReceivedMessages();
 
 		return messages;
+
 
 	}
 
@@ -184,27 +208,30 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 		Assertion.assertEquals(filteredExpectedSubjectIdentiferTable, filteredActualSubjectIdentiferTable);
 	}
 
-	protected void verifyNotificationForSubscribeSoapRequest(List<WiserMessage> emails) throws MessagingException {
+	protected void verifyNotificationForSubscribeSoapRequest(MimeMessage[] emails) throws MessagingException {
 		// there should be three messages:  one to the "to", one to the "cc", and one to the "bcc"
 
 		boolean toFound = false;
 		boolean ccFound = false;
 		boolean bccReceived = false;
 
-		for (WiserMessage email : emails) {
+		for (MimeMessage email : emails) {
 
 			//dumpEmail(email);
 
 			// all the emails should be addressed like this
-			assertEquals("testToStatic@localhost", email.getMimeMessage().getHeader("To", ","));
-			assertEquals("sup@localhost", email.getMimeMessage().getHeader("Cc", ","));
+			assertEquals("testToStatic@localhost", email.getHeader("To", ","));
+			assertEquals("sup@localhost", email.getHeader("Cc", ","));
 
+			Address[] toRecipients = email.getRecipients(RecipientType.TO);
+			Address[] ccRecipients = email.getRecipients(RecipientType.CC);
+			Address[] bccRecipients = email.getRecipients(RecipientType.BCC);
 			// now test what the address was that actually received them
-			if ("testToStatic@localhost".equals(email.getEnvelopeReceiver())) {
+			if (exists(toRecipients, "testToStatic@localhost")) {
 				toFound = true;
-			} else if ("sup@localhost".equals(email.getEnvelopeReceiver())) {
+			} else if (exists(ccRecipients, "sup@localhost")) {
 				ccFound = true;
-			} else if ("testbcc@localhost".equals(email.getEnvelopeReceiver())) {
+			} else if (exists(bccRecipients, "testbcc@localhost")) {
 				bccReceived = true;
 			}
 
@@ -214,6 +241,23 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 		assertTrue(ccFound);
 		assertTrue(bccReceived);
 	}
+
+    boolean exists(Address[] recipients, String emailAddressString) {
+        boolean exists = false;
+        if (recipients != null) {
+            for (Address addr : recipients) {
+                if (addr instanceof InternetAddress) {
+                    String email = ((InternetAddress) addr).getAddress();
+                    if (emailAddressString.equalsIgnoreCase(email)) {
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return exists;
+    }
 
 	private ITable getFilteredTableFromDataset(IDataSet dataSet, String tableName) throws Exception {
 		ITable table = dataSet.getTable(tableName);

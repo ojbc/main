@@ -112,15 +112,17 @@
   </bean>
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+    <property name="driverClassName" value="org.h2.Driver" />
     <property name="url" value="${publishSubscribe.dataSource.jdbcUrl}" />
     <property name="username" value="${publishSubscribe.dataSource.user}" />
+    <property name="password" value="" />
   </bean>
 
   <bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
     <property name="url" value="${publishSubscribe.dataSourceAudit.jdbcUrl}" />
     <property name="username" value="${publishSubscribe.dataSource.user}" />
+    <property name="password" value="" />
   </bean>
 
   <util:map id="systemIdentifierToDescriptorMap">
