@@ -22,8 +22,6 @@ import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
@@ -47,6 +45,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=ProbationEventHandlerServiceApplication.class)

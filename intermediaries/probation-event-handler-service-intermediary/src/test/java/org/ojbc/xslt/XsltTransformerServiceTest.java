@@ -16,22 +16,18 @@
  */
 package org.ojbc.xslt;
 
+import static org.junit.Assert.assertEquals;
 //import static org.hamcrest.Matchers.is;
 //import static org.hamcrest.Matchers.nullValue;
 //import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.codec.CharEncoding;
-import org.apache.commons.io.FileUtils;
 //import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
