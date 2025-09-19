@@ -39,6 +39,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ZipUtils;
@@ -176,8 +177,9 @@ public class TestIdentificationResultsQueryRequestService {
 		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
 		log.info("body: \n" + bodyString);
 		
-        IdentificationReportingResponseProcessorTest.assertAsExpected(
-        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
+		XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml", bodyDocument, "oirq-res-ext:IdentificationReportedDate", "nc30:Date");
+//        IdentificationReportingResponseProcessorTest.assertAsExpected(
+//        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
 //        identificationInitialResultsQueryResponseServiceMock.reset();
 //		senderExchange = MessageUtils.createSenderExchange(context, 

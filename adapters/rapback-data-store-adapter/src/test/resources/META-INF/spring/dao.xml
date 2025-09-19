@@ -19,48 +19,67 @@
 -->
 <!-- Configures the DAO beans-->
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-  <!-- <bean id="rapbackDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true"> <property name="driverClassName" 
-    value="${rapbackDatastoreAdapter.dataSource.driverClass}" /> <property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" /> <property name="username" 
-    value="${rapbackDatastoreAdapter.dataSource.user}" /> <property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" /> <property name="initialSize" 
-    value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" /> <property name="maxTotal" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" /> <property 
-    name="validationQuery" value="select 1" /> <property name="testOnBorrow" value="true" /> </bean> -->
-
-  <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
-    <property name="dataSource" ref="rapbackDataSource" />
-  </bean>
-
-  <bean id="rapbackDAO" class="org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl" />
-
-  <!-- <bean id="enhancedAuditLogDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" > <property name="driverClassName" 
-    value="${enhancedAudit.dataSource.driverClass}" /> <property name="url" value="${enhancedAudit.dataSource.jdbcUrl}" /> <property name="username" value="${enhancedAudit.dataSource.user}" 
-    /> <property name="password" value="${enhancedAudit.dataSource.password}" /> <property name="initialSize" value="${enhancedAudit.dataSource.minPoolSize}" 
-    /> <property name="maxTotal" value="${enhancedAudit.dataSource.maxPoolSize}" /> <property name="validationQuery" value="select 1" /> <property name="testOnBorrow" 
-    value="true" /> </bean> -->
-
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource">
-      <ref bean="rapbackDataSource" />
-    </property>
-  </bean>
-
-  <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-    <constructor-arg ref="rapbackDataSource" />
-  </bean>
-
-  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    <constructor-arg ref="rapbackDataSource" />
-  </bean>
-
-  <bean id="enhancedAuditJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    <constructor-arg ref="enhancedAuditLogDataSource" />
-  </bean>
-
-  <bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">
-    <property name="jdbcTemplate" ref="jdbcTemplate" />
-    <property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate" />
-  </bean>
+		<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+			<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
+			<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
+			<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
+			<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
+			<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
+			<property name="maxTotal" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testOnBorrow" value="true" />
+		</bean>
+    
+	    <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
+	        <property name="dataSource" ref="dataSource"/>
+	    </bean>	
+	    
+	    <bean id="rapbackDAO" class="org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl" />
+	    
+		<bean id="enhancedAuditDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+			<property name="driverClassName" value="${enhancedAudit.dataSource.driverClass}" />
+			<property name="url" value="${enhancedAudit.dataSource.jdbcUrl}" />
+			<property name="username" value="${enhancedAudit.dataSource.user}" />
+			<property name="password" value="${enhancedAudit.dataSource.password}" />
+			<property name="initialSize" value="${enhancedAudit.dataSource.minPoolSize}" />
+			<property name="maxTotal" value="${enhancedAudit.dataSource.maxPoolSize}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testOnBorrow" value="true" />
+		</bean>
+		
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="enhancedAuditJdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="enhancedAuditDataSource"/>
+	</bean>
+	
+	<bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
+	</bean>
 </beans>

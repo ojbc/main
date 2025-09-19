@@ -24,7 +24,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <!-- FYI to connect to an in-memory H2 database remotely, use a URL like: jdbc:h2:tcp:localhost:49093/mem:rapback-datastore -->
-  <bean id="rapbackDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose" primary="true">
+  <bean id="rapbackDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
     <constructor-arg>
       <bean class="org.h2.jdbcx.JdbcDataSource">
         <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:rapback-datastore" />

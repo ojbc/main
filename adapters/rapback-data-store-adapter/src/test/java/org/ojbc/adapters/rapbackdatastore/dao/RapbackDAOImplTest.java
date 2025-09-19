@@ -59,7 +59,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -192,7 +191,7 @@ public class RapbackDAOImplTest {
 
 	@Test
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
-		assertThrows(InvalidDataAccessApiUsageException.class, () -> { IdentificationTransaction transaction = new IdentificationTransaction(); 
+		assertThrows(java.lang.IllegalArgumentException.class, () -> { IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
