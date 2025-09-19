@@ -26,9 +26,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 
-import net.sf.saxon.TransformerFactoryImpl;
-
 import org.springframework.stereotype.Service;
+
+import net.sf.saxon.TransformerFactoryImpl;
 
 @Service
 public class XsltTransformerService {
