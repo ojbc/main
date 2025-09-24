@@ -37,6 +37,9 @@
        http://www.springframework.org/schema/util
 	   http://www.springframework.org/schema/util/spring-util.xsd
        ">
+       
+       <bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
+       
        <bean id="messageProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
 	
 	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">

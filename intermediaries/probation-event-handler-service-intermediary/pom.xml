@@ -35,7 +35,7 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>3.5.3</spring-boot-version>
+		<spring-boot-version>3.5.5</spring-boot-version>
 		<camel-version>4.12.0</camel-version>
 		<cxf-version>4.1.2</cxf-version>
 		<slf4j-version>2.0.17</slf4j-version>
@@ -248,12 +248,11 @@
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.xmlunit</groupId>
-			<artifactId>xmlunit-legacy</artifactId>
-			<version>${xmlunit-version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+          <groupId>org.xmlunit</groupId>
+          <artifactId>xmlunit-legacy</artifactId>
+          <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
