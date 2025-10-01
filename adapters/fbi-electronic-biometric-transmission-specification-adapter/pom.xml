@@ -32,22 +32,22 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<maven-surefire-plugin-version>2.22.2</maven-surefire-plugin-version>
-		<spring-boot-version>2.5.14</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<cxf-version>3.4.4</cxf-version>
-		<spring-version>5.3.24</spring-version>
-		<log4j-version>2.24.3</log4j-version>
+		<maven-surefire-plugin-version>3.5.2</maven-surefire-plugin-version>
+		<spring-boot-version>2.7.18</spring-boot-version>
+		<camel-version>3.14.10</camel-version>
+		<cxf-version>3.4.10</cxf-version>
+		<spring-version>5.3.31</spring-version>
+		<log4j-version>2.25.2</log4j-version>
 		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
 		<ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
 		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
 		<ojb-enhanced-audit-common-version>[3.0.3, 4.0.0)</ojb-enhanced-audit-common-version>
-		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
+		<sn-interm-cmn-version>[3.0.9, 4.0.0)</sn-interm-cmn-version>
 		<java-version>1.8</java-version>
 		<saxon-version>9.5.1-5</saxon-version>
 		<h2-mock-database-version>[4.0.0, 5.0.0)</h2-mock-database-version>
 		<jnbis-version>[2.0.2,)</jnbis-version>
-		<cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
+		<cxf-boot-starter-version>3.4.10</cxf-boot-starter-version>
 	</properties>
 	
 	<dependencyManagement>
@@ -85,10 +85,6 @@
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-starter-web</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-undertow</artifactId>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
@@ -182,11 +178,11 @@
 			<version>${ojb-common-version}</version>
 		</dependency> 
 		<!-- Using old version of Saxon as upper-case() not valid for XPath in newer version -->
-		 <dependency>
-      		<groupId>net.sf.saxon</groupId>
-      		<artifactId>Saxon-HE</artifactId>
-      		<version>${saxon-version}</version>
-    	</dependency>
+		<dependency>
+    		<groupId>net.sf.saxon</groupId>
+    		<artifactId>Saxon-HE</artifactId>
+    		<version>${saxon-version}</version>
+  	</dependency>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
@@ -213,8 +209,9 @@
 		</dependency>
 		
 		<dependency>
-    		<groupId>mysql</groupId>
-   			<artifactId>mysql-connector-java</artifactId>
+    		<groupId>com.mysql</groupId>
+   			<artifactId>mysql-connector-j</artifactId>
+   			<version>8.2.0</version>
 		</dependency>
 
 

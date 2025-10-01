@@ -80,6 +80,9 @@ public class CamelContextTest {
     @EndpointInject(value = "mock:ngiUserServiceRequestEndpoint")
     protected MockEndpoint fbiEbtsSubscriptionManagerService;
     
+    @EndpointInject(value = "mock:criminalHistoryUpdateReportingServiceEndpoint")
+    protected MockEndpoint criminalHistoryUpdateReportingServiceEndpoint;
+    
     @BeforeEach
     public void setup() throws Exception{
     	
@@ -106,7 +109,7 @@ public class CamelContextTest {
     	});
     	
     	AdviceWith.adviceWith(context, "processOperationRoute", route -> {
-    		route.interceptSendToEndpoint("https4:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");
+    		route.weaveByToUri("ngiUserServiceRequestEndpoint").replace().to("mock:ngiUserServiceRequestEndpoint");
     	});
     	
     	context.start();	

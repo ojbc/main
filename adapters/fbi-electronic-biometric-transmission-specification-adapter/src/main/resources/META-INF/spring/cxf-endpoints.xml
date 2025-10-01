@@ -193,13 +193,7 @@
 		</camel:keyManagers>
 	</camel:sslContextParameters>
 	
-    <bean id="https4" class="org.apache.camel.component.http.HttpComponent">
-      <property name="sslContextParameters" ref="sslContextParameters"/>
-      <property name="x509HostnameVerifier">
-        <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
-      </property>
-    </bean>	 
-	
+  <bean class="org.apache.http.conn.ssl.NoopHostnameVerifier"/>
 	
     <!-- The Jetty server context will optionally provide a unique port for the FBI.  If the spring profile jetty-server is not active, it is ignore -->
     
