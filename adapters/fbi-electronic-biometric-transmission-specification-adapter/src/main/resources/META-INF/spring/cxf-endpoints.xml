@@ -33,7 +33,7 @@
     http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
-
+    
   <cxf:cxfEndpoint id="fbiEbtsService" address="${fbiEbtsAdapter.secureEndpoint}"
     wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl" serviceName="ojb-nb:NotificationBrokerServiceService"
     endpointName="ojb-nb:NotificationBrokerService" xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
@@ -141,18 +141,6 @@
       </sec:trustManagers>
     </http:tlsClientParameters>
   </http:conduit>
-
-
-  <!-- Used for OUTBOUND SSL/TLS Connection to FBI -->
-  <camel:sslContextParameters id="sslContextParameters">
-    <camel:trustManagers>
-      <camel:keyStore resource="{{fbiEbtsAdapter.truststoreLocation}}" password="{{fbiEbtsAdapter.truststorePassword}}" />
-    </camel:trustManagers>
-
-    <camel:keyManagers keyPassword="{{fbiEbtsAdapter.fbi.keyPassword}}">
-      <camel:keyStore resource="{{fbiEbtsAdapter.fbi.keystoreLocation}}" password="{{fbiEbtsAdapter.fbi.keystorePassword}}" />
-    </camel:keyManagers>
-  </camel:sslContextParameters>
 
   <bean class="org.apache.http.conn.ssl.NoopHostnameVerifier" />
 
