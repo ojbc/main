@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../xsd/ProsecutionDecisionReport.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0" 
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<pd-ext:ServiceOperationDescriptionText>REFERRALRECEIVED</pd-ext:ServiceOperationDescriptionText>
+	<pd-ext:ReportIdentification>
+		<nc:IdentificationID>LE NUMBER</nc:IdentificationID>
+	</pd-ext:ReportIdentification>
+	<j:CaseProsecutionAttorney>
+		<pd-ext:ProsecutionAttorneyOrganization
+			structures:id="ORG001">
+			<nc:OrganizationLocation>
+				<nc:Address>
+					<nc:LocationStreet>
+						<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Smithtown</nc:LocationCityName>
+					<nc:LocationStateName>MI</nc:LocationStateName>
+					<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+				</nc:Address>
+			</nc:OrganizationLocation>
+			<nc:OrganizationName>ACME Prosecutor</nc:OrganizationName>
+			<nc:OrganizationPrimaryContactInformation>
+				<nc:ContactTelephoneNumber>
+					<nc:FullTelephoneNumber>
+						<nc:TelephoneNumberFullID>222-222-2222</nc:TelephoneNumberFullID>
+					</nc:FullTelephoneNumber>
+				</nc:ContactTelephoneNumber>
+			</nc:OrganizationPrimaryContactInformation>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI7878</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</pd-ext:ProsecutionAttorneyOrganization>
+	</j:CaseProsecutionAttorney>
+	<j:Arrest structures:id="ARR001">
+		<j:ArrestAgency>
+			<nc:OrganizationIdentification>
+				<nc:IdentificationID>123PD</nc:IdentificationID>
+			</nc:OrganizationIdentification>
+			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI99999</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+	</j:Arrest>
+</pd-doc:ProsecutionDecisionReport>

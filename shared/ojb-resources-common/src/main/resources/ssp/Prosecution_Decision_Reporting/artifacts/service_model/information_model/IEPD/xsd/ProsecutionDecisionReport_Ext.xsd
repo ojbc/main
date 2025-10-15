@@ -59,7 +59,7 @@
           <xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="j:EnforcementUnit" minOccurs="0" maxOccurs="unbounded" />
-          <xsd:element ref="nc:Person" maxOccurs="unbounded" />
+          <xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
