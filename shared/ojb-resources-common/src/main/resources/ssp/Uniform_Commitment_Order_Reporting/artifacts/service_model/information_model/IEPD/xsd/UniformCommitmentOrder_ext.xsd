@@ -40,6 +40,7 @@
 				<xs:element ref="j:OrganizationORIIdentification" minOccurs="0"/>
 				<xs:element ref="nc:Organization" minOccurs="1"/>
 				<xs:element ref="uco-ext:ParishCodeText" minOccurs="1"/>	
+				<xs:element ref="uco-ext:ParishCodeDescriptionText" minOccurs="1"/>
 				<xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="1" />
 				
 				<!-- A. Defendant/Case Identifiers -->
@@ -118,6 +119,11 @@
     <xs:element name="ParishCodeText" type="nc:TextType">
    		<xs:annotation>
    			<xs:documentation>Unique Identification for each Parish - text. </xs:documentation>
+   		</xs:annotation>
+    </xs:element>
+	<xs:element name="ParishCodeDescriptionText" type="nc:TextType">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for each Parish - 3 letter abbreviation. </xs:documentation>
    		</xs:annotation>
     </xs:element>
     <xs:element name="OriginalSentenceIndicator" type="xs:boolean">
