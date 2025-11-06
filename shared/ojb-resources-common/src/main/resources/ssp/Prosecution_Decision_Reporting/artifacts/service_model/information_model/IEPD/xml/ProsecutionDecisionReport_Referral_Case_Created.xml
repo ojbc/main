@@ -27,7 +27,7 @@
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
 	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<pd-ext:ServiceOperationDescriptionText>REFERRALRECEIVED</pd-ext:ServiceOperationDescriptionText>
+	<pd-ext:ServiceOperationDescriptionText>CASECREATED</pd-ext:ServiceOperationDescriptionText>
 	<pd-ext:ReportIdentification>
 		<nc:IdentificationID>LE NUMBER</nc:IdentificationID>
 	</pd-ext:ReportIdentification>
