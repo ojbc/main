@@ -65,6 +65,9 @@
 		</pd-ext:ProsecutionAttorneyOrganization>
 	</j:CaseProsecutionAttorney>
 	<j:Arrest structures:id="ARR001">
+        <nc:ActivityIdentification>
+            <nc:IdentificationID>123456</nc:IdentificationID>
+        </nc:ActivityIdentification>
 		<j:ArrestAgency>
 			<nc:OrganizationIdentification>
 				<nc:IdentificationID>123PD</nc:IdentificationID>
