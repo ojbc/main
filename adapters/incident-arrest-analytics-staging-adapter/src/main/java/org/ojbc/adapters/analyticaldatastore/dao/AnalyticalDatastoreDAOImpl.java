@@ -1135,4 +1135,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
          return keyHolder.getKey().intValue();	
 	}
+	
+	@Override
+	public Incident returnLatestIncident() {
+	    
+	    String sql = "SELECT * FROM incident order by timestamp desc;";
+	    
+	    List<Incident> incidents = this.jdbcTemplate.query(sql, new IncidentRowMapper());
+	    
+	    if(incidents.size() > 0) {
+	        return incidents.get(0);
+	    }
+	    else {
+	        return null;
+	    }
+	}
 }
