@@ -1139,7 +1139,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public Incident returnLatestIncident() {
 	    
-	    String sql = "SELECT * FROM incident order by timestamp desc;";
+	    String sql = "SELECT * FROM incident order by timestamp desc limit 1;";
 	    
 	    List<Incident> incidents = this.jdbcTemplate.query(sql, new IncidentRowMapper());
 	    
