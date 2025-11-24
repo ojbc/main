@@ -156,6 +156,36 @@
         <nc:IdentificationID>CTID1234</nc:IdentificationID>
       </j:ChargeTrackingIdentification>
     </j:ArrestCharge>
+     <j:ArrestCharge structures:id="idOFF002">
+      <j:ChargeCountQuantity>2</j:ChargeCountQuantity>
+      <j:ChargeDescriptionText>Arson</j:ChargeDescriptionText>
+      <j:ChargeDisposition>
+        <nc:DispositionDate>
+          <nc:Date>2013-05-15</nc:Date>
+        </nc:DispositionDate>
+        <nc:DispositionDescriptionText>Refused</nc:DispositionDescriptionText>
+        <nc:DispositionText>REF</nc:DispositionText>
+      </j:ChargeDisposition>      
+      <j:ChargeSequenceID>2</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <nc:IdentificationID>1234567</nc:IdentificationID>
+        </j:StatuteCodeIdentification>
+        <j:StatuteCodeSectionIdentification>
+          <nc:IdentificationID>1234567(1)</nc:IdentificationID>
+        </j:StatuteCodeSectionIdentification>
+        <j:StatuteDescriptionText>Arson buring a building</j:StatuteDescriptionText>
+        <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
+      </j:ChargeStatute>
+      <j:ChargeTrackingIdentification>
+        <nc:IdentificationID>CTID5678</nc:IdentificationID>
+      </j:ChargeTrackingIdentification>
+      <pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+      <pdr-report-ext:ChargeToCourtIndicator>false</pdr-report-ext:ChargeToCourtIndicator>
+    </j:ArrestCharge>   
     <pdr-report-ext:ArrestTrackingNumberIdentification>
       <nc:IdentificationID>1143299</nc:IdentificationID>
     </pdr-report-ext:ArrestTrackingNumberIdentification>
@@ -480,6 +510,10 @@
   <j:OffenseLocationAssociation>
     <j:Offense structures:ref="idOFF001"/>
     <nc:Location structures:ref="idLOC001"/>
+  </j:OffenseLocationAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <nc:Location structures:ref="idOFF002"/>
   </j:OffenseLocationAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>

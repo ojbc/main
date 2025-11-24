@@ -44,6 +44,7 @@
 		<nc:OrganizationName>24th Judicial District</nc:OrganizationName>
 	</nc:Organization>
 	<uco-ext:ParishCodeText>Parish Code</uco-ext:ParishCodeText>
+	<uco-ext:ParishCodeDescriptionText>ABC</uco-ext:ParishCodeDescriptionText>
 	<nc:CaseDocketID>25-02705</nc:CaseDocketID>
 	<!-- A. Defendant/Case Identifiers -->
 	<nc:Person>
@@ -91,6 +92,11 @@
 				<j:TermMinimumDuration>P1Y2M3DT10H30M0S</j:TermMinimumDuration>
 			</j:SentenceTerm>
 		</j:Sentence>
+		<uco-ext:MaxDuration>
+			<j:DurationYear>1</j:DurationYear>
+			<j:DurationMonth>2</j:DurationMonth>
+			<j:DurationDay>3</j:DurationDay>
+		<uco-ext:MaxDuration>
 		<uco-ext:OffenseDate>
 			<nc:Date>2025-04-01</nc:Date>
 		</uco-ext:OffenseDate>
