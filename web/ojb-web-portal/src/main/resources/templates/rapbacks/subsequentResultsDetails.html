@@ -19,7 +19,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Rap Sheets Details</title>
+    <title>Subsequent Results</title>
     <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
     <link rel="stylesheet" type="text/css" th:href='@{/css/style.css}'>
     <link rel="stylesheet" type="text/css" th:href='@{/css/print-tabs.css}' media="print">
@@ -30,14 +30,17 @@
     <script th:src='@{/webjars/jquery-ui/1.13.0/jquery-ui.min.js}'></script>
   </head>
   <body id="rapbackDetailsFrame">
-    <div id="subsequentResultsDetailTabs">
-        <ul>
-            <li>
+    <div id="tabs">
+        <ul class="nav nav-tabs">
+            <li id="State Subsequent Results">
                 <a href="#stateSubsequentResultTab">State Subsequent Results</a>
             </li>
-            <li>
+            <li id="FBI Subsequent Results">
                 <a href="#fbiSubsequentResultTab">FBI Subsequent Results</a>
             </li>
+            <li style="float:right;" >
+                <button id="printButton" class="grayButton" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+            </li>   
         </ul>
 
         <div id="stateSubsequentResultTab">
@@ -54,12 +57,31 @@
             var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	    /*]]>*/
         $(function () {
-            $('#subsequentResultsDetailTabs').tabs({
+            $('#tabs').tabs({
                 activate: function( event, ui ) {
                     var modalIframe = $("#modalIframe", parent.document);
                     modalIframe.height(modalIframe.contents().find("body").height() + 16);
                 }
             });
+            $("#printButton").button();
+            
+            $("#printButton").on("click", function(){
+    
+                var activeTabIdx = $('#tabs').tabs('option','active');
+    
+                // ID OF ACTIVE TAB
+                // make sure to change #tabs to your selector for tabs
+                var selector = '#tabs > ul > li';
+                var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+                  var requestData = {
+                          'messageId': $(this).attr('messageId'),
+                          'activeTab': activeTabID
+                       };
+                  requestData[_csrf_param_name] = _csrf_token;
+                $.post(context + 'rapbacks/auditPrintResults', requestData );                 
+    
+                window.print();
+            }); 
         });
     </script>
   </body>
