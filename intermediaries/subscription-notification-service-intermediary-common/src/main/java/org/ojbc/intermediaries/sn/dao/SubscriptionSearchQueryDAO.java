@@ -823,7 +823,7 @@ public class SubscriptionSearchQueryDAO {
 //				String agencyCaseNumber, Date startDate, Date endDate,
 //				java.util.Date creationDate, String fullyQualifiedTopic) {
 			
-		Number ret;
+		Number insertValueKey;
 		
 		log.debug("Inserting row into subscription table");
 		
@@ -853,21 +853,23 @@ public class SubscriptionSearchQueryDAO {
                     request.getSubjectName(), 1, request.getReasonCategoryCode(), creationDate, request.getAgencyCaseNumber(), subscriptionOwnerPk
                 }, "id"), keyHolder);
 
-		ret = keyHolder.getKey();
+		insertValueKey = keyHolder.getKey();
+		
+		long subscriptionID =insertValueKey.longValue();
 
-		saveEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), ret.longValue());
+		saveEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), subscriptionID);
 		
 		log.debug("Inserting row(s) into subscription_subject_identifier table");
 
 		for (Map.Entry<String, String> entry : request.getSubjectIdentifiers().entrySet()) {
 		    this.jdbcTemplate.update("insert into "
 		    		+ "rapback_datastore.subscription_subject_identifier (subscriptionId, identifierName, identifierValue) "
-		    		+ "values (?,?,?)", keyHolder.getKey(), entry.getKey(),
+		    		+ "values (?,?,?)", subscriptionID, entry.getKey(),
 		            entry.getValue());
 		}
 
-		saveSubscriptionProperties(request.getSubscriptionProperties(), keyHolder.getKey().longValue());
-		return ret;
+		saveSubscriptionProperties(request.getSubscriptionProperties(), subscriptionID);
+		return insertValueKey;
 	}
 
 	public int insertSubjectIdentifier(long subscriptionID, String key, String value)
