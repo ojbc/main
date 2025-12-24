@@ -1001,7 +1001,7 @@ public class SubscriptionSearchQueryDAO {
     
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 
-        int returnCount;
+        int returnCount = 0;
         
         String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(topic);
 
@@ -1025,21 +1025,51 @@ public class SubscriptionSearchQueryDAO {
         // If we don't have the subscriptionSystemID, attempt to unsubscribe using the info available in the message. This typically comes from automated subscriptions.
         else {
             log.debug("unsubscribing auto subscription, not subscritpion system ID");
-
-            Object[] criteriaArray = new Object[] {
-                fullyQualifiedTopic, systemName
-            };
-            criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIds));
-            String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and"
-                    + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIds.size());
-
-            log.debug("Query String: " + queryString);
-            log.debug("Topic: " + fullyQualifiedTopic + " System Name: " + systemName + " subscription owner: " + subscriptionOwner);
-
-            returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
+            Optional<Integer> subscriptionId = getSubscriptionId(subjectIds); 
+            
+            if ( subscriptionId.isPresent() ) {
+                Object[] criteriaArray = new Object[] {
+                    fullyQualifiedTopic, systemName, subscriptionId.get()
+                };
+                String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and s.id=? ";
+    
+                log.debug("Query String: " + queryString);
+                log.debug("Topic: " + fullyQualifiedTopic + " System Name: " + systemName + " subscription owner: " + subscriptionOwner);
+    
+                returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
+            }
         }
 
         return returnCount;
+    }
+    
+    public Optional<Integer> getSubscriptionId(Map<String, String> subjectIdentifiers) {
+        Optional<Integer> subscriptionId = null; 
+        
+        if (subjectIdentifiers != null && !subjectIdentifiers.isEmpty()) {
+            Object[] criteriaArray = SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers);
+            
+            StringBuilder sql = new StringBuilder();
+            
+            sql.append("SELECT ssi0.subscriptionId ");
+            sql.append("FROM rapback_datastore.subscription_subject_identifier ssi0 ");
+            
+            for (int i = 1; i < subjectIdentifiers.size(); i++) {
+                String alias = "ssi" + String.valueOf(i);
+                sql.append(" JOIN rapback_datastore.subscription_subject_identifier "  + alias);
+                sql.append(" ON " + alias + ".subscriptionId = ssi0.subscriptionId" );
+                sql.append(" AND " + alias + ".identifierName = ? " );
+                sql.append(" AND upper(" + alias + ".identifierValue) = upper(?) " );
+            }
+            
+            sql.append(" WHERE ssi0.identifierName = ? " );
+            sql.append(" AND upper(ssi0.identifierValue) = upper(?) " );
+            
+            log.info("sql to get subscription ID: " + sql.toString());
+            List<Integer> subscriptionIds = this.jdbcTemplate.queryForList(sql.toString(), Integer.class, criteriaArray);
+            subscriptionId = subscriptionIds.stream().findFirst();
+        }
+        return subscriptionId; 
     }
 
     private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE rapback_datastore.subscription_subject_identifier SET identifierValue = ? "
