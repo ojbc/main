@@ -40,6 +40,7 @@
 				<xs:element ref="j:OrganizationORIIdentification" minOccurs="0"/>
 				<xs:element ref="nc:Organization" minOccurs="1"/>
 				<xs:element ref="uco-ext:ParishCodeText" minOccurs="1"/>	
+				<xs:element ref="uco-ext:ParishCodeDescriptionText" minOccurs="1"/>
 				<xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="1" />
 				
 				<!-- A. Defendant/Case Identifiers -->
@@ -120,6 +121,11 @@
    			<xs:documentation>Unique Identification for each Parish - text. </xs:documentation>
    		</xs:annotation>
     </xs:element>
+	<xs:element name="ParishCodeDescriptionText" type="nc:TextType">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for each Parish - 3 letter abbreviation. </xs:documentation>
+   		</xs:annotation>
+    </xs:element>
     <xs:element name="OriginalSentenceIndicator" type="xs:boolean">
     		<xs:annotation>
     			<xs:documentation>Indicates if this is the original sentence </xs:documentation>
@@ -159,6 +165,7 @@
 				<xs:sequence>
 					<xs:element ref="j:Charge" minOccurs="1" maxOccurs="1"/>
 					<xs:element ref="j:Sentence" minOccurs="1"  maxOccurs="1"/>
+					<xs:element ref="uco-ext:MaxDuration" minOccurs="0"/>
 					<xs:element ref="uco-ext:OffenseDate" minOccurs="1" maxOccurs="1"/>
 					<xs:element ref="nc:DispositionDate" minOccurs="1" maxOccurs="1"/>
 					<xs:element ref="j:SentenceDate" minOccurs="1" maxOccurs="1"/>
@@ -174,6 +181,17 @@
 			<xs:documentation>A set of details associated with a sentence - includes charge and sentence details.</xs:documentation>
 	 </xs:annotation>
 	</xs:element>
+	<xs:complexType name="MaxDurationType">
+ 		 <xs:annotation>
+   			 <xs:documentation>A duration broken into its constituent parts.</xs:documentation>
+ 		 </xs:annotation>
+ 		 <xs:sequence>
+  			<xs:element ref="j:DurationYear" minOccurs="0"/>
+    		<xs:element ref="j:DurationMonth" minOccurs="0"/>
+    		<xs:element ref="j:DurationDay" minOccurs="0"/>
+  		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MaxDuration" type="uco-ext:MaxDurationType">
     <xs:element name="OffenseDate" type="nc:DateType">
     		<xs:annotation>
     			<xs:documentation>Date of Offense </xs:documentation>

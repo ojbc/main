@@ -33,7 +33,7 @@
   		<operation name="receiveResponse">
 			<input name="NISTBiometricInformation" message="tns:NGIResponseInput"/>
 			<output name="NGIResponseOutput" message="tns:NGIResponseOutput"/>
-   			<fault  name="NGIResponseFault" message="tns:NGIResponseFault"></fault>			
+   		<fault name="NGIResponseFault" message="tns:NGIResponseFault"></fault>			
   		</operation>
  	</portType>	
  	

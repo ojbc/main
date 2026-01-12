@@ -50,6 +50,8 @@
 
     <endpoint id="dispositionReportingFileEndpoint"
       uri="file://{{analyticsAdapter.inputDirectory}}/disposition/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/disposition/error&amp;move=processed/" />
+    
+    <endpoint id="smtpEndpoint" uri="{{analyticsAdapter.smtpServerProtocol}}://{{analyticsAdapter.smtpServerName}}:{{analyticsAdapter.smtpServerPort}}/?password={{analyticsAdapter.emailPassword}}&amp;username={{analyticsAdapter.emailUserID}}&amp;from={{analyticsAdapter.smtpFromAddress}}&amp;to={{analyticsAdapter.smtpToAddress}}&amp;contentType=text/html"/>
 
     <!-- Incident Reporting Route -->
     <camel:route id="Incident_Repository_Service">
@@ -207,6 +209,28 @@
       <camel:to uri="invocationFailedFileEndpoint" id="invocationFailedFileEndpoint" />
 
     </camel:route>
+        <camel:route>
+            <from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=300"/>
+            
+            <camel:when>
+                <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyIncidentDatabaseUdpate}</camel:simple>
+                
+                <camel:to uri="direct:sendErrorEmail"/>
+            </camel:when>
+            
+        </camel:route>
+            
+        <camel:route>
+            <camel:from uri="direct:sendErrorEmail"/>
+            
+            <camel:setHeader name="subject"><constant>Incident Analytics Database Error - CRITICAL</constant></camel:setHeader>
+            
+            <camel:setBody><camel:simple>Latest incident in AnalyticsDatastore is older than 1 day, check adapter logs for connection error.</camel:simple></camel:setBody>
+            
+            <camel:to uri="smtpEndpoint"/>
+            
+            <camel:log message="Sent Analytics Error Email" />
+        </camel:route>
 
     <camel:route id="IndexBackupRoute">
       <from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=300" />

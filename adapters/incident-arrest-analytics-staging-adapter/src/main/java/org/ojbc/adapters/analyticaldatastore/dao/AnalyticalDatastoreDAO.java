@@ -113,4 +113,6 @@ public interface AnalyticalDatastoreDAO {
 	public void deleteDisposition(Integer dispositionID) throws Exception;
 	
 	public void deletePretrialServiceParticipation(Integer pretrialServiceParticipationID) throws Exception;
+	
+	public Incident returnLatestIncident();
 }

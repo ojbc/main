@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -202,6 +203,23 @@ public class TestSubscriptionSearchQueryDAO {
 		
 	}
 	
+	@Test
+	public void testGetSubscriptionId()
+	{
+	    Map<String, String> subjectIdentifiers = new HashMap<>();
+	    subjectIdentifiers.put("subscriptionQualifier", "2109639"); 
+	    subjectIdentifiers.put("dateOfBirth", "1960-10-02"); 
+	    subjectIdentifiers.put("firstName", "MICHAEL"); 
+	    subjectIdentifiers.put("lastName", "Smith-Jones"); 
+	    
+	    Optional<Integer> subscriptionId = subscriptionSearchQueryDAO.getSubscriptionId(subjectIdentifiers);
+	    assertEquals(Integer.valueOf(62720), subscriptionId.get());
+	}
+	
+//	insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62720', 'subscriptionQualifier', '2109639');
+//	insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62720', 'dateOfBirth', '1960-10-02');
+//	insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62720', 'firstName', 'MICHAEL');
+//	insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62720', 'lastName', 'Smith-Jones');
 	@Test
 	public void testRetrieveSubscriptionOwner() throws Exception
 	{

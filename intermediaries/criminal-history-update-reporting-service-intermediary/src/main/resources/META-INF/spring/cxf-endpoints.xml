@@ -43,13 +43,13 @@
       <entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" />
       <entry key="publishedEndpointUrl" value="${criminalHistoryUpdateReportingService.publishedEndpointUrl:}" />
     </cxf:properties>
-    <cxf:features>
+    <!-- <cxf:features>
       <bean class="org.apache.cxf.ext.logging.LoggingFeature">
         <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
       </bean>
-    </cxf:features>
+    </cxf:features> -->
   </cxf:cxfEndpoint>
 
   <!-- hosted by this intermediary, invoked by connector, no WS Policy on this binding -->
@@ -57,13 +57,13 @@
     wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
     serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" endpointName="ojbc:Criminal-History-Update-Reporting-Service"
     xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
-    <cxf:features>
+    <!-- <cxf:features>
       <bean class="org.apache.cxf.ext.logging.LoggingFeature">
         <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
       </bean>
-    </cxf:features>
+    </cxf:features> -->
   </cxf:cxfEndpoint>
 
   <!-- hosted by adapter, called by intermediary -->
@@ -76,26 +76,26 @@
       <entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" />
       <entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" />
     </cxf:properties>
-    <cxf:features>
+    <!-- <cxf:features>
       <bean class="org.apache.cxf.ext.logging.LoggingFeature">
         <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
       </bean>
-    </cxf:features>
+    </cxf:features> -->
   </cxf:cxfEndpoint>
 
   <!-- OJB Notification Broker Service, invoked by intermediary -->
   <cxf:cxfEndpoint id="notificationBrokerService" address="${criminalHistoryUpdateReportingService.notificationBrokerEndpoint}"
     wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl" serviceName="ojb-nb:NotificationBrokerServiceService"
     endpointName="ojb-nb:NotificationBrokerService" xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
-    <cxf:features>
+    <!-- <cxf:features>
       <bean class="org.apache.cxf.ext.logging.LoggingFeature">
         <property name="prettyLogging" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="logBinary" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
         <property name="verbose" value="${criminalHistoryReportingServiceIntermediaryCxflogging}" />
       </bean>
-    </cxf:features>
+    </cxf:features> -->
   </cxf:cxfEndpoint>
 
   <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->

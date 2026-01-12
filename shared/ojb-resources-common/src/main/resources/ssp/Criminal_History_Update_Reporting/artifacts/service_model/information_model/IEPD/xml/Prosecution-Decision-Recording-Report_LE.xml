@@ -115,7 +115,7 @@
         </j:OrganizationORIIdentification>
       </j:OrganizationAugmentation>
     </j:ArrestAgency>
-    <j:ArrestCharge>
+    <j:ArrestCharge structures:id="idOFF001">
       <j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
       <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
       <j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
@@ -145,35 +145,51 @@
         <j:StatuteCodeSectionIdentification>
           <nc:IdentificationID>12345(1)</nc:IdentificationID>
         </j:StatuteCodeSectionIdentification>
+        <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate felony; penalty</j:StatuteDescriptionText>
+        <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
       </j:ChargeStatute>
       <j:ChargeSubject>
         <nc:RoleOfPerson structures:ref="PER001" />
+        <j:OffenseUnderInfluenceIndicator>true</j:OffenseUnderInfluenceIndicator>
       </j:ChargeSubject>
       <j:ChargeTrackingIdentification>
         <nc:IdentificationID>CTID1234</nc:IdentificationID>
       </j:ChargeTrackingIdentification>
     </j:ArrestCharge>
+     <j:ArrestCharge structures:id="idOFF002">
+      <j:ChargeCountQuantity>2</j:ChargeCountQuantity>
+      <j:ChargeDescriptionText>Arson</j:ChargeDescriptionText>
+      <j:ChargeDisposition>
+        <nc:DispositionDate>
+          <nc:Date>2013-05-15</nc:Date>
+        </nc:DispositionDate>
+        <nc:DispositionDescriptionText>Refused</nc:DispositionDescriptionText>
+        <nc:DispositionText>REF</nc:DispositionText>
+      </j:ChargeDisposition>      
+      <j:ChargeSequenceID>2</j:ChargeSequenceID>
+      <j:ChargeSeverityLevel>
+        <j:SeverityLevelDescriptionText>Misdemeanor</j:SeverityLevelDescriptionText>
+      </j:ChargeSeverityLevel>
+      <j:ChargeStatute>
+        <j:StatuteCodeIdentification>
+          <nc:IdentificationID>1234567</nc:IdentificationID>
+        </j:StatuteCodeIdentification>
+        <j:StatuteCodeSectionIdentification>
+          <nc:IdentificationID>1234567(1)</nc:IdentificationID>
+        </j:StatuteCodeSectionIdentification>
+        <j:StatuteDescriptionText>Arson buring a building</j:StatuteDescriptionText>
+        <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
+      </j:ChargeStatute>
+      <j:ChargeTrackingIdentification>
+        <nc:IdentificationID>CTID5678</nc:IdentificationID>
+      </j:ChargeTrackingIdentification>
+      <pdr-report-ext:EndProsecutorChargeCycleIndicator>true</pdr-report-ext:EndProsecutorChargeCycleIndicator>
+      <pdr-report-ext:ChargeToCourtIndicator>false</pdr-report-ext:ChargeToCourtIndicator>
+    </j:ArrestCharge>   
     <pdr-report-ext:ArrestTrackingNumberIdentification>
       <nc:IdentificationID>1143299</nc:IdentificationID>
     </pdr-report-ext:ArrestTrackingNumberIdentification>
   </j:Arrest>
-  <j:Offense structures:id="idOFF001">
-    <nc:ActivityIdentification>
-      <nc:IdentificationID>1234567</nc:IdentificationID>
-      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-    </nc:ActivityIdentification>
-    <nc:ActivityDate>
-      <nc:DateTime>2010-12-23T12:35:00</nc:DateTime>
-    </nc:ActivityDate>
-    <j:OffenseViolatedStatute>
-      <j:StatuteCodeSectionIdentification>
-        <nc:IdentificationID>13A-8-41</nc:IdentificationID>
-        <nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
-      </j:StatuteCodeSectionIdentification>
-      <j:StatuteDescriptionText>Carrying or use of firearm in the commission of a separate felony; penalty</j:StatuteDescriptionText>
-      <j:StatuteLevelText>FELONY A</j:StatuteLevelText>
-    </j:OffenseViolatedStatute>
-  </j:Offense>
   <j:Charge structures:id="CRG001">
     <j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
     <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
@@ -264,18 +280,17 @@
       <nc:IdentificationID>AGY123456789</nc:IdentificationID>
       <nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
     </nc:PersonOtherIdentification>
-    <nc:PersonPhysicalFeature>
-      <nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
-      <nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
-      <nc:PhysicalFeatureCategoryText>TAT HAND</nc:PhysicalFeatureCategoryText>
-      <nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
-      <nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
-      <nc:PhysicalFeatureIdentification>
-        <nc:IdentificationID>200</nc:IdentificationID>
-        <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
-      </nc:PhysicalFeatureIdentification>
-      
-    </nc:PersonPhysicalFeature>
+  <nc:PersonPhysicalFeature>
+    <nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
+    <nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+    <nc:PhysicalFeatureCategoryText>TAT HAND</nc:PhysicalFeatureCategoryText>
+    <nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
+    <nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
+    <nc:PhysicalFeatureIdentification>
+      <nc:IdentificationID>200</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+    </nc:PhysicalFeatureIdentification>
+  </nc:PersonPhysicalFeature>
     <j:PersonRaceCode>W</j:PersonRaceCode>
     <nc:PersonRaceText>WHITE</nc:PersonRaceText>
     <nc:PersonResidentText>Y</nc:PersonResidentText>
@@ -301,7 +316,6 @@
       <j:SubjectViolentOffenderIndicator>true</j:SubjectViolentOffenderIndicator>
       <j:PersonFirearmSalesDisqualifiedCode>D</j:PersonFirearmSalesDisqualifiedCode>
       <j:JuvenileOffenderIndicator>true</j:JuvenileOffenderIndicator>
-
     </j:PersonAugmentation>
     <pdr-report-ext:PersonTrackingIdentification>
       <nc:IdentificationID>PTI1234</nc:IdentificationID>
@@ -497,14 +511,10 @@
     <j:Offense structures:ref="idOFF001"/>
     <nc:Location structures:ref="idLOC001"/>
   </j:OffenseLocationAssociation>
-  <j:OffenseSubjectAssociation>
-    <j:Offense structures:ref="idOFF001" />
-    <j:Subject>
-      <nc:RoleOfPerson structures:ref="PER001" />
-    </j:Subject>
-    <j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
-    <j:OffenseUnderInfluenceIndicator xsi:nil="true"/>
-  </j:OffenseSubjectAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="idOFF001"/>
+    <nc:Location structures:ref="idOFF002"/>
+  </j:OffenseLocationAssociation>
   <nc:PersonResidenceAssociation>
     <nc:AssociationDateRange>
       <nc:StartDate><nc:Date>2013-08-01</nc:Date></nc:StartDate>

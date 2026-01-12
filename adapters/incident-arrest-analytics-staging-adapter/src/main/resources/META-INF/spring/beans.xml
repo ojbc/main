@@ -51,6 +51,8 @@
     <property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl" />
     <property name="descriptionCodeLookupService" ref="descriptionCodeLookupService" />
   </bean>
+  
+  <bean id="incidentArrestAnalyticsVerificationProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentArrestAnalyticsVerificationProcessor" />
 
   <bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl">
     <property name="dataSource" ref="dataSource" />
