@@ -68,6 +68,7 @@
   </nc:Case>
   <j:CaseProsecutionAttorney>
     <nc:RoleOfPerson structures:ref="idAttorneyPER001"></nc:RoleOfPerson>
+    <nc:RoleOfPerson structures:ref="DataEntryUser001"></nc:RoleOfPerson>
     <pdr-report-ext:ProsecutionAttorneyOrganization structures:id="ORG001">
       <nc:OrganizationLocation>
         <nc:Address>
@@ -242,6 +243,12 @@
   <j:Victim>
     <nc:RoleOfPerson structures:ref="PER002" />
   </j:Victim>
+  <nc:Person structures:id="DataEntryUser001">
+    <nc:PersonOtherIdentification>
+      <nc:IdentificationID>23456789</nc:IdentificationID>
+      <nc:IdentificationCategoryDescriptionText>DataEntryUser</nc:IdentificationCategoryDescriptionText>
+    </nc:PersonOtherIdentification>
+  </nc:Person>
   <nc:Person structures:id="PER001">
     <nc:PersonAlternateName>
       <nc:PersonGivenName>FirstAlias</nc:PersonGivenName>
