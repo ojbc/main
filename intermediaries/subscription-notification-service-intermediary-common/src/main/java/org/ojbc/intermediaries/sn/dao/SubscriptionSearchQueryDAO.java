@@ -1038,7 +1038,8 @@ public class SubscriptionSearchQueryDAO {
                 Object[] criteriaArray = new Object[] {
                     fullyQualifiedTopic, systemName, subscriptionId.get()
                 };
-                String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and s.id=? ";
+                String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=false "
+                        + "and s.subscribingSystemIdentifier=? and s.id=? ";
     
                 log.debug("Query String: " + queryString);
                 log.debug("Topic: " + fullyQualifiedTopic + " System Name: " + systemName + " subscription owner: " + subscriptionOwner);
