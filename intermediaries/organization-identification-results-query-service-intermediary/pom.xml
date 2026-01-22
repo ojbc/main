@@ -37,7 +37,7 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>4.0.1</spring-boot-version>
+		<spring-boot-version>3.5.9</spring-boot-version>
 		<camel-version>4.17.0</camel-version>
 		<cxf-version>4.1.4</cxf-version>
 		<spring-version>7.0.3</spring-version>
