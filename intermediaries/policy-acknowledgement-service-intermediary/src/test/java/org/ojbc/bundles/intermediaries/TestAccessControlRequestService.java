@@ -21,8 +21,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -41,10 +44,13 @@ import org.junit.jupiter.api.Test;
 import org.ojbc.bundles.intermediaries.policyacknowledgement.PolicyAcknowledgementServiceIntermediaryApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=PolicyAcknowledgementServiceIntermediaryApplication.class)
@@ -65,6 +71,11 @@ public class TestAccessControlRequestService {
 
     @EndpointInject(value = "mock:result")
     protected MockEndpoint resultEndpoint;
+    
+    @Resource
+    private DataSource dataSource;  
+    
+    private JdbcTemplate jdbcTemplate;
     
     @Test
     public void testApplicationStartup() {
@@ -89,6 +100,12 @@ public class TestAccessControlRequestService {
     	AdviceWith.adviceWith(context, "accessControlResponseRoute", route -> {
     		route.weaveById("accessControlResponseServiceEndpoint").replace().to("mock:result");
     	});       
+    	
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        
+        jdbcTemplate.execute("ALTER TABLE policy_acknowledgement.ojbc_user ALTER COLUMN id RESTART WITH "
+                + " (select max (id) + 1 from policy_acknowledgement.ojbc_user) ");
+
     	context.start();
     }
 
@@ -98,11 +115,10 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestCurrent.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
-        @SuppressWarnings("unchecked")
         List<String> expectedBody = FileUtils.readLines(new File(
-                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForCurrentUser.xml"));
+                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForCurrentUser.xml"), StandardCharsets.UTF_8);
         // The first 18 lines of the file contain license info. 
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
@@ -134,11 +150,10 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNonCurrent.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
-        @SuppressWarnings("unchecked")
         List<String> expectedBody = FileUtils.readLines(new File(
-                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUser.xml"));
+                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUser.xml"), StandardCharsets.UTF_8);
         
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
  
@@ -153,11 +168,11 @@ public class TestAccessControlRequestService {
     	// Read the access control request file from the file system
     	File inputFile = new File(
     			"src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNonCurrentNoPolicyOri.xml");
-    	String requestBody = FileUtils.readFileToString(inputFile);
+    	String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
     	
     	@SuppressWarnings("unchecked")
     	List<String> expectedBody = FileUtils.readLines(new File(
-    			"src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUserNoPolicyOri.xml"));
+    			"src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUserNoPolicyOri.xml"), StandardCharsets.UTF_8);
     	
     	resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
     	
@@ -172,10 +187,9 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestEmpty.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
-        @SuppressWarnings("unchecked")
+        String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
         List<String> expectedBody = FileUtils.readLines(new File(
-                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForEmptyFedID.xml"));
+                        "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForEmptyFedID.xml"), StandardCharsets.UTF_8);
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
@@ -189,11 +203,11 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNewUser.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 
         @SuppressWarnings("unchecked")
         List<String> expectedBody = FileUtils.readLines(new File(
-                "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNewUser.xml"));
+                "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNewUser.xml"), StandardCharsets.UTF_8);
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
         
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
@@ -208,11 +222,10 @@ public class TestAccessControlRequestService {
         // Read the access control request file from the file system
         File inputFile = new File(
                 "src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestResourceNotAvailable.xml");
-        String requestBody = FileUtils.readFileToString(inputFile);
+        String requestBody = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
         
-        @SuppressWarnings("unchecked")
         List<String> expectedBody = FileUtils.readLines(new File(
-                "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForResoureNotAvailableError.xml"));
+                "src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForResoureNotAvailableError.xml"), StandardCharsets.UTF_8);
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();

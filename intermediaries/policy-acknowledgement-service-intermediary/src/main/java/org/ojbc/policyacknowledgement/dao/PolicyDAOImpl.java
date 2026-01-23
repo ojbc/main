@@ -58,10 +58,10 @@ public class PolicyDAOImpl implements PolicyDAO {
     @Value("#{'${policyAcknowledgement.orisWithoutPrivacyPolicy:}'.split(',')}")
     private List<String> orisWithoutPrivacyPolicy;
     
-	private final String OUTSTANDING_POLICY_SELECT_BY_FED_ID = "SELECT p.*, o.* FROM policy p "
-	        + "LEFT OUTER JOIN policy_ori po ON p.id = po.policy_id "
-	        + "LEFT OUTER JOIN ori o ON o.id = po.ori_id "
-	        + "LEFT JOIN user_policy_acknowledgement  up ON p.active=true AND up.policy_id = p.id AND up.user_id= :userId "
+	private final String OUTSTANDING_POLICY_SELECT_BY_FED_ID = "SELECT p.*, o.* FROM policy_acknowledgement.policy p "
+	        + "LEFT OUTER JOIN policy_acknowledgement.policy_ori po ON p.id = po.policy_id "
+	        + "LEFT OUTER JOIN policy_acknowledgement.ori o ON o.id = po.ori_id "
+	        + "LEFT JOIN policy_acknowledgement.user_policy_acknowledgement  up ON p.active=true AND up.policy_id = p.id AND up.user_id= :userId "
 	        + "WHERE (up.acknowledge_date IS NULL OR up.acknowledge_date < p.update_date) "
 	        + "AND (o.ori is null OR o.ori = :ori)"; 
 	@Override
@@ -99,16 +99,19 @@ public class PolicyDAOImpl implements PolicyDAO {
     /**
      * Make sure there is a privacy policy associated with the ORI. 
      */
-    private final String POLICY_COUNT_BY_ORI = "SELECT count(*) > 0 FROM policy p "
-            + "LEFT JOIN policy_ori po ON po.policy_id = p.id "
-            + "LEFT JOIN ori o ON o.id = po.ori_id "
-            + "WHERE o.ori = ? AND p.active = true "; 
+    private final String POLICY_COUNT_BY_ORI =
+            "SELECT COUNT(*) FROM policy_acknowledgement.policy p "
+          + "LEFT JOIN policy_acknowledgement.policy_ori po ON po.policy_id = p.id "
+          + "LEFT JOIN policy_acknowledgement.ori o ON o.id = po.ori_id "
+          + "WHERE o.ori = ? AND p.active = true ";
     private void validateOriPolicyCompliance(String ori) {
-        
     	if (isCivilOri(ori)) 
     		return; 
     	
-        Boolean oriCompliance = jdbcTemplate.queryForObject(POLICY_COUNT_BY_ORI, Boolean.class, ori);
+    	Integer count = jdbcTemplate.queryForObject(
+    	        POLICY_COUNT_BY_ORI, Integer.class, ori);
+
+    	Boolean oriCompliance = count != null && count > 0;
         if (!oriCompliance) {
             log.error(PRIVACY_COMPLIANCE_ERROR + " :" + ori);
             throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + ": " + ori); 
@@ -122,10 +125,10 @@ public class PolicyDAOImpl implements PolicyDAO {
 		}
     }
 
-	private final String ACKNOWLEGE_UPDATED_POLICIES = "UPDATE user_policy_acknowledgement up "
+	private final String ACKNOWLEGE_UPDATED_POLICIES = "UPDATE policy_acknowledgement.user_policy_acknowledgement up "
 	        + "SET up.acknowledge_date = CURRENT_TIMESTAMP() "
 	        + "WHERE user_id = ? "
-	        + "    AND up.acknowledge_date < (SELECT update_date FROM policy WHERE id = up.policy_id)"; 
+	        + "    AND up.acknowledge_date < (SELECT update_date FROM policy_acknowledgement.policy WHERE id = up.policy_id)"; 
 	
 	@Override
 	@Transactional
@@ -152,7 +155,7 @@ public class PolicyDAOImpl implements PolicyDAO {
 	@Transactional
 	public void insertUserPolicyAcknowledgement(final List<Policy> policies, final Long userId) {
 	     
-        jdbcTemplate.batchUpdate("INSERT INTO user_policy_acknowledgement " +
+        jdbcTemplate.batchUpdate("INSERT INTO policy_acknowledgement.user_policy_acknowledgement " +
             "(user_id, policy_id, acknowledge_date) VALUES (?, ?, CURRENT_TIMESTAMP())", new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i)
                 throws SQLException {
@@ -183,23 +186,27 @@ public class PolicyDAOImpl implements PolicyDAO {
 		}
 	}
 
-	private final String USER_COUNT_BY_FED_ID = "SELECT count(*)=1 FROM ojbc_user WHERE federation_id = :federationId"; 
+	private final String USER_COUNT_BY_FED_ID =
+	        "SELECT COUNT(*) FROM policy_acknowledgement.ojbc_user WHERE federation_id = ?";
     @Override
     public boolean isExistingUser(String federationId) {
         validateFedId(federationId);
         
-        Boolean existing = jdbcTemplate.queryForObject(USER_COUNT_BY_FED_ID, Boolean.class, federationId);
-        return existing;
+        Integer count = jdbcTemplate.queryForObject(
+                USER_COUNT_BY_FED_ID, Integer.class, federationId);
+
+        return count != null && count == 1;
     }
     
     public boolean isCivilOri(String ori) {
-    	final String sql = "select count(*)=1 from ori t where t.ori =? and civil_ori_indicator = true"; 
-    	
-    	Boolean isCivilOri = jdbcTemplate.queryForObject(sql, Boolean.class, ori);
-    	return isCivilOri;
+        final String sql =
+                "SELECT COUNT(*) FROM policy_acknowledgement.ori t WHERE t.ori = ? AND civil_ori_indicator = true";
+        
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, ori);
+        return count != null && count > 0;
     }
     
-    private final String GET_USER_ID_BY_FED_ID = "SELECT id FROM ojbc_user WHERE federation_id = ?"; 
+    private final String GET_USER_ID_BY_FED_ID = "SELECT id FROM policy_acknowledgement.ojbc_user WHERE federation_id = ?"; 
     private Long getUserIdByFedId(String federationId) {
         validateFedId(federationId);
         
@@ -209,7 +216,7 @@ public class PolicyDAOImpl implements PolicyDAO {
     
     private Long saveNewUser(String federationId){
         
-        final String insertStatement = "INSERT INTO ojbc_user (federation_id, create_date) VALUES (?, CURRENT_TIMESTAMP())";
+        final String insertStatement = "INSERT INTO policy_acknowledgement.ojbc_user (federation_id, create_date) VALUES (?, CURRENT_TIMESTAMP())";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -226,13 +233,16 @@ public class PolicyDAOImpl implements PolicyDAO {
         return keyHolder.getKey().longValue();
     }
     
-    private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*)>0 FROM ori t WHERE t.ori = ?; "; 
+    private final String ORI_COUNT_BY_ORI_LIST = "SELECT COUNT(*) FROM policy_acknowledgement.ori t WHERE t.ori = ?";
+    
     private boolean isValidOri(String ori){
-        
-        if (StringUtils.isBlank(ori)) return false; 
-        
-        Boolean valid = jdbcTemplate.queryForObject(ORI_COUNT_BY_ORI_LIST, Boolean.class, ori);
-        return valid; 
+
+        if (StringUtils.isBlank(ori)) return false;
+
+        Integer count = jdbcTemplate.queryForObject(
+            ORI_COUNT_BY_ORI_LIST, Integer.class, ori);
+
+        return count != null && count > 0;
     }
     
 }

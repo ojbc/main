@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.Assertions;
@@ -29,11 +31,14 @@ import org.junit.jupiter.api.Test;
 import org.ojbc.bundles.intermediaries.policyacknowledgement.PolicyAcknowledgementServiceIntermediaryApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=PolicyAcknowledgementServiceIntermediaryApplication.class)
@@ -87,9 +92,18 @@ public class PolicyDAOImplTest {
 
     }
     
+    @Resource
+    private DataSource dataSource;  
+    
+    private JdbcTemplate jdbcTemplate;
+    
     @Test
     public void testGetOutstandingPoliciesForUser() {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
         
+        jdbcTemplate.execute("ALTER TABLE policy_acknowledgement.ojbc_user ALTER COLUMN id RESTART WITH "
+                + " (select max (id) + 1 from policy_acknowledgement.ojbc_user) ");
+
         List<Policy> allPolicies = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris", "H00000001"); 
         assertEquals(allPolicies.size(), 3); 
         
