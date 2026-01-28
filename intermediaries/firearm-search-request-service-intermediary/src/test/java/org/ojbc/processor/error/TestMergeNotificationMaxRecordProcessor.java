@@ -20,13 +20,13 @@ package org.ojbc.processor.error;
 import java.io.File;
 import java.util.HashMap;
 
-import junit.framework.Assert;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+
+import junit.framework.Assert;
 
 public class TestMergeNotificationMaxRecordProcessor {
 
