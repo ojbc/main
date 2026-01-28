@@ -20,22 +20,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.Route;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.RecipientListDefinition;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.test.spring.junit5.UseAdviceWith;
@@ -64,6 +64,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=FirearmSearchRequestServiceIntermediaryApplication.class)
@@ -101,11 +103,11 @@ public class TestFirearmSearchRequestServiceIntermediary {
     	//We then will test this mock endpoint to see if it gets the proper payload.
 		AdviceWith.adviceWith(context, context.getRouteDefinition("searchRequestFederatedServiceEndpointRoute"), route -> {
 			route.replaceFromWith("direct:searchRequestFederatedServiceEndpoint");
-			route.mockEndpoints();
+			route.weaveByType(RecipientListDefinition.class).replace().to("mock:cxf:bean:firearmSearchRequestServiceAdapter");
 		});
-
+		
 		AdviceWith.adviceWith(context, context.getRouteDefinition("processFederatedResponseRoute"), route -> {
-			route.weaveByToString("To[direct:sendMergeMessageResponse]").replace().to("mock:cxf:bean:entityResolutionRequestServiceEndpoint");
+		    route.weaveByToUri("direct:sendMergeMessageResponse").replace().to("mock:cxf:bean:entityResolutionRequestServiceEndpoint");
 		});
     	
     	context.start();
@@ -121,7 +123,7 @@ public class TestFirearmSearchRequestServiceIntermediary {
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/firearmSearchResults/firearmSearchResultsLarge.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
@@ -169,7 +171,7 @@ public class TestFirearmSearchRequestServiceIntermediary {
 	    
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/FirearmSearchRequest.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
@@ -206,7 +208,7 @@ public class TestFirearmSearchRequestServiceIntermediary {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xmlInstances/FirearmSearchRequest.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, StandardCharsets.UTF_8);
 			
 		log.debug("Expected Response: " + expectedResponseAsString);
 	
