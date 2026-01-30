@@ -18,8 +18,6 @@ package org.ojbc.bundles.intermediaries.subscriptionreporting;
 
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.model.ModelCamelContext;
@@ -34,6 +32,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=SubscriptionReportingServiceApplication.class)

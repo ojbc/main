@@ -21,7 +21,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" 
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:sec="http://cxf.apache.org/configuration/security" 
 	xmlns:http="http://cxf.apache.org/transports/http/configuration"
@@ -31,8 +31,8 @@
 	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -75,8 +75,8 @@
 	<http:conduit
 		name="*.http-conduit">
 		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${subscriptionReportingService.keyPassword}">
-	        	<sec:keyStore type="jks" password="${subscriptionReportingService.keystorePassword}" url="${subscriptionReportingService.keystoreLocation}" />
+			<sec:keyManagers keyPassword="${subscriptionReportingService.intermediaryKeyPassword}">
+	        	<sec:keyStore type="jks" password="${subscriptionReportingService.intermediaryKeystorePassword}" url="${subscriptionReportingService.intermediaryKeystoreLocation}" />
 	   	 	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
