@@ -24,7 +24,7 @@
        
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.7.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
@@ -114,7 +114,7 @@
 
 			<camel:log message="Timer started"/>
 
-			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+			<camel:split onPrepare="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//nc30:SystemName</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
@@ -169,7 +169,7 @@
 	    <camel:route>
 	      <from uri="direct:aggregateFederatedQuery" />
 			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
+			<aggregate aggregationStrategy="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
