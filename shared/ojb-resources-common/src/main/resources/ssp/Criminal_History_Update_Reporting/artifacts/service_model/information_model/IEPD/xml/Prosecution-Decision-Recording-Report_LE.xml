@@ -131,6 +131,10 @@
         <nc:IdentificationID>3837</nc:IdentificationID>
         <nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
       </j:ChargeIdentification>
+      <j:ChargeIdentification>
+        <nc:IdentificationID>C99999999</nc:IdentificationID>
+        <nc:IdentificationCategoryDescriptionText>ARREST REPORT NUMBER</nc:IdentificationCategoryDescriptionText>
+      </j:ChargeIdentification>
       <j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
       <j:ChargeEnhancingFactor>
         <j:ChargeEnhancingFactorDescriptionText>METH</j:ChargeEnhancingFactorDescriptionText>
