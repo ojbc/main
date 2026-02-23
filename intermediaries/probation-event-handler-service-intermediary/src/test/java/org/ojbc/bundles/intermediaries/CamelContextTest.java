@@ -43,7 +43,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 
 import jakarta.annotation.Resource;
@@ -52,8 +51,6 @@ import jakarta.annotation.Resource;
 @SpringBootTest(classes=ProbationEventHandlerServiceApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/jetty-server.xml"}) 
 public class CamelContextTest {
 
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
