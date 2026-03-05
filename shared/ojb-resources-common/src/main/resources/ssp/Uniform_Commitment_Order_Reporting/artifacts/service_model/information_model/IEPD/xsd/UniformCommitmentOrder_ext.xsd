@@ -191,7 +191,7 @@
     		<xs:element ref="j:DurationDay" minOccurs="0"/>
   		</xs:sequence>
 	</xs:complexType>
-	<xs:element name="MaxDuration" type="uco-ext:MaxDurationType">
+	<xs:element name="MaxDuration" type="uco-ext:MaxDurationType"/>
     <xs:element name="OffenseDate" type="nc:DateType">
     		<xs:annotation>
     			<xs:documentation>Date of Offense </xs:documentation>
@@ -331,7 +331,8 @@
 		<xs:annotation>
 			<xs:documentation>PDF copy of the UCO </xs:documentation>
 		</xs:annotation>
-	</xs:element><xs:element name="AdditionalInformationAttachment" type="nc:BinaryType">
+	</xs:element>
+	<xs:element name="AdditionalInformationAttachment" type="nc:BinaryType">
 		<xs:annotation>
 			<xs:documentation>PDF copy of the UCO </xs:documentation>
 		</xs:annotation>
