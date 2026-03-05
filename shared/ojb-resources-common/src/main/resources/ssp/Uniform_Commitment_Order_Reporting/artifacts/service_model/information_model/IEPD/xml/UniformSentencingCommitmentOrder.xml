@@ -44,6 +44,7 @@
 		<nc:OrganizationName>24th Judicial District</nc:OrganizationName>
 	</nc:Organization>
 	<uco-ext:ParishCodeText>Parish Code</uco-ext:ParishCodeText>
+	<uco-ext:ParishCodeDescriptionText>Parish Code</uco-ext:ParishCodeDescriptionText>
 	<nc:CaseDocketID>25-02705</nc:CaseDocketID>
 	<!-- A. Defendant/Case Identifiers -->
 	<nc:Person>

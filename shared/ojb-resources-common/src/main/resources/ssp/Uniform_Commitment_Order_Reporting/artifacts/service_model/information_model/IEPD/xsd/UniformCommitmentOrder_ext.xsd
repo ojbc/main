@@ -40,7 +40,7 @@
 				<xs:element ref="j:OrganizationORIIdentification" minOccurs="0"/>
 				<xs:element ref="nc:Organization" minOccurs="1"/>
 				<xs:element ref="uco-ext:ParishCodeText" minOccurs="1"/>	
-				<xs:element ref="uco-ext:ParishCodeDescriptionText" minOccurs="1"/>
+				<xs:element ref="uco-ext:ParishCodeDescriptionText" minOccurs="0"/>
 				<xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="1" />
 				
 				<!-- A. Defendant/Case Identifiers -->
@@ -186,9 +186,9 @@
    			 <xs:documentation>A duration broken into its constituent parts.</xs:documentation>
  		 </xs:annotation>
  		 <xs:sequence>
-  			<xs:element ref="j:DurationYear" minOccurs="0"/>
-    		<xs:element ref="j:DurationMonth" minOccurs="0"/>
-    		<xs:element ref="j:DurationDay" minOccurs="0"/>
+  			<xs:element ref="uco-ext:DurationYear" minOccurs="0"/>
+ 		 	<xs:element ref="uco-ext:DurationMonth" minOccurs="0"/>
+ 		 	<xs:element ref="uco-ext:DurationDay" minOccurs="0"/>
   		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="MaxDuration" type="uco-ext:MaxDurationType"/>
@@ -257,7 +257,22 @@
     			<xs:documentation> enter judicial districts of consecutive sentence cases </xs:documentation>
     		</xs:annotation>
     </xs:element>
-    <xs:element name="MinimumSentenceWaivedIndicator" type="xs:boolean">
+	<xs:element name="DurationYear" type="xs:nonNegativeInteger" >
+		<xs:annotation>
+			<xs:documentation> Duration Year </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DurationMonth" type="xs:nonNegativeInteger" >
+		<xs:annotation>
+			<xs:documentation> Duration Month </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DurationDay" type="xs:nonNegativeInteger" >
+		<xs:annotation>
+			<xs:documentation> Duration Day </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MinimumSentenceWaivedIndicator" type="xs:boolean">
     		<xs:annotation>
     			<xs:documentation>Indicates if Minimum Sentence was Waived </xs:documentation>
     		</xs:annotation>
