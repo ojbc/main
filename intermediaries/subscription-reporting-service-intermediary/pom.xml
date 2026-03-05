@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Unless explicitly acquired and licensed from Licensor under another 
-	license, the contents of this file are subject to the Reciprocal Public License 
-	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
-	may not copy or use this file in either source code or executable form, except 
-	in compliance with the terms and conditions of the RPL All software distributed 
-	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
-	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
-	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
-	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
-	the RPL for specific language governing rights and limitations under the 
-	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2017 Open Justice 
-	Broker Consortium -->
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -20,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-reporting-service-intermediary</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.1</version>
+	<version>3.0.0</version>
 	<name>OJB :: subscription-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -31,21 +37,22 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.2</spring-boot-version>
-		<camel-version>3.11.0</camel-version>
-		<log4j-version>2.17.1</log4j-version>
-		<cxf-version>3.4.4</cxf-version>
-		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0,)</ojb-common-version>
+		<spring-boot-version>3.5.9</spring-boot-version>
+    <camel-version>4.17.0</camel-version>
+		<log4j-version>2.25.0</log4j-version>
+    <cxf-version>4.1.4</cxf-version>
+		<ojb-camel-common-version>[5.0.0,)</ojb-camel-common-version>
+    <ojb-common-version>[6.0.0,)</ojb-common-version>
 		<ojb-osgi-common-version>[2.0.0,)</ojb-osgi-common-version>
-		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-		<commons-lang-version>3.12.0</commons-lang-version>
-		<spring-version>5.3.8</spring-version>
-		<apache-commons-io-version>1.3.2</apache-commons-io-version>
+    <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+		<commons-lang-version>3.20.0</commons-lang-version>
+		<spring-version>7.0.3</spring-version>
+		<apache-commons-io-version>2.21.0</apache-commons-io-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
-		<java-version>1.8</java-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+    <maven-surefire-plugin-version>3.5.4</maven-surefire-plugin-version>
+    <maven-compiler-plugin-version>3.14.1</maven-compiler-plugin-version>
+		<java-version>24</java-version>
 	</properties>
 
 	<dependencyManagement>
@@ -89,10 +96,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -147,7 +150,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
+			<artifactId>camel-cxf-spring-soap</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -158,22 +161,27 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf.services.sts</groupId>
 			<artifactId>cxf-services-sts-core</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 
 		<dependency>
@@ -209,6 +217,7 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 
 		<dependency>
@@ -254,7 +263,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
@@ -276,8 +285,8 @@
 			<version>${log4j-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -289,6 +298,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -301,7 +311,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
@@ -311,7 +321,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>${maven-surefire-plugin-version}</version>
 				<configuration>
 					<argLine>-Xmx1024m</argLine>
 					<reuseForks>false</reuseForks>
