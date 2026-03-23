@@ -33,19 +33,22 @@
 	</parent>
 
 	<properties>
-		<spring-boot-version>2.5.15</spring-boot-version>
-		<camel-version>3.11.7</camel-version>
-		<log4j-version>2.24.3</log4j-version>
-		<cxf-version>3.4.4</cxf-version>
-		<ojb-camel-common-version>[4.0.0, 5.0.0)</ojb-camel-common-version>
-		<ojb-common-version>[5.0.0, 6.0.0)</ojb-common-version>
-		<ojb-resources-common-version>[2.0.0, 3.0.0)</ojb-resources-common-version>
-		<xmlunit-version>1.6</xmlunit-version>
-		<junit-version>4.8.1</junit-version>
-		<java-version>1.8</java-version>
-		<saxon-version>9.5.1-5</saxon-version>
-		<maven-surefire-version>3.5.2</maven-surefire-version>
-	</properties>
+		<spring-boot-version>3.5.11</spring-boot-version>
+    <camel-version>4.17.0</camel-version>
+    <log4j-version>2.25.3</log4j-version>
+    <cxf-version>4.1.4</cxf-version>
+    <commons-io-version>2.19.0</commons-io-version>
+    <ojb-camel-common-version>[5.0.0,)</ojb-camel-common-version>
+    <ojb-common-version>[6.0.0,)</ojb-common-version>
+    <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
+    <xmlunit-version>2.11.0</xmlunit-version>
+    <junit-version>5.13.2</junit-version>
+		<java-version>25</java-version>
+		<saxon-version>12.9</saxon-version>
+		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
+    <maven-surefire-plugin-version>3.5.4</maven-surefire-plugin-version>
+    <maven-compiler-plugin-version>3.14.1</maven-compiler-plugin-version>
+  </properties>
 	
   <dependencyManagement>
     <dependencies>
@@ -82,10 +85,6 @@
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>
 		  <artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>
@@ -128,6 +127,7 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -135,7 +135,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cxf</artifactId>
+			<artifactId>camel-cxf-spring-soap</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -152,22 +152,27 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-policy</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf.services.sts</groupId>
 			<artifactId>cxf-services-sts-core</artifactId>
+      <version>${cxf-version}</version>
 		</dependency>
 
 
@@ -209,11 +214,12 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+			<version>${commons-io-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-legacy</artifactId>
 			<version>${xmlunit-version}</version>
 		</dependency>
 		<dependency>
@@ -272,12 +278,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-version}</version>
+				<version>${maven-surefire-plugin-version}</version>
 			</plugin>			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
