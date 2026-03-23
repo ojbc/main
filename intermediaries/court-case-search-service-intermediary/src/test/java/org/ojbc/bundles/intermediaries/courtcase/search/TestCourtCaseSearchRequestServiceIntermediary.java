@@ -18,8 +18,6 @@ package org.ojbc.bundles.intermediaries.courtcase.search;
 
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -37,6 +35,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.annotation.Resource;
 
 @UseAdviceWith
 @CamelSpringBootTest
