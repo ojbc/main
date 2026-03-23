@@ -19,19 +19,22 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:cxf="http://camel.apache.org/schema/cxf"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">
 	
-	<cxf:rsServer id="emailServer" address="${emailRestUtility.emailRestEndpoint}" loggingFeatureEnabled="true">
-	  <cxf:serviceBeans>
-	     <ref bean="emailRestImpl" />
-	  </cxf:serviceBeans>
-	  <cxf:providers>
-	     <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-	  </cxf:providers>
-	</cxf:rsServer>
+	<bean id="emailServer" class="org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint">
+        <property name="address" value="${emailRestUtility.emailRestEndpoint}"/>
+        <property name="serviceBeans">
+            <list>
+                <ref bean="emailRestImpl"/>
+            </list>
+        </property>
+        <property name="providers">
+            <list>
+                <bean class="com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider"/>
+            </list>
+        </property>
+    </bean>
 	 
 </beans>

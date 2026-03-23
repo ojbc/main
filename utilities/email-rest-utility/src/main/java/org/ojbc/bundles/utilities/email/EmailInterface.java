@@ -16,15 +16,15 @@
  */
 package org.ojbc.bundles.utilities.email;
 
-import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.ojbc.util.mail.Email;
+import org.springframework.http.MediaType;
+
+import jakarta.jws.WebService;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
 
 @Path("/email")
 @WebService
@@ -32,7 +32,7 @@ public interface EmailInterface {
  
    @POST
    @Path("/sendEmail")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON_VALUE)
+   @Consumes(MediaType.APPLICATION_JSON_VALUE)
    public Response sendEmail(Email email);
 }
