@@ -37,11 +37,14 @@
        http://www.springframework.org/schema/util
 	   http://www.springframework.org/schema/util/spring-util.xsd
        ">
-	<!-- needed cxf imports -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" streamCache="true">
-	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" streamCache="true" errorHandlerRef="deadLetterErrorHandler">
+        <camel:errorHandler id="deadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDir">
+          <camel:redeliveryPolicy maximumRedeliveries="{{maximumRedeliveries}}" redeliveryDelay="{{redeliveryDelay}}" />
+        </camel:errorHandler>
+        
+        <endpoint id="deadLetterDir" uri="file:///${publishSubscribe.probationIntermediaryDirectory}/deadLetter" />
+  
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />
 
