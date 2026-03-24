@@ -22,19 +22,21 @@
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        ">
-	
-	<bean id="emailServer" class="org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint">
-        <property name="address" value="${emailRestUtility.emailRestEndpoint}"/>
-        <property name="serviceBeans">
-            <list>
-                <ref bean="emailRestImpl"/>
-            </list>
-        </property>
-        <property name="providers">
-            <list>
-                <bean class="com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider"/>
-            </list>
-        </property>
-    </bean>
+
+  <bean id="emailServer" class="org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint">
+    <property name="address" value="${emailRestUtility.emailRestEndpoint}" />
+    <property name="bindingStyle" value="SimpleConsumer"/>
+    
+    <property name="serviceBeans">
+      <list>
+        <ref bean="emailRestImpl" />
+      </list>
+    </property>
+    <property name="providers">
+      <list>
+        <bean class="com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider" />
+      </list>
+    </property>
+  </bean>
 	 
 </beans>
