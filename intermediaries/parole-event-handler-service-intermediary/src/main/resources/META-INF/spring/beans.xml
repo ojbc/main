@@ -20,7 +20,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" 
 	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:sec="http://cxf.apache.org/configuration/security"
@@ -37,7 +37,7 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf.xsd
        http://www.springframework.org/schema/util
 	   http://www.springframework.org/schema/util/spring-util.xsd
        ">
