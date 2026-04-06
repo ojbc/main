@@ -43,7 +43,7 @@
     <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
     <xmlunit-version>2.11.0</xmlunit-version>
     <junit-version>5.13.2</junit-version>
-		<java-version>25</java-version>
+		<java-version>24</java-version>
 		<saxon-version>12.9</saxon-version>
 		<maven-bundle-plugin-version>6.0.0</maven-bundle-plugin-version>
     <maven-surefire-plugin-version>3.5.4</maven-surefire-plugin-version>
