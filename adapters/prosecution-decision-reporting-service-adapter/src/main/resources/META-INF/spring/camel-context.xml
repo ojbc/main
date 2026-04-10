@@ -21,6 +21,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+    xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-4.12.0.xsd
@@ -60,7 +63,19 @@
       <camel:from uri="direct:processProsecutionDecisionReport" />
 
       <camel:log message="This is the message body: ${body}" />
-
+      
+      <camel:setHeader name="ori">
+        <camel:xpath resultType="java.lang.String">/pd-doc:ProsecutionDecisionReport/nc:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:OrganizationAugmentation/jxdm51:OrganizationORIIdentification/nc:IdentificationID/text()</camel:xpath>
+      </camel:setHeader>
+      
+      <camel:setHeader name="caseId">
+        <camel:xpath resultType="java.lang.String">/pd-doc:ProsecutionDecisionReport/nc:Case/nc:ActivityIdentification/nc:IdentificationID/text()</camel:xpath>
+      </camel:setHeader>
+      
+      <camel:setHeader name="CamelFileName">
+        <camel:simple>${in.headers.ori}_${in.headers.caseId}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+      </camel:setHeader>
+      
       <to uri="prosecutionReportFileDropComplete" />
     </camel:route>
 

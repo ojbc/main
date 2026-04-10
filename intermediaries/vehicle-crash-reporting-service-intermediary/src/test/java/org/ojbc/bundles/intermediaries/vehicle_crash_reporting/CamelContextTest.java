@@ -37,10 +37,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -72,6 +72,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import jakarta.annotation.Resource;
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=VehicleCrashReportingServiceIntermediaryApplication.class)
@@ -91,11 +93,11 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceMock;    
 
       
-    @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.vehicle_crash_reporting")
+    @EndpointInject(value = "mock:log:org.ojbc.intermediaries.vehicle_crash_reporting")
     protected MockEndpoint loggingEndpoint;
 
     
@@ -105,15 +107,18 @@ public class CamelContextTest {
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
 		//We mock the 'log' endpoint to test against.
 		AdviceWith.adviceWith(context, "vehicleCrashReportingServiceHandlerRoute", route -> {
-			route.replaceFromWith("direct:vehicleCrashReportingServiceEndpoint");
-			route.mockEndpoints("log:org.ojbc.intermediaries.vehicle_crash_reporting*");
-		});
+	        route.replaceFromWith("direct:vehicleCrashReportingServiceEndpoint");
+	        route.mockEndpoints("log:org.ojbc.intermediaries.vehicle_crash_reporting*");
+	    });
 
-		AdviceWith.adviceWith(context, "callNotificationBrokerRoute", route -> {
-			route.mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
-		});
-    	
-		context.start();		
+	    AdviceWith.adviceWith(context, "callNotificationBrokerRoute", route -> {
+	        route.weaveByToUri("notificationBrokerServiceEndpoint")
+	             .replace()
+	             .to("mock:cxf:bean:notificationBrokerService");
+	    });
+
+
+	    context.start();		
 	}
 
 	@After
@@ -146,7 +151,7 @@ public class CamelContextTest {
 
 	    //Read the federal criminal history update from the file system																							
 	    File inputFile = new File("src/test/resources/xmlInstances/vehicleCrashReporting/VehicleCrashReport.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    

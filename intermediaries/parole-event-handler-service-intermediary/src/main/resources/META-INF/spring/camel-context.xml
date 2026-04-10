@@ -20,7 +20,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" 
 	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:sec="http://cxf.apache.org/configuration/security"
@@ -36,8 +36,8 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.11.0.xsd
-       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf.xsd
        http://www.springframework.org/schema/util
 	   http://www.springframework.org/schema/util/spring-util.xsd
        ">
@@ -195,26 +195,6 @@
 			
 		</camel:route>
 		
-		<!-- Can be called by state specific child bundles -->
-		<camel:route id="parentEntryTransformSubRoute">
-		
-			<from uri="direct-vm:transformAndInvokeSubscriptionProcessor"/>
-			
-			<log message="\n\n\n parentEntryTransformSubRoute... \n\n\n"/> 
-
-			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
-		</camel:route>
-		
-		
-		<camel:route id="unsubXsltRouteForDerivedChildBundlesToCall">
-		
-			<from uri="direct-vm:transformAndInvokeUnsubscriptionProcessor"/>
-		
-			<log message="\n\n\n Called by derived bundle: Transforming Unsubscription... \n\n\n" loggingLevel="INFO"/>
-			
-			<to uri="direct:transformAndInvokeUnsubscriptionProcessor"/>
-		</camel:route>
-					    
 	</camel:camelContext>
 	
 </beans>

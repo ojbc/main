@@ -101,11 +101,7 @@
 
             <!-- only call notification broker on these actions -->
             <camel:filter>
-              <camel:xpath>/crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport
-										or /cdr-report-doc:CourtDispositionRecordingReport
-										or /pdr-report-doc:ProsecutionDecisionRecordingReport
-										or /chr-doc:CriminalHistoryReport
-							</camel:xpath>
+              <camel:xpath>{{notificationBroker.xpath}}</camel:xpath>
 
               <camel:log message="About to call notification broker endpoint" />
 
@@ -147,6 +143,9 @@
                   </camel:setHeader>
                 </camel:filter>
               </camel:filter>
+              
+              <convertBodyTo type="java.lang.String"/>
+              
               <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
             </camel:filter>
           </camel:filter>
@@ -251,6 +250,9 @@
       <camel:setHeader name="CamelDestinationOverrideUrl">
         <simple>{{criminalHistoryReportingServiceAdapterEndpoint}}</simple>
       </camel:setHeader>
+      
+      <convertBodyTo type="java.lang.String"/>
+      
       <camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint" />
 
     </camel:route>
@@ -295,6 +297,8 @@
       <camel:setHeader name="operationNamespace">
         <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
       </camel:setHeader>
+
+	  <convertBodyTo type="java.lang.String"/>
 
       <camel:to uri="notificationBrokerServiceEndpoint" />
 
