@@ -41,133 +41,135 @@
     
     <!-- Error handlers in case of submission errors -->
     <import resource="error-handlers.xml" />
-    
-    <camel:camelContext 
-        xmlns:pidrepres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0" 
-        xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
-        xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
-        xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
-        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-        xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-        xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
-        xmlns:irua-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0"
-        xmlns="http://camel.apache.org/schema/spring" id="identification-reporting-service-intermediary" streamCache="true">
-        
-        <camel:endpoint id="identificationReportingServiceEndpoint"
-            uri="cxf:bean:IdentificationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
-        
-        <camel:endpoint id="identificationRecordingServiceEndpoint"
-            uri="cxf:bean:IdentificationRecordingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
-        
-        <camel:endpoint id="identificationReportingResponseServiceEndpoint"
-            uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
-        
-        <camel:endpoint id="identificationReportingResponseRecipientEndpoint"
-            uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}&amp;synchronous=true" />
-        
-        <camel:endpoint id="arrestReportingServiceEndpoint" 
-			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
-		
-        
-        <!-- Identification Reporting Service Handler -->
-        <camel:route id="IdentificationReportingServiceHandlerRoute">
-            <camel:from uri="identificationReportingServiceEndpoint" />
-            
-            <camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-            <setHeader name="identificationID">
-                <xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
+
+  <camel:camelContext xmlns:pidrepres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0"
+    xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+    xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+    xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+    xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
+    xmlns:irua-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0" xmlns="http://camel.apache.org/schema/spring"
+    id="identification-reporting-service-intermediary" streamCache="true">
+
+    <camel:endpoint id="identificationReportingServiceEndpoint"
+      uri="cxf:bean:IdentificationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
+
+    <camel:endpoint id="identificationRecordingServiceEndpoint"
+      uri="cxf:bean:IdentificationRecordingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
+
+    <camel:endpoint id="identificationReportingResponseServiceEndpoint"
+      uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
+
+    <camel:endpoint id="identificationReportingResponseRecipientEndpoint"
+      uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}&amp;synchronous=true" />
+
+    <camel:endpoint id="arrestReportingServiceEndpoint"
+      uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
+
+
+    <!-- Identification Reporting Service Handler -->
+    <camel:route id="IdentificationReportingServiceHandlerRoute">
+      <camel:from uri="identificationReportingServiceEndpoint" />
+
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+      <setHeader name="identificationID">
+        <xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
                     |/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
                     |/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
                     |/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
                 </xpath>
-            </setHeader>
-            <setHeader name="transactionCategoryText">
-                <xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionCategoryText
+      </setHeader>
+      <setHeader name="transactionCategoryText">
+        <xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionCategoryText
                     |/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText
                     |/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText
                     |/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
                 </xpath>
-            </setHeader>
-            <camel:log message="processing ${in.header.transactionCategoryText} for transaction number ${in.header.identificationID}"></camel:log>
-            <convertBodyTo type="java.lang.String" />
-            
-            <camel:choice>
-                <camel:when>
-                    <camel:simple>${in.header.operationName} == 'ReportPersonStateIdentificationResults'</camel:simple>
-                    <camel:wireTap uri="direct:processStateIdentificationResults"></camel:wireTap>
-                </camel:when>
-            </camel:choice>
-            <camel:to uri="bean:identificationReportProcessor?method=setOperationNameAndNamespace"/>
-            
-            <camel:filter>
-                <camel:simple>${in.header.callIdentificationRecordingService} == 'true'</camel:simple>
-                <camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace|CamelDestinationOverrideUrl"></camel:removeHeaders>
-                <camel:to uri="direct:callIdentificationRecordingService" />
-            </camel:filter>
-            
-        </camel:route>
-        
-        <camel:route errorHandlerRef="identifcationReportErrorHandler" id="stateIdentificationReportServiceRoute">
-            <camel:from uri="direct:processStateIdentificationResults" />
-            
-            <camel:filter>
-				<camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' and 
+      </setHeader>
+      <camel:log message="processing ${in.header.transactionCategoryText} for transaction number ${in.header.identificationID}"></camel:log>
+      <convertBodyTo type="java.lang.String" />
+
+      <camel:choice>
+        <camel:when>
+          <camel:simple>${in.header.operationName} == 'ReportPersonStateIdentificationResults'</camel:simple>
+          <camel:wireTap uri="direct:processStateIdentificationResults"></camel:wireTap>
+        </camel:when>
+      </camel:choice>
+      <camel:to uri="bean:identificationReportProcessor?method=setOperationNameAndNamespace" />
+
+      <camel:filter>
+        <camel:simple>${in.header.callIdentificationRecordingService} == 'true'</camel:simple>
+        <camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace|CamelDestinationOverrideUrl"></camel:removeHeaders>
+        <camel:to uri="direct:callIdentificationRecordingService" />
+      </camel:filter>
+
+    </camel:route>
+
+    <camel:route errorHandlerRef="identifcationReportErrorHandler" id="stateIdentificationReportServiceRoute">
+      <camel:from uri="direct:processStateIdentificationResults" />
+
+      <camel:filter>
+        <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' and 
 					normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText) !='CRIMINAL-SID-TO-HIJIS' and 
 					normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText) !='R-CRIMINAL-SID-TO-HIJIS'
 				</camel:xpath>
-	            <camel:choice>
-	                <camel:when>
-	                    <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
-	                    <camel:log message="CAR state identification results for civil message, need to transform it and sent to Arresting Report Service."/>
-	                    <camel:to uri="xslt:xsl/arrestReportTransform.xsl"/>
-	                    
-	                    <camel:log message="About to call Arrest Report Service: ${body}" loggingLevel="INFO"/>
-			            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-	                    <camel:setHeader name="operationName"><constant>ReportArrest</constant></camel:setHeader>	
-						<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
-						<camel:to uri="arrestReportingServiceEndpoint" id="arrestReportingServiceEndpoint"/>
-			            <camel:log message="Called Arrest Reporting service" />
-	                </camel:when>
-	            </camel:choice>
-            
-            </camel:filter>
-            
-        </camel:route>
-        
-        <camel:route errorHandlerRef="identifcationReportErrorHandler" id="CallIdentificationRecordingServiceRoute">
-            <camel:from uri="direct:callIdentificationRecordingService" />
-            
-            <camel:log message="Inside route to call Identification Recording service"/>
-            
-            <camel:to
-                uri="identificationRecordingServiceEndpoint" id="identificationRecordingServiceEndpoint"/>
-            <log message="Called Identification Recording service" />
-        </camel:route>
-        
-        <!-- Identification Reporting Service Handler -->
-        <camel:route id="identificationReportingResponseHandlerRoute" errorHandlerRef="identifcationReportResponseErrorHandler">
-        
-            <camel:from uri="identificationReportingResponseServiceEndpoint" />        
-        
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>			        
-            
-            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-            
+        <camel:choice>
+          <camel:when>
+            <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
+            <camel:log
+              message="CAR state identification results for civil message, need to transform it and sent to Arresting Report Service." />
+            <camel:to uri="xslt:xsl/arrestReportTransform.xsl" />
+
+            <camel:log message="About to call Arrest Report Service: ${body}" loggingLevel="INFO" />
+            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
             <camel:setHeader name="operationName">
-                <camel:simple>{{identificationReportingService.responseRecipientOperationName}}</camel:simple>
+              <constant>ReportArrest</constant>
             </camel:setHeader>
             <camel:setHeader name="operationNamespace">
-                <camel:simple>{{identificationReportingService.responseRecipientServiceNamespace}}</camel:simple>
+              <constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant>
             </camel:setHeader>
-            
-            <camel:log message="About to send identification recording response message to {{identificationReportingService.responseRecipientServiceEndpoint}}" />			
-            <camel:log message="About to send identification recording response message: ${body}" />			
-            
-            <camel:to uri="identificationReportingResponseRecipientEndpoint" id="identificationReportingResponseRecipientEndpoint"/>
-            <log message="Called {{identificationReportingService.responseRecipientServiceEndpoint}}" />
-            
-        </camel:route>
-        
-    </camel:camelContext>
+            <camel:to uri="arrestReportingServiceEndpoint" id="arrestReportingServiceEndpoint" />
+            <camel:log message="Called Arrest Reporting service" />
+          </camel:when>
+        </camel:choice>
+
+      </camel:filter>
+
+    </camel:route>
+
+    <camel:route errorHandlerRef="identifcationReportErrorHandler" id="CallIdentificationRecordingServiceRoute">
+      <camel:from uri="direct:callIdentificationRecordingService" />
+
+      <camel:log message="Inside route to call Identification Recording service" />
+
+      <camel:to uri="identificationRecordingServiceEndpoint" id="identificationRecordingServiceEndpoint" />
+      <log message="Called Identification Recording service" />
+    </camel:route>
+
+    <!-- Identification Reporting Service Handler -->
+    <camel:route id="identificationReportingResponseHandlerRoute" errorHandlerRef="identifcationReportResponseErrorHandler">
+
+      <camel:from uri="identificationReportingResponseServiceEndpoint" />
+
+      <camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+      <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+      <camel:setHeader name="operationName">
+        <camel:simple>{{identificationReportingService.responseRecipientOperationName}}</camel:simple>
+      </camel:setHeader>
+      <camel:setHeader name="operationNamespace">
+        <camel:simple>{{identificationReportingService.responseRecipientServiceNamespace}}</camel:simple>
+      </camel:setHeader>
+
+      <camel:log
+        message="About to send identification recording response message to {{identificationReportingService.responseRecipientServiceEndpoint}}" />
+      <camel:log message="About to send identification recording response message: ${body}" />
+
+      <camel:to uri="identificationReportingResponseRecipientEndpoint" id="identificationReportingResponseRecipientEndpoint" />
+      <log message="Called {{identificationReportingService.responseRecipientServiceEndpoint}}" />
+
+    </camel:route>
+
+  </camel:camelContext>
     
 </beans>
