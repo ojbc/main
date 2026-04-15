@@ -28,7 +28,7 @@
 	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
 	xmlns:policy="http://cxf.apache.org/policy" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf.xsd
@@ -82,15 +82,15 @@
 			<entry key="mtom-enabled" value="true" />
 			<entry key="dataFormat" value="PAYLOAD" />
 		</cxf:properties>
-		<cxf:features>
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>	 
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
 	</cxf:cxfEndpoint>
 	
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
