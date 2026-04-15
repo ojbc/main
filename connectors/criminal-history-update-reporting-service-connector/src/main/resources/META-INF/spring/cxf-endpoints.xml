@@ -88,10 +88,15 @@
 					password="${criminalHistoryUpdateReportingConnector.truststorePassword}" url="${criminalHistoryUpdateReportingConnector.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
-				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				<sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			    <!-- TLS 1.3 -->
+			    <sec:include>TLS_AES_256_GCM_SHA384</sec:include>
+			    <sec:include>TLS_AES_128_GCM_SHA256</sec:include>
+			    <sec:include>TLS_CHACHA20_POLY1305_SHA256</sec:include>
+			    <!-- TLS 1.2 with forward secrecy -->
+			    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+			    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+			    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+			    <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
