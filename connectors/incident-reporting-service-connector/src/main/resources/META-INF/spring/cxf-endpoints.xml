@@ -20,7 +20,8 @@
 <!-- Configures the CXF endpoints -->
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+  xmlns:cxf="http://camel.apache.org/schema/cxf/jaxws" xmlns:policy="http://cxf.apache.org/policy" 
+  xmlns:wsp="http://www.w3.org/ns/ws-policy" 
   xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
   xmlns:http="http://cxf.apache.org/transports/http/configuration" xmlns:sec="http://cxf.apache.org/configuration/security"
   xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
@@ -30,7 +31,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf/jaxws http://camel.apache.org/schema/cxf/jaxws/camel-cxf-spring-soap-4.12.0-spring.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
-       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd  
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd">
@@ -78,10 +79,15 @@
           url="${incidentChargeReporting.truststoreLocation}" />
       </sec:trustManagers>
       <sec:cipherSuitesFilter>
-        <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-        <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-        <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-        <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+          <!-- TLS 1.3 -->
+          <sec:include>TLS_AES_256_GCM_SHA384</sec:include>
+          <sec:include>TLS_AES_128_GCM_SHA256</sec:include>
+          <sec:include>TLS_CHACHA20_POLY1305_SHA256</sec:include>
+          <!-- TLS 1.2 with forward secrecy -->
+          <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+          <sec:include>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
+          <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+          <sec:include>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256</sec:include>
       </sec:cipherSuitesFilter>
     </http:tlsClientParameters>
     <http:client AutoRedirect="true" Connection="Keep-Alive" />
