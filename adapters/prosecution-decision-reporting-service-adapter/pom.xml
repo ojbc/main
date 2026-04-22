@@ -36,7 +36,7 @@
         <saxonHe.version>12.7</saxonHe.version>
         <spring-version>6.2.10</spring-version>
         <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
-        <ojb-common-version>[5.0.0,)</ojb-common-version>
+        <ojb-common-version>[6.0.0,)</ojb-common-version>
         <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
         <ojb-fedquery-common-version>[5.0.0,)</ojb-fedquery-common-version>
         <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
