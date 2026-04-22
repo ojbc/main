@@ -79,6 +79,8 @@
         <camel:simple>${in.headers.ori}_${in.headers.caseId}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
       </camel:setHeader>
       
+      <camel:log message="Camel File Name: ${in.headers.CamelFileName}" />
+      
       <to uri="prosecutionReportFileDropComplete" />
     </camel:route>
 
