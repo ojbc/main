@@ -489,6 +489,7 @@
   <w:Element w:name="nc:PersonInvolvedInDrivingIncidentAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonItemAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonJuvenileVerifiedIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonKnownPreviousLocationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonLastSeenLocationAssociation"

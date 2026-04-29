@@ -1539,6 +1539,7 @@
           <xsd:element ref="nc:PersonHairLengthText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonHairStyleText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonJuvenileVerifiedIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonLivingIndicator" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonMaritalStatusText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonMilitarySummary" minOccurs="0" maxOccurs="unbounded"/>

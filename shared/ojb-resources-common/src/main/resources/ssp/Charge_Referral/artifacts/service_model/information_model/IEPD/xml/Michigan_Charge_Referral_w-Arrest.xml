@@ -181,12 +181,16 @@
 								</nc:PersonBirthDate>
 								<nc:PersonCitizenshipFIPS10-4Code>US
 								</nc:PersonCitizenshipFIPS10-4Code>
+								<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 								<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
 								<nc:PersonHairColorCode>PLE</nc:PersonHairColorCode>
 								<nc:PersonHeightMeasure>
 									<nc:MeasurePointValue>60</nc:MeasurePointValue>
 									<nc:LengthUnitCode>INH</nc:LengthUnitCode>
 								</nc:PersonHeightMeasure>
+								<!-- ===== Need to add to niem-core.xsd and wantlist.xml -->
+								<nc:PersonJuvenileVerifiedIndicator>true</nc:PersonJuvenileVerifiedIndicator> 
+								
 								<nc:PersonName>
 									<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
 									<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
@@ -394,6 +398,7 @@
 								<lexsdigest:TelephoneNumberUnspecifiedIndicator>true
 								</lexsdigest:TelephoneNumberUnspecifiedIndicator>
 							</lexsdigest:EntityTelephoneNumberAssociation>
+							
 							<lexsdigest:IncidentArrestAssociation>
 								<nc:AssociationBeginDate>
 									<nc:Date>1967-08-13</nc:Date>
@@ -493,6 +498,7 @@
 									</j:DNACollectionStatusText>
 								</ndexia:PersonAugmentation>
 							</ndexia:Person>
+							
 							<ndexia:Location>
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
