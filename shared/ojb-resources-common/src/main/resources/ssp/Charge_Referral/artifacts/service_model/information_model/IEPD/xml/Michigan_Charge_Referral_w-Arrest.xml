@@ -188,9 +188,9 @@
 									<nc:MeasurePointValue>60</nc:MeasurePointValue>
 									<nc:LengthUnitCode>INH</nc:LengthUnitCode>
 								</nc:PersonHeightMeasure>
-								<!-- ===== Need to add to niem-core.xsd and wantlist.xml -->
+								<!-- ===== Need to add to niem-core.xsd and wantlist.xml ====
 								<nc:PersonJuvenileVerifiedIndicator>true</nc:PersonJuvenileVerifiedIndicator> 
-								
+								-->
 								<nc:PersonName>
 									<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
 									<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
@@ -398,7 +398,6 @@
 								<lexsdigest:TelephoneNumberUnspecifiedIndicator>true
 								</lexsdigest:TelephoneNumberUnspecifiedIndicator>
 							</lexsdigest:EntityTelephoneNumberAssociation>
-							
 							<lexsdigest:IncidentArrestAssociation>
 								<nc:AssociationBeginDate>
 									<nc:Date>1967-08-13</nc:Date>
@@ -522,6 +521,7 @@
 						<inc-ext:IncidentReport>
 							<inc-ext:Incident>
 								<inc-ext:Charge s:id="idCHG002">
+									<j:ChargeApplicabilityText>A</j:ChargeApplicabilityText>
 									<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 									<j:ChargeDegreeText>1</j:ChargeDegreeText>
 									<j:ChargeNCICCode>0101</j:ChargeNCICCode>
