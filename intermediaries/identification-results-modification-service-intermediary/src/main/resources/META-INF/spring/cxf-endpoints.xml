@@ -40,112 +40,104 @@
        ">
 
     <!-- Identification Results Modification Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
-	<cxf:cxfEndpoint 
-	        id="identificationResultsModificationRequestService"
-	        address="${identificationModification.identificationResultsModificationRequestServiceEndpoint}"
-	        wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
-	        serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
-			endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
-	        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
-	    >
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
+  <cxf:cxfEndpoint id="identificationResultsModificationRequestService"
+    address="${identificationModification.identificationResultsModificationRequestServiceEndpoint}"
+    wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+    serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
+    endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
+      <entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+      <entry key="ws-security.validate.audience-restriction" value="false" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
 
-    <!-- Identification Results Modification Response Service, hosted by broker, called by adapter, address is static --> 
-    <cxf:cxfEndpoint 
-        id="identificationResultsModificationResponseService"
-        address="${identificationModification.identificationResultsModificationResponseServiceEndpoint}"
-        wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
-        serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
-		endpointName="ojbc:Identification_Results_Modification_Response_Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
-    >
-     <cxf:features>
+  <!-- Identification Results Modification Response Service, hosted by broker, called by adapter, address is static -->
+  <cxf:cxfEndpoint id="identificationResultsModificationResponseService"
+    address="${identificationModification.identificationResultsModificationResponseServiceEndpoint}"
+    wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+    serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
+    endpointName="ojbc:Identification_Results_Modification_Response_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0">
+    <cxf:features>
       <policy:policies>
         <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
           <wsam:Addressing>
-            <wsp:Policy/>
+            <wsp:Policy />
           </wsam:Addressing>
         </wsp:Policy>
-       </policy:policies>
+      </policy:policies>
     </cxf:features>
-   </cxf:cxfEndpoint>      
+  </cxf:cxfEndpoint>
 
-                        
-    <!-- Identification Results Modification Request Service, hosted by adapter, called by broker -->
-	<cxf:cxfEndpoint id="identificationResultsModificationRequestServiceAdapter"
-		address="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}"
-        wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
-        serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
-		endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
-	        >
-		<cxf:properties>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-    <!-- Identification Results Modification Response Service typically hosted by a Web App, called by broker-->
-    <cxf:cxfEndpoint 
-        id="presentIdentificationResultsModificationResponseService"
-        address="${identificationModification.presentIdentificationResultsModificationResponseServiceEndpoint}"
-        wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
-        serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
-		endpointName="ojbc:Identification_Results_Modification_Response_Service"
-        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
-     >
-     <cxf:features>
+
+  <!-- Identification Results Modification Request Service, hosted by adapter, called by broker -->
+  <cxf:cxfEndpoint id="identificationResultsModificationRequestServiceAdapter"
+    address="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}"
+    wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+    serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
+    endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0">
+    <cxf:properties>
+      <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler" />
+      <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+      <entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
+      <entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+
+  <!-- Identification Results Modification Response Service typically hosted by a Web App, called by broker -->
+  <cxf:cxfEndpoint id="presentIdentificationResultsModificationResponseService"
+    address="${identificationModification.presentIdentificationResultsModificationResponseServiceEndpoint}"
+    wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+    serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
+    endpointName="ojbc:Identification_Results_Modification_Response_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0">
+    <cxf:features>
       <policy:policies>
         <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
           <wsam:Addressing>
-            <wsp:Policy/>
+            <wsp:Policy />
           </wsam:Addressing>
         </wsp:Policy>
-       </policy:policies>
+      </policy:policies>
     </cxf:features>
-    </cxf:cxfEndpoint>
+  </cxf:cxfEndpoint>
 
-	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
-	<http:conduit
-		name="https://.*">
-		<http:tlsClientParameters disableCNCheck="true">
-			<sec:keyManagers keyPassword="${identificationModification.keyPassword}">
-	        	<sec:keyStore type="jks" password="${identificationModification.keystorePassword}" url="${identificationModification.keystoreLocation}" />
-	    	</sec:keyManagers>
-			<sec:trustManagers>
-				<sec:keyStore type="JKS"
-					password="${identificationModification.truststorePassword}"
-					url="${identificationModification.truststoreLocation}" />
-			</sec:trustManagers>
-		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>
-	
-   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
-	    <property name="passwords">
-            <map>
-                <entry key="${identificationModification.keystoreCertificateAlias}" value="${identificationModification.keyPassword}"/>
-            </map>
-        </property>
-	</bean>
-   
-   	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+  <!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+  <http:conduit name="https://.*">
+    <http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${identificationModification.keyPassword}">
+        <sec:keyStore type="jks" password="${identificationModification.keystorePassword}"
+          url="${identificationModification.keystoreLocation}" />
+      </sec:keyManagers>
+      <sec:trustManagers>
+        <sec:keyStore type="JKS" password="${identificationModification.truststorePassword}"
+          url="${identificationModification.truststoreLocation}" />
+      </sec:trustManagers>
+    </http:tlsClientParameters>
+    <http:client AutoRedirect="true" Connection="Keep-Alive" />
+  </http:conduit>
 
-	<util:properties id="identificationResultsModificationKeystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${identificationModification.keystorePassword}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${identificationModification.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${identificationModification.keystoreLocation}</prop>
-	</util:properties>	
+  <bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+    <property name="passwords">
+      <map>
+        <entry key="${identificationModification.keystoreCertificateAlias}" value="${identificationModification.keyPassword}" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+
+  <util:properties id="identificationResultsModificationKeystoreProperties">
+    <prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.password">${identificationModification.keystorePassword}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${identificationModification.keystoreCertificateAlias}</prop>
+    <prop key="org.apache.wss4j.crypto.merlin.keystore.file">${identificationModification.keystoreLocation}</prop>
+  </util:properties>	
       
 </beans>
