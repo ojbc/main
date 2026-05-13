@@ -1287,6 +1287,22 @@
 			<xsd:enumeration value="Solicitation Priors And Dang Weapon" />
 			<xsd:enumeration value="Solicitation Priors And Firearm" />
 			
+			<!-- begin new enhancement codes -->
+			<xsd:enumeration value="Attempt/Conspiracy/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Attempt/Conspiracy/Other" />
+			<xsd:enumeration value="Attempt/Conspiracy/Solicitation/Dang Weapon/Other" />
+			<xsd:enumeration value="Attempt/Conspiracy/Solicitation/Other" />
+			<xsd:enumeration value="Attempt/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Attempt/Other" />
+			<xsd:enumeration value="Attempt/Solicitation/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Attempt/Solicitation/Other" />
+			<xsd:enumeration value="Conspiracy/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Conspiracy/Other" />
+			<xsd:enumeration value="Conspiracy/Solicitation/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Conspiracy/Solicitation/Other" />
+			<xsd:enumeration value="Dangerous Weapon/Other" />
+			<xsd:enumeration value="Solicitation/Dangerous Weapon/Other" />
+			<xsd:enumeration value="Solicitation/Other" />			
 			
 			<xsd:enumeration value="ATTEMPT" />
 			<xsd:enumeration value="CONSPIRACY" />
