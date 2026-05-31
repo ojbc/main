@@ -570,7 +570,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Validate'</camel:simple>
 				
-				<camel:removeHeaders pattern="*" excludePattern="tokenID"/>
+				<camel:removeHeaders pattern="*" excludePattern="tokenID|subscriptionId"/>
 				
 				<camel:setHeader name="operationName">
 		            <constant>Validate</constant>
@@ -586,7 +586,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Subscribe'</camel:simple>
 				
-				<camel:removeHeaders pattern="*" excludePattern="tokenID"/>
+				<camel:removeHeaders pattern="*" excludePattern="tokenID|subscriptionId"/>
 				
 				<camel:setHeader name="operationName">
 		            <constant>Subscribe</constant>
