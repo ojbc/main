@@ -1895,9 +1895,9 @@
       <xsd:documentation>An association between a person and a subject.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="SubjectSupervision" type "nc:SupervisionType" nillable="true">
+  <xsd:element name="SubjectSupervision" type="nc:SupervisionType" nillable="true">
     <xsd:annotation>
-      <xsd:documentation>An incarceration, detention, or other form of supervision a subject is currently undergoing.</xsd:documentation>
+      <xsd:documentation>An incarceration, detention, or other form of supervision a subject is currently undergoing</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Suspect" type="j:SubjectType" nillable="true">

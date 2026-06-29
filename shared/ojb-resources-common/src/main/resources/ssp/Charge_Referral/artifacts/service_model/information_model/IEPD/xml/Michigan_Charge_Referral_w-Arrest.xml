@@ -217,7 +217,7 @@
 									</j:PersonStateFingerprintIdentification>
 									<j:SubjectSupervision>
 										<nc:SupervisionCustodyStatus>
-        									<nc:StatusDescriptionText>48 Hour Hold</nc:StatusDescriptionText>
+        									<nc:StatusDescriptionText>48 hour hold</nc:StatusDescriptionText>
    										</nc:SupervisionCustodyStatus>
 									</j:SubjectSupervision>
 								</j:PersonAugmentation>
