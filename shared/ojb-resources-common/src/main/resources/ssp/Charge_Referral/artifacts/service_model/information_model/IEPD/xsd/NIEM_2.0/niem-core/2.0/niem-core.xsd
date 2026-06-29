@@ -1782,6 +1782,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="SupervisionType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="SupervisionCustodyStatus" type="nc:StatusType">
+    <xsd:annotation>
+      <xsd:documentation>A status of the custody of a person under supervision.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:complexType name="TangibleItemType">
     <xsd:annotation>
       <xsd:documentation>A data type for a physical object.</xsd:documentation>

@@ -190,6 +190,7 @@
 					<xsd:element ref="inc-ext:SubjectInCustodyIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
+					<xsd:element ref="j:SubjectSupervision" minOccurs="0" />
 					<xsd:element ref="j:Citation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
