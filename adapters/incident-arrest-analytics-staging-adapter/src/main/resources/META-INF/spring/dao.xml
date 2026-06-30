@@ -37,5 +37,16 @@
     <property name="validationQuery" value="select 1" />
     <property name="testOnBorrow" value="true" />
   </bean>
+  
+  <bean id="dimensionalDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${incidentDimensional.dataSource.driverClass}" />
+    <property name="url" value="${incidentDimensional.dataSource.jdbcUrl}" />
+    <property name="username" value="${incidentDimensional.dataSource.user}" />
+    <property name="password" value="${incidentDimensional.dataSource.password}" />
+    <property name="initialSize" value="${incidentDimensional.dataSource.minPoolSize}" />
+    <property name="maxTotal" value="${incidentDimensional.dataSource.maxPoolSize}" />
+    <property name="validationQuery" value="select 1" />
+    <property name="testOnBorrow" value="true" />
+  </bean>
 	
 </beans>
