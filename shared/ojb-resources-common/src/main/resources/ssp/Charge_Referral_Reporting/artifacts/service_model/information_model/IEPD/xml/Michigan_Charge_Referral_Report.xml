@@ -341,6 +341,13 @@
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
+						<!-- ======================= Organization as Victim ====================== -->
+						<lexsdigest:EntityOrganization>
+  							<nc:Organization s:id="OrgVictim001">
+   							    <nc:OrganizationActivityText>Victim</nc:OrganizationActivityText> 
+  								<nc:OrganizationName>Global Tech Solutions Inc</nc:OrganizationName>
+							</nc:Organization>
+  						</lexsdigest:EntityOrganization>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
 							<lexsdigest:ActivityResponsiblePersonAssociation>
@@ -385,6 +392,12 @@
 								<nc:ActivityReference s:ref="Offense_1" />
 								<nc:PersonReference s:ref="Subject_P1" />
 							</lexsdigest:OffenseSubjectPersonAssociation>
+							<!-- Associate the Organization with the Incident as the victim -->
+							<nc:ActivityInvolvedOrganizationAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<!-- Points to the organization declared above -->
+								<nc:OrganizationReference s:ref="OrgVictim001"/>
+							</nc:ActivityInvolvedOrganizationAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Witness_P1" />
@@ -420,6 +433,11 @@
 							<nc:ResidenceAssociation>
 								<nc:PersonReference s:ref="Victim_P1" />
 								<nc:LocationReference s:ref="Res_Loc_2" />
+							</nc:ResidenceAssociation>
+							<!-- associate the organization with the location -->
+							<nc:ResidenceAssociation>
+								<nc:PersonReference s:ref="OrgVictim001" />
+								<nc:LocationReference s:ref="Incident_Loc_1" />
 							</nc:ResidenceAssociation>
 						</lexsdigest:Associations>
 					</lexs:Digest>
