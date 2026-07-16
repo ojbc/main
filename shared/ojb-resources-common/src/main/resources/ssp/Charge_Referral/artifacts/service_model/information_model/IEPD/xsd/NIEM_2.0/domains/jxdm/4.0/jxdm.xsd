@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
     this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
     versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -542,6 +541,7 @@
           <xsd:element ref="j:PersonNCICIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:PersonRegisteredOffenderIndicator" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:SubjectSupervision" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -664,6 +664,7 @@
           <xsd:element ref="j:SubjectCautionInformationCode" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="j:SubjectCriminalTraitDetails" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="j:SubjectOffenderNoticeText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="j:SubjectSupervision" minOccurs "0" maxOccurs="1" />
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -1893,9 +1894,9 @@
       <xsd:documentation>An association between a person and a subject.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="SubjectOffenderNoticeText" type="nc:TextType" nillable="true">
+  <xsd:element name="SubjectSupervision" type="nc:SupervisionType" nillable="true">
     <xsd:annotation>
-      <xsd:documentation>Additional information associated with a subject.</xsd:documentation>
+      <xsd:documentation>An incarceration, detention, or other form of supervision a subject is currently undergoing</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Suspect" type="j:SubjectType" nillable="true">

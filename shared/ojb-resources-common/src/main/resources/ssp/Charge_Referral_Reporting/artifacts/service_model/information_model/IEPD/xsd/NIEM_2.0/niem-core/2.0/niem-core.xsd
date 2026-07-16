@@ -1319,6 +1319,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:OrganizationAbbreviationText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:OrganizationActivityText" minOccurs="0" maxOccurs="unbounded" />
           <xsd:element ref="nc:OrganizationCategory" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:OrganizationDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
@@ -3824,6 +3825,11 @@
   <xsd:element name="OrganizationAbbreviationText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An abbreviation, acronym, or code for an organization name.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="OrganizationActivityText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An activity for an organization.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="OrganizationAssociation" type="nc:OrganizationAssociationType" nillable="true">

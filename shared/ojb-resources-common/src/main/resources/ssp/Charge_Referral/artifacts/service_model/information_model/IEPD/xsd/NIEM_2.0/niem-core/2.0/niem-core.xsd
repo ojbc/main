@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
     this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
     versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -1319,6 +1318,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:OrganizationAbbreviationText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:OrganizationActivityText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationCategory" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:OrganizationDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
@@ -1687,7 +1687,7 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:complexType name="StatusType">
+  <xsd:complexType name="">
     <xsd:annotation>
       <xsd:documentation>A data type for a state of something or someone.</xsd:documentation>
       <xsd:appinfo>
@@ -1778,6 +1778,21 @@
           <xsd:element ref="nc:SubstanceCompositionDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:SubstanceFormText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:SubstanceFoundDescriptionText" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SupervisionType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:SupervisionCustodyStatus" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -3827,12 +3842,17 @@
       <xsd:documentation>An abbreviation, acronym, or code for an organization name.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="OrganizationActivityText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An activity for an organization.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="OrganizationAssociation" type="nc:OrganizationAssociationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An association between an organization and another organization.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="OrganizationCategory" abstract="true">
+  <xsd:element name="OrganizationCategory" abstract="true" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A kind or functional type of organization.</xsd:documentation>
     </xsd:annotation>
@@ -4192,6 +4212,11 @@
   <xsd:element name="PersonItemAssociation" type="nc:PersonItemAssociationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An association between a person and an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonJuvenileVerifiedIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if a person is a juvenile.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonKnownPreviousLocationAssociation" type="nc:PersonLocationAssociationType" nillable="true">
@@ -4758,6 +4783,16 @@
   <xsd:element name="SubstanceUnitCode" type="fbi:DrugMeasurementCodeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A unit of measure for a quantity of a substance.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Supervision" type="nc:SupervisionType">
+    <xsd:annotation>
+      <xsd:documentation>A process of overseeing, supervising, or keeping track in some capacity of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SupervisionCustodyStatus" type="nc:StatusType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A status of the custody of a person under supervision.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="SupervisionPerson" type="nc:PersonType" nillable="true">
