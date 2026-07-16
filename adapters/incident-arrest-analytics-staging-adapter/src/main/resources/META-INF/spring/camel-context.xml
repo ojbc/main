@@ -54,7 +54,7 @@
 		<endpoint id="dispositionReportingFileEndpoint"
 			uri="file://{{analyticsAdapter.inputDirectory}}/disposition/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/disposition/error&amp;move=processed/" />
         
-        <endpoint id="smtpEndpoint" uri="{{analyticsAdapter.smtpServerProtocol}}://{{analyticsAdapter.smtpServerName}}:{{analyticsAdapter.smtpServerPort}}/?password={{analyticsAdapter.emailPassword}}&amp;username={{analyticsAdapter.emailUserID}}&amp;from={{analyticsAdapter.smtpFromAddress}}&amp;to={{analyticsAdapter.smtpToAddress}}&amp;contentType=text/html"/>
+        <endpoint id="smtpEndpoint" uri="{{analyticsAdapter.smtpUrl}}"/>
         
 		<!-- Incident Reporting Route -->
 		<camel:route id="Incident_Repository_Service" >
@@ -213,10 +213,10 @@
 		</camel:route>
     
         <camel:route>
-            <from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=300"/>
+            <from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=3000"/>
             
             <camel:when>
-                <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyIncidentDatabaseUdpate}</camel:simple>
+                <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyIncidentWarningCitationDatabaseUpdate}</camel:simple>
                 
                 <camel:to uri="direct:sendErrorEmail"/>
             </camel:when>
@@ -228,7 +228,7 @@
             
             <camel:setHeader name="subject"><constant>Incident Analytics Database Error - CRITICAL</constant></camel:setHeader>
             
-            <camel:setBody><camel:simple>Latest incident in AnalyticsDatastore is older than 1 day, check adapter logs for connection error.</camel:simple></camel:setBody>
+            <camel:setBody><camel:simple>Latest incident/warning/citation in AnalyticsDatastore is older than 1 day, check adapter logs for connection error.</camel:simple></camel:setBody>
             
             <camel:to uri="smtpEndpoint"/>
             

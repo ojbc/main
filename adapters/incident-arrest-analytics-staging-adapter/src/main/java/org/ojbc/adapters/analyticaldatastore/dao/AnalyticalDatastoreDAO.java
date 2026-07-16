@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
@@ -115,4 +116,6 @@ public interface AnalyticalDatastoreDAO {
 	public void deletePretrialServiceParticipation(Integer pretrialServiceParticipationID) throws Exception;
 	
 	public Incident returnLatestIncident();
+	
+	public LocalDate getMinOfIncidentWarningCitationTimestamps();
 }

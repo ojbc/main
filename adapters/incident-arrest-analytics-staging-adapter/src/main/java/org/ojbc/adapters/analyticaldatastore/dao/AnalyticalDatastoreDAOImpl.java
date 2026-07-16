@@ -20,9 +20,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -1150,4 +1155,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	        return null;
 	    }
 	}
+	
+	public LocalDate getMinOfIncidentWarningCitationTimestamps() {
+
+	    String warningSql = "SELECT max(timestamp) FROM incident WHERE IncidentCategoryCode='Warning'";
+	    String citationSql = "SELECT max(timestamp) FROM incident WHERE IncidentCategoryCode='Citation'";
+	    String otherSql = "SELECT max(timestamp) FROM incident WHERE IncidentCategoryCode!='Citation' AND IncidentCategoryCode!='Warning'";
+
+	    Timestamp warningMax = this.jdbcTemplate.queryForObject(warningSql, Timestamp.class);
+	    Timestamp citationMax = this.jdbcTemplate.queryForObject(citationSql, Timestamp.class);
+	    Timestamp otherMax = this.jdbcTemplate.queryForObject(otherSql, Timestamp.class);
+
+	    return Stream.of(warningMax, citationMax, otherMax)
+	            .filter(Objects::nonNull)
+	            .map(Timestamp::toLocalDateTime)
+	            .map(LocalDateTime::toLocalDate)
+	            .min(LocalDate::compareTo)
+	            .orElse(null);
+	}	
 }

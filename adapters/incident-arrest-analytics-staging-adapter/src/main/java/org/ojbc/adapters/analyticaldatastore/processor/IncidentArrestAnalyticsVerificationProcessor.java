@@ -34,7 +34,27 @@ public class IncidentArrestAnalyticsVerificationProcessor {
     
     private static final Log log = LogFactory.getLog(IncidentArrestAnalyticsVerificationProcessor.class);
     
-    public boolean verifyIncidentDatabaseUdpate() {
+    public boolean verifyIncidentWarningCitationDatabaseUpdate ()
+    {
+    	LocalDate latestIncidentCitationWarningDate = analyticsDao.getMinOfIncidentWarningCitationTimestamps();
+    	
+    	log.info("Latest Citation Warning Incident Date (lowest of the 3): " + latestIncidentCitationWarningDate.toString());
+    	
+        if (latestIncidentCitationWarningDate == null) {
+            // no incident data found at all — treat as stale/needs update, or log and decide
+            return true;
+        }
+    	
+        if(ChronoUnit.DAYS.between(latestIncidentCitationWarningDate, LocalDate.now()) > 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
+    public boolean verifyIncidentDatabaseUpdate() {
         
         Incident latestIncident = analyticsDao.returnLatestIncident();
         
