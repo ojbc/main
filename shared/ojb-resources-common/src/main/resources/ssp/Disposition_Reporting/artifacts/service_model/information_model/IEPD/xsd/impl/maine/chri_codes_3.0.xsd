@@ -946,7 +946,6 @@
 			<xsd:enumeration value="DEEP BROCHURE GIVEN" />
 			<xsd:enumeration value="DEF. ACK. RECEIPT" />
 			<xsd:enumeration value="DENIED" />
-			<xsd:enumeration value="DSMD" />
 			<xsd:enumeration value="EDI" />
 			<xsd:enumeration value="ENTERED" />
 			<xsd:enumeration value="ENTERED BY COURT" />
@@ -1113,6 +1112,7 @@
 			<xsd:enumeration value="DIVORCE JUDGMENT" />
 			<xsd:enumeration value="DIVORCE JUDGMENT W/ CHILDREN" />
 			<xsd:enumeration value="DIVORCE JUDGMENT W/O CHILDREN" />
+			<xsd:enumeration value="DSMD" />
 			<xsd:enumeration value="EMANCIPATION JUDGMENT" />
 			<xsd:enumeration value="EMERGENCY PATHOGEN TEST ORDER" />
 			<xsd:enumeration value="EXPEDITED ENFORCEMENT" />
