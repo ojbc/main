@@ -946,6 +946,7 @@
 			<xsd:enumeration value="DEEP BROCHURE GIVEN" />
 			<xsd:enumeration value="DEF. ACK. RECEIPT" />
 			<xsd:enumeration value="DENIED" />
+			<xsd:enumeration value="DSMD" />
 			<xsd:enumeration value="EDI" />
 			<xsd:enumeration value="ENTERED" />
 			<xsd:enumeration value="ENTERED BY COURT" />
