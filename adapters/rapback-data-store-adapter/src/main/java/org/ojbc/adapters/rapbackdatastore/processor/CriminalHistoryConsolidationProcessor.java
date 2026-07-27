@@ -140,7 +140,6 @@ public class CriminalHistoryConsolidationProcessor {
     		}
     	}
    		
-   		@SuppressWarnings("unchecked")
 		List<Subscription> subscriptionsMatchingSID = ListUtils.union(subscriptionsMatchingCurrentSID, subscriptionsMatchingNewSID);
    		
     	//When handling a SID consolidation or update message, from in state, check that the new UCN received from matches what is on the active subscription.
