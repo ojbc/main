@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.EndpointInject;
@@ -57,6 +56,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=WarrantModificationServiceIntermediary.class)

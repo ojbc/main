@@ -211,12 +211,19 @@
     </camel:route>
         <camel:route>
             <from uri="timer://simpleTimer?fixedRate=true&amp;period=3600000&amp;delay=300"/>
-            
-            <camel:when>
-                <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyIncidentDatabaseUdpate}</camel:simple>
+            <camel:choice>
+                <camel:when>
+                    <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyIncidentDatabaseUdpate}</camel:simple>
                 
-                <camel:to uri="direct:sendErrorEmail"/>
-            </camel:when>
+                    <camel:to uri="direct:sendErrorEmail"/>
+                </camel:when>
+                <camel:when>
+                    <camel:simple>${bean:incidentArrestAnalyticsVerificationProcessor?method=verifyLatestDataLoad}</camel:simple>
+                
+                    <camel:to uri="direct:sendErrorEmail"/>
+                </camel:when>
+            </camel:choice>
+
             
         </camel:route>
             
@@ -225,7 +232,7 @@
             
             <camel:setHeader name="subject"><constant>Incident Analytics Database Error - CRITICAL</constant></camel:setHeader>
             
-            <camel:setBody><camel:simple>Latest incident in AnalyticsDatastore is older than 1 day, check adapter logs for connection error.</camel:simple></camel:setBody>
+            <camel:setBody><camel:simple>Latest incident in AnalyticsDatastore or latest data load is older than 1 day, check adapter logs for connection error.</camel:simple></camel:setBody>
             
             <camel:to uri="smtpEndpoint"/>
             

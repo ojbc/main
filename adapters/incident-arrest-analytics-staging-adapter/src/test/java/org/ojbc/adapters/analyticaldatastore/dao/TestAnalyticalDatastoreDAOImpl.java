@@ -72,7 +72,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 
 	private static final Log log = LogFactory.getLog(TestAnalyticalDatastoreDAOImpl.class);
 	
-    @Resource  
+    @Resource
     private DataSource dataSource;  
 	
 	@Autowired

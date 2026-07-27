@@ -16,7 +16,9 @@
  */
 package org.ojbc.adapters.analyticaldatastore.processor;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -24,13 +26,16 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticaldatastore.dao.IncidentDimensionalDAO;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.LoadingDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class IncidentArrestAnalyticsVerificationProcessor {
     
-    @Autowired
-    private AnalyticalDatastoreDAO analyticsDao;
+    protected AnalyticalDatastoreDAO analyticsDao;
+    
+    protected IncidentDimensionalDAO incidentDimensionalDao;
     
     private static final Log log = LogFactory.getLog(IncidentArrestAnalyticsVerificationProcessor.class);
     
@@ -65,5 +70,51 @@ public class IncidentArrestAnalyticsVerificationProcessor {
         else {
             return true;
         }
+    }
+    
+    public boolean verifyLatestDataLoad() {
+        LoadingDetails loadingDetails = incidentDimensionalDao.returnLatestDataLoadDetails();
+        
+        if(loadingDetails != null) {
+            log.info("Latest Data Load Details: " + loadingDetails.toString());
+            
+            Time endTime = loadingDetails.getLoadEndTime();
+            
+            if(endTime == null) {
+                log.info("Latest Data Load did not finish, sending error email.");
+                return false;
+            }
+            
+            LocalTime convertedEndTime = endTime.toLocalTime();
+            LocalTime now = LocalTime.now();
+            
+            if(ChronoUnit.HOURS.between(now, convertedEndTime) > 24) {
+                log.info("Latest Data Load is not within the past 24 hours, sending error email.");
+                return false;
+            }
+            
+            return true;
+            
+        }
+        else {
+            return false;
+        }
+        
+    }
+    
+    public AnalyticalDatastoreDAO getAnalyticalDatastoreDAO() {
+        return analyticsDao;
+    }
+
+    public void setAnalyticalDatastoreDAO(
+            AnalyticalDatastoreDAO analyticalDatastoreDAO) {
+        this.analyticsDao = analyticalDatastoreDAO;
+    }
+    public IncidentDimensionalDAO getIncidentDimensionalDAO() {
+        return incidentDimensionalDao;
+    }
+
+    public void setIncidentDimensionalDAO(IncidentDimensionalDAO incidentDimensionalDao) {
+        this.incidentDimensionalDao = incidentDimensionalDao;
     }
 }

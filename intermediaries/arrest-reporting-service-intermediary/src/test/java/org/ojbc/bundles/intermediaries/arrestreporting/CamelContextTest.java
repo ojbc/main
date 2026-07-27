@@ -21,10 +21,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -43,7 +43,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.apache.http.Consts;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,6 +54,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import jakarta.annotation.Resource;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=ArrestReportIntermediaryApplication.class)
@@ -75,7 +76,7 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:notificationBrokerServiceEndpoint")
     protected MockEndpoint notificationBrokerServiceMockEndpoint;
     
     @EndpointInject(value = "mock:log:org.ojbc.intermediaries.arrestreporting")
@@ -93,10 +94,10 @@ public class CamelContextTest {
 				route.mockEndpoints("log:org.ojbc.intermediaries.arrestreporting*");
 		});    	
     	//We mock the web service endpoints here
-		AdviceWith.adviceWith(context, "callNotificationBrokerRoute", 
+		AdviceWith.adviceWith(context, "callNotificationBrokerRoute",
 			route-> {
-				route.mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
-		});    	
+				route.weaveByToUri("notificationBrokerServiceEndpoint").replace().to("mock:notificationBrokerServiceEndpoint");
+		});
     	
 		context.start();		
 	}
@@ -131,7 +132,7 @@ public class CamelContextTest {
 
 	    //Read the arrest report from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/arrestReport/Arrest_Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
+	    String inputStr = FileUtils.readFileToString(inputFile, StandardCharsets.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
