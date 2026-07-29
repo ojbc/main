@@ -1087,6 +1087,7 @@
 			<xsd:enumeration value="DEFERRED DISPOSITION" />
 			<xsd:enumeration value="DENIED" />
 			<xsd:enumeration value="DIMINIMUS" />
+			<xsd:enumeration value="Dismissed by DA/AG - De Minimis" />
 			<xsd:enumeration value="DIS BY DA/AG-AFT DEFERRED DISP" />
 			<xsd:enumeration value="DIS BY DA/AG-FEDERAL COURT" />
 			<xsd:enumeration value="DIS BY DA/AG-JUVENILE" />
@@ -1112,7 +1113,6 @@
 			<xsd:enumeration value="DIVORCE JUDGMENT" />
 			<xsd:enumeration value="DIVORCE JUDGMENT W/ CHILDREN" />
 			<xsd:enumeration value="DIVORCE JUDGMENT W/O CHILDREN" />
-			<xsd:enumeration value="DSMD" />
 			<xsd:enumeration value="EMANCIPATION JUDGMENT" />
 			<xsd:enumeration value="EMERGENCY PATHOGEN TEST ORDER" />
 			<xsd:enumeration value="EXPEDITED ENFORCEMENT" />
