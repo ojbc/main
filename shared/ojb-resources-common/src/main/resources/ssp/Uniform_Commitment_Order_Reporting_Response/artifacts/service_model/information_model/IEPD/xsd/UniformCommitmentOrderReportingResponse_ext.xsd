@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2026 Open Justice Broker Consortium
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+		   xmlns:ucores-ext="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/"
+           targetNamespace="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+  
+  <xs:complexType name="UniformCommitmentOrderResponseType" abstract="false" mixed="false"> 
+	  <xs:annotation>
+		  <xs:documentation>A data type for the uniform commitment order response messages.</xs:documentation>
+	  </xs:annotation>
+	<xs:complexContent mixed="false">
+		<xs:extension base="nc:DocumentType">
+			<xs:sequence>
+				<xs:element ref="ucores-ext:UniformCommitmentOrderIdentification" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="ucores-ext:SuccessMessageText" minOccurs="0" />
+				<xs:element ref="ucores-ext:ErrorMessageText" minOccurs="0" />
+			</xs:sequence>
+		</xs:extension>
+	</xs:complexContent>
+  </xs:complexType>
+			
+ <!-- Extension Data Elements -->
+   <xs:element name="UniformCommitmentOrderResponse" type="ucores-ext:UniformCommitmentOrderResponseType" >
+  		<xs:annotation>
+  			<xs:documentation>This is the Uniform Commitment Order Response Message Document. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+    <xs:element name="UniformCommitmentOrderIdentification" type="nc:TextType">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for the Uniform Commitment Order - text. </xs:documentation>
+   		</xs:annotation>
+   	</xs:element>
+    <xs:element name="SuccessMessageText" type="nc:TextType">
+  		<xs:annotation>
+  			<xs:documentation>success message - text. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+	<xs:element name="ErrorMessageText" type="nc:TextType">
+  		<xs:annotation>
+  			<xs:documentation>error message - text. </xs:documentation>
+  		</xs:annotation>
+  	</xs:element>
+</xs:schema>
