@@ -758,6 +758,18 @@ public class XmlUtils {
 		String returnValue = binaryData != null? new String(binaryData): "";
 		return returnValue;
 	}
+	
+	public static final void declareNamespace(Element root, String ns) {
+	    String prefix = OJBC_NAMESPACE_CONTEXT.getPrefix(ns);
+	    root.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, 
+	                         "xmlns:" + prefix, ns);
+	}
+	
+	public static final void declareNamespaces(Element root, String... namespaces) {
+	    for (String ns : namespaces) {
+	        declareNamespace(root, ns);
+	    }
+	}
 
 	public static void main(String[] args) {
 		System.out.println(removeNonValidChars(StringEscapeUtils.unescapeXml("010017123&#x18;")).length());
