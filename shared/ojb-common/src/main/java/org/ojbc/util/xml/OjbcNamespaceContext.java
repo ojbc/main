@@ -1068,7 +1068,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/";
     public static final String NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT ="uco-ext";
     
-    public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE = "http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/";
+    public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE = "http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponse/1.0/";
     public static final String NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE ="ucoresp";
     
     public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT = "http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/";
