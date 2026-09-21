@@ -1,0 +1,5 @@
+<ucoresp:UniformCommitmentOrderResponse xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ucores-ext="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponseExtension/1.0/" xmlns:ucoresp="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponse/1.0/">
+   <nc30:DocumentApprovedIndicator>false</nc30:DocumentApprovedIndicator>
+   <ucores-ext:UniformCommitmentOrderIdentification>20250505-001</ucores-ext:UniformCommitmentOrderIdentification>
+   <ucores-ext:ErrorMessageText>Subject SID must be exactly 9 digits, but was: 01234567</ucores-ext:ErrorMessageText>
+</ucoresp:UniformCommitmentOrderResponse>
