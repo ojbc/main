@@ -19,8 +19,8 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ucores-ext="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/"
-	xmlns:ucoresp="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponse/1.0/"
-	targetNamespace="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponse/1.0/" elementFormDefault="qualified">
+	xmlns:ucoresp="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponse/1.0/"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponse/1.0/" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
