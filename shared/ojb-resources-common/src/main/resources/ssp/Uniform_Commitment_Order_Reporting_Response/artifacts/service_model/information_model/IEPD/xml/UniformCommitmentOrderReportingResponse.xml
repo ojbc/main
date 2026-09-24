@@ -23,9 +23,9 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponse/1.0/ ../xsd/UniformCommitmentOrderReportingResponse.xsd ">
 	<nc:DocumentApprovedIndicator>false</nc:DocumentApprovedIndicator>
-	<nc:DocumentIdentification>
+	<!-- <nc:DocumentIdentification>
 		<nc:IdentificationID>4567987654</nc:IdentificationID>
-	</nc:DocumentIdentification>
+	</nc:DocumentIdentification> -->
 	<ucores-ext:UniformCommitmentOrderIdentification>UCO001JPCC99</ucores-ext:UniformCommitmentOrderIdentification>
 	<ucores-ext:SuccessMessageText>null</ucores-ext:SuccessMessageText>
 	<ucores-ext:ErrorMessageText>failed validation</ucores-ext:ErrorMessageText>
