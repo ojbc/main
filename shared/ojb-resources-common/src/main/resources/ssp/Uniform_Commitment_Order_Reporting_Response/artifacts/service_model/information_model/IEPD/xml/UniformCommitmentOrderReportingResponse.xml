@@ -29,4 +29,6 @@
 	<ucores-ext:UniformCommitmentOrderIdentification>UCO001JPCC99</ucores-ext:UniformCommitmentOrderIdentification>
 	<ucores-ext:SuccessMessageText>null</ucores-ext:SuccessMessageText>
 	<ucores-ext:ErrorMessageText>failed validation</ucores-ext:ErrorMessageText>
+	<ucores-ext:ParishCodeText>Parish Code</uco-ext:ParishCodeText>
+	<ucores-ext:ParishCodeDescriptionText>ABC</uco-ext:ParishCodeDescriptionText>
 </ucoresp:UniformCommitmentOrderResponse>
