@@ -33,7 +33,9 @@
 			<xs:sequence>
 				<xs:element ref="ucores-ext:UniformCommitmentOrderIdentification" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="ucores-ext:SuccessMessageText" minOccurs="0" />
-				<xs:element ref="ucores-ext:ErrorMessageText" minOccurs="0" />
+				<xs:element ref="ucores-ext:ErrorMessageText" minOccurs="0" /> 
+				<xs:element ref="ucores-ext:ParishCodeText" minOccurs="1"/>
+				<xs:element ref="ucores-ext:ParishCodeDescriptionText" minOccurs="1"/>
 			</xs:sequence>
 		</xs:extension>
 	</xs:complexContent>
@@ -60,4 +62,14 @@
   			<xs:documentation>error message - text. </xs:documentation>
   		</xs:annotation>
   	</xs:element>
+	"<xs:element name=""ParishCodeText"" type=""nc:TextType"">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for each Parish - text. </xs:documentation>
+   		</xs:annotation>
+    </xs:element>
+	<xs:element name=""ParishCodeDescriptionText"" type=""nc:TextType"">
+   		<xs:annotation>
+   			<xs:documentation>Unique Identification for each Parish - 3 letter abbreviation. </xs:documentation>
+   		</xs:annotation>
+    </xs:element>"
 </xs:schema>
