@@ -21,4 +21,5 @@
    <nc30:DocumentApprovedIndicator>false</nc30:DocumentApprovedIndicator>
    <ucores-ext:UniformCommitmentOrderIdentification>20250505-001</ucores-ext:UniformCommitmentOrderIdentification>
    <ucores-ext:ErrorMessageText>Subject SID must be exactly 9 digits, but was: 01234567</ucores-ext:ErrorMessageText>
+   <ucores-ext:ParishCodeText>Parish Code</uco-ext:ParishCodeText>
 </ucoresp:UniformCommitmentOrderResponse>
