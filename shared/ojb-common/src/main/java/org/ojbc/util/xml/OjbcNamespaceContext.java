@@ -1068,6 +1068,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/UniformCommitmentOrderExtension/1.0/";
     public static final String NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT ="uco-ext";
     
+    public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE = "http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponse/1.0/";
+    public static final String NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE ="ucoresp";
+    
+    public static final String NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT = "http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponseExtension/1.0/";
+    public static final String NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT ="ucores-ext";
+    
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -2113,6 +2119,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
         
         prefixToUriMap.put(NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT, NS_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT);
         uriToPrefixMap.put(NS_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT,NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_EXT);
+        
+        prefixToUriMap.put(NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE, NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE);
+        uriToPrefixMap.put(NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE, NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE);
+        
+        prefixToUriMap.put(NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT, NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT);
+        uriToPrefixMap.put(NS_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT, NS_PREFIX_UNIFORM_COMMMITMENT_ORDER_REPORT_RESPONSE_EXT);
 	}
 
 	@Override
