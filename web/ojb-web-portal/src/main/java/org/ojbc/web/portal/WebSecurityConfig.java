@@ -68,6 +68,7 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http
         .authorizeRequests(auth -> auth
+            .antMatchers("/actuator/**").hasAuthority("AUTHZ_ADMIN")
             .anyRequest().hasAuthority("AUTHZ_PORTAL"))
         .logout(logout -> logout
 //              .logoutUrl("/portal/performLogout")
@@ -88,7 +89,7 @@ public class WebSecurityConfig {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
-                "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar", "/actuator/**", 
+                "/otp/**", "/resources/css/**", "/code/**", "/acknowlegePolicies", "/portal/leftBar",  
                 "/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error", "/samlTokenInfo");
     }
 
