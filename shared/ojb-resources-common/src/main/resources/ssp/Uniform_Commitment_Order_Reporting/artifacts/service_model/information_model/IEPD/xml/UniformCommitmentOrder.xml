@@ -93,10 +93,10 @@
 			</j:SentenceTerm>
 		</j:Sentence>
 		<uco-ext:MaxDuration>
-			<j:DurationYear>1</j:DurationYear>
-			<j:DurationMonth>2</j:DurationMonth>
-			<j:DurationDay>3</j:DurationDay>
-		<uco-ext:MaxDuration>
+			<uco-ext:DurationYear>1</uco-ext:DurationYear>
+			<uco-ext:DurationMonth>2</uco-ext:DurationMonth>
+			<uco-ext:DurationDay>3</uco-ext:DurationDay>
+		</uco-ext:MaxDuration>
 		<uco-ext:OffenseDate>
 			<nc:Date>2025-04-01</nc:Date>
 		</uco-ext:OffenseDate>
