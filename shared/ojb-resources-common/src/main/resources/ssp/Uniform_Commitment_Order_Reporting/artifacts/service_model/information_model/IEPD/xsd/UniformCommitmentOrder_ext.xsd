@@ -105,12 +105,7 @@
 	</xs:complexContent>
   </xs:complexType>
 			
- <!-- Extension Data Elements -->
-   <xs:element name="UniformCommitmentOrderReport" type="uco-ext:UniformCommitmentOrderType" >
-  		<xs:annotation>
-  			<xs:documentation>This is the Uniform Commitment Order Document. </xs:documentation>
-  		</xs:annotation>
-  	</xs:element>
+ 	<!-- Extension Data Elements -->
    <xs:element name="UniformCommitmentOrderIdentification" type="nc:TextType">
   		<xs:annotation>
   			<xs:documentation>Unique Identification for the Uniform Commitment Order - text. </xs:documentation>
