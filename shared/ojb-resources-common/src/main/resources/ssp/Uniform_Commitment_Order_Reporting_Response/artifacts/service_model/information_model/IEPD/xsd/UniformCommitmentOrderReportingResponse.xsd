@@ -25,8 +25,8 @@
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/xsd/UniformCommitmentOrderResponseExtension/1.0/"
+	<xsd:import namespace="http://ojbc.org/IEPD/Exchange/UniformCommitmentOrderResponseExtension/1.0/"
 		schemaLocation="./UniformCommitmentOrderReportingResponse_ext.xsd" />
 	<!-- Root data element for a Uniform Commitment Order Reporting Response -->
-		<xsd:element name="UniformCommitmentOrderResponse" type="ucores-ext:UniformCommitmentOrderResponseType"/>
+	<xsd:element name="UniformCommitmentOrderResponse" type="ucores-ext:UniformCommitmentOrderResponseType"/>
 </xsd:schema>
