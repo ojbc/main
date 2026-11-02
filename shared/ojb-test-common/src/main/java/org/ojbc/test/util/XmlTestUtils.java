@@ -16,17 +16,28 @@
  */
 package org.ojbc.test.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.transform.sax.SAXSource;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.jupiter.api.Assertions;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.XsltTransformer;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -34,7 +45,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class XmlTestUtils {
-	
+    private static final Log log = LogFactory.getLog( XmlTestUtils.class );
+
 	static {		
 		XMLUnit.setIgnoreAttributeOrder(true);
 		XMLUnit.setIgnoreComments(true);
@@ -120,4 +132,23 @@ public class XmlTestUtils {
 		Assertions.assertEquals(0, detailedDiff
 				.getAllDifferences().size(), detailedDiff.toString());
 	}
+	
+    public static void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> params) throws Exception {
+        XsltTransformer unit = new XsltTransformer();
+        String expectedXml = FileUtils.readFileToString(new File(expectedXMLPath), Charset.defaultCharset());
+        String convertedResult = unit.transform(createSource(inputXmlPath), createSource(xslPath), params);
+        
+        log.info(convertedResult);
+        
+        XmlTestUtils.compareDocs(expectedXml, convertedResult, "structures:id", "structures:ref");
+        log.info("Transformed correctly");
+        
+    }
+
+    private static SAXSource createSource(String xml) {
+        InputSource inputSource = new InputSource(new ByteArrayInputStream(xml.getBytes()));
+        inputSource.setEncoding(StandardCharsets.UTF_8.name());
+        return new SAXSource(inputSource);
+    }
+
 }
