@@ -22,7 +22,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ojbc.bundles.shared</groupId>
   <artifactId>ojb-common</artifactId>
-  <version>6.0.0</version>
+  <version>6.0.1</version>
   <name>OJB :: ojb-common :: Shared</name>
   <packaging>jar</packaging>
   <url>http://www.ojbc.org</url>
@@ -41,7 +41,7 @@
     <commons.text.version>1.13.1</commons.text.version>
     <junit-jupiter-engine-version>5.13.2</junit-jupiter-engine-version>
     <junit-vintage-engine-version>5.13.2</junit-vintage-engine-version>
-    <wss4j-version>4.0.0</wss4j-version>
+    <wss4j-version>4.0.3</wss4j-version>
     <apache-commons-codec-version>1.18.0</apache-commons-codec-version>
     <cxf-version>4.1.2</cxf-version>
     <ojb-resources-common-version>[3.0.0,)</ojb-resources-common-version>
@@ -171,7 +171,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.12.3</version>
+      <version>2.21.8</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
